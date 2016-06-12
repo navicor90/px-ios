@@ -357,7 +357,12 @@
                     <pre class="snippet">
                           <code id="flavor_3_step_5_objc" class="line-numbers language-swift">
                              
-                             // COMPLETE 
+                             - (void) displayPaymentInfo:(Payment *)payment {
+                                NSString *paymentInfo = @"id :";
+                                paymentInfo = [paymentInfo stringByAppendingString: [@(payment._id) stringValue]];
+                                paymentInfo = [paymentInfo stringByAppendingString: payment.status];
+                                paymentInfo = [paymentInfo stringByAppendingString: payment.statusDetail];    
+                            }
                           </code>
                           <button class="copy-button">
                             <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
@@ -490,7 +495,24 @@
                     <pre class="snippet">
                           <code id="flavor_3_step_7_objc" class="line-numbers language-swift">
                              
-                             // COMPLETE 
+                            NSDictionary *preferenceBody = [NSDictionary dictionaryWithObject: @"itemId" forKey: @"123"];
+                            [preferenceBody setValue: @"customerMail@test.com" forKey: @"customerEmail"];
+    
+                            // Seteo de URL y preferenceUri
+                            [MercadoPagoContext setBaseURL: @"https://api.tunombre.com"];
+                            [MercadoPagoContext setPreferenceURI: @"/create_preference"];
+    
+                            [MerchantServer createPreference:preferenceBody success:^(CheckoutPreference *checkoutPreference) {
+                                // La preferencia se creó correctamente.
+                                // Aquí puedes iniciar el Checkout de MercadoPago.
+                                UINavigationController *checkout = [MPFlowBuilder startCheckoutViewController: checkoutPreference._id callback:^(Payment *payment) {
+            
+                                }];
+                                [self presentViewController: checkout animated:YES completion:^(void){}];
+
+                            } failure:^(NSError *error) {
+                                // Ups, ocurrió un error
+                            }];
                           </code>
                           <button class="copy-button">
                             <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
