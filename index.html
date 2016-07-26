@@ -10,6 +10,12 @@
       <link href="./css/site.css" rel="stylesheet">
       <link href="./css/prism.css" rel="stylesheet" />
       <script src="./js/jquery.min.js"></script>
+      <script src="./js/bootstrap.min.js"></script>
+      <script src="./js/site.js"></script>
+      <script src="./js/cookies.min.js"></script>
+      <script src="./js/prism.js"></script>
+      <script src="./js/clipboard.js"></script>
+
       <link rel="stylesheet" type="text/css" href="./css/lato.css" />
 
    </head>
@@ -82,7 +88,10 @@ pod 'MercadoPagoSDK', '~> 0.9.0'
                   
                </div>
             </div>
-            <div class="row" id="step-two">
+
+
+<!-- Step 2 - Setea clave publica -->
+        <div class="row" id="step-two"> 
                <div class="col-md-6 step-desc">
                   <div class="desc">
                      <h3>2.   Setea tu clave pública </h3>
@@ -94,29 +103,73 @@ pod 'MercadoPagoSDK', '~> 0.9.0'
                     </p>
                   </div>
                </div>
-               <div class="col-md-6 code">
-                  <pre class="snippet">
-                     <code id="flavor_3_step_2" class="line-numbers language-swift">
-class AppDelegate: UIResponder, UIApplicationDelegate {
 
-  var window: UIWindow?
-  // 1 - Clave pública
-  let publicKey = "TEST-ad365c37-8012-4014-84f5-6c895b3f8e0a"
 
-  func application(application: UIApplication, 
-    didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool { 
-      MercadoPagoContext.setPublicKey(publicKey)
-      return true
-  }
-}
-                     </code>
-         
-                     <button class="copy-button">
-                        <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                    </button>
-                  </pre>
-               </div>
+            <div class="container col-md-6 code">
+              <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#flavor_3_step_2_swift">Swift</a></li>
+                  <li><a data-toggle="tab" href="#flavor_3_step_2_objc">Objective-C</a></li>
+              </ul>
+
+               <div class="tab-content">
+                              <div class="tab-pane fade in active" id="flavor_3_step_2_swift">
+                                <pre class="snippet">
+                                   <code id="flavor_3_step_2" class="line-numbers language-swift">
+                                      class AppDelegate: UIResponder, UIApplicationDelegate {
+
+                                        var window: UIWindow?
+                                        // 1 - Clave pública
+                                        let publicKey = "TEST-ad365c37-8012-4014-84f5-6c895b3f8e0a"
+
+                                        func application(application: UIApplication, 
+                                          didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool { 
+                                            MercadoPagoContext.setPublicKey(publicKey)
+                                            return true
+                                        }
+                                      }
+                                   </code>
+                       
+                                   <button class="copy-button">
+                                      <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                  </button>
+                                </pre>
+                             </div>
+
+                              <div class="tab-pane fade in" id="flavor_3_step_2_objc">
+                                <pre class="snippet">
+                                   <code id="flavor_3_step_2" class="line-numbers language-swift">
+                                      #import "AppDelegate.h"
+                    @import MercadoPagoSDK;
+
+                                @interface AppDelegate ()
+
+                                @end
+
+ @implementation AppDelegate
+
+                                NSString *publicKey =  @"TEST-ad365c37-8012-4014-84f5-6c895b3f8e0a";
+
+                                - (BOOL)application:(UIApplication *)application 
+                                    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+                                      [MercadoPagoContext setPublicKey: publicKey];
+                                      return YES;
+                                }
+
+                                @end
+                                   </code>
+                       
+                                   <button class="copy-button">
+                                      <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                  </button>
+                                </pre>
+                             </div>
+              </div>
+
             </div>
+        </div>
+<!-- --------------------- -->
+
+<!-- Step 3 -->
             <div class="row" id="step-three">
                <div class="col-md-6 step-desc">
                   <div class="desc">
@@ -135,35 +188,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      </p>
                   </div>
                </div>
-               <div class="col-md-6 code">
-                  <pre class="snippet">
-                     <code class="line-numbers language-swift">
-import UIKit
 
-class MainViewController: UIViewController {
+          <div class="container col-md-6 code">
+              <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#flavor_3_step_3_swift">Swift</a></li>
+                  <li><a data-toggle="tab" href="#flavor_3_step_3_objc">Objective-C</a></li>
+              </ul>
 
-  @IBOutlet weak var payButton: UIButton!
+               <div class="tab-content">
+                              <div class="tab-pane fade in active" id="flavor_3_step_3_swift">
+                                <pre class="snippet">
+                                   <code id="flavor_3_step_2" class="line-numbers language-swift">
+                                     import UIKit
 
-  @IBOutlet weak var paymentResult: UITextField!
+                                        class MainViewController: UIViewController {
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    self.payButton.addTarget(self, 
-      action: #selector(MainViewController.startCheckout), 
-      forControlEvents: .TouchUpInside)
-  }
-}
-                     </code>
-                     <button class="copy-button">
-                        <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                    </button>
-                  </pre>
-                  <p class="advanced-panel" style="font-weight: 300; font-size: 15px;">
-                        <em>*</em> A modo de prueba, estamos usando una preferencia cuyo producto es un Bajo de $100 con todos los medios de pago disponibles en MercadoPago.
-                  </p>
-               </div>
+                                          @IBOutlet weak var payButton: UIButton!
+
+                                          @IBOutlet weak var paymentResult: UITextField!
+
+                                          override func viewDidLoad() {
+                                            super.viewDidLoad()
+                                            
+                                            self.payButton.addTarget(self, 
+                                              action: #selector(MainViewController.startCheckout), 
+                                              forControlEvents: .TouchUpInside)
+                                          }
+                                        }
+                                   </code>
+                       
+                                   <button class="copy-button">
+                                      <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                  </button>
+                                </pre>
+                             </div>
+
+                              <div class="tab-pane fade in" id="flavor_3_step_3_objc">
+                                <pre class="snippet">
+                                   <code id="flavor_3_step_3" class="line-numbers language-swift">
+                                     objective C
+                                      }
+                                   </code>
+                       
+                                   <button class="copy-button">
+                                      <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                  </button>
+                                </pre>
+                             </div>
+              </div>
+
             </div>
+</div>
+<!-- ---------------------- >
+
+
+<!-- Step 4 -->
             <div class="row" id="step-four">
                <div class="col-md-6 step-desc">
                   <div class="desc">
@@ -196,31 +275,59 @@ class MainViewController: UIViewController {
                     </p>
                   </div>
                </div>
-               <div class="col-md-6 code">
-                  <pre class="snippet">
-                     <code class="line-numbers language-swift">
-// 2 - Identificador de preferencia de pago
-let prefId = "150216849-ceed1ee4-8ab9-4449-869f-f4a8565d386f" 
 
-// Método ejecutado al hacer clic en el botón
-func startCheckout(){
-  
-  let checkout = MPFlowBuilder.startCheckoutViewController(prefId) 
-    { (payment : Payment) in
-      // Listo! El pago ya fue procesado por MP. 
-      // En el paso siguiente se describe el método displayPaymentInfo
-      self.displayPaymentInfo(payment)
-    }
+                   <div class="container col-md-6 code">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#flavor_3_step_4_swift">Swift</a></li>
+                        <li><a data-toggle="tab" href="#flavor_3_step_4_objc">Objective-C</a></li>
+                    </ul>
 
-  self.presentViewController(checkout, animated: true, completion: {})
-}
-                     </code>
-                     <button class="copy-button">
-                        <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                    </button>
-                  </pre>
-               </div>
+                     <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="flavor_3_step_4_swift">
+                                      <pre class="snippet">
+                                         <code id="flavor_3_step_4" class="line-numbers language-swift">
+                                                                                       // 2 - Identificador de preferencia de pago
+                                                  let prefId = "150216849-ceed1ee4-8ab9-4449-869f-f4a8565d386f" 
+
+                                                  // Método ejecutado al hacer clic en el botón
+                                                  func startCheckout(){
+                                                    
+                                                    let checkout = MPFlowBuilder.startCheckoutViewController(prefId) 
+                                                      { (payment : Payment) in
+                                                        // Listo! El pago ya fue procesado por MP. 
+                                                        // En el paso siguiente se describe el método displayPaymentInfo
+                                                        self.displayPaymentInfo(payment)
+                                                      }
+
+                                                    self.presentViewController(checkout, animated: true, completion: {})
+                                                  }
+                                         </code>
+                             
+                                         <button class="copy-button">
+                                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                        </button>
+                                      </pre>
+                                   </div>
+
+                                    <div class="tab-pane fade in" id="flavor_3_step_4_objc">
+                                      <pre class="snippet">
+                                         <code id="flavor_3_step_4" class="line-numbers language-swift">
+                                           objective C
+                                            }
+                                         </code>
+                             
+                                         <button class="copy-button">
+                                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                        </button>
+                                      </pre>
+                                   </div>
+                    </div>
+
+                  </div>
             </div>
+<!-- ---------------------- >
+
+  <!-- Step 5 -->
             <div class="row" id="step-five">
                <div class="col-md-6 step-desc">
                   <div class="desc">
@@ -248,23 +355,53 @@ func startCheckout(){
                      </p>
                   </div>
                </div>
-               <div class="col-md-6 code">
-                  <pre class="snippet">
-                     <code class="line-numbers language-swift">
-func displayPaymentInfo(payment : Payment){
+
+
+
+<div class="container col-md-6 code">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#flavor_3_step_5_swift">Swift</a></li>
+                        <li><a data-toggle="tab" href="#flavor_3_step_5_objc">Objective-C</a></li>
+                    </ul>
+
+                     <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="flavor_3_step_5_swift">
+                                      <pre class="snippet">
+                                         <code id="flavor_3_step_5" class="line-numbers language-swift">
+                                                                                      func displayPaymentInfo(payment : Payment){
   let paymentInfo : String
   paymentInfo = "id : " + String(payment._id) + ", 
       status : " + payment.status + ", 
       status detail : " + payment.statusDetail
   self.paymentResult.text = paymentInfo
 }
-                     </code>
-                     <button class="copy-button">
-                        <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                    </button>
-                  </pre>
-               </div>
-              </div>
+                                         </code>
+                             
+                                         <button class="copy-button">
+                                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                        </button>
+                                      </pre>
+                                   </div>
+
+                                    <div class="tab-pane fade in" id="flavor_3_step_5_objc">
+                                      <pre class="snippet">
+                                         <code id="flavor_3_step_5" class="line-numbers language-swift">
+                                           objective C
+                                            }
+                                         </code>
+                             
+                                         <button class="copy-button">
+                                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                        </button>
+                                      </pre>
+                                   </div>
+                    </div>
+
+                  </div>
+</div>
+<!-- ---------------------- >
+
+<!-- Step 6 -->
             <div class="row" id="step-six">
                <div class="col-md-6 step-desc">
                   <div class="desc">
@@ -310,6 +447,9 @@ func displayPaymentInfo(payment : Payment){
                   </p>
                </div>
             </div>
+<!-- ---------------------- >
+
+<!-- Step 7 -->
             <div class="row" id="step-four">
                <div class="col-md-6 step-desc">
                   <div class="desc">
@@ -343,38 +483,63 @@ func displayPaymentInfo(payment : Payment){
                       </p>
                   </div>
                </div>
-               <div class="col-md-6 code">
-                  <pre class="snippet">
-                     <code class="line-numbers language-swift">
-let preferenceBody = ["amount" : 12, 
-  "itemId" : 29334, "customerId": 207, 
-  "payer_email" : "customermail@test.com"]
+
+
+
+              <div class="container col-md-6 code">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#flavor_3_step_7_swift">Swift</a></li>
+                        <li><a data-toggle="tab" href="#flavor_3_step_7_objc">Objective-C</a></li>
+                    </ul>
+
+                     <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="flavor_3_step_7_swift">
+                                      <pre class="snippet">
+                                         <code id="flavor_3_step_7" class="line-numbers language-swift">
+                                           let preferenceBody = ["amount" : 12, 
+                                              "itemId" : 29334, "customerId": 207, 
+                                              "payer_email" : "customermail@test.com"]
         
-// Seteo de URL y preferenceUri
-MercadoPagoContext.setBaseURL("https://api.tunombre.com")
-MercadoPagoContext.setPreferenceURI("/create_preference")
+                                              // Seteo de URL y preferenceUri
+                                              MercadoPagoContext.setBaseURL("https://api.tunombre.com")
+                                              MercadoPagoContext.setPreferenceURI("/create_preference")
 
-MerchantServer.createPreference(preferenceBody, 
-  success: { (checkoutPreference) in
-    // La preferencia se creó correctamente.
-    // Aquí puedes iniciar el Checkout de MercadoPago.
-    MPFlowBuilder.startCheckoutViewController(checkoutPreference._id, 
-      callback: { (payment : Payment) in
+                                              MerchantServer.createPreference(preferenceBody, 
+                                                success: { (checkoutPreference) in
+                                                  // La preferencia se creó correctamente.
+                                                  // Aquí puedes iniciar el Checkout de MercadoPago.
+                                                  MPFlowBuilder.startCheckoutViewController(checkoutPreference._id, 
+                                                    callback: { (payment : Payment) in
 
-    })
- }, failure: { (error) in
-    // Ups, ocurrió un error
-})
-                     </code>
-                     <button class="copy-button">
-                        <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                    </button>
-                  </pre>
-               </div>
+                                                  })
+                                               }, failure: { (error) in
+                                                  // Ups, ocurrió un error
+                                            })
+                                         </code>
+                             
+                                         <button class="copy-button">
+                                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                        </button>
+                                      </pre>
+                                   </div>
 
+                                    <div class="tab-pane fade in" id="flavor_3_step_7_objc">
+                                      <pre class="snippet">
+                                         <code id="flavor_3_step_7" class="line-numbers language-swift">
+                                           objective C
+                                            }
+                                         </code>
+                             
+                                         <button class="copy-button">
+                                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                        </button>
+                                      </pre>
+                                   </div>
+                    </div>
+
+                  </div>
             </div>
-         </div>
-      </div>
+
       <footer class="footer">
 
          <div class="copy">
@@ -385,11 +550,7 @@ MerchantServer.createPreference(preferenceBody,
             </div>
          </div>
       </footer>
-      <script src="./js/bootstrap.min.js"></script>
-      <script src="./js/site.js"></script>
-      <script src="./js/cookies.min.js"></script>
-      <script src="./js/prism.js"></script>
-      <script src="./js/clipboard.js"></script>
+
    <script>
 
    (function() {
