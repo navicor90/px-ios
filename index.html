@@ -286,18 +286,20 @@ pod 'MercadoPagoSDK', '~> 0.9.0'
                                     <div class="tab-pane fade in active" id="flavor_3_step_4_swift">
                                       <pre class="snippet">
                                          <code id="flavor_3_step_4" class="line-numbers language-swift">
-                                                                                       // 2 - Identificador de preferencia de pago
+                                                  // 2 - Identificador de preferencia de pago
                                                   let prefId = "150216849-ceed1ee4-8ab9-4449-869f-f4a8565d386f" 
 
                                                   // Método ejecutado al hacer clic en el botón
                                                   func startCheckout(){
-                                                    
-                                                    let checkout = MPFlowBuilder.startCheckoutViewController(prefId) 
-                                                      { (payment : Payment) in
+                                                    let checkout = MPFlowBuilder.startCheckoutViewController(prefId, 
+                                                    callback: { (payment: Payment) in
                                                         // Listo! El pago ya fue procesado por MP. 
                                                         // En el paso siguiente se describe el método displayPaymentInfo
                                                         self.displayPaymentInfo(payment)
-                                                      }
+            
+                                                    }, callbackCancel: {
+                                                        // Acción a ejecutar en caso de que el usuario no efectue la compra
+                                                    })
 
                                                     self.presentViewController(checkout, animated: true, completion: {})
                                                   }
@@ -368,7 +370,7 @@ pod 'MercadoPagoSDK', '~> 0.9.0'
                                     <div class="tab-pane fade in active" id="flavor_3_step_5_swift">
                                       <pre class="snippet">
                                          <code id="flavor_3_step_5" class="line-numbers language-swift">
-                                                                                      func displayPaymentInfo(payment : Payment){
+                                            func displayPaymentInfo(payment : Payment){
   let paymentInfo : String
   paymentInfo = "id : " + String(payment._id) + ", 
       status : " + payment.status + ", 
@@ -504,17 +506,20 @@ pod 'MercadoPagoSDK', '~> 0.9.0'
                                               MercadoPagoContext.setBaseURL("https://api.tunombre.com")
                                               MercadoPagoContext.setPreferenceURI("/create_preference")
 
-                                              MerchantServer.createPreference(preferenceBody, 
+                                              MerchantServer.createPreference(preferenceBody,
                                                 success: { (checkoutPreference) in
-                                                  // La preferencia se creó correctamente.
-                                                  // Aquí puedes iniciar el Checkout de MercadoPago.
-                                                  MPFlowBuilder.startCheckoutViewController(checkoutPreference._id, 
-                                                    callback: { (payment : Payment) in
+                                                // La preferencia se creó correctamente.
+                                                // Aquí puedes iniciar el Checkout de MercadoPago.
+                                                let choFlow = MPFlowBuilder.startCheckoutViewController( ExamplesUtils.preferenceSelectedID, callback: { (payment: Payment) in
+                                                    
+                                                    }, callbackCancel: {
+                                                        // Acción a ejecutar en caso de que el usuario no efectue la compra
+                                                })
 
-                                                  })
-                                               }, failure: { (error) in
+                                              }, failure: { (error) in
                                                   // Ups, ocurrió un error
                                             })
+            
                                          </code>
                              
                                          <button class="copy-button">

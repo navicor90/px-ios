@@ -160,7 +160,7 @@ class MainViewController: UIViewController {
     super.viewDidLoad()
     
     self.payButton.addTarget(self, 
-      action: #selector(MainViewController.startCheckout), 
+      action: #selector(MainViewController.startPaymentVault), 
       forControlEvents: .TouchUpInside)
   }
 }
@@ -177,11 +177,9 @@ class MainViewController: UIViewController {
                   <p>
                      <pre class="snippet">
                         <code class="line-numbers language-java">
-MPFlowBuilder.startPaymentVaultViewController(1.00, currencyId : "ARS", 
-  paymentPreference: nil, callback: { 
-    (paymentMethod, tokenId, issuer, installments) -> Void in
-        // Listo! Envía los datos a tu servidor para hacer el pago.
-  })
+                           MPFlowBuilder.startPaymentVaultViewController(amount : 1.00, callback: { (paymentMethod, token, issuer, payerCost) in
+                              // Listo! Envía los datos a tu servidor para hacer el pago.
+                           })
                         </code>
                         <button class="copy-button">
                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
@@ -335,7 +333,9 @@ MPStepBuilder.startPayerCostForm(paymentMethod, issuer: issuer,
                   <p>
                      <pre class="snippet">
                         <code class="line-numbers language-java">
-MPStepBuilder.startPromosStep()
+                           MPStepBuilder.startPromosStep({ (Void) -> (Void) in
+                                 // Acción a ejecutar al salir de visualizar las promociones
+                           })
                         </code>
                         <button class="copy-button">
                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
