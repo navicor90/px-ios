@@ -9,9 +9,11 @@
       <title>Soluciones de pago para el negocio que quieras - MercadoPago</title>
       <link href="./css/site.css" rel="stylesheet">
       <link href="./css/prism.css" rel="stylesheet" />
-      <script src="./js/jquery.min.js"></script>
-      <script src="./js/prism.js"></script>
       <link rel="stylesheet" type="text/css" href="./css/lato.css" />
+      
+      <script src="./js/jquery.min.js"></script>
+      <script src="./js/bootstrap.min.js"></script>
+      
    </head>
    <body class="docs docs-page docs-css">
       <nav class="navbar navbar-default" role="navigation">
@@ -116,7 +118,8 @@
                      </div>
                   </div>
                </div>
-                  <section class="docs-section" id="f2_payment_vault">
+ 
+<section class="docs-section" id="f2_payment_vault">
                   <h3 class="title">Nuestros componentes visuales en tu checkout</h3>
                   <p>Si en tu proyecto usas CocoaPods, podés agregar la dependencia en el Podfile del módulo donde nos integres.</p>
                   <p>Si no utilizas CocoaPods, descargá la SDK de MercadoPago en <a href="https://github.com/mercadopago/px-ios/releases" target="_blank">este link</a> y agregala a tu proyecto.</p>
@@ -137,59 +140,130 @@ pod 'MercadoPagoSDK', '~> 0.9.0'
                   <div class="doc-example ionic">
                      <img src="./img/phone/payment_vault.gif" class="img-phone-case"></img>
                   </div>
-               </section>
-                  <section class="docs-section" id="f2_payment_vault">
+</section>
+
+<!------------  PaymentVault section ------------------>
+            <section class="docs-section" id="f2_payment_vault">
                   <h3 class="title">UI para la recolección de datos</h3>
                   <p>
-                     El más completo de nuestros componentes visuales es <b>PaymentVault</b> con el cual estarás en condiciones de enviar los datos a tu servidor. Con este componente tendrás a disposición el medio de pago seleccionado (<a href="https://github.com/mercadopago/px-android/blob/master/sdk/src/main/java/com/mercadopago/model/PaymentMethod.java" target="_blank">PaymentMethod</a>) y si tu usuario paga con tarjeta, el banco (<a href="https://github.com/mercadopago/px-android/blob/master/sdk/src/main/java/com/mercadopago/model/Issuer.java" target="_blank">Issuer</a>), las cuotas (<a href="https://github.com/mercadopago/px-android/blob/master/sdk/src/main/java/com/mercadopago/model/PayerCost.java" target="_blank">PayerCost</a>) y la información de la tarjeta encriptada (<a href="https://github.com/mercadopago/px-android/blob/master/sdk/src/main/java/com/mercadopago/model/Token.java" target="_blank">Token</a>). 
+                     El más completo de nuestros componentes visuales es <b>PaymentVault</b> con el cual estarás en condiciones de enviar los datos a tu servidor. Con este componente tendrás a disposición el medio de pago seleccionado (<a href="https://github.com/mercadopago/px-ios/blob/master/MercadoPagoSDK/MercadoPagoSDK/PaymentMethod.swifti" target="_blank">PaymentMethod</a>) y si tu usuario paga con tarjeta, el banco (<a href="https://github.com/mercadopago/px-ios/blob/master/MercadoPagoSDK/MercadoPagoSDK/Issuer.swift" target="_blank">Issuer</a>), las cuotas (<a href="https://github.com/mercadopago/px-ios/blob/master/MercadoPagoSDK/MercadoPagoSDK/PayerCost.swift" target="_blank">PayerCost</a>) y la información de la tarjeta encriptada (<a href="https://github.com/mercadopago/px-ios/blob/master/MercadoPagoSDK/MercadoPagoSDK/Token.swift" target="_blank">Token</a>). 
                      <br />
                      Para utilizarlo, agrega un botón:
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code id="flavor_3_step_2" class="line-numbers language-swift">
-import UIKit
 
-class MainViewController: UIViewController {
+            <div class="container">
+                  <ul class="nav nav-pills">
+                        <li class=""><a data-toggle="pill" href="#flavor_2_step_0_swift">Swift</a></li>
+                        <li><a data-toggle="pill" href="#flavor_2_step_0_objc">Objective-C</a></li>
+                  </ul>
 
-  @IBOutlet weak var payButton: UIButton!
+                  <div class="tab-content">
+                       <div class="tab-pane fade in active" id="flavor_2_step_0_swift">
+                                 <pre class="snippet">
+                                    <code id="flavor_2_step_0_swift" class="line-numbers language-swift">
+                                       import UIKit
 
-  @IBOutlet weak var paymentResult: UITextField!
+                                       class MainViewController: UIViewController {
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    self.payButton.addTarget(self, 
-      action: #selector(MainViewController.startPaymentVault), 
-      forControlEvents: .TouchUpInside)
-  }
-}
-                        </code>
-         
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+                                         @IBOutlet weak var payButton: UIButton!
+
+                                         @IBOutlet weak var paymentResult: UITextField!
+
+                                         override func viewDidLoad() {
+                                           super.viewDidLoad()
+                                           
+                                           self.payButton.addTarget(self, 
+                                             action: #selector(MainViewController.startPaymentVault), 
+                                             forControlEvents: .TouchUpInside)
+                                         }
+                                       }
+                                    </code>
+                     
+                                    <button class="copy-button">
+                                       <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                    </button>
+                                 </pre>
+                                 <div class="doc-example ionic">
+                                    <img src="./img/phone/payment_vault.gif" class="img-phone-case"></img>
+                                 </div> 
+                        </div>
+
+                        <div class="tab-pane fade in" id="flavor_2_step_0_objc">
+                                      <pre class="snippet">
+                                         <code id="flavor_2_step_0_objc" class="line-numbers language-swift">
+                                          #import "ViewController.h"
+                                          @import MercadoPagoSDK;
+
+                                          @interface ViewController ()
+                                          @end
+
+                                          @implementation ViewController
+
+                                          - (IBAction)payButton:(id)sender {
+                                             [self startPaymentVault];
+                                          }
+                                         </code>
+                             
+                                         <button class="copy-button">
+                                            <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                        </button>
+                                      </pre>
+                                      <div class="doc-example ionic">
+                                          <img src="./img/phone/payment_vault.gif" class="img-phone-case"></img>
+                                       </div> 
+                        </div>
+                  </div>
+</div>
+
                   <p>
                      Luego, cuando el botón es presionado, por medio de nuestra SDK invoca a <b>PaymentVault</b> y espera el resultado para conocer los datos que seleccionó el usuario dentro del flujo.
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-java">
-                           MPFlowBuilder.startPaymentVaultViewController(amount : 1.00, callback: { (paymentMethod, token, issuer, payerCost) in
-                              // Listo! Envía los datos a tu servidor para hacer el pago.
-                           })
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
-                  <div class="doc-example ionic">
-                     <img src="./img/phone/payment_vault.gif" class="img-phone-case"></img>
-                  </div>
+
+                  <div class="container">
+                     <ul class="nav nav-pills">
+                           <li class=""><a data-toggle="pill" href="#flavor_2_step_1_swift">Swift</a></li>
+                           <li><a data-toggle="pill" href="#flavor_2_step_1_objc">Objective-C</a></li>
+                     </ul>
+
+                     <div class="tab-content">
+                       <div class="tab-pane fade in active" id="flavor_2_step_1_swift">
+                           <p>
+                              <pre class="snippet">
+                                 <code class="line-numbers language-swift">
+                                    MPFlowBuilder.startPaymentVaultViewController(amount : 1.00, 
+                                    callback: { (paymentMethod, token, issuer, payerCost) in
+                                       // Listo! Envía los datos a tu servidor para hacer el pago.
+                                    })
+                                 </code>
+                                 <button class="copy-button">
+                                    <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                 </button>
+                              </pre>
+                           </p>
+                        </div>
+
+                        <div class="tab-pane fade in" id="flavor_2_step_1_objc">
+                           <p>
+                              <pre class="snippet">
+                                 <code class="line-numbers language-swift">
+                                    [MPFlowBuilder startPaymentVaultViewController:1.00 
+                                    paymentPreference:nil callback:^(PaymentMethod *paymentMethod, 
+                                    Token *token, Issuer *issuer, PayerCost *payerCost) {
+                                          // Listo! Envía los datos a tu servidor para hacer el pago.
+                                    }];
+                                 </code>
+                                 <button class="copy-button">
+                                    <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                 </button>
+                              </pre>
+                           </p>
+                        </div>
+                     </div>
+                  </div>                 
                </section>
+<!--  ----------------------------------------- -->   
+
+<!-- -------------- f2_card_section -------------- -->
                <section class="docs-section" id="f2_card_form">
                   <h3 class="title">Cobra con tarjeta</h3>
                   <p>
@@ -197,21 +271,53 @@ class MainViewController: UIViewController {
                      <br />
                      <b>Sigue navegando si quieres ver cómo cobrar en cuotas.</b>
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-java">
-MPStepBuilder.startCreditCardForm(amount: 1, callback: { 
-  (paymentMethod, token, issuer) -> Void in
-    // Listo! Envía los datos a tu servidor para hacer el pago en una cuota.
-  }, callbackCancel: { () -> Void in
-    // El usuario canceló el flujo
-  })
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+
+<div class="container">
+                  <ul class="nav nav-pills">
+                        <li class="active"><a data-toggle="pill" href="#flavor_2_step_2_swift">Swift</a></li>
+                        <li><a data-toggle="pill" href="#flavor_2_step_2_objc">Objective-C</a></li>
+                  </ul>
+
+                  <div class="tab-content">
+                       <div class="tab-pane fade in active" id="flavor_2_step_2_swift">
+                           <p>
+                              <pre class="snippet">
+                                 <code class="line-numbers language-swift">
+                                    MPStepBuilder.startCreditCardForm(amount: 1.00, callback: { 
+                                      (paymentMethod, token, issuer) -> Void in
+                                        // Listo! Envía los datos a tu servidor para hacer el 
+                                        // pago en una cuota.
+                                      }, callbackCancel: { () -> Void in
+                                        // El usuario canceló el flujo
+                                      })
+                                 </code>
+                                 <button class="copy-button">
+                                    <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                 </button>
+                              </pre>
+                           </p>
+                        </div>
+
+                        <div class="tab-pane fade in" id="flavor_2_step_2_objc">
+                           <p>
+                              <pre class="snippet">
+                                 <code class="line-numbers language-swift">
+                                    [MPStepBuilder startCreditCardForm:nil amount:1.00 
+                                       paymentMethods:nil token:nil 
+                                       callback:^( PaymentMethod *pm, Token *token, Issuer *issuer) {
+                                            // Listo! Envía los datos a tu servidor para hacer el 
+                                            // pago en una cuota.
+                                       } callbackCancel:^{
+                                             // El usuario canceló el flujo
+                                    }];
+                                 </code>
+                                 <button class="copy-button">
+                                    <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                 </button>
+                              </pre>
+                           </p>
+                        </div>
+   </div>
                   <p>
                      <b>¿Cómo adivinamos la marca de la tarjeta?</b>
                      <br />
@@ -221,28 +327,68 @@ MPStepBuilder.startCreditCardForm(amount: 1, callback: {
                      <img src="./img/phone/card_form.gif" class="img-phone-case"></img>
                   </div>
                </section>
+
+<!-- -- f2 card flow section ---->
                <section class="docs-section" id="f2_card_form_installments">
                   <h3 class="title">Cobra con tarjeta en cuotas</h3>
                   <p>
                      Si deseas cobrar en cuotas, ofrecemos un flujo que se encarga de la recolección de datos de la tarjeta y además, de la <b>selección de cuotas</b>. A los parámetros de respuesta del paso anterior también debes esperar por el <a href="https://github.com/mercadopago/px-android/blob/master/sdk/src/main/java/com/mercadopago/model/PayerCost.java" target="_blank">PayerCost</a> (las cuotas seleccionadas por el usuario).
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-java">
-MPFlowBuilder.startCardFlow(amount: 1, callback: { 
-  (paymentMethod, cardToken, issuer, payerCost) -> Void in
-    // Listo! Envía los datos a tu servidor para hacer el pago
-})
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+
+
+                  <div class="container">
+                        <ul class="nav nav-pills">
+                              <li class="active"><a data-toggle="pill" href="#flavor_2_step_3_swift">Swift</a></li>
+                              <li><a data-toggle="pill" href="#flavor_2_step_3_objc">Objective-C</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                             <div class="tab-pane fade in active" id="flavor_2_step_3_swift">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-java">
+                                          MPFlowBuilder.startCardFlow(amount: 1.00, callback: { 
+                                            (paymentMethod, cardToken, issuer, payerCost) -> Void in
+                                              // Listo! Envía los datos a tu servidor para hacer el pago
+                                          }, callbackCancel : {
+                                             // El usuario canceló el flujo
+                                          }))
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                            </div>
+                             <div class="tab-pane fade in" id="flavor_2_step_3_objc">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-java">
+                                          [MPFlowBuilder startCardFlow:nil amount:1.00 paymentMethods:nil 
+                                          callback:^(PaymentMethod   *pm, Token *token, Issuer *issuer, 
+                                             PayerCost *payerCost) {
+                                                // Listo! Envía los datos a tu servidor para hacer el pago
+                                          } callbackCancel:^{
+                                                // El usuario canceló el flujo
+                                          }];
+
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                            </div>
+                        </div>
+                  </div>
+
                   <div class="doc-example ionic">
                      <img src="./img/phone/card_form_installments.gif" class="img-phone-case"></img>
                   </div>
                </section>
+<!-- -- ------------------ ---->
+
+<!-- -- f2 payment methods section ---->
                <section class="docs-section" id="f2_payment_methods">
                   <h3 class="title">Medios de pago</h3>
                   <p>
@@ -250,26 +396,59 @@ MPFlowBuilder.startCardFlow(amount: 1, callback: {
                      <br />
                      Si el medio de pago pertenece a una <b>tarjeta</b> te brindamos la información necesaria para armar tu formulario de tarjeta y sus validaciones, por ejemplo la longitud del número de tarjeta, si el código de seguridad está al frente o al dorso de la tarjeta, su longitud, entre otros. Pero también, el medio de pago puede ser <b>offline</b>. En este caso te indicamos, entre otros, el tiempo de acreditación ya que el pago quedará en un estado pendiente que cambiará cuando el usuario se acerque a la entidad correspondiente a finalizar el pago en efectivo.
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-java">
-MPStepBuilder.startPaymentMethodsStep(PaymentType.allPaymentIDs, 
-  callback: { 
-    (paymentMethod) -> Void in
-      // Ahora puedes continuar con tu flujo.
-      // Recuerda verificar si el medio de pago es offline!
-  }
-)
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+                  
+
+  <div class="container">
+                        <ul class="nav nav-pills">
+                              <li class="active"><a data-toggle="pill" href="#flavor_2_step_4_swift">Swift</a></li>
+                              <li><a data-toggle="pill" href="#flavor_2_step_4_objc">Objective-C</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                             <div class="tab-pane fade in active" id="flavor_2_step_4_swift">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-swift">
+                                             MPStepBuilder.startPaymentMethodsStep(nil, 
+                                               callback: { 
+                                                 (paymentMethod) -> Void in
+                                                   // Ahora puedes continuar con tu flujo.
+                                                   // Recuerda verificar si el medio de pago es offline!
+                                               }
+                                             )
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+
+                              <div class="tab-pane fade in" id="flavor_2_step_4_objc">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-swift">
+                                            [MPStepBuilder startPaymentMethodsStep:nil 
+                                            callback:^(PaymentMethod *pm) {
+                                                // Ahora puedes continuar con tu flujo.
+                                                // Recuerda verificar si el medio de pago es offline!
+                                             }];
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+                        </div>
+                  </div>
+
+
                   <div class="doc-example ionic">
                      <img src="./img/phone/f2_payment_methods.png" class="img-phone-case"></img>
                   </div>
                </section>
+<! --------Issuers section --------->               
                <section class="docs-section" id="f2_card_issuers">
                   <h3 class="title">Bancos</h3>
                   <p>
@@ -278,27 +457,58 @@ MPStepBuilder.startPaymentMethodsStep(PaymentType.allPaymentIDs,
                   <p>
                      Por eso tenemos un componente para seleccionar bancos. Es tan sólo una pantalla en la que listamos los bancos posibles para un BIN y el medio de pago de la tarjeta.
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-java">
-// Medio de pago seleccionado por el usuario.
-let paymentMethod : PaymentMethod!
+                  <div class="container">
+                        <ul class="nav nav-pills">
+                              <li class="active"><a data-toggle="pill" href="#flavor_2_step_5_swift">Swift</a></li>
+                              <li><a data-toggle="pill" href="#flavor_2_step_5_objc">Objective-C</a></li>
+                        </ul>
 
-MPStepBuilder.startIssuersStep(paymentMethod, 
-  callback: { (issuer) -> Void in
-    // Ahora puedes continuar con tu flujo.
-  }
-)
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+                        <div class="tab-content">
+                             <div class="tab-pane fade in active" id="flavor_2_step_5_swift">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-swift">
+                                          // Medio de pago seleccionado por el usuario.
+                                          let paymentMethod : PaymentMethod!
+
+                                          MPStepBuilder.startIssuersStep(paymentMethod, 
+                                            callback: { (issuer) -> Void in
+                                              // Ahora puedes continuar con tu flujo.
+                                            }
+                                          )
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+
+                              <div class="tab-pane fade in" id="flavor_2_step_5_objc">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-swift">
+                                          // Medio de pago seleccionado por el usuario.
+                                          [MPStepBuilder startIssuersStep:paymentMethod 
+                                             callback:^(Issuer *issuer) {
+                                                // Ahora puedes continuar con tu flujo.
+                                          }];
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+
+                        </div>      
                   <div class="doc-example ionic">
                      <img src="./img/phone/f2_card_issuers.png" class="img-phone-case"></img>
                   </div>
                </section>
+<!---------------------------------->
+
+<! --------Payer costs section --------->                   
                <section class="docs-section" id="f2_payer_costs">
                   <h3 class="title">Cuotas</h3>
                   <p>
@@ -306,42 +516,104 @@ MPStepBuilder.startIssuersStep(paymentMethod,
                      <br />
                      Sólo indícanos qué datos seleccionó (medio de pago y banco). Te pedimos el monto, ya que nos permite obtener una descripción recomendada para indicarle a tu usuario la cantidad de cuotas, el valor de cada una y el monto final.
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-java">
-MPStepBuilder.startPayerCostForm(paymentMethod, issuer: issuer, 
-  token: token, amount: 10000, callback: { 
-    (payerCost) -> Void in
-      // Ahora puedes continuar con tu flujo.
-  }
-)
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+
+
+                  <div class="container">
+                        <ul class="nav nav-pills">
+                              <li class="active"><a data-toggle="pill" href="#flavor_2_step_6_swift">Swift</a></li>
+                              <li><a data-toggle="pill" href="#flavor_2_step_6_objc">Objective-C</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                             <div class="tab-pane fade in active" id="flavor_2_step_6_swift">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-swift">
+                                             MPStepBuilder.startPayerCostForm(paymentMethod, issuer: issuer, 
+                                               token: token, amount: 10000, callback: { 
+                                                 (payerCost) -> Void in
+                                                   // Ahora puedes continuar con tu flujo.
+                                               }
+                                             )
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+
+                              <div class="tab-pane fade in" id="flavor_2_step_6_objc">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-swift">
+                                             [MPStepBuilder startPayerCostForm:paymentMethod issuer:issuer 
+                                             token:token amount:10000 paymentPreference:nil 
+                                             installment:nil callback:^(PayerCost *payerCost) {
+                                                // Ahora puedes continuar con tu flujo.
+                                             }];
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+                        </div>
                   <div class="doc-example ionic">
                      <img src="./img/phone/f2_payer_costs.png" class="img-phone-case"></img>
                   </div>
                </section>
+<! ------------------------>
+
+<!--  f2 promos section ---->
                <section class="docs-section" id="f2_bank_deals">
                   <h3 class="title">Promociones</h3>
                   <p>
                      Hablamos con las marcas de las tarjetas y con los bancos para poder brindarle a tus usuarios las mejores promociones a la hora de pagar. Consideramos que es muy importante que en tu flujo de pagos le cuentes a tus usuarios las comodidades que tiene para abonar, ya que es más probable que elija un medio de pago conveniente para él y pueda concretar el pago.
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-java">
-                           MPStepBuilder.startPromosStep({ (Void) -> (Void) in
-                                 // Acción a ejecutar al salir de visualizar las promociones
-                           })
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+
+                    <div class="container">
+                        <ul class="nav nav-pills">
+                              <li class="active"><a data-toggle="pill" href="#flavor_2_step_7_swift">Swift</a></li>
+                              <li><a data-toggle="pill" href="#flavor_2_step_7_objc">Objective-C</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                             <div class="tab-pane fade in active" id="flavor_2_step_7_swift">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-java">
+                                          MPStepBuilder.startPromosStep({ (Void) -> (Void) in
+                                                // Acción a ejecutar al salir de visualizar las promociones
+                                          })
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+
+                              <div class="tab-pane fade in" id="flavor_2_step_7_objc">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-java">
+                                          [MPStepBuilder startPromosStep:^{
+                                             // Acción a ejecutar al salir de visualizar las promociones
+                                           }];
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+
+
+                        </div>
+
+
                   <div class="doc-example ionic">
                      <img src="./img/phone/bank_deals.png" class="img-phone-case"></img>
                   </div>
@@ -362,39 +634,90 @@ MPStepBuilder.startPayerCostForm(paymentMethod, issuer: issuer,
                   <p>
                      A continuación podrás ver cómo conectar tu aplicación con tu servidor al momento de querer efectuar el cobro:
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-swift">
 
-func createPayment(paymentMethod: PaymentMethod, cardIssuer: Issuer?, 
-  installments: Int?, tokenId: String) {
+                   <div class="container">
+                        <ul class="nav nav-pills">
+                              <li class="active"><a data-toggle="pill" href="#flavor_2_step_8_swift">Swift</a></li>
+                              <li><a data-toggle="pill" href="#flavor_2_step_8_objc">Objective-C</a></li>
+                        </ul>
 
-  MercadoPagoContext.setBaseURL("http://tunombre.com")
-  MercadoPagoContext.setPaymentURI("/checkout/create_payment")
+                        <div class="tab-content">
+                             <div class="tab-pane fade in active" id="flavor_2_step_8_swift">
+                                    <p>
+                                       <pre class="snippet">
+                                          <code class="line-numbers language-swift">
 
-  let merchantPayment = MerchantPayment(items: items, installments: installments, 
-    cardIssuer: cardIssuer, tokenId: tokenId, paymentMethod: paymentMethod, 
-    campaignId: nil)
+                                                func createPayment(paymentMethod: PaymentMethod, cardIssuer: Issuer?, 
+                                                  installments: Int?, tokenId: String) {
 
-  MerchantServer.createPayment(payment: merchantPayment, 
-    success: {
-      (payment: Payment) -> Void in
+                                                  MercadoPagoContext.setBaseURL("http://tunombre.com")
+                                                  MercadoPagoContext.setPaymentURI("/checkout/create_payment")
 
-      // Dependiendo del paymentTypeId, muestra
-        // Congrats
-        // Instructions
+                                                  let merchantPayment = MerchantPayment(items: items, installments: installments, 
+                                                    cardIssuer: cardIssuer, tokenId: tokenId, paymentMethod: paymentMethod, 
+                                                    campaignId: nil)
 
-    }, failure: {
-      ((error: NSError) -> Void) in
-    }
-  )
-}
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+                                                  MerchantServer.createPayment(payment: merchantPayment, 
+                                                    success: {
+                                                      (payment: Payment) -> Void in
+
+                                                      // Dependiendo del paymentTypeId, muestra
+                                                        // Congrats
+                                                        // Instructions
+
+                                                    }, failure: {
+                                                      ((error: NSError) -> Void) in
+                                                    }
+                                                  )
+                                                }
+                                          </code>
+                                          <button class="copy-button">
+                                             <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                          </button>
+                                       </pre>
+                                    </p>
+                              </div>
+
+
+                              <div class="tab-pane fade in" id="flavor_2_step_8_objc">
+                                    <p>
+                                       <pre class="snippet">
+                                          <code class="line-numbers language-swift">
+
+                                               - (void)createPayment:(PaymentMethod *)paymentMethod 
+                                                cardIssuer:(Issuer *)issuer
+                                                installments:(NSInteger)instalments
+                                                tokenId:(NSString *)tokenId {
+
+                                                   [MercadoPagoContext setBaseURL:@"http://tunombre.com"];
+                                                   [MercadoPagoContext setPaymentURI:@"/checkout/create_payment"];
+    
+                                                   MerchantPayment *merchantPayment = [[MerchantPayment alloc] 
+                                                   initWithItems:items installments:installmentsSelected 
+                                                   cardIssuer:selectedIssuer tokenId:[currentToken _id] 
+                                                   paymentMethod:paymentMethod campaignId:0];
+    
+    
+                                                   [MerchantServer createPayment:merchantPayment 
+                                                      success:^(Payment *payment) {
+                                                       // Dependiendo del paymentTypeId, muestra
+                                                       // Congrats
+                                                       // Instructions
+                                                   } failure:^(NSError *error) {
+                                    
+                                                   }];
+   
+                                                }
+                                          </code>
+                                          <button class="copy-button">
+                                             <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                          </button>
+                                       </pre>
+                                    </p>
+                              </div>
+                        </div>
+                  </div>
+
                   <div class="doc-example ionic">
                      <img src="./img/phone/payment_results.gif" class="img-phone-case" usemap="#revamp_review_confirm_map"></img>
                   </div>
@@ -407,22 +730,53 @@ func createPayment(paymentMethod: PaymentMethod, cardIssuer: Issuer?,
                   <p>
                      Ofrecemos un método en nuestra SDK que, dependiendo el verdadero estado del pago, mostramos una pantalla de resultados con toda la información necesaria para que tu usuario entienda si el pago fue aprobado, el por qué fue rechazado o qué debe hacer si el mismo se encuentra pendiente.
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-swift">
-func startPaymentCongratsStep(payment: Payment, paymentMethod: PaymentMethod) {
-  MPStepBuilder.startPaymentCongratsStep(payment, paymentMethod: paymentMethod, 
-    callback: { (Void) -> Void in
-      self.navigationController!.popViewControllerAnimated(true)
-    }
-  ) 
-}
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+
+                   <div class="container">
+                        <ul class="nav nav-pills">
+                              <li class="active"><a data-toggle="pill" href="#flavor_2_step_9_swift">Swift</a></li>
+                              <li><a data-toggle="pill" href="#flavor_2_step_9_objc">Objective-C</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                             <div class="tab-pane fade in active" id="flavor_2_step_9_swift">
+                                    <p>
+                                       <pre class="snippet">
+                                          <code class="line-numbers language-swift">
+                                               MPStepBuilder.startPaymentCongratsStep(payment, 
+                                                   paymentMethod: paymentMethod, 
+                                                    callback: { (Void) -> Void in
+                                                      // Listo! En payment tienes la información del pago realizado
+                                                      // El status determina si el pago fue exitoso, rechazado o pendiente   
+                                                    }
+                                                )
+                                          </code>
+                                          <button class="copy-button">
+                                             <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                          </button>
+                                       </pre>
+                                    </p>
+                              </div>
+                        
+                             <div class="tab-pane fade in" id="flavor_2_step_9_objc">
+                                    <p>
+                                       <pre class="snippet">
+                                          <code class="line-numbers language-swift">
+                                                   [MPStepBuilder startPaymentCongratsStep:payment 
+                                                      paymentMethod:paymentMethod 
+                                                         callback:^(Payment *payment, NSString *status) {
+                                                      // Listo! En payment tienes la información del pago realizado
+                                                      // El status determina si el pago fue exitoso, rechazado o pendiente
+                                                   }];
+                                          </code>
+                                          <button class="copy-button">
+                                             <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                          </button>
+                                       </pre>
+                                    </p>
+                              </div>
+                        </div>
+                  </div>
+
                   <div class="doc-example ionic">
                      <img src="./img/phone/payment_results_cards.gif" class="img-phone-case"></img>
                   </div>
@@ -438,23 +792,49 @@ func startPaymentCongratsStep(payment: Payment, paymentMethod: PaymentMethod) {
                   <p>
                      Ofrecemos una pantalla de instrucciones que recibe un pago y obtiene los pasos a seguir para el medio de pago que seleccionó el usuario.
                   </p>
-                  <p>
-                     <pre class="snippet">
-                        <code class="line-numbers language-swift">
-func startInstructionsStep(payment: Payment, paymentTypeId: String) {
-  
-  MPStepBuilder.startInstructionsStep(payment, paymentTypeId: paymentTypeId, 
-    callback: { (payment) in
-      // Información de pago realizado de medio OFF
-    }
-  )
-}
-                        </code>
-                        <button class="copy-button">
-                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
-                        </button>
-                     </pre>
-                  </p>
+
+                   <div class="container">
+                        <ul class="nav nav-pills">
+                              <li class="active"><a data-toggle="pill" href="#flavor_2_step_10_swift">Swift</a></li>
+                              <li><a data-toggle="pill" href="#flavor_2_step_10_objc">Objective-C</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                             <div class="tab-pane fade in active" id="flavor_2_step_10_swift">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-swift">
+                 
+                                       MPStepBuilder.startInstructionsStep(payment, paymentTypeId: paymentTypeId, 
+                                          callback: { (payment) in
+                                             // Información de pago realizado de medio OFF
+                                          }
+                                       )
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+
+                              <div class="tab-pane fade in" id="flavor_2_step_10_objc">
+                                 <p>
+                                    <pre class="snippet">
+                                       <code class="line-numbers language-swift">
+                                        [MPStepBuilder startInstructionsStep:payment paymentTypeId:paymentTypeId 
+                                          callback:^(Payment *payment) {
+                                             // Información de pago realizado de medio OFF
+                                          }];
+                                       </code>
+                                       <button class="copy-button">
+                                          <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                                       </button>
+                                    </pre>
+                                 </p>
+                              </div>
+                        </div>
+                     </div>   
                   <div class="doc-example ionic">
                      <img src="./img/phone/instructions.png" class="img-phone-case"></img>
                   </div>
@@ -473,10 +853,11 @@ func startInstructionsStep(payment: Payment, paymentTypeId: String) {
             </div>
          </div>
       </footer>
-      <script src="./js/bootstrap.min.js"></script>
       <script src="./js/site.js"></script>
       <script src="./js/cookies.min.js"></script>
-          <script src="./js/clipboard.js"></script>
+      <script src="./js/prism.js"></script>
+      <script src="./js/clipboard.js"></script>
+      
    <script>
 
    (function() {
