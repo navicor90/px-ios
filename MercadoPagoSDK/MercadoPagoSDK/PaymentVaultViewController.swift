@@ -27,13 +27,15 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     // Info loaded from groups service :
     var paymentMethods : [PaymentMethod]!
     var currentPaymentMethodSearch : [PaymentMethodSearchItem]!
+    
+    
     var customerCards : [CardInformation]?
+    
     var bundle = MercadoPago.getBundle()
     
     private var tintColor = true
     internal var isRoot = true
     private var loadCustomerCards = false
-    
     
     @IBOutlet weak var paymentsTable: UITableView!
     
@@ -146,7 +148,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            if self.loadCustomerCards {
+            if self.customerCards?.count > 0 {
                 return (self.customerCards != nil) ? self.customerCards!.count : 0
             }
             return 0
@@ -157,16 +159,13 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     
     
     public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return !self.loadCustomerCards ? 0 : 16
+        return self.customerCards?.count > 0 ? 16 : 0
     }
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            if self.loadCustomerCards {
-                return (self.customerCards != nil && self.customerCards!.count > 0) ? CustomerPaymentMethodCell.ROW_HEIGHT : 0
-            }
-            return 0
+            return (self.customerCards != nil && self.customerCards!.count > 0) ? CustomerPaymentMethodCell.ROW_HEIGHT : 0
         case 1:
             let currentPaymentMethodSearchItem = self.currentPaymentMethodSearch[indexPath.row]
             if currentPaymentMethodSearchItem.showIcon.boolValue {
@@ -187,7 +186,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     }
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 && self.loadCustomerCards {
+        if indexPath.section == 0 && self.customerCards?.count > 0 {
             let customerPaymentMethodCell = self.paymentsTable.dequeueReusableCellWithIdentifier("customerPaymentMethodCell") as! CustomerPaymentMethodCell
             customerPaymentMethodCell.fillRowWithCustomerPayment(self.customerCards![indexPath.row] as! CardInformation)
             return customerPaymentMethodCell
@@ -213,7 +212,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         
         switch indexPath.section {
         case 0:
-            if self.loadCustomerCards {
+            if self.customerCards?.count > 0 {
                 let customerCardSelected = self.customerCards![indexPath.row] as! CardInformation
                 let paymentMethodSelected = Utils.findPaymentMethod(self.paymentMethods, paymentMethodId: customerCardSelected.getPaymentMethodId())
                 customerCardSelected.setupPaymentMethodSettings(paymentMethodSelected.settings)
@@ -289,9 +288,13 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
             let excludedPaymentTypeIds = (self.paymentPreference != nil) ? self.paymentPreference!.excludedPaymentTypeIds : nil
             let excludedPaymentMethodIds = (self.paymentPreference != nil) ? self.paymentPreference!.excludedPaymentMethodIds : nil
             self.showLoading()
-            MPServicesBuilder.searchPaymentMethods(self.amount, excludedPaymentTypeIds: excludedPaymentTypeIds, excludedPaymentMethodIds: excludedPaymentMethodIds, success: { (paymentMethodSearchResponse: PaymentMethodSearch) -> Void in
+            let customerAccessToken = "TEST-3655020329214032-122910-7f125ed5eecbaaa3d04f0c56953c95b6__LD_LC__-170206767"
+            MPServicesBuilder.searchPaymentMethods(self.amount, customerAccessToken: customerAccessToken, excludedPaymentTypeIds: excludedPaymentTypeIds, excludedPaymentMethodIds: excludedPaymentMethodIds, success: { (paymentMethodSearchResponse: PaymentMethodSearch) -> Void in
                 self.paymentMethods = paymentMethodSearchResponse.paymentMethods
                 self.currentPaymentMethodSearch = paymentMethodSearchResponse.groups
+                
+                //TODO : balance entre CC & blacklabel
+                self.customerCards = paymentMethodSearchResponse.customerPaymentMethods
                 self.hideLoading()
                 self.loadPaymentMethodSearch()
                 }, failure: { (error) -> Void in
@@ -323,7 +326,6 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         if MercadoPagoContext.isCustomerInfoAvailable() && self.customerCards == nil && self.isRoot {
             MerchantServer.getCustomer({ (customer: Customer) -> Void in
                 self.customerCards = customer.cards
-                self.loadCustomerCards = true
                 self.loadPaymentMethodSearch()
                 
                 }, failure: { (error: NSError?) -> Void in

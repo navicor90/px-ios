@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 public class MercadoPagoService : NSObject {
+
+    static let MP_BASE_URL = "http://localhost:8080"
       
     let MP_DEFAULT_TIME_OUT = 15.0
     
