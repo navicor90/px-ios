@@ -294,7 +294,9 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                 self.currentPaymentMethodSearch = paymentMethodSearchResponse.groups
                 
                 //TODO : balance entre CC & blacklabel
-                self.customerCards = paymentMethodSearchResponse.customerPaymentMethods
+                if paymentMethodSearchResponse.customerPaymentMethods != nil {
+                    self.customerCards = Array(paymentMethodSearchResponse.customerPaymentMethods![0...2])
+                }
                 self.hideLoading()
                 self.loadPaymentMethodSearch()
                 }, failure: { (error) -> Void in
