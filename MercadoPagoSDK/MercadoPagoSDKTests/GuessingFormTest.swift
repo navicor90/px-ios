@@ -139,7 +139,7 @@ class GuessingFormTest: BaseTest {
         self.cardFormViewController?.textBox?.delegate = self.cardFormViewController
         
         //MASTER
-        checkPaymentMethodGuessing(MockBuilder.MASTER_TEST_CARD_NUMBER, pmId: "master")
+        self.checkOnlyPaymentMethodGuessing(MockBuilder.MASTER_TEST_CARD_NUMBER, pmId: "master")
 
         // Focus on cvv
         XCTAssertEqual(self.cardFormViewController?.editingLabel, self.cardFormViewController?.cvvLabel)
@@ -168,7 +168,7 @@ class GuessingFormTest: BaseTest {
         
         self.cardFormViewController?.textBox?.delegate = self.cardFormViewController
         
-        checkPaymentMethodGuessing(MockBuilder.AMEX_TEST_CARD_NUMBER, pmId: "amex")
+        self.checkOnlyPaymentMethodGuessing(MockBuilder.AMEX_TEST_CARD_NUMBER, pmId: "amex")
         
         // Focus on cvv
         XCTAssertEqual(self.cardFormViewController?.editingLabel, self.cardFormViewController?.cvvLabel)
@@ -189,27 +189,13 @@ class GuessingFormTest: BaseTest {
     }
     
     func checkPaymentMethodGuessing(number: String, pmId: String){
-
-        self.cardFormViewController?.clearCardSkin()
-
-        let binIndex = number.endIndex.advancedBy(6 - number.characters.count)
-        let binNumber = number.substringToIndex(binIndex)
-        let colorDefault = self.cardFormViewController?.cardView.backgroundColor
-        self.cardFormViewController?.textBox?.text = binNumber
-        self.cardFormViewController?.cardNumberLabel?.text = binNumber
-        self.cardFormViewController?.numberLabelEmpty = false
-        self.cardFormViewController?.updateCardSkin()
-       
-       XCTAssertNotNil(self.cardFormViewController?.paymentMethod)
-        let cardLogo = MercadoPago.getImageFor(self.cardFormViewController!.paymentMethod!)
-        XCTAssertEqual(self.cardFormViewController?.cardFront?.cardLogo.image, cardLogo)
-        XCTAssertEqual(self.cardFormViewController?.cardView.backgroundColor,MercadoPago.getColorFor((self.cardFormViewController?.paymentMethod)!))
-        XCTAssertEqual(self.cardFormViewController?.paymentMethod?._id, pmId)
+        self.checkOnlyPaymentMethodGuessing(number, pmId: pmId)
         
         self.cardFormViewController?.textBox?.text = "44"
         self.cardFormViewController?.cardNumberLabel?.text = "44"
         self.cardFormViewController?.numberLabelEmpty = false
         self.cardFormViewController?.updateCardSkin()
+        
         
         XCTAssertNil(self.cardFormViewController?.paymentMethod)
    //     XCTAssertNil(self.cardFormViewController?.cardFront?.cardLogo.image)
@@ -226,5 +212,26 @@ class GuessingFormTest: BaseTest {
         self.cardFormViewController?.updateCardSkin()
         XCTAssertNil(self.cardFormViewController?.paymentMethod)
     }
+    
+    func checkOnlyPaymentMethodGuessing(number: String, pmId: String){
+        
+        self.cardFormViewController?.clearCardSkin()
+        
+        let binIndex = number.endIndex.advancedBy(6 - number.characters.count)
+        let binNumber = number.substringToIndex(binIndex)
+        let colorDefault = self.cardFormViewController?.cardView.backgroundColor
+        self.cardFormViewController?.textBox?.text = binNumber
+        self.cardFormViewController?.cardNumberLabel?.text = binNumber
+        self.cardFormViewController?.numberLabelEmpty = false
+        self.cardFormViewController?.updateCardSkin()
+        
+        XCTAssertNotNil(self.cardFormViewController?.paymentMethod)
+        let cardLogo = MercadoPago.getImageFor(self.cardFormViewController!.paymentMethod!)
+        XCTAssertEqual(self.cardFormViewController?.cardFront?.cardLogo.image, cardLogo)
+        XCTAssertEqual(self.cardFormViewController?.cardView.backgroundColor,MercadoPago.getColorFor((self.cardFormViewController?.paymentMethod)!))
+        XCTAssertEqual(self.cardFormViewController?.paymentMethod?._id, pmId)
+        
+    }
+
  
 }

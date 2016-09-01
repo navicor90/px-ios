@@ -41,6 +41,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         XCTAssertNil(paymentVaultViewController?.viewModel.paymentMethods)
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         XCTAssertNotNil(self.paymentVaultViewController?.viewModel.currentPaymentMethodSearch)
         XCTAssertTrue(self.paymentVaultViewController?.viewModel.currentPaymentMethodSearch!.count > 1)
@@ -75,6 +76,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         XCTAssertEqual(self.paymentVaultViewController!.viewModel.paymentPreference, paymentPreference)
         XCTAssertNotNil(self.paymentVaultViewController!.viewModel.currentPaymentMethodSearch)
@@ -110,6 +112,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         XCTAssertNil(paymentVaultViewController?.viewModel.paymentPreference)
         XCTAssertNotNil(self.paymentVaultViewController?.viewModel.currentPaymentMethodSearch)
@@ -157,6 +160,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         XCTAssertEqual(self.paymentVaultViewController?.viewModel.paymentPreference, paymentPreference)
         XCTAssertNotNil(self.paymentVaultViewController?.viewModel.currentPaymentMethodSearch)
@@ -196,6 +200,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         self.verifyCustomerPaymentMethodsDisplayed(0)
         
@@ -228,6 +233,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         self.verifyCustomerPaymentMethodsDisplayed(2)
         
@@ -256,6 +262,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         self.verifyCustomerPaymentMethodsDisplayed(0)
         
@@ -288,6 +295,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         self.verifyCustomerPaymentMethodsDisplayed(0)
         
@@ -321,6 +329,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         self.verifyCustomerPaymentMethodsDisplayed(2)
         
@@ -353,6 +362,7 @@ class PaymentVaultViewControllerTest: BaseTest {
         })
         
         self.simulateViewDidLoadFor(self.paymentVaultViewController!)
+        let nav = UINavigationController(rootViewController: self.paymentVaultViewController!)
         
         self.verifyCustomerPaymentMethodsDisplayed(2)
         
@@ -426,13 +436,12 @@ class PaymentVaultViewModelTest: BaseTest {
     
     func testGetCustomerCardsToDisplayCount(){
         
-        
-        
         XCTAssertEqual(self.paymentVaultViewModel!.getCustomerCardsToDisplayCount(), 0)
         
         let card = CustomerPaymentMethod()
         card._id = "cardMock"
-        self.paymentVaultViewModel!.customerCards = [card]
+        self.paymentVaultViewModel!.customerCards = []
+        self.paymentVaultViewModel!.customerCards?.append(card)
         
         XCTAssertEqual(self.paymentVaultViewModel!.getCustomerCardsToDisplayCount(), 1)
         
@@ -444,14 +453,20 @@ class PaymentVaultViewModelTest: BaseTest {
         thirdCard._id = "cardMock"
         self.paymentVaultViewModel!.customerCards!.append(thirdCard)
         
+        XCTAssertEqual(self.paymentVaultViewModel!.getCustomerCardsToDisplayCount(), 3)
+        
         let fourthCard = Card()
         self.paymentVaultViewModel!.customerCards!.append(fourthCard)
         
-        XCTAssertEqual(self.paymentVaultViewModel!.getCustomerCardsToDisplayCount(), 4)
+        XCTAssertEqual(self.paymentVaultViewModel!.getCustomerCardsToDisplayCount(), 3)
         
         self.paymentVaultViewModel!.customerCards!.removeAtIndex(3)
         
         XCTAssertEqual(self.paymentVaultViewModel!.getCustomerCardsToDisplayCount(), 3)
+        
+        self.paymentVaultViewModel!.customerCards!.removeAtIndex(2)
+        
+        XCTAssertEqual(self.paymentVaultViewModel!.getCustomerCardsToDisplayCount(), 2)
         
         self.paymentVaultViewModel!.customerCards!.removeAll()
         
@@ -459,8 +474,39 @@ class PaymentVaultViewModelTest: BaseTest {
     }
     
     func testGetExcludedPaymentTypeIds() {
-    
+        
+        let noExcludedPaymentTypeIds = self.paymentVaultViewModel?.getExcludedPaymentTypeIds()
+        XCTAssertNil(noExcludedPaymentTypeIds)
+        
+        let paymentPreference = PaymentPreference()
+        paymentPreference.excludedPaymentTypeIds = ["ticket", "credit_card"]
+        paymentPreference.excludedPaymentMethodIds = ["red_link"]
+        
+        self.paymentVaultViewModel = PaymentVaultViewModel(amount: 100, paymentPrefence: paymentPreference)
+        
+        let twoExcludedPaymentTypeIds = self.paymentVaultViewModel?.getExcludedPaymentTypeIds()
+        XCTAssertEqual(twoExcludedPaymentTypeIds?.count, 2)
+        
+
     }
+    
+    func testGetExcludedPaymentMethodIds() {
+        
+        let noExcludedPaymentMethodIds = self.paymentVaultViewModel?.getExcludedPaymentMethodIds()
+        XCTAssertNil(noExcludedPaymentMethodIds)
+        
+        let paymentPreference = PaymentPreference()
+        paymentPreference.excludedPaymentTypeIds = ["ticket", "credit_card"]
+        paymentPreference.excludedPaymentMethodIds = ["red_link", "cargavirtual", "visa", "amex"]
+        
+        self.paymentVaultViewModel = PaymentVaultViewModel(amount: 100, paymentPrefence: paymentPreference)
+        
+        let twoExcludedPaymentMethodIds = self.paymentVaultViewModel?.getExcludedPaymentMethodIds()
+        XCTAssertEqual(twoExcludedPaymentMethodIds?.count, 4)
+        
+    }
+    
+    
 }
 
 
