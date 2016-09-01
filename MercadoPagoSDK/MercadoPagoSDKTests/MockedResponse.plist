@@ -97,7 +97,7 @@
 	&quot;live_mode&quot;: true,
 	&quot;metadata&quot;: {}
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_types=bank_transfer,ticket</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_types=bank_transfer,ticket</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -534,7 +534,7 @@
     }
   ]
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=rapipago,pagofacil,cargavirtual,bapropagos,redlink</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=rapipago,pagofacil,cargavirtual,bapropagos,redlink</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -1534,79 +1534,6 @@
       &quot;max_allowed_amount&quot;:250000,
       &quot;accreditation_time&quot;:2880
    }]</string>
-	<key>POST/v1/checkout/payments?public_key=PK_MLA&amp;payment_method_id=rapipago</key>
-	<string>{
-	&quot;id&quot;: 1204643,
-	&quot;date_created&quot;: &quot;2016-07-19T14:18:47.000-04:00&quot;,
-	&quot;date_approved&quot;: null,
-	&quot;date_last_updated&quot;: &quot;2016-07-19T14:18:47.000-04:00&quot;,
-	&quot;money_release_date&quot;: null,
-	&quot;operation_type&quot;: &quot;regular_payment&quot;,
-	&quot;issuer_id&quot;: null,
-	&quot;payment_method_id&quot;: &quot;rapipago&quot;,
-	&quot;payment_type_id&quot;: &quot;ticket&quot;,
-	&quot;status&quot;: &quot;pending&quot;,
-	&quot;status_detail&quot;: &quot;pending_waiting_payment&quot;,
-	&quot;currency_id&quot;: &quot;ARS&quot;,
-	&quot;description&quot;: &quot;Bajo Squier 5 cuerdas&quot;,
-	&quot;live_mode&quot;: false,
-	&quot;sponsor_id&quot;: null,
-	&quot;authorization_code&quot;: null,
-	&quot;collector_id&quot;: 150216849,
-	&quot;payer&quot;: {
-		&quot;type&quot;: &quot;guest&quot;,
-		&quot;id&quot;: null,
-		&quot;email&quot;: &quot;lalala@email.com&quot;,
-		&quot;identification&quot;: {
-			&quot;type&quot;: null,
-			&quot;number&quot;: null
-		},
-		&quot;phone&quot;: {
-			&quot;area_code&quot;: null,
-			&quot;number&quot;: null,
-			&quot;extension&quot;: null
-		},
-		&quot;first_name&quot;: null,
-		&quot;last_name&quot;: null
-	},
-	&quot;metadata&quot;: {},
-	&quot;additional_info&quot;: {
-		&quot;items&quot;: [{
-			&quot;id&quot;: null,
-			&quot;title&quot;: &quot;Bajo Squier 5 cuerdas&quot;,
-			&quot;description&quot;: null,
-			&quot;picture_url&quot;: &quot;http://mla-s2-p.mlstatic.com/bajo-electrico-squier-jazz-bass-afinnity-v-5-cuerdas-black-210701-MLA20378414882_082015-O.jpg&quot;,
-			&quot;category_id&quot;: null,
-			&quot;quantity&quot;: &quot;1&quot;,
-			&quot;unit_price&quot;: &quot;2579&quot;
-		}]
-	},
-	&quot;order&quot;: {},
-	&quot;external_reference&quot;: null,
-	&quot;transaction_amount&quot;: 2579,
-	&quot;transaction_amount_refunded&quot;: 0,
-	&quot;coupon_amount&quot;: 0,
-	&quot;differential_pricing_id&quot;: null,
-	&quot;deduction_schema&quot;: null,
-	&quot;transaction_details&quot;: {
-		&quot;net_received_amount&quot;: 0,
-		&quot;total_paid_amount&quot;: 2579,
-		&quot;overpaid_amount&quot;: 0,
-		&quot;external_resource_url&quot;: &quot;https://sandbox.mercadopago.com/coupon/rapipago&quot;,
-		&quot;installment_amount&quot;: 0,
-		&quot;financial_institution&quot;: null,
-		&quot;payment_method_reference_id&quot;: &quot;1204642&quot;
-	},
-	&quot;fee_details&quot;: [],
-	&quot;captured&quot;: true,
-	&quot;binary_mode&quot;: false,
-	&quot;call_for_authorize_id&quot;: null,
-	&quot;statement_descriptor&quot;: null,
-	&quot;installments&quot;: 1,
-	&quot;card&quot;: {},
-	&quot;notification_url&quot;: null,
-	&quot;refunds&quot;: []
-}</string>
 	<key>POST/v1/checkout/payments?public_key=PK_MLA&amp;payment_method_id=visa</key>
 	<string>{
 	&quot;id&quot;: 1204643,
@@ -1754,6 +1681,79 @@
   &quot;card&quot;: {},
   &quot;notification_url&quot;: null,
   &quot;refunds&quot;: []
+}</string>
+	<key>POST/v1/checkout/payments?public_key=PK_MLA&amp;payment_method_id=rapipago</key>
+	<string>{
+	&quot;id&quot;: 1204643,
+	&quot;date_created&quot;: &quot;2016-07-19T14:18:47.000-04:00&quot;,
+	&quot;date_approved&quot;: null,
+	&quot;date_last_updated&quot;: &quot;2016-07-19T14:18:47.000-04:00&quot;,
+	&quot;money_release_date&quot;: null,
+	&quot;operation_type&quot;: &quot;regular_payment&quot;,
+	&quot;issuer_id&quot;: null,
+	&quot;payment_method_id&quot;: &quot;rapipago&quot;,
+	&quot;payment_type_id&quot;: &quot;ticket&quot;,
+	&quot;status&quot;: &quot;pending&quot;,
+	&quot;status_detail&quot;: &quot;pending_waiting_payment&quot;,
+	&quot;currency_id&quot;: &quot;ARS&quot;,
+	&quot;description&quot;: &quot;Bajo Squier 5 cuerdas&quot;,
+	&quot;live_mode&quot;: false,
+	&quot;sponsor_id&quot;: null,
+	&quot;authorization_code&quot;: null,
+	&quot;collector_id&quot;: 150216849,
+	&quot;payer&quot;: {
+		&quot;type&quot;: &quot;guest&quot;,
+		&quot;id&quot;: null,
+		&quot;email&quot;: &quot;lalala@email.com&quot;,
+		&quot;identification&quot;: {
+			&quot;type&quot;: null,
+			&quot;number&quot;: null
+		},
+		&quot;phone&quot;: {
+			&quot;area_code&quot;: null,
+			&quot;number&quot;: null,
+			&quot;extension&quot;: null
+		},
+		&quot;first_name&quot;: null,
+		&quot;last_name&quot;: null
+	},
+	&quot;metadata&quot;: {},
+	&quot;additional_info&quot;: {
+		&quot;items&quot;: [{
+			&quot;id&quot;: null,
+			&quot;title&quot;: &quot;Bajo Squier 5 cuerdas&quot;,
+			&quot;description&quot;: null,
+			&quot;picture_url&quot;: &quot;http://mla-s2-p.mlstatic.com/bajo-electrico-squier-jazz-bass-afinnity-v-5-cuerdas-black-210701-MLA20378414882_082015-O.jpg&quot;,
+			&quot;category_id&quot;: null,
+			&quot;quantity&quot;: &quot;1&quot;,
+			&quot;unit_price&quot;: &quot;2579&quot;
+		}]
+	},
+	&quot;order&quot;: {},
+	&quot;external_reference&quot;: null,
+	&quot;transaction_amount&quot;: 2579,
+	&quot;transaction_amount_refunded&quot;: 0,
+	&quot;coupon_amount&quot;: 0,
+	&quot;differential_pricing_id&quot;: null,
+	&quot;deduction_schema&quot;: null,
+	&quot;transaction_details&quot;: {
+		&quot;net_received_amount&quot;: 0,
+		&quot;total_paid_amount&quot;: 2579,
+		&quot;overpaid_amount&quot;: 0,
+		&quot;external_resource_url&quot;: &quot;https://sandbox.mercadopago.com/coupon/rapipago&quot;,
+		&quot;installment_amount&quot;: 0,
+		&quot;financial_institution&quot;: null,
+		&quot;payment_method_reference_id&quot;: &quot;1204642&quot;
+	},
+	&quot;fee_details&quot;: [],
+	&quot;captured&quot;: true,
+	&quot;binary_mode&quot;: false,
+	&quot;call_for_authorize_id&quot;: null,
+	&quot;statement_descriptor&quot;: null,
+	&quot;installments&quot;: 1,
+	&quot;card&quot;: {},
+	&quot;notification_url&quot;: null,
+	&quot;refunds&quot;: []
 }</string>
 	<key>GET/v1/checkout/preferences/ONLY_CREDIT_CARD?public_key=PK_MLA</key>
 	<string>{
@@ -2166,7 +2166,7 @@
   &quot;site_id&quot;: &quot;MLA&quot;,
   &quot;brand_name&quot;: &quot;asdasd&quot;
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -2757,7 +2757,7 @@
     }
   ]
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_types=credit_card,bank_transfer&amp;excluded_payment_methods=rapipago,bapropagos,cargavirtual</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_types=credit_card,bank_transfer&amp;excluded_payment_methods=rapipago,bapropagos,cargavirtual</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -2791,7 +2791,7 @@
 }
 
 </string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_types=credit_card,bank_transfer</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_types=credit_card,bank_transfer</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -2908,7 +2908,7 @@
     }
   ]
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_types=ticket,bank_transfer</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_types=ticket,bank_transfer</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -3345,7 +3345,7 @@
     }
   ]
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=redlink,rapipago,bapropagos,pagofacil,cargavirtual</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=redlink,rapipago,bapropagos,pagofacil,cargavirtual</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -3782,7 +3782,7 @@
     }
   ]
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=redlink,visa,cordobesa,amex,cargavirtual,nativa,tarshop,argencard,master,cabal,rapipago,cordial,bapropagos,cencosud,cmr,naranja,diners</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=redlink,visa,cordobesa,amex,cargavirtual,nativa,tarshop,argencard,master,cabal,rapipago,cordial,bapropagos,cencosud,cmr,naranja,diners</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -3874,7 +3874,7 @@
     }
   ]
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=redlink,visa,cordobesa,amex,nativa,tarshop,argencard,master,cabal,cordial,cencosud,cmr,naranja,diners</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=redlink,visa,cordobesa,amex,nativa,tarshop,argencard,master,cabal,cordial,cencosud,cmr,naranja,diners</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -3966,7 +3966,7 @@
     }
   ]
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=cordial,cmr,master,naranja,nativa,cabal,tarshop,argencard,cencosud,bapropagos,cordobesa,visa,rapipago,cargavirtual,redlink,diners,amex</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=cordial,cmr,master,naranja,nativa,cabal,tarshop,argencard,cencosud,bapropagos,cordobesa,visa,rapipago,cargavirtual,redlink,diners,amex</key>
 	<string>{
   &quot;groups&quot;: [
     {
@@ -4058,7 +4058,7 @@
     }
   ]
 }</string>
-	<key>GET/v1/checkout/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=cordial,cmr,master,naranja,nativa,cabal,tarshop,argencard,cencosud,cordobesa,visa,redlink,diners,amex</key>
+	<key>GET/payment_methods/search/options?public_key=PK_MLA&amp;amount=2579.0&amp;excluded_payment_methods=cordial,cmr,master,naranja,nativa,cabal,tarshop,argencard,cencosud,cordobesa,visa,redlink,diners,amex</key>
 	<string>{
   &quot;groups&quot;: [
     {

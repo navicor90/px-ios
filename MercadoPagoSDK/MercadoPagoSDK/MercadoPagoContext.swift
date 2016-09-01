@@ -291,8 +291,7 @@ public class MercadoPagoContext : NSObject, MPTrackerDelegate {
     }
     
     public class func isCustomerInfoAvailable() -> Bool {
-        //TODO 
-        return false//(self.sharedInstance.base_url.characters.count > 0 && self.sharedInstance.customer_uri.characters.count > 0 && self.sharedInstance.merchant_access_token.characters.count > 0)
+        return (self.sharedInstance.base_url.characters.count > 0 && self.sharedInstance.customer_uri.characters.count > 0 && self.sharedInstance.merchant_access_token.characters.count > 0)
     }
     
     public class func paymentKey() -> String {

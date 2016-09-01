@@ -25,6 +25,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     var installments : Int?
     var viewModel : PaymentVaultViewModel!
 
+    var customerAccessToken = ""//"TEST-3655020329214032-122910-7f125ed5eecbaaa3d04f0c56953c95b6__LD_LC__-170206767"
     // Info loaded from groups service :
     
     
@@ -284,8 +285,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         
         if self.viewModel.currentPaymentMethodSearch == nil {
             self.showLoading()
-            let customerAccessToken = "TEST-3655020329214032-122910-7f125ed5eecbaaa3d04f0c56953c95b6__LD_LC__-170206767"
-            MPServicesBuilder.searchPaymentMethods(self.viewModel.amount, customerAccessToken: customerAccessToken, excludedPaymentTypeIds: viewModel.getExcludedPaymentTypeIds(), excludedPaymentMethodIds: viewModel.getExcludedPaymentMethodIds(), success: { (paymentMethodSearchResponse: PaymentMethodSearch) -> Void in
+            MPServicesBuilder.searchPaymentMethods(self.viewModel.amount, customerAccessToken: self.customerAccessToken, excludedPaymentTypeIds: viewModel.getExcludedPaymentTypeIds(), excludedPaymentMethodIds: viewModel.getExcludedPaymentMethodIds(), success: { (paymentMethodSearchResponse: PaymentMethodSearch) -> Void in
                 
                 self.viewModel.setPaymentMethodSearch(paymentMethodSearchResponse)
                 self.hideLoading()
