@@ -11,7 +11,7 @@ public class PaymentMethodSearch: Equatable {
     
     var groups : [PaymentMethodSearchItem]!
     var paymentMethods : [PaymentMethod]!
-    var customerPaymentMethods : [CustomerPaymentMethod]?
+    var customerPaymentMethods : [CardInformation]?
     
     public class func fromJSON(json : NSDictionary) -> PaymentMethodSearch {
         let pmSearch = PaymentMethodSearch()

@@ -15,6 +15,8 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
     var type : String!
     var value : String!
     
+    var securityCode : SecurityCode = SecurityCode()
+    
     public class func fromJSON(json : NSDictionary) -> CustomerPaymentMethod {
         let customerPaymentMethod = CustomerPaymentMethod()
         
@@ -62,8 +64,7 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
     }
     
     public func getCardSecurityCode() -> SecurityCode {
-        //TODO : bs
-        return SecurityCode()
+        return self.securityCode
     }
     
     public func getCardDescription() -> String {
@@ -89,7 +90,7 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
     }
     
     public func setupPaymentMethodSettings(settings : [Setting]) {
-        
+        self.securityCode = settings[0].securityCode
     }
     
 }

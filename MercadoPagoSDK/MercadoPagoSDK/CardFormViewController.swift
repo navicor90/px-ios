@@ -636,7 +636,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
         if (textEditMaskFormater.textUnmasked(textBox.text).characters.count==6 || customerCard != nil){
             let pmMatched = self.matchedPaymentMethod()
             
-               paymentMethod = pmMatched
+            paymentMethod = pmMatched
             if(paymentMethod != nil){
                 UIView.animateWithDuration(0.7, animations: { () -> Void in
                self.cardFront?.cardLogo.image =  MercadoPago.getImageFor(self.paymentMethod!)
@@ -693,7 +693,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
     
     
     func delightedLabels(){
-        if (self.paymentMethod == nil){0
+        if (self.paymentMethod == nil){
             cardNumberLabel?.textColor = MPLabel.defaultColorText
             nameLabel?.textColor = MPLabel.defaultColorText
             expirationDateLabel?.textColor = MPLabel.defaultColorText
