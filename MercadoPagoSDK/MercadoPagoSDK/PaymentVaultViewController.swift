@@ -29,7 +29,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     var bundle = MercadoPago.getBundle()
     
     private var tintColor = true
-    internal var isRoot = true
+    
     
     @IBOutlet weak var paymentsTable: UITableView!
     
@@ -214,7 +214,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                     let paymentVault = PaymentVaultViewController(amount: self.viewModel.amount, paymentPreference: self.viewModel.paymentPreference, customerAccessToken: customerAccessToken, callback: { (paymentMethod, token, issuer, payerCost) in
                         self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
                     })
-                    paymentVault.isRoot = false
+                    paymentVault.viewModel.isRoot = false
                     self.navigationController!.pushViewController(paymentVault, animated: true)
                 } else {
                     let customerCardSelected = self.viewModel.customerCards![indexPath.row] as CardInformation
@@ -235,7 +235,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                 let paymentVault = PaymentVaultViewController(amount: self.viewModel.amount, paymentPreference: self.viewModel.paymentPreference, paymentMethodSearchItem: paymentSearchItemSelected.children, paymentMethods : self.viewModel.paymentMethods, title:paymentSearchItemSelected.childrenHeader, callback: { (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void in
                     self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
                 })
-                paymentVault.isRoot = false
+                paymentVault.viewModel.isRoot = false
                 self.navigationController!.pushViewController(paymentVault, animated: true)
             } else {
                 self.viewModel.optionSelected(paymentSearchItemSelected, navigationController: self.navigationController!, cancelPaymentCallback: cardFormCallbackCancel())
@@ -256,7 +256,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     }
     
     private func getCustomerCards(){
-        if self.viewModel.shouldGetCustomerCardsInfo() && self.isRoot {
+        if self.viewModel.shouldGetCustomerCardsInfo() {
             MerchantServer.getCustomer({ (customer: Customer) -> Void in
                 self.viewModel.customerCards = customer.cards
                 self.loadPaymentMethodSearch()
@@ -371,7 +371,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         
         //En caso de que el vc no sea root
         if (navigationController != nil && navigationController!.viewControllers.count > 1 && navigationController!.viewControllers[0] != self) || (navigationController != nil && navigationController!.viewControllers.count == 1) {
-            if self.isRoot {
+            if self.viewModel.isRoot {
                 self.callbackCancel!()
             }
             return true
@@ -393,6 +393,7 @@ class PaymentVaultViewModel : NSObject {
     var currentPaymentMethodSearch : [PaymentMethodSearchItem]!
     
     var callback : ((paymentMethod: PaymentMethod, token:Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void)!
+    var isRoot = true
     
     init(amount : Double, paymentPrefence : PaymentPreference?){
         self.amount = amount
@@ -400,10 +401,14 @@ class PaymentVaultViewModel : NSObject {
     }
     
     func shouldGetCustomerCardsInfo() -> Bool {
-        return MercadoPagoContext.isCustomerInfoAvailable() && self.customerCards == nil && self.customerAccessToken.characters.count == 0
+        return MercadoPagoContext.isCustomerInfoAvailable() && self.customerCards == nil && self.customerAccessToken.characters.count == 0 && self.isRoot
     }
     
     func getCustomerPaymentMethodsToDisplayCount() -> Int {
+        if !self.isRoot && self.customerAccessToken.characters.count == 0 {
+            return 0
+        }
+        
         let numberOfRows = self.displayPayWithMP() ? 1 : 0
         if (self.customerCards != nil && self.customerCards?.count > 0) {
             return (self.customerCards!.count <= (3 - numberOfRows)) ? self.customerCards!.count + numberOfRows : 3
