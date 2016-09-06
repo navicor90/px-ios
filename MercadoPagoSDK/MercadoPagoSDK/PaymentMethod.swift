@@ -144,7 +144,7 @@ public class PaymentMethod : NSObject  {
     }
     
     public func secCodeLenght() -> Int {
-        if (self.settings.count == 0 || self.settings == nil){
+        if (self.settings != nil && self.settings.count == 0 || self.settings == nil){
             return 3 //Si no tiene settings la longitud es cero
         }
         let filterList = self.settings.filter({ return $0.securityCode.length == self.settings[0].securityCode.length })

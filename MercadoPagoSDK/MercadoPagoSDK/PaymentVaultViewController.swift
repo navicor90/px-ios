@@ -484,7 +484,7 @@ class PaymentVaultViewModel : NSObject {
     }
     
     func displayPayWithMP() -> Bool {
-     return true//   return self.customerAccessToken.characters.count == 0
+     return self.customerAccessToken.characters.count == 0
     }
     
     
