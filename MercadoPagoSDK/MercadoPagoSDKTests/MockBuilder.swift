@@ -47,6 +47,10 @@ public class MockBuilder: NSObject {
         return "MERCHANT_ACCESS_TOKEN"
     }
     
+    class var CUSTOMER_ACCESS_TOKEN : String {
+        return "ACCESS_TOKEN"
+    }
+    
     class var INSTALLMENT_AMOUNT : Double {
         return 100.0
     }

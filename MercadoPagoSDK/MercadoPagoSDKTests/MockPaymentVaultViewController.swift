@@ -29,10 +29,10 @@ class MockPaymentVaultViewController: PaymentVaultViewController {
         super.executeBack()
         
     }
-    
-    override internal func optionSelected(paymentSearchItemSelected: PaymentMethodSearchItem, animated: Bool? = true) {
-        self.optionSelected = true
-        self.paymentMethodIdSelected = paymentSearchItemSelected.idPaymentMethodSearchItem
-    }
 
+}
+
+class MockPaymentViewModel : PaymentVaultViewModel {
+    
+    
 }
