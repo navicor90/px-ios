@@ -13,7 +13,7 @@ public class PaymentMethodSearchService: MercadoPagoService {
     public let MP_SEARCH_PAYMENTS_URI = MercadoPago.MP_ENVIROMENT + "/payment_methods/search/options"
     
     public init(){
-        super.init(baseURL: MercadoPago.MP_ALPHA_API_BASE_URL)
+        super.init(baseURL: MercadoPago.MP_API_BASE_URL)
     }
     
     public func getPaymentMethods(amount : Double, customerEmail : String? = nil, customerId : String? = nil, customerAccessToken : String? = nil, excludedPaymentTypeIds : Set<String>?, excludedPaymentMethodIds : Set<String>?, success: (paymentMethodSearch: PaymentMethodSearch) -> Void, failure: ((error: NSError) -> Void)) {
