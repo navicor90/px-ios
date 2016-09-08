@@ -170,8 +170,6 @@ class GuessingFormTest: BaseTest {
         
         self.checkOnlyPaymentMethodGuessing(MockBuilder.AMEX_TEST_CARD_NUMBER, pmId: "amex")
         
-        // Focus on cvv
-        XCTAssertEqual(self.cardFormViewController?.editingLabel, self.cardFormViewController?.cvvLabel)
         
         // Cvv displays on the front
         XCTAssertEqual(self.cardFormViewController?.cvvLabel, self.cardFormViewController?.cardFront?.cardCVV)
@@ -197,7 +195,7 @@ class GuessingFormTest: BaseTest {
         self.cardFormViewController?.updateCardSkin()
         
         
-        XCTAssertNil(self.cardFormViewController?.paymentMethod)
+        XCTAssertNil(self.cardFormViewController?.cardFormManager!.paymentMethod)
    //     XCTAssertNil(self.cardFormViewController?.cardFront?.cardLogo.image)
      //   XCTAssertTrue(self.cardFormViewController?.cardView.backgroundColor == colorDefault!)
         
@@ -210,7 +208,7 @@ class GuessingFormTest: BaseTest {
         self.cardFormViewController?.cardNumberLabel?.text = binNumber
         self.cardFormViewController?.numberLabelEmpty = false
         self.cardFormViewController?.updateCardSkin()
-        XCTAssertNil(self.cardFormViewController?.paymentMethod)
+        XCTAssertNil(self.cardFormViewController?.cardFormManager!.paymentMethod)
     }
     
     func checkOnlyPaymentMethodGuessing(number: String, pmId: String){
@@ -225,11 +223,11 @@ class GuessingFormTest: BaseTest {
         self.cardFormViewController?.numberLabelEmpty = false
         self.cardFormViewController?.updateCardSkin()
         
-        XCTAssertNotNil(self.cardFormViewController?.paymentMethod)
-        let cardLogo = MercadoPago.getImageFor(self.cardFormViewController!.paymentMethod!)
+        XCTAssertNotNil(self.cardFormViewController?.cardFormManager!.paymentMethod)
+        let cardLogo = MercadoPago.getImageFor(self.cardFormViewController!.cardFormManager!.paymentMethod!)
         XCTAssertEqual(self.cardFormViewController?.cardFront?.cardLogo.image, cardLogo)
-        XCTAssertEqual(self.cardFormViewController?.cardView.backgroundColor,MercadoPago.getColorFor((self.cardFormViewController?.paymentMethod)!))
-        XCTAssertEqual(self.cardFormViewController?.paymentMethod?._id, pmId)
+        XCTAssertEqual(self.cardFormViewController?.cardView.backgroundColor,MercadoPago.getColorFor((self.cardFormViewController?.cardFormManager!.paymentMethod)!))
+        XCTAssertEqual(self.cardFormViewController?.cardFormManager!.paymentMethod?._id, pmId)
         
     }
 
