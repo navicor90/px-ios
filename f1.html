@@ -533,6 +533,43 @@ MerchantServer.createPreference(preferenceBody,
                      <em>*</em>Creá una preferencia de pago tan <a href="https://www.mercadopago.com.ar/developers/es/solutions/payments/basic-checkout/receive-payments/additional-info/"  target="_blank"><b>completa</b></a> como puedas. Mientras más información nos envíes, mejor será tu experiencia y la de tus usuarios.
                   </p>
                </section>
+               <section class="docs-section" id="f1_get_customer">
+                  <h3 class="title">Obtener información de cliente</h3>
+                  <p>
+                     Para obtener información referente a un cliente desde un servicio propio, puedes utilizar el método <b>getCustomer</b> propio de MerchantServer. Este método hace un GET a una URL configurada y retorna un objeto <a href="https://github.com/mercadopago/px-ios/blob/development/MercadoPagoSDK/MercadoPagoSDK/Customer.swift">Customer</a> con las tarjetas utilizadas en la plataforma. Por eso debes indicarnos tu URL base (https://api.tunombre.com) y la uri (/get_customer) en la cual tu servicio retorna la información relativa a un cliente. 
+                  </p>
+                  <p>
+                     <a href="https://www.mercadopago.com.ar/developers/es/solutions/payments/basic-checkout/receive-payments/" target="_blank">Cómo guardar información de un cliente en servidor</a>.
+                  </p>
+                  <p>
+                     <pre class="snippet">
+                        <code class="line-numbers language-java">
+let preferenceBody = ["amount" : 12, 
+  "itemId" : 29334, "customerId": 207, 
+  "payer_email" : "customermail@test.com"]
+        
+// Seteo de URL y preferenceUri
+MercadoPagoContext.setBaseURL("https://api.tunombre.com")
+MercadoPagoContext.setPreferenceURI("/create_preference")
+
+MerchantServer.createPreference(preferenceBody, 
+  success: { (checkoutPreference) in
+    // La preferencia se creó correctamente.
+    // Aquí puedes iniciar el Checkout de MercadoPago.
+    MPFlowBuilder.startCheckoutViewController(checkoutPreference._id, 
+      callback: { (payment : Payment) in
+
+    })
+ }, failure: { (error) in
+    // Ups, ocurrió un error
+})
+                        </code>
+                        <button class="copy-button">
+                           <img src="./img/clippy.svg" width="13" alt="Copy to clipboard">
+                        </button>
+                     </pre>
+                  </p>
+               </section>
             </div>
          </div>
       </div>
