@@ -17,6 +17,8 @@ public class MPStepBuilder : NSObject {
         case OK = 0
         case CANCEL_SELECT_OTHER = 1
         case CANCEL_RETRY = 2
+        case CANCEL_RECOVER = 3
+        case CALL_FOR_AUTH = 4
     }
     
     public class func startCustomerCardsStep(cards: [Card],
