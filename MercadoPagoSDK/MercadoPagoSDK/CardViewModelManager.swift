@@ -80,7 +80,7 @@ class CardViewModelManager: NSObject {
     }
     
     /*TODO : VER QUE ONDA, PORQUE DOS VALID CVV?? **/
-    func validInputCVV(text : String) -> Bool{
+    func isValidInputCVV(text : String) -> Bool{
         if( text.characters.count > self.cvvLenght() ){
             return false
         }

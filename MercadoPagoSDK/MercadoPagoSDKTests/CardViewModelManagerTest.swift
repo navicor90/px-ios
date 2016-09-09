@@ -131,10 +131,42 @@ class CardViewModelManagerTest: BaseTest {
         self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentMethod: nil, customerCard: nil, token: nil, paymentSettings: nil)
         let noPaymentMethodFound = self.cardFormManager?.matchedPaymentMethod("XXXX")
         XCTAssertNil(noPaymentMethodFound)
-        
-     
-        
-        
 
+    }
+    
+    func testTokenHidratate(){
+        self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentMethod: nil, customerCard: nil, token: nil, paymentSettings: nil)
+        self.cardFormManager?.cvvEmpty = false
+        self.cardFormManager?.cardholderNameEmpty = false
+        self.cardFormManager?.tokenHidratate("cardNumber", expirationDate: "11/22", cvv: "123", cardholderName: "cardholdername")
+        
+        XCTAssertEqual(self.cardFormManager?.cardToken?.cardNumber, "cardNumber")
+        XCTAssertEqual(self.cardFormManager?.cardToken?.expirationMonth, 11)
+        XCTAssertEqual(self.cardFormManager?.cardToken?.expirationYear, 2022)
+        XCTAssertEqual(self.cardFormManager?.cardToken?.securityCode, "123")
+        XCTAssertEqual(self.cardFormManager?.cardToken?.cardholder?.name, "cardholdername")
+    }
+    
+    func testBuildSavedCardToken(){
+        let customerCard = MockBuilder.buildCard()
+        self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentMethod: nil, customerCard: customerCard, token: nil, paymentSettings: nil)
+        self.cardFormManager?.buildSavedCardToken("cvv")
+        
+        let savedCardToken = self.cardFormManager!.cardToken as! SavedCardToken
+        let savedCardtokenCardId = savedCardToken.cardId
+        //XCTAssertEqual(savedCardtokenCardId, customerCard.idCard)
+        XCTAssertEqual(savedCardToken.securityCode, "cvv")
+        XCTAssertEqual(savedCardToken.securityCodeRequired, customerCard.isSecurityCodeRequired())
+    }
+    
+    func testIsValidInputCVV() {
+        self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentMethod: nil, customerCard: nil, token: nil, paymentSettings: nil)
+        //TODO : acá hay casos locos
+        XCTAssertFalse(self.cardFormManager!.isValidInputCVV(""))
+        XCTAssertTrue(self.cardFormManager!.isValidInputCVV("123"))
+    }
+    
+    func testValidateCardNumber(){
+        
     }
 }

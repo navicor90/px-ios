@@ -339,7 +339,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
        
         case expirationDateLabel! : return validInputDate(textField, shouldChangeCharactersInRange: range, replacementString: string)
         
-        case cvvLabel! : return self.cardFormManager!.validInputCVV(textField.text! + string)
+        case cvvLabel! : return self.cardFormManager!.isValidInputCVV(textField.text! + string)
         default : return false
         }
     }
