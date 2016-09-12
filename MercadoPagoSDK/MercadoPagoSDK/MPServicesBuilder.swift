@@ -22,7 +22,7 @@ public class MPServicesBuilder : NSObject {
         MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "CREATE_CARD_TOKEN", result: nil)
       
         cardToken.device = Device()
-        let service = GatewayService(baseURL: MercadoPago.MP_API_BASE_URL)
+        let service = GatewayService(baseURL: MercadoPago.MP_API_BASE_URL_PROD)
         service.getToken(public_key: MercadoPagoContext.publicKey(), cardToken: cardToken, success: {(jsonResult: AnyObject?) -> Void in
             var token : Token? = nil
             if let tokenDic = jsonResult as? NSDictionary {
@@ -46,7 +46,7 @@ public class MPServicesBuilder : NSObject {
             MercadoPagoContext.initFlavor1()
             MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "CREATE_SAVED_TOKEN", result: nil)
             savedCardToken.device = Device()
-            let service : GatewayService = GatewayService(baseURL: MercadoPago.MP_API_BASE_URL)
+            let service : GatewayService = GatewayService(baseURL: MercadoPago.MP_API_BASE_URL_PROD)
             service.getToken(public_key: MercadoPagoContext.publicKey(), savedCardToken: savedCardToken, success: {(jsonResult: AnyObject?) -> Void in
                 var token : Token? = nil
                 if let tokenDic = jsonResult as? NSDictionary {
@@ -70,7 +70,7 @@ public class MPServicesBuilder : NSObject {
         
             MercadoPagoContext.initFlavor1()
             MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "GET_PAYMENT_METHODS", result: nil)
-              let service : PaymentService = PaymentService(baseURL: MercadoPago.MP_API_BASE_URL)
+              let service : PaymentService = PaymentService(baseURL: MercadoPago.MP_API_BASE_URL_PROD)
             service.getPaymentMethods(public_key: MercadoPagoContext.publicKey(), success: {(jsonResult: AnyObject?) -> Void in
                 if let errorDic = jsonResult as? NSDictionary {
                     if errorDic["error"] != nil {
@@ -100,7 +100,7 @@ public class MPServicesBuilder : NSObject {
         
         MercadoPagoContext.initFlavor1()
         MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "GET_IDENTIFICATION_TYPES", result: nil)
-             let service : IdentificationService = IdentificationService(baseURL: MercadoPago.MP_API_BASE_URL)
+             let service : IdentificationService = IdentificationService(baseURL: MercadoPago.MP_API_BASE_URL_PROD)
             service.getIdentificationTypes(public_key: MercadoPagoContext.publicKey(), privateKey: MercadoPagoContext.privateKey(), success: {(jsonResult: AnyObject?) -> Void in
                 
                 if let error = jsonResult as? NSDictionary {
@@ -132,7 +132,7 @@ public class MPServicesBuilder : NSObject {
         MercadoPagoContext.initFlavor1()
         MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "GET_INSTALLMENTS", result: nil)
 
-            let service : PaymentService = PaymentService(baseURL: MercadoPago.MP_API_BASE_URL)
+            let service : PaymentService = PaymentService(baseURL: MercadoPago.MP_API_BASE_URL_PROD)
             service.getInstallments(public_key:MercadoPagoContext.publicKey(), bin: bin, amount: amount, issuer_id: issuer?._id, payment_method_id: paymentMethodId, success: success, failure: failure)
         
     }
@@ -141,7 +141,7 @@ public class MPServicesBuilder : NSObject {
         MercadoPagoContext.initFlavor1()
         MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "GET_ISSUERS", result: nil)
 
-            let service : PaymentService = PaymentService(baseURL: MercadoPago.MP_API_BASE_URL)
+            let service : PaymentService = PaymentService(baseURL: MercadoPago.MP_API_BASE_URL_PROD)
             service.getIssuers(public_key: MercadoPagoContext.publicKey(), payment_method_id: paymentMethod._id, bin: bin, success: {(jsonResult: AnyObject?) -> Void in
 
                 if let errorDic = jsonResult as? NSDictionary {
@@ -173,7 +173,7 @@ public class MPServicesBuilder : NSObject {
         MercadoPagoContext.initFlavor1()
         MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "GET_BANK_DEALS", result: nil)
         
-        let service : PromosService = PromosService(baseURL: MercadoPago.MP_API_BASE_URL)
+        let service : PromosService = PromosService(baseURL: MercadoPago.MP_API_BASE_URL_PROD)
         service.getPromos(public_key: MercadoPagoContext.publicKey(), success: { (jsonResult) -> Void in
             let promosArray = jsonResult as? NSArray?
             var promos : [Promo] = [Promo]()

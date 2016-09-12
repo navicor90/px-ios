@@ -53,7 +53,7 @@ public class PaymentCongratsViewController: MercadoPagoUIViewController , MPPaym
         self.congratsContentTable.dataSource = self
         
         self.congratsContentTable.tableHeaderView = UIView(frame: CGRectMake(0.0, 0.0,
-            self.congratsContentTable.bounds.size.width, 0.01))
+        self.congratsContentTable.bounds.size.width, 0.01))
         self.congratsContentTable.rowHeight = UITableViewAutomaticDimension
         self.congratsContentTable.estimatedRowHeight = 160.0
         }
