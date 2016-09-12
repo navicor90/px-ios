@@ -281,6 +281,55 @@ class CheckoutViewControllerTest: BaseTest {
         
     }
     
+    /*
+     *  Todos los medios de pago disponible.
+     *  Se selecciona cc para pago.
+     *  Última pantalla es congrats
+     */
+    func testCheckoutMLA_preferenceSet(){
+        
+        let preference = MockBuilder.buildCheckoutPreference()
+        self.checkoutViewController = MockCheckoutViewController(preferenceId: MockBuilder.PREF_ID_NO_EXCLUSIONS, callback: { (payment : Payment) in
+
+        })
+        self.checkoutViewController?.preference = preference
+        
+        // Metodo de pago no seleccionado
+        XCTAssertNil(checkoutViewController?.paymentMethod)
+        
+        self.checkoutViewController = self.simulateViewDidLoadFor(checkoutViewController!) as! MockCheckoutViewController
+        
+        let navigationController = UINavigationController(rootViewController: self.checkoutViewController!)
+        
+        XCTAssertNotNil(checkoutViewController?.paymentMethodSearch)
+        XCTAssertTrue(checkoutViewController?.paymentMethodSearch?.groups.count == MockBuilder.MLA_PAYMENT_TYPES.count)
+        
+        // Pago con tarjeta de crédito
+        verifyPaymentVaultSelection_creditCard()
+        
+        verifyConfirmPaymentCC()
+        
+        // Verificar que ultima pantalla sea de pago aprobado
+        let lastViewController = self.checkoutViewController!.navigationController?.viewControllers.last
+        XCTAssertNotNil(lastViewController)
+        //   XCTAssertTrue(lastViewController!.isKindOfClass(PaymentCongratsViewController))
+        
+        //Verificar payment method id seleccionado en instrucciones
+        //   let congrats = (lastViewController as! PaymentCongratsViewController)
+        //XCTAssertEqual(congrats.payment.paymentMethodId, self.selectedPaymentMethod?._id)
+        
+        
+    }
+    
+    func testNumberOfSections(){
+        self.checkoutViewController = MockCheckoutViewController(preferenceId: MockBuilder.PREF_ID_NO_EXCLUSIONS, callback: { (payment : Payment) in
+            
+        })
+        let numberOfSections = self.checkoutViewController?.numberOfSectionsInTableView(self.checkoutViewController?.checkoutTable)
+        XCTAssertTrue(numberOfSections == 0)
+        
+        self.checkoutViewController?.paymentMethod = MockBuilder.buildPaymentMethod("amex")
+    }
     
     func verifyPaymentVaultSelection_paymentMethodOff(paymentMethodId : String){
         
