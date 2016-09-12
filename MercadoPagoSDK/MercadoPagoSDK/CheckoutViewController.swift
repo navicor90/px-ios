@@ -119,17 +119,17 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         }
         
         if indexPath.row == 0 {
-            if self.paymentMethod == nil || (self.paymentMethod != nil && self.paymentMethod!.isOfflinePaymentMethod()){
+            if self.paymentMethod == nil || (self.paymentMethod != nil && (self.paymentMethod!.isOfflinePaymentMethod() || self.paymentMethod!._id == "account_money")){
                 return 80
             }
             return 48
         } else if indexPath.row == 1 {
-            if self.paymentMethod == nil || (self.paymentMethod != nil && self.paymentMethod!.isOfflinePaymentMethod()){
+            if self.paymentMethod == nil || (self.paymentMethod != nil && (self.paymentMethod!.isOfflinePaymentMethod() || self.paymentMethod!._id == "account_money")){
                 return 60
             }
             return 48
         } else if indexPath.row == 2 {
-            if self.paymentMethod == nil || (self.paymentMethod != nil && self.paymentMethod!.isOfflinePaymentMethod()){
+            if self.paymentMethod == nil || (self.paymentMethod != nil && (self.paymentMethod!.isOfflinePaymentMethod() || self.paymentMethod!._id == "account_money")){
                 return 160
             }
             return 50
@@ -148,7 +148,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         }
         if (self.paymentMethod == nil) {
             return 2
-        } else if self.paymentMethod!.isOfflinePaymentMethod(){
+        } else if self.paymentMethod!.isOfflinePaymentMethod() || self.paymentMethod!._id == "account_money"{
             return 3
         }
         return 4
@@ -164,11 +164,19 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
             return preferenceDescriptionCell
         } else if indexPath.row == 0 {
             if self.paymentMethod != nil {
-                if self.paymentMethod!.isOfflinePaymentMethod() {
+                if self.paymentMethod!.isOfflinePaymentMethod() || self.paymentMethod?._id == "account_money"{
                     let cell = tableView.dequeueReusableCellWithIdentifier("offlinePaymentCell", forIndexPath: indexPath) as! OfflinePaymentMethodCell
+                    //TODO : otra cosa espeluznante
                     let paymentTypeIdEnum = PaymentTypeId(rawValue :self.paymentMethod!.paymentTypeId)!
-                    let paymentMethodSearchItemSelected = Utils.findPaymentMethodSearchItemInGroups(self.paymentMethodSearch!, paymentMethodId: self.paymentMethod!._id, paymentTypeId: paymentTypeIdEnum)
-                    cell.fillRowWithPaymentMethod(self.paymentMethod!, paymentMethodSearchItemSelected: paymentMethodSearchItemSelected!)
+                    let paymentMethodSearchItemSelected : PaymentMethodSearchItem
+                    if paymentTypeIdEnum != PaymentTypeId.ACCOUNT_MONEY {
+                        paymentMethodSearchItemSelected = Utils.findPaymentMethodSearchItemInGroups(self.paymentMethodSearch!, paymentMethodId: self.paymentMethod!._id, paymentTypeId: paymentTypeIdEnum)!
+                    } else {
+                        paymentMethodSearchItemSelected = PaymentMethodSearchItem()
+                        paymentMethodSearchItemSelected.description = "Dinero en cuenta"
+                    }
+                    
+                    cell.fillRowWithPaymentMethod(self.paymentMethod!, paymentMethodSearchItemSelected: paymentMethodSearchItemSelected)
                     if self.paymentMethodSearch!.paymentMethods.count == 1 {
                         cell.selectionStyle = .None
                         cell.accessoryType = .None
@@ -187,7 +195,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
             return tableView.dequeueReusableCellWithIdentifier("selectPaymentMethodCell", forIndexPath: indexPath) as! SelectPaymentMethodCell
         } else if indexPath.row == 1 {
             
-            if paymentMethod != nil && !paymentMethod!.isOfflinePaymentMethod() {
+            if paymentMethod != nil && !paymentMethod!.isOfflinePaymentMethod() && paymentMethod!._id != "account_money"  {
                 let installmentsCell = self.checkoutTable.dequeueReusableCellWithIdentifier("installmentSelectionCell") as! InstallmentSelectionTableViewCell
                 installmentsCell.fillCell(self.payerCost!)
                 return installmentsCell
@@ -203,7 +211,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
             return footer
 
         } else if indexPath.row == 2 {
-            if paymentMethod != nil && paymentMethod!.isOfflinePaymentMethod() {
+            if paymentMethod != nil && (paymentMethod!.isOfflinePaymentMethod() || paymentMethod!._id == "account_money"){
                 let termsAndConditionsButton = self.checkoutTable.dequeueReusableCellWithIdentifier("purchaseTermsAndConditions") as! TermsAndConditionsViewCell
                 termsAndConditionsButton.paymentButton.addTarget(self, action: "confirmPayment", forControlEvents: .TouchUpInside)
                 termsAndConditionsButton.delegate = self
@@ -332,7 +340,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     internal func confirmPayment(){
         
         self.showLoading()
-        if (self.paymentMethod!.isOfflinePaymentMethod()){
+        if (self.paymentMethod!.isOfflinePaymentMethod() || self.paymentMethod?._id == "account_money"){
             self.confirmPaymentOff()
         } else {
             self.confirmPaymentOn()
