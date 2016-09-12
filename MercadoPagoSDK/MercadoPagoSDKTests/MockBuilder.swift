@@ -70,7 +70,7 @@ public class MockBuilder: NSObject {
     class func buildCheckoutPreference() -> CheckoutPreference {
         let preference = CheckoutPreference()
         preference._id = PREF_ID_NO_EXCLUSIONS
-        preference.items = [self.buildItem("itemId", quantity: 1, unitPrice: 10), self.buildItem("itemId2", quantity: 2, unitPrice: 10)]
+        preference.items = [self.buildItem("itemId", quantity: 1, unitPrice: 2559), self.buildItem("itemId2", quantity: 2, unitPrice: 10)]
         preference.payer = Payer.fromJSON(MockManager.getMockFor("Payer")!)
         return preference
     }
