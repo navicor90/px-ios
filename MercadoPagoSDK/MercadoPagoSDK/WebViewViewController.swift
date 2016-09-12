@@ -8,13 +8,17 @@
 
 import UIKit
 
-class WebViewViewController: MercadoPagoUIViewController, UIWebViewDelegate {
+public class WebViewViewController: MercadoPagoUIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var webView: UIWebView!
-    override func viewDidLoad() {
+    var bundle : NSBundle? = MercadoPago.getBundle()
+    var clientId:String = ""
+    var returnUri:String = ""
+    
+    override public func viewDidLoad() {
         super.viewDidLoad()
-
-        let url = NSURL (string: "https://www.google.com.ar/#q=mercadopago");
+        print(clientId)
+        let url = NSURL (string: "https://auth.mercadopago.com.ar/authorization?client_id=\(clientId)&response_type=code&platform_id=mp&redirect_uri=\(returnUri)");
         let requestObj = NSURLRequest(URL: url!);
         
         webView.delegate = self
@@ -26,14 +30,22 @@ class WebViewViewController: MercadoPagoUIViewController, UIWebViewDelegate {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    public init(returnUri: String){
+        super.init(nibName: "WebViewViewController", bundle: self.bundle)
+        self.clientId = MercadoPagoContext.clientId()
+        self.returnUri = returnUri
+    }
+    public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
         let surl = request.URL?.absoluteString
         
-        if  surl ==  "https://www.mercadopago.com.ar/"{
-            print("Mercado Pago")
-            self.navigationController?.popToRootViewControllerAnimated(true)
+        print("url: ",request.URL?.absoluteString)
+        
+        if surl!.rangeOfString("?code=") != nil{
+            let urlArray = surl?.characters.split{$0 == "="}.map(String.init)
+            print("CODE ",urlArray![(urlArray?.count)!-1])
             
+            self.navigationController?.popToRootViewControllerAnimated(true)
             return false
             
         }
@@ -41,7 +53,7 @@ class WebViewViewController: MercadoPagoUIViewController, UIWebViewDelegate {
         return true
     }
 
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

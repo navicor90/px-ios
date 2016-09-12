@@ -37,6 +37,8 @@ public class MercadoPagoContext : NSObject, MPTrackerDelegate {
     var language : String!
     
     var termsAndConditionsSite : String!
+    
+    var client_id :String = ""
 
     
     var currency : Currency!
@@ -132,6 +134,9 @@ public class MercadoPagoContext : NSObject, MPTrackerDelegate {
         return self.public_key
     }
     
+    public func clientId() -> String!{
+        return self.client_id
+    }
     
     private static var primaryColor : UIColor = UIColor.mpDefaultColor()
 
@@ -195,6 +200,9 @@ public class MercadoPagoContext : NSObject, MPTrackerDelegate {
        let cardFront = CardFrontView()
        let  cardBack = CardBackView()
         
+    }
+    public class func setClientId(client_id : String){
+        sharedInstance.client_id = client_id
     }
     
     public class func initFlavor1(){
@@ -260,10 +268,15 @@ public class MercadoPagoContext : NSObject, MPTrackerDelegate {
         
     }
     
-    
     public class func privateKey() -> String {
         
         return sharedInstance.private_key
+        
+    }
+    
+    public class func clientId() -> String {
+        
+        return sharedInstance.client_id
         
     }
     

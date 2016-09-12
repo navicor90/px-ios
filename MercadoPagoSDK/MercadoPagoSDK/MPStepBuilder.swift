@@ -97,6 +97,9 @@ public class MPStepBuilder : NSObject {
         MercadoPagoContext.initFlavor2()
         return PromoViewController(callback : callback)
     }
+    public class func startConnect(returnUri: String) -> WebViewViewController {
+        return WebViewViewController(returnUri: returnUri)
+    }
     
 
 

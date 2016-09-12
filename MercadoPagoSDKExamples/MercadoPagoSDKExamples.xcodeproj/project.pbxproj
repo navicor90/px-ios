@@ -49,6 +49,11 @@
 		15A08EB91D36B1FF00CE3E71 /* MercadoPagoUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A08EB81D36B1FF00CE3E71 /* MercadoPagoUITest.swift */; };
 		15A2B9AB1D3E5F7E003D3720 /* MainExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766CDFEE1D240ED000F9FAD4 /* MainExamplesViewController.swift */; };
 		15A2B9AC1D3E5F7E003D3720 /* MainExamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766CDFEE1D240ED000F9FAD4 /* MainExamplesViewController.swift */; };
+		4B65990A1D86D4B800EA36D7 /* MercadoPagoSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = 15FCA7891C84980B00D9E8CE /* MercadoPagoSDK.framework */; };
+		4B65990F1D86D4D800EA36D7 /* MPGoogleAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157FAE851D1B28EF00AB13B0 /* MPGoogleAnalytics.framework */; };
+		4B6599101D86D4D800EA36D7 /* MPGoogleAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 157FAE851D1B28EF00AB13B0 /* MPGoogleAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4B6599171D86D5AB00EA36D7 /* MercadoPagoTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157FAE831D1B28EF00AB13B0 /* MercadoPagoTracker.framework */; };
+		4B6599181D86D5AB00EA36D7 /* MercadoPagoTracker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 157FAE831D1B28EF00AB13B0 /* MercadoPagoTracker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		762713691D343424008DC3AB /* CardFlowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762713681D343424008DC3AB /* CardFlowTest.swift */; };
 		7627136C1D343580008DC3AB /* CardFormActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7627136B1D343580008DC3AB /* CardFormActions.swift */; };
 		7639DAB41D353FB5003E3DCB /* MainExamplesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766CDFEF1D240ED000F9FAD4 /* MainExamplesViewController.xib */; };
@@ -132,6 +137,20 @@
 			remoteGlobalIDString = 0F9883151AD2A97A00F750F0;
 			remoteInfo = MercadoPagoSDKTests;
 		};
+		4B6599111D86D4D800EA36D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 157FAE791D1B28EF00AB13B0 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8C44E3DBA5D8C869A82450BF7DFC3D60;
+			remoteInfo = MPGoogleAnalytics;
+		};
+		4B6599191D86D5AB00EA36D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 157FAE791D1B28EF00AB13B0 /* Pods.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = E64C8F08696453E633DE528C692BF193;
+			remoteInfo = MercadoPagoTracker;
+		};
 		76AFD3A21D34236B00A9DDAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0F9884EE1AD2BCB900F750F0 /* Project object */;
@@ -149,6 +168,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				76B49AEF1D4FB228003CB84D /* MercadoPagoSDK.framework in Embed Frameworks */,
+				4B6599101D86D4D800EA36D7 /* MPGoogleAnalytics.framework in Embed Frameworks */,
+				4B6599181D86D5AB00EA36D7 /* MercadoPagoTracker.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,6 +230,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				76B49AF01D4FB22B003CB84D /* MercadoPagoSDK.framework in Frameworks */,
+				4B65990F1D86D4D800EA36D7 /* MPGoogleAnalytics.framework in Frameworks */,
+				4B6599171D86D5AB00EA36D7 /* MercadoPagoTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +512,8 @@
 			);
 			dependencies = (
 				150ABE711D47AF3600BF9271 /* PBXTargetDependency */,
+				4B6599121D86D4D800EA36D7 /* PBXTargetDependency */,
+				4B65991A1D86D5AB00EA36D7 /* PBXTargetDependency */,
 			);
 			name = MercadoPagoSDKExamples;
 			productName = MercadoPagoSDKExamples;
@@ -647,6 +672,7 @@
 				0F9885421AD2BDA700F750F0 /* SimpleVaultViewController.xib in Resources */,
 				0F98854B1AD2BDDD00F750F0 /* LaunchScreen.xib in Resources */,
 				0F9885061AD2BCB900F750F0 /* Images.xcassets in Resources */,
+				4B65990A1D86D4B800EA36D7 /* MercadoPagoSDK.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -754,6 +780,16 @@
 			isa = PBXTargetDependency;
 			name = MercadoPagoSDK;
 			targetProxy = 150ABE701D47AF3600BF9271 /* PBXContainerItemProxy */;
+		};
+		4B6599121D86D4D800EA36D7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MPGoogleAnalytics;
+			targetProxy = 4B6599111D86D4D800EA36D7 /* PBXContainerItemProxy */;
+		};
+		4B65991A1D86D5AB00EA36D7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MercadoPagoTracker;
+			targetProxy = 4B6599191D86D5AB00EA36D7 /* PBXContainerItemProxy */;
 		};
 		76AFD3A31D34236B00A9DDAD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

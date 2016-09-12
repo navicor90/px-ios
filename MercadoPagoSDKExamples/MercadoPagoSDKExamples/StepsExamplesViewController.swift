@@ -18,7 +18,8 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         "Selección de medio de pago simple".localized,
         "Selección de Banco".localized,
         "Selección de Cuotas".localized,
-        "Crear Pago".localized
+        "Crear Pago".localized,
+        "Connect".localized
     ]
     
     @IBOutlet weak var stepsExamplesTable: UITableView!
@@ -86,6 +87,8 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
             startInstallmentsStep()
         case 6:
             createPayment()
+        case 7:
+            connect()
         default:
             break
         }
@@ -146,6 +149,12 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
             self.navigationController!.popViewControllerAnimated(true)
         }
         self.navigationController?.pushViewController(issuersVC, animated: true)
+        
+    }
+    private func connect(){
+        MercadoPagoContext.setClientId("3339632528347950")
+        let connectVC = MPStepBuilder.startConnect("http://www.mercadopago.com.ar")
+        self.navigationController?.pushViewController(connectVC, animated: true)
         
     }
     
