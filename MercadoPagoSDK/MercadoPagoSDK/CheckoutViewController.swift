@@ -88,7 +88,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
                 }
                 if (auth){
                     auth = false
-                    self.startAuthCard()
+                    self.startAuthCard(self.token!)
                 }
                 
             } else {
@@ -318,12 +318,13 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
         
     }
-    internal func startAuthCard(){
-        let cardFlow = MPFlowBuilder.startCardFlow(amount: (self.preference?.getAmount())!, cardInformation : nil, callback: { (paymentMethod, token, issuer, payerCost) in
+    internal func startAuthCard(token:Token){
+        let cardFlow = MPFlowBuilder.startCardFlow(amount: (self.preference?.getAmount())!, cardInformation : nil, token: token, callback: { (paymentMethod, token, issuer, payerCost) in
             self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : true)
             }, callbackCancel: {
                 self.navigationController!.popToViewController(self, animated: true)
         })
+        
         self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
         
     }
@@ -350,7 +351,10 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         
         self.paymentMethod = paymentMethod
         self.token = token
-        self.issuer = issuer
+        if (issuer != nil){
+            self.issuer = issuer
+        }
+
         self.payerCost = payerCost
     }
     
