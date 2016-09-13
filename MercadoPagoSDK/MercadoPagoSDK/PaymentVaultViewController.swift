@@ -318,7 +318,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
 
     
     
-    private func getCellFor(currentPaymentMethodItem : PaymentMethodSearchItem) -> UITableViewCell {
+    internal func getCellFor(currentPaymentMethodItem : PaymentMethodSearchItem) -> UITableViewCell {
         if currentPaymentMethodItem.showIcon.boolValue {
             let iconImage = MercadoPago.getImage(currentPaymentMethodItem.idPaymentMethodSearchItem)
             let tintColor = self.tintColor && (!currentPaymentMethodItem.isPaymentMethod() || currentPaymentMethodItem.isBitcoin())
@@ -466,7 +466,7 @@ class PaymentVaultViewModel : NSObject {
     }
     
     func displayPayWithMP() -> Bool {
-     return self.customerAccessToken.characters.count == 0
+     return false //self.customerAccessToken.characters.count == 0
     }
     
     internal func optionSelected(paymentSearchItemSelected : PaymentMethodSearchItem, navigationController : UINavigationController, cancelPaymentCallback : (Void -> (Void)),animated: Bool = true) {

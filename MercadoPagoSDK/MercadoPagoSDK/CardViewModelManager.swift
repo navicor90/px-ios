@@ -30,7 +30,7 @@ class CardViewModelManager: NSObject {
         self.paymentMethods = paymentMethods
         self.paymentMethod = paymentMethod
         self.customerCard = customerCard
-        if customerCard != nil && customerCard?.getPaymentMethod() != nil {
+        if customerCard != nil {
             self.paymentMethod = customerCard?.getPaymentMethod()
         }
         self.token = token

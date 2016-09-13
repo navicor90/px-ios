@@ -36,7 +36,7 @@ class CheckoutViewControllerTest: BaseTest {
         XCTAssertEqual(checkoutViewController!.preferenceId, MockBuilder.PREF_ID_NO_EXCLUSIONS)
         XCTAssertEqual(checkoutViewController!.publicKey, MercadoPagoContext.publicKey())
         XCTAssertEqual(checkoutViewController!.accessToken, MercadoPagoContext.merchantAccessToken())
-        XCTAssertNil(checkoutViewController!.paymentMethod)
+        XCTAssertNil(checkoutViewController!.viewModel!.paymentMethod)
     }
     
     func testSetupCheckoutWithPreference(){
@@ -49,7 +49,7 @@ class CheckoutViewControllerTest: BaseTest {
         
         waitForExpectationsWithTimeout(BaseTest.WAIT_EXPECTATION_TIME_INTERVAL, handler: nil)
         // Cargar vista
-              self.simulateViewDidLoadFor(self.checkoutViewController!)
+        self.simulateViewDidLoadFor(self.checkoutViewController!)
         
         // Verificar preferencia
         XCTAssertEqual(self.preference?._id, self.checkoutViewController!.preference?._id)
@@ -72,14 +72,14 @@ class CheckoutViewControllerTest: BaseTest {
         })
         
         // Metodo de pago no seleccionado
-        XCTAssertNil(checkoutViewController?.paymentMethod)
+        XCTAssertNil(checkoutViewController?.viewModel!.paymentMethod)
         
         self.simulateViewDidLoadFor(checkoutViewController!)
         
         let navigationController = UINavigationController(rootViewController: self.checkoutViewController!)
         
-        XCTAssertNotNil(checkoutViewController?.paymentMethodSearch)
-        XCTAssertTrue(checkoutViewController?.paymentMethodSearch?.groups.count == MockBuilder.MLA_PAYMENT_TYPES.count)
+        XCTAssertNotNil(checkoutViewController?.viewModel!.paymentMethodSearch)
+        XCTAssertTrue(checkoutViewController?.viewModel!.paymentMethodSearch?.groups.count == MockBuilder.MLA_PAYMENT_TYPES.count)
         
         // Verificar selección de medio off
         verifyPaymentVaultSelection_paymentMethodOff("rapipago")
@@ -112,14 +112,14 @@ class CheckoutViewControllerTest: BaseTest {
         })
         
         // Metodo de pago no seleccionado
-        XCTAssertNil(checkoutViewController?.paymentMethod)
+        XCTAssertNil(checkoutViewController?.viewModel!.paymentMethod)
         
         self.checkoutViewController = self.simulateViewDidLoadFor(checkoutViewController!) as! MockCheckoutViewController
         
         let navigationController = UINavigationController(rootViewController: self.checkoutViewController!)
         
-        XCTAssertNotNil(checkoutViewController?.paymentMethodSearch)
-        XCTAssertTrue(checkoutViewController?.paymentMethodSearch?.groups.count == MockBuilder.MLA_PAYMENT_TYPES.count)
+        XCTAssertNotNil(checkoutViewController?.viewModel!.paymentMethodSearch)
+        XCTAssertTrue(checkoutViewController?.viewModel!.paymentMethodSearch?.groups.count == MockBuilder.MLA_PAYMENT_TYPES.count)
         
         // Pago con tarjeta de crédito
         verifyPaymentVaultSelection_creditCard()
@@ -152,17 +152,17 @@ class CheckoutViewControllerTest: BaseTest {
         
         
         // Metodo de pago no seleccionado
-        XCTAssertNil(checkoutViewController?.paymentMethod)
+        XCTAssertNil(checkoutViewController?.viewModel!.paymentMethod)
         
         self.simulateViewDidLoadFor(checkoutViewController!)
         
         let navigationController = UINavigationController(rootViewController: self.checkoutViewController!)
         
         // Solo tarjeta de crédito disponible
-        XCTAssertNotNil(checkoutViewController?.paymentMethodSearch)
+        XCTAssertNotNil(checkoutViewController?.viewModel!.paymentMethodSearch)
         let excludedPaymentTypeIds = Set([PaymentTypeId.TICKET.rawValue, PaymentTypeId.BANK_TRANSFER.rawValue])
         let availablePaymentTypes = MockBuilder.MLA_PAYMENT_TYPES.subtract(excludedPaymentTypeIds)
-        XCTAssertTrue(checkoutViewController?.paymentMethodSearch?.groups.count == availablePaymentTypes.count)
+        XCTAssertTrue(checkoutViewController?.viewModel!.paymentMethodSearch?.groups.count == availablePaymentTypes.count)
         
         // Pago con tarjeta de crédito
         verifyPaymentVaultSelection_creditCard()
@@ -201,18 +201,18 @@ class CheckoutViewControllerTest: BaseTest {
         })
         
         // Metodo de pago no seleccionado
-        XCTAssertNil(checkoutViewController?.paymentMethod)
+        XCTAssertNil(checkoutViewController?.viewModel!.paymentMethod)
         
         self.simulateViewDidLoadFor(checkoutViewController!)
         
         let navigationController = UINavigationController(rootViewController: self.checkoutViewController!)
         
         // Solo medios off disponibles
-        XCTAssertNotNil(checkoutViewController?.paymentMethodSearch)
+        XCTAssertNotNil(checkoutViewController?.viewModel!.paymentMethodSearch)
         // Solo ticket disponible
-        XCTAssertTrue(checkoutViewController?.paymentMethodSearch?.groups.count == 1)
-        XCTAssertNotNil(checkoutViewController!.paymentMethodSearch!.groups[0].children)
-        XCTAssertTrue(checkoutViewController?.paymentMethodSearch?.groups[0].children.count == 3)
+        XCTAssertTrue(checkoutViewController?.viewModel!.paymentMethodSearch?.groups.count == 1)
+        XCTAssertNotNil(checkoutViewController!.viewModel!.paymentMethodSearch!.groups[0].children)
+        XCTAssertTrue(checkoutViewController?.viewModel!.paymentMethodSearch?.groups[0].children.count == 3)
         
         // Seleccionar método de pago
         verifyPaymentVaultSelection_paymentMethodOff("pagofacil")
@@ -249,14 +249,14 @@ class CheckoutViewControllerTest: BaseTest {
         })
         
         // Metodo de pago no seleccionado
-        XCTAssertNil(checkoutViewController?.paymentMethod)
+        XCTAssertNil(checkoutViewController?.viewModel!.paymentMethod)
         
         self.simulateViewDidLoadFor(checkoutViewController!)
         let navigationController = UINavigationController(rootViewController: self.checkoutViewController!)
         
         // Solo pagofacil disponible
-        XCTAssertNotNil(checkoutViewController?.paymentMethodSearch)
-        XCTAssertTrue(checkoutViewController?.paymentMethodSearch?.groups.count == 1)
+        XCTAssertNotNil(checkoutViewController?.viewModel!.paymentMethodSearch)
+        XCTAssertTrue(checkoutViewController?.viewModel!.paymentMethodSearch?.groups.count == 1)
         
         // Seleccionar método de pago
         verifyPaymentVaultSelection_paymentMethodOff("pagofacil")
@@ -295,14 +295,14 @@ class CheckoutViewControllerTest: BaseTest {
         self.checkoutViewController?.preference = preference
         
         // Metodo de pago no seleccionado
-        XCTAssertNil(checkoutViewController?.paymentMethod)
+        XCTAssertNil(checkoutViewController?.viewModel!.paymentMethod)
         
         self.checkoutViewController = self.simulateViewDidLoadFor(checkoutViewController!) as! MockCheckoutViewController
         
         let navigationController = UINavigationController(rootViewController: self.checkoutViewController!)
         
-        XCTAssertNotNil(checkoutViewController?.paymentMethodSearch)
-        XCTAssertTrue(checkoutViewController?.paymentMethodSearch?.groups.count == MockBuilder.MLA_PAYMENT_TYPES.count)
+        XCTAssertNotNil(checkoutViewController?.viewModel!.paymentMethodSearch)
+        XCTAssertTrue(checkoutViewController?.viewModel!.paymentMethodSearch?.groups.count == MockBuilder.MLA_PAYMENT_TYPES.count)
         
         // Pago con tarjeta de crédito
         verifyPaymentVaultSelection_creditCard()
@@ -325,15 +325,18 @@ class CheckoutViewControllerTest: BaseTest {
         self.checkoutViewController = MockCheckoutViewController(preferenceId: MockBuilder.PREF_ID_NO_EXCLUSIONS, callback: { (payment : Payment) in
             
         })
-        let numberOfSections = self.checkoutViewController?.numberOfSectionsInTableView(self.checkoutViewController?.checkoutTable)
+        self.simulateViewDidLoadFor(self.checkoutViewController!)
+        let numberOfSections = self.checkoutViewController?.numberOfSectionsInTableView(self.checkoutViewController!.checkoutTable)
         XCTAssertTrue(numberOfSections == 0)
         
-        self.checkoutViewController?.paymentMethod = MockBuilder.buildPaymentMethod("amex")
+        self.checkoutViewController?.viewModel!.paymentMethod = MockBuilder.buildPaymentMethod("amex")
     }
+    
+    
     
     func verifyPaymentVaultSelection_paymentMethodOff(paymentMethodId : String){
         
-        self.selectedPaymentMethod = Utils.findPaymentMethod((self.checkoutViewController?.paymentMethodSearch!.paymentMethods)!, paymentMethodId: paymentMethodId)
+        self.selectedPaymentMethod = Utils.findPaymentMethod((self.checkoutViewController?.viewModel!.paymentMethodSearch!.paymentMethods)!, paymentMethodId: paymentMethodId)
         
         // Selección de medio off
         checkoutViewController?.navigationController?.popViewControllerAnimated(true)
@@ -346,7 +349,7 @@ class CheckoutViewControllerTest: BaseTest {
     
     func verifyPaymentVaultSelection_creditCard(){
         
-        self.selectedPaymentMethod = Utils.findPaymentMethod((self.checkoutViewController?.paymentMethodSearch!.paymentMethods)!, paymentMethodId: "visa")
+        self.selectedPaymentMethod = Utils.findPaymentMethod((self.checkoutViewController?.viewModel!.paymentMethodSearch!.paymentMethods)!, paymentMethodId: "visa")
         self.selectedPayerCost = MockBuilder.buildPayerCost()
         self.selectedIssuer = MockBuilder.buildIssuer()
         self.createdToken = MockBuilder.buildToken()
@@ -354,7 +357,7 @@ class CheckoutViewControllerTest: BaseTest {
         // Selección Tarjeta
         checkoutViewController?.paymentVaultCallback(selectedPaymentMethod!, token: self.createdToken, issuer: self.selectedIssuer, payerCost: self.selectedPayerCost)
         
-        XCTAssertEqual(checkoutViewController?.paymentMethod, selectedPaymentMethod)
+        XCTAssertEqual(checkoutViewController?.viewModel!.paymentMethod, selectedPaymentMethod)
         XCTAssertEqual(checkoutViewController?.payerCost, self.selectedPayerCost)
         XCTAssertEqual(checkoutViewController?.issuer, self.selectedIssuer)
         XCTAssertEqual(checkoutViewController?.token, self.createdToken)
@@ -367,13 +370,31 @@ class CheckoutViewControllerTest: BaseTest {
         
         let sections = checkoutViewController?.numberOfSectionsInTableView((checkoutViewController?.checkoutTable)!)
         XCTAssertEqual(sections, 0)
+
         
     }
+    
+    func testDisplayPaymentResult(){
+        self.checkoutViewController = MockCheckoutViewController(preferenceId: MockBuilder.PREF_ID_NO_EXCLUSIONS, callback: { (payment : Payment) in
+            
+        })
+        let nav = UINavigationController(rootViewController: self.checkoutViewController!)
+        var payment = MockBuilder.buildVisaPayment()
+        self.checkoutViewController?.viewModel = CheckoutViewModel()
+        self.checkoutViewController!.viewModel?.paymentMethod = MockBuilder.buildPaymentMethod("visa")
+        checkoutViewController?.displayPaymentResult(payment)
+        
+        self.checkoutViewController!.navigationController
+        payment = MockBuilder.buildOffPayment("rapipago")
+        self.checkoutViewController!.viewModel?.paymentMethod = MockBuilder.buildPaymentMethod("rapipago")
+        checkoutViewController?.displayPaymentResult(payment)
+    }
+    
     
     
     func verifyConfirmPaymentOff() {
         
-        let termsAndConditionsCell = checkoutViewController!.tableView(checkoutViewController!.checkoutTable, cellForRowAtIndexPath: NSIndexPath(forRow: 3, inSection: 1)) as!TermsAndConditionsViewCell
+        let termsAndConditionsCell = checkoutViewController!.tableView(checkoutViewController!.checkoutTable, cellForRowAtIndexPath: NSIndexPath(forRow: 2, inSection: 1)) as! TermsAndConditionsViewCell
         XCTAssertNotNil(termsAndConditionsCell)
         let paymentButton = termsAndConditionsCell.paymentButton
         

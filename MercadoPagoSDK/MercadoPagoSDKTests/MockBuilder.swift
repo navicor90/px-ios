@@ -126,6 +126,7 @@ public class MockBuilder: NSObject {
         card.lastFourDigits = "1234"
         card.expirationMonth = 11
         card.expirationYear = 22
+        card.paymentMethod = MockBuilder.buildPaymentMethod("visa")
         card.cardHolder = buildCardholder()
         card.securityCode = SecurityCode()
         card.securityCode?.cardLocation = "cardLocation"
