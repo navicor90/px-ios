@@ -107,39 +107,11 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     }
     
     public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 && displayPreferenceDescription {
-            return 0.1
-        }
-        return 13
+        return self.viewModel!.checkoutTableHeaderHeight(section)
     }
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            if self.displayPreferenceDescription {
-                return 120
-            }
-            return 0
-        }
-        
-        switch indexPath.row {
-        case 0:
-            if self.viewModel!.isPaymentMethodSelectedCard() {
-                return 48
-            }
-            return 80
-        case 1:
-            if self.viewModel!.isPaymentMethodSelectedCard() {
-                return 48
-            }
-            return 60
-        case 2:
-            if self.viewModel!.isPaymentMethodSelectedCard() {
-                return 50
-            }
-            return 160
-        default:
-            return 160
-        }
+        return self.viewModel!.heightForRow(indexPath)
     }
     
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -346,7 +318,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
                 self.callback(payment)
             }
         })
-        self.navigationController!.pushViewController(congrats, animated: true)
+        self.navigationController!.pushViewController(congrats, animated: animate)
     }
  
     private func loadPreference(){
@@ -518,5 +490,39 @@ public class CheckoutViewModel {
             paymentMethodSearchItemSelected = Utils.findPaymentMethodSearchItemInGroups(self.paymentMethodSearch!, paymentMethodId: self.paymentMethod!._id, paymentTypeId: paymentTypeIdEnum)!
         }
         return paymentMethodSearchItemSelected
+    }
+    
+    func checkoutTableHeaderHeight(section : Int) -> CGFloat {
+        if section == 0 {
+            return 0.1
+        }
+        return 13
+    }
+    
+    func heightForRow(indexPath : NSIndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 120
+        }
+        
+        switch indexPath.row {
+        case 0:
+            if self.isPaymentMethodSelectedCard() {
+                return 48
+            }
+            return 80
+        case 1:
+            if self.isPaymentMethodSelectedCard() {
+                return 48
+            }
+            return 60
+        case 2:
+            if self.isPaymentMethodSelectedCard() {
+                return 50
+            }
+            return 160
+        default:
+            return 160
+        }
+
     }
 }

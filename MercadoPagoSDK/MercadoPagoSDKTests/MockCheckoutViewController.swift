@@ -17,6 +17,7 @@ class MockCheckoutViewController: CheckoutViewController {
     init(preferenceId: String, callback: (payment : Payment)-> Void) {
         super.init(preferenceId: preferenceId, callback: callback)
         self.viewModel = CheckoutViewModel()
+        self.animate = false
     }
     
     required public init?(coder aDecoder: NSCoder) {

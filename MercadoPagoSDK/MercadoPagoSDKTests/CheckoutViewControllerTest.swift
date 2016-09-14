@@ -380,15 +380,21 @@ class CheckoutViewControllerTest: BaseTest {
         })
         let nav = UINavigationController(rootViewController: self.checkoutViewController!)
         var payment = MockBuilder.buildVisaPayment()
-        self.checkoutViewController?.viewModel = CheckoutViewModel()
         self.checkoutViewController!.viewModel?.paymentMethod = MockBuilder.buildPaymentMethod("visa")
         checkoutViewController?.displayPaymentResult(payment)
         
-        self.checkoutViewController!.navigationController
+        let paymentCongrats = self.checkoutViewController!.navigationController?.viewControllers.last
+        XCTAssertTrue(paymentCongrats!.isKindOfClass(PaymentCongratsViewController))
+        
         payment = MockBuilder.buildOffPayment("rapipago")
-        self.checkoutViewController!.viewModel?.paymentMethod = MockBuilder.buildPaymentMethod("rapipago")
+        self.checkoutViewController!.viewModel?.paymentMethod = MockBuilder.buildPaymentMethod("rapipago", paymentTypeId: "ticket")
         checkoutViewController?.displayPaymentResult(payment)
+        let instructionsVC = self.checkoutViewController!.navigationController?.viewControllers.last
+        XCTAssertTrue(instructionsVC!.isKindOfClass(InstructionsViewController))
+        
     }
+    
+    
     
     func testDrawOfflinePaymentMethodTable() {
         self.checkoutViewController = MockCheckoutViewController(preferenceId: MockBuilder.PREF_ID_NO_EXCLUSIONS, callback: { (payment : Payment) in
@@ -509,7 +515,7 @@ class CheckoutViewModelTest : BaseTest {
         
     }
     
-    func testPaymentMethodSelected(){
+    func testIsPaymentMethodSelected(){
         self.checkoutViewModel =  CheckoutViewModel()
         
         XCTAssertNil(self.checkoutViewModel!.paymentMethod)
@@ -554,7 +560,58 @@ class CheckoutViewModelTest : BaseTest {
         paymentMethodSearch.paymentMethods = [MockBuilder.buildPaymentMethod("payment_method")]
         self.checkoutViewModel?.paymentMethodSearch = paymentMethodSearch
         
+    }
+    
+    func testCheckoutTableHeaderHeight() {
+        self.checkoutViewModel =  CheckoutViewModel()
+        let preferenceDescriptionHeaderHeight = self.checkoutViewModel?.checkoutTableHeaderHeight(0)
+        XCTAssertEqual(preferenceDescriptionHeaderHeight, 0.1)
+        
+        let rycContentHeaderHeight = self.checkoutViewModel?.checkoutTableHeaderHeight(1)
+        XCTAssertEqual(rycContentHeaderHeight, 13)
+    
+    }
+    
+    func testHeightForRow() {
+        self.checkoutViewModel =  CheckoutViewModel()
+        let preferenceDescriptionHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 0, inSection: 0))
+        XCTAssertEqual(preferenceDescriptionHeight, 120)
+        
+        var paymentMethodAccountMoneyRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 0, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("account_money", paymentTypeId : "account_money")
+        XCTAssertEqual(paymentMethodAccountMoneyRowHeight, 80)
+        
+        var paymentMethodOnRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 0, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("visa")
+        XCTAssertEqual(paymentMethodOnRowHeight, 48)
+        
+        var paymentMethodOffRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 0, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("rapipago", paymentTypeId : "ticket")
+        XCTAssertEqual(paymentMethodOffRowHeight, 80)
         
         
+        paymentMethodOnRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 1, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("visa")
+        XCTAssertEqual(paymentMethodOnRowHeight, 48)
+       
+        paymentMethodAccountMoneyRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 1, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("account_money", paymentTypeId : "account_money")
+        XCTAssertEqual(paymentMethodAccountMoneyRowHeight, 60)
+        
+        paymentMethodOffRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 1, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("rapipago", paymentTypeId : "ticket")
+        XCTAssertEqual(paymentMethodOffRowHeight, 60)
+        
+        paymentMethodOnRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 2, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("visa")
+        XCTAssertEqual(paymentMethodOnRowHeight, 50)
+        
+        paymentMethodAccountMoneyRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 2, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("account_money", paymentTypeId : "account_money")
+        XCTAssertEqual(paymentMethodAccountMoneyRowHeight, 160)
+        
+        paymentMethodOffRowHeight = self.checkoutViewModel?.heightForRow(NSIndexPath(forRow: 2, inSection: 1))
+        self.checkoutViewModel?.paymentMethod = MockBuilder.buildPaymentMethod("rapipago", paymentTypeId : "ticket")
+        XCTAssertEqual(paymentMethodOffRowHeight, 50)
     }
 }
