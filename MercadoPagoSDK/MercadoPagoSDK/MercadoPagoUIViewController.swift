@@ -28,7 +28,7 @@ public class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerD
 
     internal var displayPreferenceDescription = false
     public var callbackCancel : (Void -> Void)? 
-    
+    public var animate = true
     
     
     public var screenName : String { get{ return "NO_ESPECIFICADO" } }

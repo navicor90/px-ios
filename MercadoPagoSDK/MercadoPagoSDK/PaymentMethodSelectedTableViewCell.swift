@@ -24,4 +24,10 @@ class PaymentMethodSelectedTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func fillRowWithPaymentMethod(paymentMethod : PaymentMethod, lastFourDigits : String) {
+        self.paymentIcon.image = MercadoPago.getImageFor(paymentMethod, forCell: true)
+        self.paymentDescription.text = "terminada en ".localized + lastFourDigits
+        //ViewUtils.drawBottomLine(y : 47, width: self.view.bounds.width, inView: self)
+    }
+    
 }

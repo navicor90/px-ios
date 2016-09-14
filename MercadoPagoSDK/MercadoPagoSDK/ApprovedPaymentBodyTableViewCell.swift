@@ -40,7 +40,7 @@ class ApprovedPaymentBodyTableViewCell: CallbackCancelTableViewCell, CongratsFil
         self.creditCardLabel.text = cardLastFourDigits
         
         let paymentMethodIcon = MercadoPago.getImage(payment.paymentMethodId)
-        if paymentMethodIcon != nil && cardLastFourDigits.isNotEmpty {
+        if paymentMethodIcon != nil {
             self.creditCardIcon.image = MercadoPago.getImage(payment.paymentMethodId)
         } else {
             self.creditCardIcon.hidden = true

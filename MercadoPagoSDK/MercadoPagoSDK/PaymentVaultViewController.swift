@@ -211,6 +211,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                 if indexPath.row == 0 && self.viewModel.displayPayWithMP() {
                     //TODO : ir a MPConnect
                     let customerAccessToken = "TEST-3655020329214032-122910-7f125ed5eecbaaa3d04f0c56953c95b6__LD_LC__-170206767"
+                    //let customerAccessToken = "TEST-1094487241196549-081708-671348c2ca5f84421353f3a82dda02e2__LA_LC__-145698489"
                     let paymentVault = PaymentVaultViewController(amount: self.viewModel.amount, paymentPreference: self.viewModel.paymentPreference, customerAccessToken: customerAccessToken, callback: { (paymentMethod, token, issuer, payerCost) in
                         self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
                     })
@@ -218,14 +219,24 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                     self.navigationController!.pushViewController(paymentVault, animated: true)
                 } else {
                     let customerCardSelected = self.viewModel.customerCards![indexPath.row] as CardInformation
-                    let paymentMethodSelected = Utils.findPaymentMethod(self.viewModel.paymentMethods, paymentMethodId: customerCardSelected.getPaymentMethodId())
-                    customerCardSelected.setupPaymentMethodSettings(paymentMethodSelected.settings)
-                    let cardFlow = MPFlowBuilder.startCardFlow(amount: self.viewModel.amount, cardInformation : customerCardSelected, callback: { (paymentMethod, token, issuer, payerCost) in
-                        self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
-                        }, callbackCancel: {
-                            self.navigationController!.popToViewController(self, animated: true)
-                    })
-                    self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
+                    //TODO : esto es una cosa espeluznante
+                    if customerCardSelected.getPaymentMethodId() == "account_money" {
+                        let token = Token()
+                        token._id = customerCardSelected.getCardId()
+                        let paymentmethod = customerCardSelected.getPaymentMethod()
+                        paymentmethod.paymentTypeId = "account_money"
+                        
+                        self.viewModel.callback!(paymentMethod : paymentmethod, token: token, issuer: nil, payerCost : nil)
+                    } else {
+                        let paymentMethodSelected = Utils.findPaymentMethod(self.viewModel.paymentMethods, paymentMethodId: customerCardSelected.getPaymentMethodId())
+                        customerCardSelected.setupPaymentMethodSettings(paymentMethodSelected.settings)
+                        let cardFlow = MPFlowBuilder.startCardFlow(amount: self.viewModel.amount, cardInformation : customerCardSelected, callback: { (paymentMethod, token, issuer, payerCost) in
+                            self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
+                            }, callbackCancel: {
+                                self.navigationController!.popToViewController(self, animated: true)
+                        })
+                        self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
+                    }
                 }
             }
         default:
@@ -307,7 +318,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
 
     
     
-    private func getCellFor(currentPaymentMethodItem : PaymentMethodSearchItem) -> UITableViewCell {
+    internal func getCellFor(currentPaymentMethodItem : PaymentMethodSearchItem) -> UITableViewCell {
         if currentPaymentMethodItem.showIcon.boolValue {
             let iconImage = MercadoPago.getImage(currentPaymentMethodItem.idPaymentMethodSearchItem)
             let tintColor = self.tintColor && (!currentPaymentMethodItem.isPaymentMethod() || currentPaymentMethodItem.isBitcoin())
@@ -455,7 +466,7 @@ class PaymentVaultViewModel : NSObject {
     }
     
     func displayPayWithMP() -> Bool {
-     return false//self.customerAccessToken.characters.count == 0
+     return false //self.customerAccessToken.characters.count == 0
     }
     
     internal func optionSelected(paymentSearchItemSelected : PaymentMethodSearchItem, navigationController : UINavigationController, cancelPaymentCallback : (Void -> (Void)),animated: Bool = true) {

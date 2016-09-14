@@ -27,6 +27,9 @@ public class Token : NSObject {
 	
     public var cardHolder : Cardholder?
     
+    public override init(){
+        super.init()
+    }
     
 	public init (_id: String, publicKey: String, cardId: String!, luhnValidation: String!, status: String!,
         usedDate: String!, cardNumberLength: Int, creationDate: NSDate!,lastFourDigits : String!,firstSixDigit : String!,
