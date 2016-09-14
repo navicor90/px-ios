@@ -539,6 +539,5 @@ public class CheckoutViewModel {
             return 160
         }
 
->>>>>>> origin/customerCards
     }
 }
