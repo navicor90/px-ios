@@ -537,7 +537,7 @@ MerchantServer.createPreference(preferenceBody,
                <section class="docs-section" id="f1_get_customer">
                   <h3 class="title">Clientes y Tarjetas</h3>
                   <p>
-                     Para obtener información referente a un cliente desde un servicio, puedes utilizar el método <b>getCustomer</b> propio de MerchantServer. Este método hace un GET a una URL configurada y retorna un objeto <a href="https://github.com/mercadopago/px-ios/blob/development/MercadoPagoSDK/MercadoPagoSDK/Customer.swift">Customer</a> con las tarjetas propias de ese cliente que se encuentran almacenadas en el servidor. Por eso debes indicarnos tu URL base (https://api.tunombre.com) y la uri (/get_customer) en la cual tu servicio retorna la información relativa a un cliente. 
+                     Para obtener información referente a un cliente desde un servicio, puedes utilizar el método <b>getCustomer</b> propio de MerchantServer. Este método hace un GET a una URL configurada y retorna un objeto <a href="https://github.com/mercadopago/px-ios/blob/development/MercadoPagoSDK/MercadoPagoSDK/Customer.swift">Customer</a> con las tarjetas propias de ese cliente que se encuentran almacenadas en el servidor. Por eso debes indicarnos tu URL base (https://api.tunombre.com) y la uri (/get_customer) en la cual tu servicio retorna la información relativa a un cliente. También es necesario configurar un "merchantAccessToken" con el cual debes poder identificar a tu usuario en tu servidor.
                   </p>
                   <p>
                      <a href="https://www.mercadopago.com.ar/developers/es/solutions/payments/custom-checkout/customers-and-cards/" target="_blank">Cómo guardar información de clientes en servidor</a>.
@@ -550,6 +550,7 @@ MerchantServer.createPreference(preferenceBody,
                                 // Seteo de URL y customerUri
                                 MercadoPagoContext.setBaseURL("https://api.tunombre.com")
                                 MercadoPagoContext.setCustomerUri("/customer_uri")
+                                MercadoPagoContext.setMerchantAccessToken("merchantAccessToken")
                                 
                                 MerchantServer.getCustomer({ (customer: Customer) -> Void in
                                     //Aquí ya tienen la información del customer
