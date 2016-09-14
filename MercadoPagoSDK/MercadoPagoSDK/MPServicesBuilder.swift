@@ -70,7 +70,7 @@ public class MPServicesBuilder : NSObject {
                                   failure: ((error: NSError) -> Void)?) {
         
         MercadoPagoContext.initFlavor1()
-        MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "CREATE_SAVED_TOKEN", result: nil)
+        MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "CLONE_TOKEN", result: nil)
      //   savedCardToken.device = Device()
         let service : GatewayService = GatewayService(baseURL: MercadoPago.MP_API_BASE_URL)
         service.cloneToken(public_key: MercadoPagoContext.publicKey(), token: token,securityCode: securityCode, success:{(jsonResult: AnyObject?) -> Void in

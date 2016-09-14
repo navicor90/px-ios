@@ -133,9 +133,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
         textBox.placeholder = "Número de tarjeta".localized
         textBox.becomeFirstResponder()
 
-        if paymentMethod != nil {
-            self.updateCardSkin()
-        }
+
         
         self.updateCardSkin()
         //C4A

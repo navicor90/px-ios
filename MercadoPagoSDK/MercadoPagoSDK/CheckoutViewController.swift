@@ -310,22 +310,32 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     }
     
     internal func startRecoverCard(){
+         MPServicesBuilder.getPaymentMethods({ (paymentMethods) in
         let cardFlow = MPFlowBuilder.startCardFlow(amount: (self.preference?.getAmount())!, cardInformation : nil, callback: { (paymentMethod, token, issuer, payerCost) in
              self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : true)
             }, callbackCancel: {
                 self.navigationController!.popToViewController(self, animated: true)
         })
         self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
+         }) { (error) in
+            
+        }
+        
         
     }
     internal func startAuthCard(token:Token){
-        let cardFlow = MPFlowBuilder.startCardFlow(amount: (self.preference?.getAmount())!, cardInformation : nil, token: token, callback: { (paymentMethod, token, issuer, payerCost) in
-            self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : true)
-            }, callbackCancel: {
-                self.navigationController!.popToViewController(self, animated: true)
-        })
-        
-        self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
+       
+        MPServicesBuilder.getPaymentMethods({ (paymentMethods) in
+            let cardFlow = MPFlowBuilder.startCardFlow(amount: (self.preference?.getAmount())!, cardInformation : nil, paymentMethods: paymentMethods, token: token, callback: { (paymentMethod, token, issuer, payerCost) in
+                self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : true)
+                }, callbackCancel: {
+                    self.navigationController!.popToViewController(self, animated: true)
+            })
+             self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
+            }) { (error) in
+                
+        }
+       
         
     }
     
@@ -486,6 +496,5 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
  
     internal func exitCheckoutFlow(){
         self.callbackCancel!()
-        //    self.navigationController?.dismissViewControllerAnimated(true, completion: {})
     }
 }
