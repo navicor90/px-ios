@@ -17,10 +17,12 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     var accessToken : String!
     var bundle : NSBundle? = MercadoPago.getBundle()
     var callback : (Payment -> Void)!
-    var paymentMethod : PaymentMethod?
+   
+    var viewModel : CheckoutViewModel?
+    
     var issuer : Issuer?
     var token : Token?
-    var paymentMethodSearch : PaymentMethodSearch?
+    
     var payerCost : PayerCost?
     override public var screenName : String { get{ return "REVIEW_AND_CONFIRM" } }
     private var reviewAndConfirmContent = Set<String>()
@@ -35,6 +37,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         self.publicKey = MercadoPagoContext.publicKey()
         self.accessToken = MercadoPagoContext.merchantAccessToken()
         self.preferenceId = preferenceId
+        self.viewModel = CheckoutViewModel()
         self.callback = callback
         self.callbackCancel = {
                 self.dismissViewControllerAnimated(true, completion: {
@@ -78,7 +81,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
             self.navigationItem.leftBarButtonItem?.action = Selector("invokeCallbackCancel")
             self.loadPreference()
         } else {
-            if self.paymentMethod != nil {
+            if self.viewModel!.paymentMethod != nil {
                 self.title = "Revisa si está todo bien...".localized
                 self.checkoutTable.reloadData()
                 self.hideLoading()
@@ -104,144 +107,49 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     }
     
     public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 && displayPreferenceDescription {
-            return 0.1
-        }
-        return 13
+        return self.viewModel!.checkoutTableHeaderHeight(section)
     }
     
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            if self.displayPreferenceDescription {
-                return 120
-            }
-            return 0
-        }
-        
-        if indexPath.row == 0 {
-            if self.paymentMethod == nil || (self.paymentMethod != nil && self.paymentMethod!.isOfflinePaymentMethod()){
-                return 80
-            }
-            return 48
-        } else if indexPath.row == 1 {
-            if self.paymentMethod == nil || (self.paymentMethod != nil && self.paymentMethod!.isOfflinePaymentMethod()){
-                return 60
-            }
-            return 48
-        } else if indexPath.row == 2 {
-            if self.paymentMethod == nil || (self.paymentMethod != nil && self.paymentMethod!.isOfflinePaymentMethod()){
-                return 160
-            }
-            return 50
-        }
-        return 160
+        return self.viewModel!.heightForRow(indexPath)
     }
     
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return (self.paymentMethod != nil) ? 2 : 0
+        return self.viewModel!.numberOfSections()
     }
     
 
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return self.displayPreferenceDescription ? 1 : 0
+            // Purchase description
+            return 1
         }
-        if (self.paymentMethod == nil) {
-            return 2
-        } else if self.paymentMethod!.isOfflinePaymentMethod(){
-            return 3
-        }
-        return 4
+       return self.viewModel!.numberOfRowsInMainSection()
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
         if indexPath.section == 0 {
             let preferenceDescriptionCell = tableView.dequeueReusableCellWithIdentifier("preferenceDescriptionCell", forIndexPath: indexPath) as! PreferenceDescriptionTableViewCell
-            
             preferenceDescriptionCell.fillRowWithPreference(self.preference!)
-            
             return preferenceDescriptionCell
-        } else if indexPath.row == 0 {
-            if self.paymentMethod != nil {
-                if self.paymentMethod!.isOfflinePaymentMethod() {
-                    let cell = tableView.dequeueReusableCellWithIdentifier("offlinePaymentCell", forIndexPath: indexPath) as! OfflinePaymentMethodCell
-                    let paymentTypeIdEnum = PaymentTypeId(rawValue :self.paymentMethod!.paymentTypeId)!
-                    let paymentMethodSearchItemSelected = Utils.findPaymentMethodSearchItemInGroups(self.paymentMethodSearch!, paymentMethodId: self.paymentMethod!._id, paymentTypeId: paymentTypeIdEnum)
-                    cell.fillRowWithPaymentMethod(self.paymentMethod!, paymentMethodSearchItemSelected: paymentMethodSearchItemSelected!)
-                    if self.paymentMethodSearch!.paymentMethods.count == 1 {
-                        cell.selectionStyle = .None
-                        cell.accessoryType = .None
-                    }
-                    return cell
-                } else {
-                    let paymentSearchCell = tableView.dequeueReusableCellWithIdentifier("paymentSelectedCell", forIndexPath: indexPath) as! PaymentMethodSelectedTableViewCell
-                    paymentSearchCell.paymentIcon.image = MercadoPago.getImageFor(self.paymentMethod!, forCell: true)
-                    paymentSearchCell.paymentDescription.text = "terminada en ".localized + self.token!.lastFourDigits
-                    ViewUtils.drawBottomLine(y : 47, width: self.view.bounds.width, inView: paymentSearchCell)
-                    return paymentSearchCell
-                }
-                
-            }
-            
-            return tableView.dequeueReusableCellWithIdentifier("selectPaymentMethodCell", forIndexPath: indexPath) as! SelectPaymentMethodCell
-        } else if indexPath.row == 1 {
-            
-            if paymentMethod != nil && !paymentMethod!.isOfflinePaymentMethod() {
-                let installmentsCell = self.checkoutTable.dequeueReusableCellWithIdentifier("installmentSelectionCell") as! InstallmentSelectionTableViewCell
-                installmentsCell.fillCell(self.payerCost!)
-                return installmentsCell
-            }
-            
-            let footer = self.checkoutTable.dequeueReusableCellWithIdentifier("paymentDescriptionFooter") as! PaymentDescriptionFooterTableViewCell
-            
-            footer.layer.shadowOffset = CGSizeMake(0, 1)
-            footer.layer.shadowColor = UIColor(red: 153, green: 153, blue: 153).CGColor
-            footer.layer.shadowRadius = 1
-            footer.layer.shadowOpacity = 0.6
-            footer.setAmount(self.preference!.getAmount(), currency: CurrenciesUtil.getCurrencyFor(self.preference!.getCurrencyId()))
-            return footer
-
-        } else if indexPath.row == 2 {
-            if paymentMethod != nil && paymentMethod!.isOfflinePaymentMethod() {
-                let termsAndConditionsButton = self.checkoutTable.dequeueReusableCellWithIdentifier("purchaseTermsAndConditions") as! TermsAndConditionsViewCell
-                termsAndConditionsButton.paymentButton.addTarget(self, action: "confirmPayment", forControlEvents: .TouchUpInside)
-                termsAndConditionsButton.delegate = self
-                return termsAndConditionsButton
-            } else {
-                let totalAmount = self.payerCost == nil ? self.preference!.getAmount() : self.payerCost!.totalAmount
-                if payerCost?.installmentRate > 0 {
-                
-                }
-                let footer = self.checkoutTable.dequeueReusableCellWithIdentifier("paymentDescriptionFooter") as! PaymentDescriptionFooterTableViewCell
-                
-                footer.layer.shadowOffset = CGSizeMake(0, 1)
-                footer.layer.shadowColor = UIColor(red: 153, green: 153, blue: 153).CGColor
-                footer.layer.shadowRadius = 1
-                footer.layer.shadowOpacity = 0.6
-                footer.setAmount(totalAmount, currency: CurrenciesUtil.getCurrencyFor(self.preference!.getCurrencyId()))
-                return footer
-
-            }
-        } else if indexPath.row == 3 {
-            let termsAndConditionsButton = self.checkoutTable.dequeueReusableCellWithIdentifier("purchaseTermsAndConditions") as! TermsAndConditionsViewCell
-            termsAndConditionsButton.paymentButton.addTarget(self, action: "confirmPayment", forControlEvents: .TouchUpInside)
-            return termsAndConditionsButton
         }
         
-        return UITableViewCell()
-        
+        if self.viewModel!.isPaymentMethodSelectedCard() {
+            return self.drawCreditCardTable(indexPath)
+        } else {
+            return self.drawOfflinePaymentMethodTable(indexPath)
+        }
     }
-    
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
             self.checkoutTable.deselectRowAtIndexPath(indexPath, animated: true)
-        } else if indexPath.section == 1 && indexPath.row == 0 && self.paymentMethodSearch?.paymentMethods.count > 1 {
+        } else if indexPath.section == 1 && indexPath.row == 0 && !self.viewModel!.isUniquePaymentMethodAvailable() {
             self.checkoutTable.deselectRowAtIndexPath(indexPath, animated: true)
             self.showLoading()
             self.loadGroupsAndStartPaymentVault()
-        } else if indexPath.section == 1 && indexPath.row == 1 && paymentMethod != nil && !self.paymentMethod!.isOfflinePaymentMethod(){
+        } else if indexPath.section == 1 && indexPath.row == 1 && self.viewModel!.isPaymentMethodSelectedCard() {
             startPayerCostStep()
         }
     }
@@ -266,9 +174,9 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     
     internal func loadGroupsAndStartPaymentVault(animated : Bool = true){
         
-        if self.paymentMethodSearch == nil {
+        if self.viewModel!.paymentMethodSearch == nil {
             MPServicesBuilder.searchPaymentMethods(self.preference!.getAmount(), excludedPaymentTypeIds: self.preference?.getExcludedPaymentTypesIds(), excludedPaymentMethodIds: self.preference?.getExcludedPaymentMethodsIds(), success: { (paymentMethodSearch) in
-                self.paymentMethodSearch = paymentMethodSearch
+                self.viewModel!.paymentMethodSearch = paymentMethodSearch
                 
                 self.startPaymentVault()
                 }, failure: { (error) in
@@ -286,14 +194,14 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     internal func startPaymentVault(animated : Bool = false){
         self.registerAllCells()
         
-        let paymentVaultVC = MPFlowBuilder.startPaymentVaultInCheckout(self.preference!.getAmount(), paymentPreference: self.preference!.getPaymentPreference(), paymentMethodSearch: self.paymentMethodSearch!, callback: { (paymentMethod, token, issuer, payerCost) in
+        let paymentVaultVC = MPFlowBuilder.startPaymentVaultInCheckout(self.preference!.getAmount(), paymentPreference: self.preference!.getPaymentPreference(), paymentMethodSearch: self.viewModel!.paymentMethodSearch!, callback: { (paymentMethod, token, issuer, payerCost) in
             self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : animated)
         })
         
         var callbackCancel : (Void -> Void)
         
         // Set action for cancel callback
-        if self.paymentMethod == nil {
+        if self.viewModel!.paymentMethod == nil {
             callbackCancel = { Void -> Void in
                 self.callbackCancel!()
             }
@@ -332,10 +240,10 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     internal func confirmPayment(){
         
         self.showLoading()
-        if (self.paymentMethod!.isOfflinePaymentMethod()){
-            self.confirmPaymentOff()
-        } else {
+        if self.viewModel!.isPaymentMethodSelectedCard(){
             self.confirmPaymentOn()
+        } else {
+            self.confirmPaymentOff()
         }
     }
     
@@ -348,7 +256,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         self.navigationController!.popToRootViewControllerAnimated(animated)
         self.showLoading()
         
-        self.paymentMethod = paymentMethod
+        self.viewModel!.paymentMethod = paymentMethod
         self.token = token
         self.issuer = issuer
         self.payerCost = payerCost
@@ -356,7 +264,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     
     
     internal func confirmPaymentOff(){
-        MercadoPago.createMPPayment(self.preference!.payer.email, preferenceId: self.preference!._id, paymentMethod: self.paymentMethod!,success: { (payment) -> Void in
+        MercadoPago.createMPPayment(self.preference!.payer.email, preferenceId: self.preference!._id, paymentMethod: self.viewModel!.paymentMethod!, token : self.token, success: { (payment) -> Void in
 
             MPTracker.trackPaymentOffEvent(String(payment._id), mpDelegate: MercadoPagoContext.sharedInstance)
             
@@ -371,7 +279,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     }
 
     internal func confirmPaymentOn(){
-        MercadoPago.createMPPayment(self.preference!.payer.email, preferenceId: self.preference!._id, paymentMethod: self.paymentMethod!,token : self.token, installments: self.payerCost!.installments , issuer: self.issuer,success: { (payment) -> Void in
+        MercadoPago.createMPPayment(self.preference!.payer.email, preferenceId: self.preference!._id, paymentMethod: self.viewModel!.paymentMethod!,token : self.token, installments: self.payerCost!.installments , issuer: self.issuer,success: { (payment) -> Void in
             
             
                 self.clearMercadoPagoStyle()
@@ -389,10 +297,10 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     
     internal func displayPaymentResult(payment: Payment){
         
-        let congrats = MPStepBuilder.startPaymentResultStep(payment, paymentMethod: self.paymentMethod!, callback: { (payment, status) in
+        let congrats = MPStepBuilder.startPaymentResultStep(payment, paymentMethod: self.viewModel!.paymentMethod!, callback: { (payment, status) in
             if status == MPStepBuilder.CongratsState.CANCEL_SELECT_OTHER || status == MPStepBuilder.CongratsState.CANCEL_RETRY {
                 self.navigationController!.setNavigationBarHidden(false, animated: false)
-                self.paymentMethod = nil
+                self.viewModel!.paymentMethod = nil
                 self.navigationController!.viewControllers[0].title = ""
                 self.navigationController!.popToRootViewControllerAnimated(false)
             } else  if status == MPStepBuilder.CongratsState.CANCEL_RECOVER {
@@ -410,7 +318,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
                 self.callback(payment)
             }
         })
-        self.navigationController!.pushViewController(congrats, animated: true)
+        self.navigationController!.pushViewController(congrats, animated: animate)
     }
  
     private func loadPreference(){
@@ -436,8 +344,8 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         })
     }
     
-    private func startPayerCostStep(){
-        let pcf = MPStepBuilder.startPayerCostForm(self.paymentMethod, issuer: self.issuer, token: self.token!, amount: self.preference!.getAmount(), paymentPreference: self.preference!.paymentPreference, callback: { (payerCost) -> Void in
+    internal func startPayerCostStep(){
+        let pcf = MPStepBuilder.startPayerCostForm(self.viewModel!.paymentMethod, issuer: self.issuer, token: self.token!, amount: self.preference!.getAmount(), paymentPreference: self.preference!.paymentPreference, callback: { (payerCost) -> Void in
             self.payerCost = payerCost
             self.navigationController?.popViewControllerAnimated(true)
             self.checkoutTable.reloadData()
@@ -446,7 +354,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         self.navigationController?.pushViewController(pcf, animated: true)
     }
     
-    private func registerAllCells(){
+    internal func registerAllCells(){
         
         //Register rows
         let offlinePaymentMethodNib = UINib(nibName: "OfflinePaymentMethodCell", bundle: self.bundle)
@@ -473,6 +381,63 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         self.checkoutTable.separatorStyle = .None
     }
     
+    internal func drawOfflinePaymentMethodTable(indexPath : NSIndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            let cell = self.checkoutTable.dequeueReusableCellWithIdentifier("offlinePaymentCell") as! OfflinePaymentMethodCell
+            cell.fillRowWithPaymentMethod(self.viewModel!.paymentMethod!, paymentMethodSearchItemSelected: self.viewModel!.paymentMethodSearchItemSelected())
+            if self.viewModel!.isUniquePaymentMethodAvailable() {
+                cell.selectionStyle = .None
+                cell.accessoryType = .None
+            }
+            return cell
+        case 1 :
+            let footer = self.checkoutTable.dequeueReusableCellWithIdentifier("paymentDescriptionFooter") as! PaymentDescriptionFooterTableViewCell
+            
+            footer.layer.shadowOffset = CGSizeMake(0, 1)
+            footer.layer.shadowColor = UIColor(red: 153, green: 153, blue: 153).CGColor
+            footer.layer.shadowRadius = 1
+            footer.layer.shadowOpacity = 0.6
+            footer.setAmount(self.preference!.getAmount(), currency: CurrenciesUtil.getCurrencyFor(self.preference!.getCurrencyId()))
+            return footer
+        case 2 :
+            let termsAndConditionsButton = self.checkoutTable.dequeueReusableCellWithIdentifier("purchaseTermsAndConditions") as! TermsAndConditionsViewCell
+            termsAndConditionsButton.paymentButton.addTarget(self, action: "confirmPayment", forControlEvents: .TouchUpInside)
+            termsAndConditionsButton.delegate = self
+            return termsAndConditionsButton
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    internal func drawCreditCardTable(indexPath : NSIndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            let paymentSearchCell = self.checkoutTable.dequeueReusableCellWithIdentifier("paymentSelectedCell") as! PaymentMethodSelectedTableViewCell
+            paymentSearchCell.fillRowWithPaymentMethod(self.viewModel!.paymentMethod!, lastFourDigits: self.token!.lastFourDigits)
+            ViewUtils.drawBottomLine(y : 47, width: self.view.bounds.width, inView: paymentSearchCell)
+            return paymentSearchCell
+        case 1:
+            let installmentsCell = self.checkoutTable.dequeueReusableCellWithIdentifier("installmentSelectionCell") as! InstallmentSelectionTableViewCell
+            installmentsCell.fillCell(self.payerCost!)
+            return installmentsCell
+        case 2 :
+            let totalAmount = self.payerCost == nil ? self.preference!.getAmount() : self.payerCost!.totalAmount
+            let footer = self.checkoutTable.dequeueReusableCellWithIdentifier("paymentDescriptionFooter") as! PaymentDescriptionFooterTableViewCell
+            
+            footer.layer.shadowOffset = CGSizeMake(0, 1)
+            footer.layer.shadowColor = UIColor(red: 153, green: 153, blue: 153).CGColor
+            footer.layer.shadowRadius = 1
+            footer.layer.shadowOpacity = 0.6
+            footer.setAmount(totalAmount, currency: CurrenciesUtil.getCurrencyFor(self.preference!.getCurrencyId()))
+            return footer
+        default:
+            let termsAndConditionsButton = self.checkoutTable.dequeueReusableCellWithIdentifier("purchaseTermsAndConditions") as! TermsAndConditionsViewCell
+            termsAndConditionsButton.paymentButton.addTarget(self, action: "confirmPayment", forControlEvents: .TouchUpInside)
+            return termsAndConditionsButton
+        }
+    }
+    
     internal func openTermsAndConditions(title: String, url : NSURL){
         let webVC = WebViewController(url: url)
         webVC.title = title
@@ -482,6 +447,82 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
  
     internal func exitCheckoutFlow(){
         self.callbackCancel!()
-        //    self.navigationController?.dismissViewControllerAnimated(true, completion: {})
+    }
+}
+
+public class CheckoutViewModel {
+    
+    var paymentMethod : PaymentMethod?
+    var paymentMethodSearch : PaymentMethodSearch?
+    
+    func isPaymentMethodSelectedCard() -> Bool {
+        return self.paymentMethod != nil && !paymentMethod!.isOfflinePaymentMethod() && self.paymentMethod!._id != "account_money"
+    }
+    
+    func numberOfSections() -> Int {
+        return (self.paymentMethod != nil) ? 2 : 0
+    }
+    
+    func isPaymentMethodSelected() -> Bool {
+        return paymentMethod != nil
+    }
+    
+    func numberOfRowsInMainSection() -> Int {
+        if (self.paymentMethod == nil) {
+            return 2
+        } else if !isPaymentMethodSelectedCard(){
+            return 3
+        }
+        return 4
+    }
+    
+    func isUniquePaymentMethodAvailable() -> Bool {
+        return self.paymentMethodSearch != nil && self.paymentMethodSearch!.paymentMethods.count == 1
+    }
+    
+    func paymentMethodSearchItemSelected() -> PaymentMethodSearchItem {
+        let paymentTypeIdEnum = PaymentTypeId(rawValue :self.paymentMethod!.paymentTypeId)!
+        let paymentMethodSearchItemSelected : PaymentMethodSearchItem
+        if paymentTypeIdEnum == PaymentTypeId.ACCOUNT_MONEY {
+            paymentMethodSearchItemSelected = PaymentMethodSearchItem()
+            paymentMethodSearchItemSelected.description = "Dinero en cuenta"
+        } else {
+            paymentMethodSearchItemSelected = Utils.findPaymentMethodSearchItemInGroups(self.paymentMethodSearch!, paymentMethodId: self.paymentMethod!._id, paymentTypeId: paymentTypeIdEnum)!
+        }
+        return paymentMethodSearchItemSelected
+    }
+    
+    func checkoutTableHeaderHeight(section : Int) -> CGFloat {
+        if section == 0 {
+            return 0.1
+        }
+        return 13
+    }
+    
+    func heightForRow(indexPath : NSIndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 120
+        }
+        
+        switch indexPath.row {
+        case 0:
+            if self.isPaymentMethodSelectedCard() {
+                return 48
+            }
+            return 80
+        case 1:
+            if self.isPaymentMethodSelectedCard() {
+                return 48
+            }
+            return 60
+        case 2:
+            if self.isPaymentMethodSelectedCard() {
+                return 50
+            }
+            return 160
+        default:
+            return 160
+        }
+
     }
 }

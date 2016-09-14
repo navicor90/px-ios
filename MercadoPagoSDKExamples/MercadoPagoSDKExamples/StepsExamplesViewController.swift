@@ -93,7 +93,8 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     
     public func startPaymentVault(){
          MercadoPagoContext.setSite(MercadoPagoContext.Site.MLA)
-        MercadoPagoContext.setPublicKey("APP_USR-5a399d42-6015-4f6a-8ff8-dd7d368068f8")
+        //MercadoPagoContext.setPublicKey("APP_USR-5a399d42-6015-4f6a-8ff8-dd7d368068f8")
+        MercadoPagoContext.setPublicKey(ExamplesUtils.MERCHANT_PUBLIC_KEY_TEST)
         let pv = MPFlowBuilder.startPaymentVaultViewController(10, callback: { (paymentMethod, token, issuer, payerCost) in
 
             self.paymentMethod = paymentMethod
