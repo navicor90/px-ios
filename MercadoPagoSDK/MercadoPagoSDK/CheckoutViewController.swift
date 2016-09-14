@@ -372,7 +372,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         })
     }
     
-    private func startPayerCostStep(){
+    internal func startPayerCostStep(){
         let pcf = MPStepBuilder.startPayerCostForm(self.viewModel!.paymentMethod, issuer: self.issuer, token: self.token!, amount: self.preference!.getAmount(), paymentPreference: self.preference!.paymentPreference, callback: { (payerCost) -> Void in
             self.payerCost = payerCost
             self.navigationController?.popViewControllerAnimated(true)
@@ -382,7 +382,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
         self.navigationController?.pushViewController(pcf, animated: true)
     }
     
-    private func registerAllCells(){
+    internal func registerAllCells(){
         
         //Register rows
         let offlinePaymentMethodNib = UINib(nibName: "OfflinePaymentMethodCell", bundle: self.bundle)
@@ -412,7 +412,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     internal func drawOfflinePaymentMethodTable(indexPath : NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = self.checkoutTable.dequeueReusableCellWithIdentifier("offlinePaymentCell", forIndexPath: indexPath) as! OfflinePaymentMethodCell
+            let cell = self.checkoutTable.dequeueReusableCellWithIdentifier("offlinePaymentCell") as! OfflinePaymentMethodCell
             cell.fillRowWithPaymentMethod(self.viewModel!.paymentMethod!, paymentMethodSearchItemSelected: self.viewModel!.paymentMethodSearchItemSelected())
             if self.viewModel!.isUniquePaymentMethodAvailable() {
                 cell.selectionStyle = .None
@@ -441,7 +441,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     internal func drawCreditCardTable(indexPath : NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let paymentSearchCell = self.checkoutTable.dequeueReusableCellWithIdentifier("paymentSelectedCell", forIndexPath: indexPath) as! PaymentMethodSelectedTableViewCell
+            let paymentSearchCell = self.checkoutTable.dequeueReusableCellWithIdentifier("paymentSelectedCell") as! PaymentMethodSelectedTableViewCell
             paymentSearchCell.fillRowWithPaymentMethod(self.viewModel!.paymentMethod!, lastFourDigits: self.token!.lastFourDigits)
             ViewUtils.drawBottomLine(y : 47, width: self.view.bounds.width, inView: paymentSearchCell)
             return paymentSearchCell
@@ -491,7 +491,7 @@ public class CheckoutViewModel {
         return (self.paymentMethod != nil) ? 2 : 0
     }
     
-    func paymentMethodSelected() -> Bool {
+    func isPaymentMethodSelected() -> Bool {
         return paymentMethod != nil
     }
     

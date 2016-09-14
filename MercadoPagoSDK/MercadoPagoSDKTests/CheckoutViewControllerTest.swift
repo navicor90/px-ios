@@ -390,6 +390,60 @@ class CheckoutViewControllerTest: BaseTest {
         checkoutViewController?.displayPaymentResult(payment)
     }
     
+    func testDrawOfflinePaymentMethodTable() {
+        self.checkoutViewController = MockCheckoutViewController(preferenceId: MockBuilder.PREF_ID_NO_EXCLUSIONS, callback: { (payment : Payment) in
+            
+        })
+        let nav = UINavigationController(rootViewController: self.checkoutViewController!)
+        self.simulateViewDidLoadFor(self.checkoutViewController!)
+        self.checkoutViewController!.registerAllCells()
+        self.checkoutViewController!.viewModel?.paymentMethod = MockBuilder.buildPaymentMethod("rapipago")
+        
+        let offlinePaymentCell = self.checkoutViewController!.drawOfflinePaymentMethodTable(NSIndexPath(forRow: 0, inSection: 1)) as! OfflinePaymentMethodCell
+        //offlinePaymentCell.comment
+        
+        let paymentDescriptionCell = self.checkoutViewController!.drawOfflinePaymentMethodTable(NSIndexPath(forRow: 1, inSection: 1)) as! PaymentDescriptionFooterTableViewCell
+       
+        let termsAndConditionsCell = self.checkoutViewController!.drawOfflinePaymentMethodTable(NSIndexPath(forRow: 2, inSection: 1)) as! TermsAndConditionsViewCell
+        
+    }
+    
+    func testDrawCreditCardTable() {
+        self.checkoutViewController = MockCheckoutViewController(preferenceId: MockBuilder.PREF_ID_NO_EXCLUSIONS, callback: { (payment : Payment) in
+            
+        })
+        let nav = UINavigationController(rootViewController: self.checkoutViewController!)
+        self.simulateViewDidLoadFor(self.checkoutViewController!)
+        self.checkoutViewController!.registerAllCells()
+        self.checkoutViewController!.token = MockBuilder.buildToken()
+        self.checkoutViewController!.payerCost = MockBuilder.buildPayerCost()
+        self.checkoutViewController!.viewModel?.paymentMethod = MockBuilder.buildPaymentMethod("visa")
+        let paymentSearchCell = self.checkoutViewController!.drawCreditCardTable(NSIndexPath(forRow: 0, inSection: 1)) as! PaymentMethodSelectedTableViewCell
+        //paymentSearchCell
+        
+        let installmentsCell = self.checkoutViewController!.drawCreditCardTable(NSIndexPath(forRow: 1, inSection: 1)) as! InstallmentSelectionTableViewCell
+        //installmentsCell
+        
+        let payerCostFooter = self.checkoutViewController!.drawCreditCardTable(NSIndexPath(forRow: 2, inSection: 1)) as! PaymentDescriptionFooterTableViewCell
+        
+        let termsAndConditionsButton = self.checkoutViewController!.drawCreditCardTable(NSIndexPath(forRow: 3, inSection: 1)) as! TermsAndConditionsViewCell
+        
+        
+    }
+    
+    func testStartPayerCostStep(){
+        self.checkoutViewController = MockCheckoutViewController(preferenceId: MockBuilder.PREF_ID_NO_EXCLUSIONS, callback: { (payment : Payment) in
+            
+        })
+        let nav = UINavigationController(rootViewController: self.checkoutViewController!)
+        self.checkoutViewController?.viewModel!.paymentMethod = MockBuilder.buildPaymentMethod("visa")
+        self.checkoutViewController!.token = MockBuilder.buildToken()
+        self.checkoutViewController!.preference = MockBuilder.buildCheckoutPreference()
+        self.checkoutViewController!.startPayerCostStep()
+
+        //self.checkoutViewController?.navigationController!.viewControllers
+    }
+    
     
     
     func verifyConfirmPaymentOff() {
@@ -415,4 +469,92 @@ class CheckoutViewControllerTest: BaseTest {
         waitForExpectationsWithTimeout(BaseTest.WAIT_EXPECTATION_TIME_INTERVAL, handler: nil)
     }
     
+}
+
+class CheckoutViewModelTest : BaseTest {
+    
+    var checkoutViewModel : CheckoutViewModel?
+    
+    func testIsPaymentMethodSelectedCard(){
+        self.checkoutViewModel =  CheckoutViewModel()
+        
+        XCTAssertNil(self.checkoutViewModel!.paymentMethod)
+        XCTAssertFalse(self.checkoutViewModel!.isPaymentMethodSelectedCard())
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("master")
+        XCTAssertTrue(self.checkoutViewModel!.isPaymentMethodSelectedCard())
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("rapipago", paymentTypeId : "ticket")
+        XCTAssertFalse(self.checkoutViewModel!.isPaymentMethodSelectedCard())
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("account_money", paymentTypeId : "account_money")
+        XCTAssertFalse(self.checkoutViewModel!.isPaymentMethodSelectedCard())
+        
+    }
+    
+    func testNumberOfSections(){
+        self.checkoutViewModel =  CheckoutViewModel()
+        
+        XCTAssertNil(self.checkoutViewModel!.paymentMethod)
+        XCTAssertEqual(self.checkoutViewModel!.numberOfSections(), 0)
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("master")
+        XCTAssertEqual(self.checkoutViewModel!.numberOfSections(), 2)
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("rapipago", paymentTypeId : "ticket")
+        XCTAssertEqual(self.checkoutViewModel!.numberOfSections(), 2)
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("account_money", paymentTypeId : "account_money")
+        XCTAssertEqual(self.checkoutViewModel!.numberOfSections(), 2)
+        
+    }
+    
+    func testPaymentMethodSelected(){
+        self.checkoutViewModel =  CheckoutViewModel()
+        
+        XCTAssertNil(self.checkoutViewModel!.paymentMethod)
+        XCTAssertFalse(self.checkoutViewModel!.isPaymentMethodSelected())
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("master")
+        XCTAssertTrue(self.checkoutViewModel!.isPaymentMethodSelected())
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("rapipago", paymentTypeId : "ticket")
+        XCTAssertTrue(self.checkoutViewModel!.isPaymentMethodSelected())
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("account_money", paymentTypeId : "account_money")
+        XCTAssertTrue(self.checkoutViewModel!.isPaymentMethodSelected())
+        
+    }
+    
+    func testNumberOfRowsInMainSection(){
+        self.checkoutViewModel =  CheckoutViewModel()
+        
+        XCTAssertNil(self.checkoutViewModel!.paymentMethod)
+        XCTAssertEqual(self.checkoutViewModel?.numberOfRowsInMainSection(), 2)
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("visa")
+        XCTAssertEqual(self.checkoutViewModel?.numberOfRowsInMainSection(), 4)
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("rapipago", paymentTypeId : "ticket")
+        XCTAssertEqual(self.checkoutViewModel?.numberOfRowsInMainSection(), 3)
+        
+        self.checkoutViewModel!.paymentMethod = MockBuilder.buildPaymentMethod("account_money", paymentTypeId : "account_money")
+        XCTAssertEqual(self.checkoutViewModel?.numberOfRowsInMainSection(), 3)
+    }
+    
+    func testisUniquePaymentMethodAvailable(){
+        self.checkoutViewModel =  CheckoutViewModel()
+        XCTAssertFalse(self.checkoutViewModel!.isUniquePaymentMethodAvailable())
+        
+        let paymentMethodSearch = PaymentMethodSearch()
+        paymentMethodSearch.paymentMethods = [MockBuilder.buildPaymentMethod("payment_method")]
+        self.checkoutViewModel?.paymentMethodSearch = paymentMethodSearch
+        XCTAssertTrue(self.checkoutViewModel!.isUniquePaymentMethodAvailable())
+        
+        paymentMethodSearch.paymentMethods = [MockBuilder.buildPaymentMethod("payment_method")]
+        self.checkoutViewModel?.paymentMethodSearch = paymentMethodSearch
+        
+        
+        
+    }
 }
