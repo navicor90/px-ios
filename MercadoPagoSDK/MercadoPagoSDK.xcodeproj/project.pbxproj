@@ -287,6 +287,7 @@
 		15DF3F831D6347BF0051C798 /* TextMaskFormater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF3F821D6347BF0051C798 /* TextMaskFormater.swift */; };
 		15E19C7D1D6F281700D49D7B /* MaskElementTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E19C7C1D6F281700D49D7B /* MaskElementTest.swift */; };
 		15E7D6E81C87164E00101872 /* MockedData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15E7D6E71C87164E00101872 /* MockedData.plist */; };
+		15EEE1D91D89D477004D3A19 /* CardViewModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EEE1D81D89D477004D3A19 /* CardViewModelManager.swift */; };
 		15FCA7901C84993B00D9E8CE /* PaymentMethodImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */; };
 		15FCA7911C84993B00D9E8CE /* PaymentMethodImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */; };
 		76062BC41C4D1EFD0067A14B /* PaymentMethodSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76062BC31C4D1EFD0067A14B /* PaymentMethodSearch.swift */; };
@@ -737,6 +738,7 @@
 		15DF3F821D6347BF0051C798 /* TextMaskFormater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMaskFormater.swift; sourceTree = "<group>"; };
 		15E19C7C1D6F281700D49D7B /* MaskElementTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskElementTest.swift; sourceTree = "<group>"; };
 		15E7D6E71C87164E00101872 /* MockedData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MockedData.plist; sourceTree = "<group>"; };
+		15EEE1D81D89D477004D3A19 /* CardViewModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModelManager.swift; sourceTree = "<group>"; };
 		15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodImageViewCell.swift; sourceTree = "<group>"; };
 		15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodImageViewCell.xib; sourceTree = "<group>"; };
 		37DB7C1D71C9DE1107904676 /* Pods-MercadoPagoSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MercadoPagoSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MercadoPagoSDK/Pods-MercadoPagoSDK.release.xcconfig"; sourceTree = "<group>"; };
@@ -1779,6 +1781,7 @@
 		76FD246F1C5BFE45008C5DC0 /* GuessingForm */ = {
 			isa = PBXGroup;
 			children = (
+				15EEE1D81D89D477004D3A19 /* CardViewModelManager.swift */,
 				150786A11CD7CCA40034C5B1 /* UI Elements */,
 				76FD24721C5BFEA1008C5DC0 /* CardFormViewController.swift */,
 				76FD24731C5BFEA1008C5DC0 /* CardFormViewController.xib */,
@@ -2244,6 +2247,7 @@
 				76062BC71C4D1F220067A14B /* PaymentMethodSearchItem.swift in Sources */,
 				76151B651C737608007DF0E3 /* InstructionsViewController.swift in Sources */,
 				762B8C221D19752A00A86097 /* MPFlowBuilder.swift in Sources */,
+				15EEE1D91D89D477004D3A19 /* CardViewModelManager.swift in Sources */,
 				0F9883B51AD2AD0C00F750F0 /* Regex.swift in Sources */,
 				0F98837F1AD2AB6000F750F0 /* MerchantPayment.swift in Sources */,
 				0FC4FC3F1B0FB83700CF7148 /* PromosTyCViewController.swift in Sources */,

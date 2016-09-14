@@ -127,6 +127,10 @@ public class MockBuilder: NSObject {
         card.expirationMonth = 11
         card.expirationYear = 22
         card.cardHolder = buildCardholder()
+        card.securityCode = SecurityCode()
+        card.securityCode?.cardLocation = "cardLocation"
+        card.securityCode?.mode = "mandatory"
+        card.securityCode?.length = 3
         return card
     }
         
