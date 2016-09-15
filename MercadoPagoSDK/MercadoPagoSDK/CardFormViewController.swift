@@ -188,7 +188,6 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
         editingLabel = cardNumberLabel
 
         view.setNeedsUpdateConstraints()
-        hidratateWithToken()
         cardView.addSubview(cardFront!)
 
     }
@@ -748,18 +747,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
     }
     
     
-    func hidratateWithToken(){
-
-        return
-        if ( self.cardFormManager!.token == nil ){
-            return
-        }
-        self.nameLabel?.text = self.cardFormManager!.token?.cardHolder?.name
-        self.cardNumberLabel?.text = self.cardFormManager!.token?.getMaskNumber()
-        self.expirationDateLabel?.text = self.cardFormManager!.token?.getExpirationDateFormated()
-        self.updateCardSkin()
-    }
-    
+       
     internal func validateCardNumber() -> Bool {
         return self.cardFormManager!.validateCardNumber(self.cardNumberLabel!, expirationDateLabel: self.expirationDateLabel!, cvvLabel: self.cvvLabel!, cardholderNameLabel: self.nameLabel!)
     }

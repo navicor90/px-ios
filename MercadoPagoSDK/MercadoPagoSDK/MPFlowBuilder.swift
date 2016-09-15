@@ -106,9 +106,7 @@ public class MPFlowBuilder : NSObject {
     
         ccf = cardVC?.viewControllers[0] as! CardFormViewController
     
-        if (token != nil) {
-            
-        }
+      
         cardVC!.modalTransitionStyle = .CrossDissolve
         return cardVC!
 

@@ -23,6 +23,7 @@ public class PaymentCongratsViewController: MercadoPagoUIViewController , MPPaym
     var payment : Payment!
     var paymentMethod : PaymentMethod!
     var layoutTemplate : String!
+    
     var callback : ((payment : Payment, status : MPStepBuilder.CongratsState) -> Void)!
     
     
