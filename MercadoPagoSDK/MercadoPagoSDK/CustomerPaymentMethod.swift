@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class CustomerPaymentMethod: NSObject, CardInformation {
+public class CustomerPaymentMethod: NSObject {
     
     var _id : String!
     var _description : String!
@@ -56,7 +56,7 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
         return self.toJSON().toString()
     }
 
-    public func isSecurityCodeRequired() -> Bool {
+    /*public func isSecurityCodeRequired() -> Bool {
         return true;
     }
     
@@ -93,5 +93,5 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
     public func setupPaymentMethodSettings(settings : [Setting]) {
         self.securityCode = settings[0].securityCode
     }
-    
+    */
 }

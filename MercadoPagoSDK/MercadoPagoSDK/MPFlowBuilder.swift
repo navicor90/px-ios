@@ -65,6 +65,7 @@ public class MPFlowBuilder : NSObject {
         let paymentVault = PaymentVaultViewController(amount: amount, paymentPreference: paymentPreference, paymentMethodSearchItem: paymentMethodSearch.groups, paymentMethods: paymentMethodSearch.paymentMethods, tintColor: true,
                                                       callback: callback, callbackCancel : callbackCancel)
         paymentVault.modalTransitionStyle = .CrossDissolve
+        paymentVault.viewModel!.enableMPLogin = true
         return MPFlowController.createNavigationControllerWith(paymentVault)
     }
 
