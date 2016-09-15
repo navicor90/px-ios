@@ -70,6 +70,10 @@ class CardViewModelManager: NSObject {
     }
     
     func getBIN(cardNumber : String) -> String?{
+        if (token != nil){
+            return token?.firstSixDigit
+        }
+        
         var trimmedNumber = cardNumber.stringByReplacingOccurrencesOfString(" ", withString: "")
         trimmedNumber = trimmedNumber.stringByReplacingOccurrencesOfString(String(textMaskFormater.emptyMaskElement), withString: "")
         

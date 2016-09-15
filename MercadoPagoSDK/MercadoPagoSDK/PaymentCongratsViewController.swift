@@ -23,6 +23,7 @@ public class PaymentCongratsViewController: MercadoPagoUIViewController , MPPaym
     var payment : Payment!
     var paymentMethod : PaymentMethod!
     var layoutTemplate : String!
+    
     var callback : ((payment : Payment, status : MPStepBuilder.CongratsState) -> Void)!
     
     
@@ -98,6 +99,7 @@ public class PaymentCongratsViewController: MercadoPagoUIViewController , MPPaym
                 if (body == "authorizePaymentBody"){
                     (cell as! AuthorizePaymentBodyTableViewCell).authCallback = {
                             let status = MPStepBuilder.CongratsState.CALL_FOR_AUTH
+                            MPTracker.trackEvent(MercadoPagoContext.sharedInstance, screen: self.getScreenName(), action: "RECOVER_TOKEN", result: nil)
                             self.invokeCallback(status)
                         
                     }
@@ -239,14 +241,15 @@ public class PaymentCongratsViewController: MercadoPagoUIViewController , MPPaym
             var status = MPStepBuilder.CongratsState.OK
             if self.payment.status == PaymentStatus.REJECTED.rawValue {
                 if self.payment.statusDetail == "cc_rejected_call_for_authorize" {
+                    MPTracker.trackEvent(MercadoPagoContext.sharedInstance, screen: self.getScreenName(), action: "SELECT_OTHER_PAYMENT_METHOD", result: nil)
                     status = MPStepBuilder.CongratsState.CANCEL_SELECT_OTHER
                 }else if self.payment.statusDetail != nil && self.payment.statusDetail.containsString("cc_rejected_bad_filled"){
+                    MPTracker.trackEvent(MercadoPagoContext.sharedInstance, screen: self.getScreenName(), action: "RECOVER_PAYMENT", result: nil)
                     status = MPStepBuilder.CongratsState.CANCEL_RECOVER
                 }else {
+                     MPTracker.trackEvent(MercadoPagoContext.sharedInstance, screen: self.getScreenName(), action: "SELECT_OTHER_PAYMENT_METHOD", result: nil)
                     status = MPStepBuilder.CongratsState.CANCEL_SELECT_OTHER
                 }
-            } else {
-                //status = "OK"
             }
             self.invokeCallback(status)
         }

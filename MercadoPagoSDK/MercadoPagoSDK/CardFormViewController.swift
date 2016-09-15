@@ -12,6 +12,7 @@ import MercadoPagoTracker
 
 public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDelegate {
 
+
     
     @IBOutlet weak var cardBackground: UIView!
     @IBOutlet weak var cardView: UIView!
@@ -118,17 +119,28 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
         textBox.placeholder = "Número de tarjeta".localized
         textBox.becomeFirstResponder()
 
-        if self.cardFormManager!.paymentMethod != nil {
-            self.updateCardSkin()
-        }
+
+        
+        self.updateCardSkin()
+        //C4A
+
         
         if self.cardFormManager!.customerCard != nil {
+
             let textMaskFormaterAux = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces: true)
             self.cardNumberLabel?.text = textMaskFormaterAux.textMasked(self.cardFormManager!.customerCard?.getCardBin(), remasked: false)
             self.cardNumberLabel?.text = textMaskFormaterAux.textMasked(self.cardFormManager!.customerCard?.getCardBin(), remasked: false)
             
             let textMaskFormaterAuxSec = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces: true, leftToRight: false)
          //   textMaskFormaterAuxSec.textMasked(self.)
+            self.prepareCVVLabelForEdit()
+        }else if cardFormManager!.token != nil {
+            let textMaskFormaterAux = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces: true)
+            self.cardNumberLabel?.text = textMaskFormaterAux.textMasked(cardFormManager!.token?.firstSixDigit, remasked: false)
+            self.cardNumberLabel?.text = textMaskFormaterAux.textMasked(cardFormManager!.token?.firstSixDigit, remasked: false)
+            
+            let textMaskFormaterAuxSec = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces: true, leftToRight: false)
+            //   textMaskFormaterAuxSec.textMasked(self.)
             self.prepareCVVLabelForEdit()
             
             
@@ -143,7 +155,11 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
 
         if (self.cardFormManager!.paymentMethods == nil){
             MPServicesBuilder.getPaymentMethods({ (paymentMethods) -> Void in
+
+                self.updateCardSkin()
+
                 self.cardFormManager?.paymentMethods = paymentMethods
+
                 }) { (error) -> Void in
                     // Mensaje de error correspondiente, ver que hacemos con el flujo
             }
@@ -172,7 +188,6 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
         editingLabel = cardNumberLabel
 
         view.setNeedsUpdateConstraints()
-        hidratateWithToken()
         cardView.addSubview(cardFront!)
 
     }
@@ -410,7 +425,8 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
         doneNext?.setTitlePositionAdjustment(UIOffset(horizontal: -UIScreen.mainScreen().bounds.size.width / 8, vertical: 0), forBarMetrics: UIBarMetrics.Default)
         navItem!.rightBarButtonItem = doneNext
         navItem!.leftBarButtonItem = donePrev
-        if self.cardFormManager!.customerCard != nil {
+
+        if self.cardFormManager!.customerCard != nil || self.cardFormManager!.token != nil{
             navItem!.leftBarButtonItem?.enabled = false
         }
         inputButtons!.pushNavigationItem(navItem!, animated: false)
@@ -532,6 +548,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
         delightedLabels()
     }
     
+
     func clearCardSkin(){
         
         UIView.animateWithDuration(0.7, animations: { () -> Void in
@@ -558,9 +575,9 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
     
     func updateCardSkin(){
        
-        if (textEditMaskFormater.textUnmasked(textBox.text).characters.count==6 || cardFormManager!.customerCard != nil){
+
+        if (textEditMaskFormater.textUnmasked(textBox.text).characters.count==6 || cardFormManager!.customerCard != nil || cardFormManager!.token != nil){
             let pmMatched = self.cardFormManager!.matchedPaymentMethod(self.cardNumberLabel!.text!)
-            
             cardFormManager!.paymentMethod = pmMatched
             if(cardFormManager!.paymentMethod != nil){
                 UIView.animateWithDuration(0.7, animations: { () -> Void in
@@ -644,9 +661,18 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
     
     func makeToken(){
         
+
+        if (cardFormManager!.token != nil){ // C4A
+            var ct = CardToken()
+            ct.securityCode = cvvLabel?.text
+            self.callback!(paymentMethod: cardFormManager!.paymentMethod!, cardtoken: ct)
+            return
+        }
+
         if cardFormManager!.customerCard != nil {
             self.cardFormManager!.buildSavedCardToken(self.cvvLabel!.text!)
             if !cardFormManager!.cardToken!.validate() {
+
                 markErrorLabel(cvvLabel!)
             }
         } else {
@@ -721,15 +747,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
     }
     
     
-    func hidratateWithToken(){
-        if ( self.cardFormManager!.token == nil ){
-            return
-        }
-        self.nameLabel?.text = self.cardFormManager!.token?.cardHolder?.name
-        self.cardNumberLabel?.text = self.cardFormManager!.token?.getMaskNumber()
-        self.expirationDateLabel?.text = self.cardFormManager!.token?.getExpirationDateFormated()
-    }
-    
+       
     internal func validateCardNumber() -> Bool {
         return self.cardFormManager!.validateCardNumber(self.cardNumberLabel!, expirationDateLabel: self.expirationDateLabel!, cvvLabel: self.cvvLabel!, cardholderNameLabel: self.nameLabel!)
     }

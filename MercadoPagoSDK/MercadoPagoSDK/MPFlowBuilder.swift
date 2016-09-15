@@ -69,7 +69,7 @@ public class MPFlowBuilder : NSObject {
     }
 
     
-    public class func startCardFlow(paymentPreference: PaymentPreference? = nil  , amount: Double, cardInformation : CardInformation? = nil, paymentMethods : [PaymentMethod]? = nil, callback: (paymentMethod: PaymentMethod, token: Token? ,  issuer: Issuer?, payerCost: PayerCost?) -> Void, callbackCancel : (Void -> Void)? = nil) -> MPNavigationController {
+    public class func startCardFlow(paymentPreference: PaymentPreference? = nil  , amount: Double, cardInformation : CardInformation? = nil, paymentMethods : [PaymentMethod]? = nil, token: Token? = nil, callback: (paymentMethod: PaymentMethod, token: Token? ,  issuer: Issuer?, payerCost: PayerCost?) -> Void, callbackCancel : (Void -> Void)? = nil) -> MPNavigationController {
         MercadoPagoContext.initFlavor2()
         var cardVC : MPNavigationController?
         var ccf : CardFormViewController = CardFormViewController()
@@ -80,7 +80,7 @@ public class MPFlowBuilder : NSObject {
         } else {
             currentCallbackCancel = callbackCancel!
         }
-        cardVC = MPStepBuilder.startCreditCardForm(paymentPreference, amount: amount, cardInformation : cardInformation, paymentMethods : paymentMethods, callback: { (paymentMethod, token, issuer) -> Void in
+        cardVC = MPStepBuilder.startCreditCardForm(paymentPreference, amount: amount, cardInformation : cardInformation, paymentMethods : paymentMethods, token: token, callback: { (paymentMethod, token, issuer) -> Void in
             
             MPServicesBuilder.getInstallments(token!.firstSixDigit, amount: amount, issuer: issuer, paymentMethodId: paymentMethod._id, success: { (installments) -> Void in
                 let payerCostSelected = paymentPreference?.autoSelectPayerCost(installments![0].payerCosts)
@@ -106,6 +106,7 @@ public class MPFlowBuilder : NSObject {
     
         ccf = cardVC?.viewControllers[0] as! CardFormViewController
     
+      
         cardVC!.modalTransitionStyle = .CrossDissolve
         return cardVC!
 

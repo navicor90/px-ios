@@ -109,6 +109,15 @@ public class MPStepBuilder : NSObject {
 
         ccf = CardFormViewController(paymentSettings : paymentSettings , amount: amount, cardInformation: cardInformation, paymentMethods : paymentMethods, token: token, callback : { (paymentMethod, cardToken) -> Void in
             
+            if (token != nil){ // flujo token recuperable C4A
+                MPServicesBuilder.cloneToken(token!,securityCode:(cardToken?.securityCode)!, success: { (token) in
+                    callback(paymentMethod: paymentMethod, token: token, issuer: nil)
+                    }, failure: { (error) in
+                        
+                })
+                return
+            }
+            
             if(paymentMethod.isIdentificationRequired()){
                 let identificationForm = MPStepBuilder.startIdentificationForm({ (identification) -> Void in
                     
