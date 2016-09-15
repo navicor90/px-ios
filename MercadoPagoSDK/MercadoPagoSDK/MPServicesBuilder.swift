@@ -71,7 +71,6 @@ public class MPServicesBuilder : NSObject {
         
         MercadoPagoContext.initFlavor1()
         MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "CLONE_TOKEN", result: nil)
-     //   savedCardToken.device = Device()
         let service : GatewayService = GatewayService(baseURL: MercadoPago.MP_API_BASE_URL)
         service.cloneToken(public_key: MercadoPagoContext.publicKey(), token: token,securityCode: securityCode, success:{(jsonResult: AnyObject?) -> Void in
             var token : Token? = nil
