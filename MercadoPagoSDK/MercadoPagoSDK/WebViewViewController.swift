@@ -41,9 +41,17 @@ public class WebViewViewController: MercadoPagoUIViewController, UIWebViewDelega
         
         print("url: ",request.URL?.absoluteString)
         
-        if surl!.rangeOfString("?code=") != nil{
+        if surl!.rangeOfString("\(returnUri)/?code=") != nil{
             let urlArray = surl?.characters.split{$0 == "="}.map(String.init)
-            print("CODE ",urlArray![(urlArray?.count)!-1])
+            let code = urlArray![(urlArray?.count)!-1]
+            print("CODE ", code)
+            
+            MPServicesBuilder.getUserCredentials(code, redirectUri: returnUri, success: { (userCredential) in
+                print(userCredential.accessToken)
+                
+                }, failure: { (error) in
+                    
+            })
             
             self.navigationController?.popToRootViewControllerAnimated(true)
             return false

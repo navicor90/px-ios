@@ -6,6 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4B6599261D886A1400EA36D7 /* m */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4B65992C1D886A1400EA36D7 /* Build configuration list for PBXAggregateTarget "m" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = m;
+			productName = m;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		0F9884FC1AD2BCB900F750F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9884FB1AD2BCB900F750F0 /* AppDelegate.swift */; };
 		0F9884FF1AD2BCB900F750F0 /* MercadoPagoSDKExamples.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F9884FD1AD2BCB900F750F0 /* MercadoPagoSDKExamples.xcdatamodeld */; };
@@ -574,6 +587,9 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 0F9884F51AD2BCB900F750F0;
 					};
+					4B6599261D886A1400EA36D7 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
 					76AFD39C1D34236A00A9DDAD = {
 						CreatedOnToolsVersion = 7.3;
 						TestTargetID = 0F9884F51AD2BCB900F750F0;
@@ -608,6 +624,7 @@
 				0F9884F51AD2BCB900F750F0 /* MercadoPagoSDKExamples */,
 				0F98850D1AD2BCB900F750F0 /* MercadoPagoSDKExamplesTests */,
 				76AFD39C1D34236A00A9DDAD /* MercadoPagoSDKExamplesUITests */,
+				4B6599261D886A1400EA36D7 /* m */,
 			);
 		};
 /* End PBXProject section */
@@ -912,7 +929,7 @@
 				INFOPLIST_FILE = MercadoPagoSDKExamples/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -939,7 +956,7 @@
 				INFOPLIST_FILE = MercadoPagoSDKExamples/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -981,6 +998,20 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MercadoPagoSDKExamples.app/MercadoPagoSDKExamples";
+			};
+			name = Release;
+		};
+		4B6599271D886A1400EA36D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4B6599281D886A1400EA36D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1041,6 +1072,15 @@
 			buildConfigurations = (
 				0F98851C1AD2BCB900F750F0 /* Debug */,
 				0F98851D1AD2BCB900F750F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B65992C1D886A1400EA36D7 /* Build configuration list for PBXAggregateTarget "m" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B6599271D886A1400EA36D7 /* Debug */,
+				4B6599281D886A1400EA36D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

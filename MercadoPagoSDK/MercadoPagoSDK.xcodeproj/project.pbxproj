@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4B65992D1D886A2700EA36D7 /* m */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4B65992E1D886A2700EA36D7 /* Build configuration list for PBXAggregateTarget "m" */;
+			buildPhases = (
+				4B6599311D886A3000EA36D7 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = m;
+			productName = m;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		0F0749051AED5BAE003DD39D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F0749081AED5BAE003DD39D /* Localizable.strings */; };
 		0F0749061AED5BAE003DD39D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0F0749081AED5BAE003DD39D /* Localizable.strings */; };
@@ -282,6 +296,7 @@
 		15E7D6E81C87164E00101872 /* MockedData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15E7D6E71C87164E00101872 /* MockedData.plist */; };
 		15FCA7901C84993B00D9E8CE /* PaymentMethodImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */; };
 		15FCA7911C84993B00D9E8CE /* PaymentMethodImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */; };
+		4B59EEB71D8AE17100019B1C /* OauthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B59EEB61D8AE17100019B1C /* OauthService.swift */; };
 		4B6599071D86CFB900EA36D7 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6599051D86CFB900EA36D7 /* WebViewViewController.swift */; };
 		4B6599081D86CFB900EA36D7 /* WebViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B6599061D86CFB900EA36D7 /* WebViewViewController.xib */; };
 		4B6599201D87221400EA36D7 /* UserCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B65991F1D87221400EA36D7 /* UserCredential.swift */; };
@@ -731,6 +746,7 @@
 		15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodImageViewCell.xib; sourceTree = "<group>"; };
 		37DB7C1D71C9DE1107904676 /* Pods-MercadoPagoSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MercadoPagoSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MercadoPagoSDK/Pods-MercadoPagoSDK.release.xcconfig"; sourceTree = "<group>"; };
 		455E1CA01F23B78778570A4C /* Pods-MercadoPagoSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MercadoPagoSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MercadoPagoSDKTests/Pods-MercadoPagoSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4B59EEB61D8AE17100019B1C /* OauthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthService.swift; sourceTree = "<group>"; };
 		4B6599051D86CFB900EA36D7 /* WebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		4B6599061D86CFB900EA36D7 /* WebViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewViewController.xib; sourceTree = "<group>"; };
 		4B65991F1D87221400EA36D7 /* UserCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCredential.swift; sourceTree = "<group>"; };
@@ -1043,6 +1059,7 @@
 				76062BC91C4D1F450067A14B /* PaymentMethodSearchService.swift */,
 				76151B861C73C025007DF0E3 /* InstructionsService.swift */,
 				76D936401CDA56A900238CB0 /* PreferenceService.swift */,
+				4B59EEB61D8AE17100019B1C /* OauthService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1876,10 +1893,13 @@
 				TargetAttributes = {
 					0F9883091AD2A97A00F750F0 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = T9VUHG6RU2;
+						DevelopmentTeam = LEKY5D3K28;
 					};
 					0F9883141AD2A97A00F750F0 = {
 						CreatedOnToolsVersion = 6.2;
+					};
+					4B65992D1D886A2700EA36D7 = {
+						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
 			};
@@ -1902,6 +1922,7 @@
 			targets = (
 				0F9883091AD2A97A00F750F0 /* MercadoPagoSDK */,
 				0F9883141AD2A97A00F750F0 /* MercadoPagoSDKTests */,
+				4B65992D1D886A2700EA36D7 /* m */,
 			);
 		};
 /* End PBXProject section */
@@ -2093,6 +2114,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MercadoPagoSDK/Pods-MercadoPagoSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4B6599311D886A3000EA36D7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}2.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}\"";
+		};
 		503987A3CF2A7CF9EB86225E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2254,6 +2288,7 @@
 				0F98837F1AD2AB6000F750F0 /* MerchantPayment.swift in Sources */,
 				0FC4FC3F1B0FB83700CF7148 /* PromosTyCViewController.swift in Sources */,
 				76B085141CE366D600C157BF /* ApprovedPaymentHeaderTableViewCell.swift in Sources */,
+				4B59EEB71D8AE17100019B1C /* OauthService.swift in Sources */,
 				76445AEE1CCA7334008EE68E /* MockBuilder.swift in Sources */,
 				0FC4FC181B0FAA6400CF7148 /* Promo.swift in Sources */,
 				76B085041CE2464700C157BF /* ExitButtonTableViewCell.swift in Sources */,
@@ -2689,11 +2724,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CD1C9F6E4E9EDDB95170C225 /* Pods-MercadoPagoSDK.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					x86_64,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2713,7 +2744,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LINK_WITH_STANDARD_LIBRARIES = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mercadopago.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2728,14 +2759,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 37DB7C1D71C9DE1107904676 /* Pods-MercadoPagoSDK.release.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					x86_64,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -2752,7 +2779,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LINK_WITH_STANDARD_LIBRARIES = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mercadopago.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2800,6 +2827,20 @@
 			};
 			name = Release;
 		};
+		4B65992F1D886A2700EA36D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4B6599301D886A2700EA36D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2826,6 +2867,15 @@
 			buildConfigurations = (
 				0F9883241AD2A97A00F750F0 /* Debug */,
 				0F9883251AD2A97A00F750F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B65992E1D886A2700EA36D7 /* Build configuration list for PBXAggregateTarget "m" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B65992F1D886A2700EA36D7 /* Debug */,
+				4B6599301D886A2700EA36D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
