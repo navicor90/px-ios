@@ -58,7 +58,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                 callbackCancel : (Void -> Void)? = nil) {
         super.init(nibName: PaymentVaultViewController.VIEW_CONTROLLER_NIB_NAME, bundle: bundle)
         self.initCommon()
-        self.initViewModel(amount, paymentPreference: paymentPreference, customerPaymentMethods: paymentMethodSearch.customerPaymentMethods, paymentMethodSearchItem : paymentMethodSearch.groups, paymentMethods: paymentMethodSearch.paymentMethods, callback: callback)
+        self.initViewModel(amount, paymentPreference: paymentPreference, customerPaymentMethods: paymentMethodSearch.customerOptions, paymentMethodSearchItem : paymentMethodSearch.groups, paymentMethods: paymentMethodSearch.paymentMethods, callback: callback)
         
         self.callbackCancel = callbackCancel
         
@@ -222,7 +222,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                     //TODO : esto es una cosa espeluznante
                     if customerCardSelected.getPaymentMethodId() == "account_money" {
                         let token = Token()
-                        token._id = customerCardSelected.getCardId()
+                        token._id = customerCardSelected.getId()
                         let paymentmethod = customerCardSelected.getPaymentMethod()
                         paymentmethod.paymentTypeId = "account_money"
                         
@@ -459,8 +459,8 @@ class PaymentVaultViewModel : NSObject {
         self.paymentMethods = paymentMethodSearchResponse.paymentMethods
         self.currentPaymentMethodSearch = paymentMethodSearchResponse.groups
         
-        if paymentMethodSearchResponse.customerPaymentMethods != nil && paymentMethodSearchResponse.customerPaymentMethods?.count > 0 {
-            self.customerCards = paymentMethodSearchResponse.customerPaymentMethods! as [CardInformation]
+        if paymentMethodSearchResponse.customerOptions != nil && paymentMethodSearchResponse.customerOptions?.count > 0 {
+            self.customerCards = paymentMethodSearchResponse.customerOptions! as [CardInformation]
         }
 
     }

@@ -13,7 +13,7 @@ public protocol CardInformation : NSObjectProtocol {
     
     func isSecurityCodeRequired() -> Bool
     
-    func getCardId() -> String
+    func getId() -> String
     
     func getCardSecurityCode() -> SecurityCode
     

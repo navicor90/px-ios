@@ -123,6 +123,7 @@ extension UIColor {
             return self.adjust(0.25, green: 0.25, blue: 0.25, alpha: 1)
     }
     
+    
     func adjust(red: CGFloat, green: CGFloat, blue: CGFloat, alpha:CGFloat) -> UIColor{
             var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
             self.getRed(&r, green: &g, blue: &b, alpha: &a)

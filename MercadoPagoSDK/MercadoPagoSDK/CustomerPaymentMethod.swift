@@ -13,7 +13,8 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
     var _id : String!
     var _description : String!
     var type : String!
-    var value : String!
+    var paymentMethodId : String!
+    
     
     var securityCode : SecurityCode = SecurityCode()
     
@@ -28,12 +29,12 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
             customerPaymentMethod._description = json["description"] as! String
         }
         
-        if json["type"] != nil && !(json["type"]! is NSNull) {
-            customerPaymentMethod.type = json["type"] as! String
+        if json["payment_method_id"] != nil && !(json["payment_method_id"]! is NSNull) {
+            customerPaymentMethod.paymentMethodId = json["payment_method_id"] as! String
         }
         
-        if json["value"] != nil && !(json["value"]! is NSNull) {
-            customerPaymentMethod.value = json["value"] as! String
+        if json["type"] != nil && !(json["type"]! is NSNull) {
+            customerPaymentMethod.type = json["type"] as! String
         }
         
         return customerPaymentMethod
@@ -45,7 +46,7 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
             "_id": self._id,
             "_description": self._description == nil ? "" : self._description!,
             "type" : self.type,
-            "value": self.value
+            "payment_method_id": self.paymentMethodId
         ]
         
         return JSON(obj)
@@ -59,8 +60,8 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
         return true;
     }
     
-    public func getCardId() -> String {
-        return self.value
+    public func getId() -> String {
+        return self._id
     }
     
     public func getCardSecurityCode() -> SecurityCode {

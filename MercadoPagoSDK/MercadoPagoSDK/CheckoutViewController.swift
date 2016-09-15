@@ -409,7 +409,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
             let footer = self.checkoutTable.dequeueReusableCellWithIdentifier("paymentDescriptionFooter") as! PaymentDescriptionFooterTableViewCell
             
             footer.layer.shadowOffset = CGSizeMake(0, 1)
-            footer.layer.shadowColor = UIColor(red: 153, green: 153, blue: 153).CGColor
+            footer.layer.shadowColor = UIColor.grayLight().CGColor
             footer.layer.shadowRadius = 1
             footer.layer.shadowOpacity = 0.6
             footer.setAmount(self.preference!.getAmount(), currency: CurrenciesUtil.getCurrencyFor(self.preference!.getCurrencyId()))

@@ -100,7 +100,7 @@ public class Card : NSObject, CardInformation {
         return self.paymentMethod!
     }
     
-    public func getCardId() -> String {
+    public func getId() -> String {
         return self.idCard.stringValue
     }
     
