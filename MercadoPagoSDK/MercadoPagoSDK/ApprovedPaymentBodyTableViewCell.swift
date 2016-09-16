@@ -42,6 +42,9 @@ class ApprovedPaymentBodyTableViewCell: CallbackCancelTableViewCell, CongratsFil
         let paymentMethodIcon = MercadoPago.getImage(payment.paymentMethodId)
         if paymentMethodIcon != nil {
             self.creditCardIcon.image = MercadoPago.getImage(payment.paymentMethodId)
+            if paymentMethod.paymentTypeId == PaymentTypeId.ACCOUNT_MONEY.rawValue {
+                self.creditCardLabel.text = "Dinero en cuenta de Mercado Pago".localized
+            }
         } else {
             self.creditCardIcon.hidden = true
             self.creditCardLabel.text = ""
