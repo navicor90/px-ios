@@ -471,7 +471,11 @@ public class CheckoutViewModel {
     var paymentMethodSearch : PaymentMethodSearch?
     
     func isPaymentMethodSelectedCard() -> Bool {
-        return self.paymentMethod != nil && !paymentMethod!.isOfflinePaymentMethod() && self.paymentMethod!._id != "account_money"
+        return self.paymentMethod != nil && paymentMethod!.isCard()
+    }
+    
+    func isPaymentMethodSelectedAccountMoney() -> Bool {
+        return self.paymentMethod != nil && self.paymentMethod!._id == PaymentTypeId.ACCOUNT_MONEY.rawValue
     }
     
     func numberOfSections() -> Int {
@@ -482,6 +486,7 @@ public class CheckoutViewModel {
         return paymentMethod != nil
     }
     
+
     func numberOfRowsInMainSection() -> Int {
         if (self.paymentMethod == nil) {
             return 2
@@ -521,7 +526,7 @@ public class CheckoutViewModel {
         
         switch indexPath.row {
         case 0:
-            if self.isPaymentMethodSelectedCard() {
+            if self.isPaymentMethodSelectedCard() || self.isPaymentMethodSelectedAccountMoney() {
                 return 48
             }
             return 80
