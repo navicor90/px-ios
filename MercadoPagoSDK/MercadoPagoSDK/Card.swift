@@ -40,7 +40,11 @@ public class Card : NSObject, CardInformation {
 			card.idCard = NSNumber(longLong: (json["id"]! as? NSString)!.longLongValue)
 		}
         card.lastFourDigits = JSON(json["last_four_digits"]!).asString
-        card.firstSixDigits = JSON(json["first_six_digits"]!).asString
+    
+        if (json["first_six_digits"] != nil && !(json["first_six_digits"]! is NSNull)) {
+            card.firstSixDigits = JSON(json["first_six_digits"]!).asString
+        }
+    
         if let issuerDic = json["issuer"] as? NSDictionary {
             card.issuer = Issuer.fromJSON(issuerDic)
         }
@@ -120,8 +124,8 @@ public class Card : NSObject, CardInformation {
         return self.lastFourDigits
     }
     
-    public func setupPaymentMethodSettings(settings: [Setting]) {
-        self.paymentMethod?.settings = settings
+    public func setupPaymentMethod(paymentMethod : PaymentMethod) {
+        self.paymentMethod = paymentMethod
     }
 }
 

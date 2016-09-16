@@ -182,7 +182,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                 customerPaymentMethodCell.paymentMethodTitle.text = "Tu cuenta de Mercado Pago".localized
                 customerPaymentMethodCell.paymentIcon.image =  MercadoPago.getImage("account_money")
             } else {
-                customerPaymentMethodCell.fillRowWithCustomerPayment(self.viewModel.customerCards![indexPath.row])
+                customerPaymentMethodCell.fillRowWithCustomerPayment(self.viewModel.customerPaymentMethods![indexPath.row])
             }
         
             return customerPaymentMethodCell
@@ -226,6 +226,9 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                         self.viewModel.callback!(paymentMethod : accountMoneyPaymentmethod, token: token, issuer: nil, payerCost : nil)
                     } else {
                         let customerCard = self.viewModel.getCustomerCard(customerPaymentMethod._id)
+                        let paymentMethod = self.viewModel.getLocalPaymentMethod(customerPaymentMethod.paymentMethodId)
+                        customerCard.setupPaymentMethod(paymentMethod)
+                        
                         let cardFlow = MPFlowBuilder.startCardFlow(amount: self.viewModel.amount, cardInformation : customerCard, callback: { (paymentMethod, token, issuer, payerCost) in
                             self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
                             }, callbackCancel: {
@@ -524,11 +527,17 @@ class PaymentVaultViewModel : NSObject {
     
     func getAccountMoneyPaymentMethod() -> PaymentMethod {
         let accountMoneyPaymentmethod = PaymentMethod()
+        accountMoneyPaymentmethod._id = PaymentTypeId.ACCOUNT_MONEY.rawValue
         accountMoneyPaymentmethod.paymentTypeId = PaymentTypeId.ACCOUNT_MONEY.rawValue
+        accountMoneyPaymentmethod.name = PaymentTypeId.ACCOUNT_MONEY.rawValue
         return accountMoneyPaymentmethod
 
     }
     
+    func getLocalPaymentMethod(paymentMethodId : String) -> PaymentMethod {
+        return Utils.findPaymentMethod(self.paymentMethods, paymentMethodId: paymentMethodId)
+    
+    }
     
 
 }

@@ -41,15 +41,12 @@ class CardViewModelManager: NSObject {
     func cvvLenght() -> Int{
         var lenght : Int
         
-        if self.customerCard != nil {
-            lenght = (self.customerCard?.getCardSecurityCode().length)!
-        } else {
-            if ((paymentMethod?.settings == nil)||(paymentMethod?.settings.count == 0)){
-                lenght = 3 // Default
-            }else{
-                lenght = (paymentMethod?.settings[0].securityCode.length)!
-            }
+        if ((paymentMethod?.settings == nil)||(paymentMethod?.settings.count == 0)){
+            lenght = 3 // Default
+        }else{
+            lenght = (paymentMethod?.settings[0].securityCode.length)!
         }
+        
         return lenght
     }
  

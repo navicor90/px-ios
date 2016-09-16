@@ -118,7 +118,7 @@ public class MPStepBuilder : NSObject {
                 return
             }
             
-            if(paymentMethod.isIdentificationRequired()){
+            if(paymentMethod.isIdentificationRequired() && cardInformation == nil){
                 let identificationForm = MPStepBuilder.startIdentificationForm({ (identification) -> Void in
                     
                     cardToken?.cardholder?.identification = identification
@@ -218,6 +218,7 @@ public class MPStepBuilder : NSObject {
         
         if cardToken.isCustomerPaymentMethod() {
             MPServicesBuilder.createToken(cardToken as! SavedCardToken, success: { (token) in
+                 
                 callback(paymentMethod: paymentMethod, token: token!, issuer: issuer)
                 }, failure: { (error) in
                     let errorVC = MPStepBuilder.startErrorViewController(MPError.convertFrom(error), callback: { (Void) in
