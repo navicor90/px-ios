@@ -64,7 +64,7 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		
 		self.navigationItem.backBarButtonItem?.title = "Atrás"
 		
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: "submitForm")
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CardViewController.submitForm))
 		
         let mercadoPago = MercadoPago(publicKey: self.publicKey!)
 		mercadoPago.getIdentificationTypes({(identificationTypes: [IdentificationType]?) -> Void in
@@ -83,8 +83,8 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "willShowKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "willHideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CardViewController.willShowKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CardViewController.willHideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
 
 	}

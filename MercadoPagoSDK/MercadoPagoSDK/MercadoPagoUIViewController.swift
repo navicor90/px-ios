@@ -56,12 +56,12 @@ public class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerD
                 var error: Unmanaged<CFError>?
                 let cfdata = CFDataCreate(nil, UnsafePointer<UInt8>(inData.bytes), inData.length)
                 if let provider = CGDataProviderCreateWithCFData(cfdata) {
-                    if let font = CGFontCreateWithDataProvider(provider) {
+                    let font = CGFontCreateWithDataProvider(provider)
                         if (!CTFontManagerRegisterGraphicsFont(font, &error)) {
                             print("Failed to load font: \(error)")
                         }
                         return true
-                    }
+                    
                 }
             }
         }
@@ -187,7 +187,7 @@ public class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerD
         backButton.target = self
         backButton.tintColor = UIColor.systemFontColor()
         backButton.imageInsets = UIEdgeInsets(top: 8, left: 2, bottom: 8, right: 2)
-        backButton.action = "executeBack"
+        backButton.action = #selector(MercadoPagoUIViewController.executeBack)
         self.navigationItem.leftBarButtonItem = backButton
     }
     

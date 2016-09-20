@@ -16,7 +16,7 @@ public class IdentificationViewController: MercadoPagoUIViewController , UITextF
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var numberDocLabel: UILabel!
     @IBOutlet weak var numberTextField: HoshiTextField!
-    var callback : (( identification: Identification) -> Void)?
+    var callback : (( Identification) -> Void)?
     var identificationTypes : [IdentificationType]?
     var identificationType : IdentificationType?
     var defaultMask = TextMaskFormater(mask: "XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: false)
@@ -55,12 +55,12 @@ public class IdentificationViewController: MercadoPagoUIViewController , UITextF
         pickerView.showsSelectionIndicator = true
         pickerView.dataSource = self
         pickerView.delegate = self
-        var toolBar = UIToolbar()
+        let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.Default
         toolBar.sizeToFit()
         
         
-        let doneButton = UIBarButtonItem(title: "OK".localized, style: UIBarButtonItemStyle.Bordered, target: self, action: "donePicker")
+        let doneButton = UIBarButtonItem(title: "OK".localized, style: UIBarButtonItemStyle.Bordered, target: self, action: #selector(IdentificationViewController.donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
         
         if let font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 14) {
@@ -119,7 +119,7 @@ public class IdentificationViewController: MercadoPagoUIViewController , UITextF
         self.view.backgroundColor = UIColor.complementaryColor()
         numberTextField.autocorrectionType = UITextAutocorrectionType.No
         numberTextField.keyboardType = UIKeyboardType.NumberPad
-        numberTextField.addTarget(self, action: "editingChanged:", forControlEvents: UIControlEvents.EditingChanged)
+        numberTextField.addTarget(self, action: #selector(IdentificationViewController.editingChanged(_:)), forControlEvents: UIControlEvents.EditingChanged)
 
         self.setupInputAccessoryView()
         self.getIdentificationTypes()
@@ -185,8 +185,8 @@ public class IdentificationViewController: MercadoPagoUIViewController , UITextF
         inputButtons!.alpha = 1;
         navItem = UINavigationItem()
         
-        doneNext = UIBarButtonItem(title: "Continuar".localized, style: .Plain, target: self, action: "rightArrowKeyTapped")
-        donePrev =  UIBarButtonItem(title: "Anterior".localized, style: .Plain, target: self, action: "leftArrowKeyTapped")
+        doneNext = UIBarButtonItem(title: "Continuar".localized, style: .Plain, target: self, action: #selector(IdentificationViewController.rightArrowKeyTapped))
+        donePrev =  UIBarButtonItem(title: "Anterior".localized, style: .Plain, target: self, action: #selector(IdentificationViewController.leftArrowKeyTapped))
         
         if let font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 14) {
             doneNext!.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
@@ -208,7 +208,7 @@ public class IdentificationViewController: MercadoPagoUIViewController , UITextF
 
         if ((cardToken.validateIdentificationNumber(identificationType)) == nil){
             self.numberTextField.resignFirstResponder()
-            self.callback!(identification:idnt)
+            self.callback!(idnt)
         }else{
             showErrorMessage((cardToken.validateIdentificationNumber(identificationType)?.userInfo["identification"] as? String)!)
         }

@@ -95,7 +95,7 @@ public class PaymentCongratsViewController: MercadoPagoUIViewController , MPPaym
             if body != nil && body?.characters.count > 0 {
                 let bodyCell = self.congratsContentTable.dequeueReusableCellWithIdentifier(body!) as! CongratsFillmentDelegate
                 let callback = self.congratsCallback()
-                 var cell = bodyCell.fillCell(self.payment, paymentMethod : self.paymentMethod, callback: callback)
+                 let cell = bodyCell.fillCell(self.payment, paymentMethod : self.paymentMethod, callback: callback)
                 if (body == "authorizePaymentBody"){
                     (cell as! AuthorizePaymentBodyTableViewCell).authCallback = {
                             let status = MPStepBuilder.CongratsState.CALL_FOR_AUTH

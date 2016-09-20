@@ -69,7 +69,7 @@ public class NewCardViewController : MercadoPagoUIViewController, UITableViewDat
 		
 		self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Atrás".localized, style: UIBarButtonItemStyle.Plain, target: self, action: nil)
 		
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: "submitForm")
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(NewCardViewController.submitForm))
 		
 		self.view.addSubview(self.loadingView)
 		var mercadoPago : MercadoPago
@@ -94,8 +94,8 @@ public class NewCardViewController : MercadoPagoUIViewController, UITableViewDat
 	
 	public override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "willShowKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "willHideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewCardViewController.willShowKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewCardViewController.willHideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	public override func viewWillDisappear(animated: Bool) {

@@ -19,7 +19,7 @@ public class VaultViewController : MercadoPagoUIViewController, UITableViewDataS
     var amount : Double = 0
     var bundle : NSBundle? = MercadoPago.getBundle()
     
-    public var callback : ((paymentMethod: PaymentMethod, tokenId: String?, issuer: Issuer?, installments: Int) -> Void)?
+    public var callback : ((PaymentMethod, String?, Issuer?, Int) -> Void)?
     
     // Input controls
     @IBOutlet weak private var tableview : UITableView!
@@ -78,7 +78,7 @@ public class VaultViewController : MercadoPagoUIViewController, UITableViewDataS
         
         declareAndInitCells()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: "submitForm")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(VaultViewController.submitForm))
         self.navigationItem.rightBarButtonItem?.enabled = false
         
         self.tableview.delegate = self
@@ -106,8 +106,8 @@ public class VaultViewController : MercadoPagoUIViewController, UITableViewDataS
     
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willShowKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "willHideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VaultViewController.willShowKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(VaultViewController.willHideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     public override func viewWillDisappear(animated: Bool) {
@@ -311,7 +311,7 @@ public class VaultViewController : MercadoPagoUIViewController, UITableViewDataS
                         
                         let installments = self.selectedPayerCost == nil ? 0 : self.selectedPayerCost!.installments
                         
-                        self.callback!(paymentMethod: self.selectedPaymentMethod!, tokenId: tokenId, issuer: self.selectedIssuer, installments: installments)
+                        self.callback!(self.selectedPaymentMethod!, tokenId, self.selectedIssuer, installments)
                         }, failure: { (error: NSError?) -> Void in
                             MercadoPago.showAlertViewWithError(error, nav: self.navigationController)
                     })
@@ -330,10 +330,10 @@ public class VaultViewController : MercadoPagoUIViewController, UITableViewDataS
                     
                     let installments = self.selectedPayerCost == nil ? 0 : self.selectedPayerCost!.installments
                     
-                    self.callback!(paymentMethod: self.selectedPaymentMethod!, tokenId: tokenId, issuer: self.selectedIssuer, installments: installments)
-                    }, failure: { (error: NSError?) -> Void in
+                    self.callback!(self.selectedPaymentMethod!, tokenId, self.selectedIssuer, installments)
+                    }, failure : { (error: NSError?) -> Void in
                         MercadoPago.showAlertViewWithError(error, nav: self.navigationController)
-                })
+                    })
             }
         }
     }

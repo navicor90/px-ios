@@ -61,7 +61,7 @@ public class Installment : NSObject {
             if (pc.installments > maxNumberOfInstallments){
                 return count
             }
-            count++
+            count += 1
         }
         
         return count

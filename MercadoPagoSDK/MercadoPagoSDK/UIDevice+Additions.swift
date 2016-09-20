@@ -52,7 +52,7 @@ extension UIDevice {
 	var retinaDisplayCapable: Bool {
 		var scale : CGFloat = CGFloat(1.0)
 		let screen : UIScreen = UIScreen.mainScreen()
-		if screen.respondsToSelector(Selector("scale")) {
+		if screen.respondsToSelector(#selector(NSDecimalNumberBehaviors.scale)) {
 			scale = screen.scale
 		}
 		

@@ -26,7 +26,7 @@ public class GatewayService : MercadoPagoService {
                     token = Token.fromJSON(tokenDic)
                 }
             }
-            var secCodeDic = NSMutableDictionary()
+            let secCodeDic = NSMutableDictionary()
             secCodeDic.setValue(securityCode, forKey: "security_code")
             self.request(url + "/" + token!._id, params: "public_key=" + public_key, body: JSON(secCodeDic).toString(), method: "PUT", success: success, failure: failure)
         }, failure:failure)

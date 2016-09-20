@@ -182,7 +182,7 @@ public class CongratsViewController : MercadoPagoUIViewController, UITableViewDa
             title = "Continuar".localized
             // TODO couponUrl = nil
         }
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: "submitForm")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CongratsViewController.submitForm))
     }
     
     public func submitForm() {

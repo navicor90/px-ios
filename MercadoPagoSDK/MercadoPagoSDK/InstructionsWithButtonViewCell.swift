@@ -48,7 +48,7 @@ class InstructionsWithButtonViewCell: UITableViewCell, InstructionsFillmentDeleg
             if instruction.actions != nil && instruction.actions?.count > 0 {
                 if instruction.actions![0].tag == ActionTag.LINK.rawValue {
                     self.button.actionLink = instruction.actions![0].url
-                    self.button.addTarget(self, action: "openUrl", forControlEvents: .TouchUpInside)
+                    self.button.addTarget(self, action: #selector(InstructionsWithButtonViewCell.openUrl), forControlEvents: .TouchUpInside)
                 }
             } else {
                 self.button.hidden = true

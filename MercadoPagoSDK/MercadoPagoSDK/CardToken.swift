@@ -267,7 +267,7 @@ public class CardToken : NSObject {
             return false
         }
         
-        for var index = (cardNumber.characters.count-1); index >= 0; index-- {
+        for var index = (cardNumber.characters.count-1); index >= 0; index -= 1 {
             _ = NSRange(location: index, length: 1)
             var s = cardNumber as NSString
             s = s.substringWithRange(NSRange(location: index, length: 1))

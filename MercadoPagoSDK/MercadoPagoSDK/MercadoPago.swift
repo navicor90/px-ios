@@ -173,7 +173,7 @@ public class MercadoPago : NSObject, UIAlertViewDelegate {
                     let identificationTypesResult = jsonResult as? NSArray?
                     var identificationTypes : [IdentificationType] = [IdentificationType]()
                     if identificationTypesResult != nil {
-                        for var i = 0; i < identificationTypesResult!!.count; i++ {
+                        for i in 0 ..< identificationTypesResult!!.count {
                             if let identificationTypeDic = identificationTypesResult!![i] as? NSDictionary {
                                 identificationTypes.append(IdentificationType.fromJSON(identificationTypeDic))
                             }
@@ -237,7 +237,7 @@ public class MercadoPago : NSObject, UIAlertViewDelegate {
             let promosArray = jsonResult as? NSArray?
             var promos : [Promo] = [Promo]()
             if promosArray != nil {
-                for var i = 0; i < promosArray!!.count; i++ {
+                for i in 0 ..< promosArray!!.count {
                     if let promoDic = promosArray!![i] as? NSDictionary {
                         promos.append(Promo.fromJSON(promoDic))
                     }

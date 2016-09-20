@@ -71,7 +71,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
                 self.navigationController?.navigationBar.translucent = false
                 self.cardBackground.backgroundColor =  MercadoPagoContext.getComplementaryColor()
  
-                var promocionesButton : UIBarButtonItem = UIBarButtonItem(title: "Ver promociones".localized, style: UIBarButtonItemStyle.Plain, target: self, action: "verPromociones")
+                let promocionesButton : UIBarButtonItem = UIBarButtonItem(title: "Ver promociones".localized, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CardFormViewController.verPromociones))
                 promocionesButton.tintColor = UIColor.systemFontColor()
 
                 
@@ -663,7 +663,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
         
 
         if (cardFormManager!.token != nil){ // C4A
-            var ct = CardToken()
+            let ct = CardToken()
             ct.securityCode = cvvLabel?.text
             self.callback!(paymentMethod: cardFormManager!.paymentMethod!, cardtoken: ct)
             return
@@ -716,7 +716,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
     
     func addCvvDot() -> Bool {
     
-        var label = self.cvvLabel
+        let label = self.cvvLabel
         //Check for max length including the spacers we added
         if label?.text?.characters.count == cardFormManager!.cvvLenght(){
             return false

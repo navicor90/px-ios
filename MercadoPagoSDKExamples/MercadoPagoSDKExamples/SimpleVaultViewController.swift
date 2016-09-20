@@ -15,7 +15,7 @@ class SimpleVaultViewController: UIViewController, UITableViewDataSource, UITabl
     var baseUrl: String?
     var getCustomerUri: String?
     var merchantAccessToken: String?
-    var callback: ((paymentMethod: PaymentMethod, token: Token?) -> Void)?
+    var callback: ((PaymentMethod, Token?) -> Void)?
     var paymentPreference: PaymentPreference?
     
     @IBOutlet weak var tableview : UITableView!
@@ -60,7 +60,7 @@ class SimpleVaultViewController: UIViewController, UITableViewDataSource, UITabl
         self.loadingView = UILoadingView(frame: MercadoPago.screenBoundsFixedToPortraitOrientation(), text: "Cargando...".localized)
         self.view.addSubview(self.loadingView)
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: "submitForm")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(SimpleVaultViewController.submitForm))
         self.navigationItem.rightBarButtonItem?.enabled = false
         
         self.tableview.delegate = self
@@ -68,7 +68,7 @@ class SimpleVaultViewController: UIViewController, UITableViewDataSource, UITabl
         
         declareAndInitCells()
         
-        MerchantServer.getCustomer({ (customer: Customer) -> Void in
+        MerchantServer.getCustomer({ (customer) -> Void in
                 self.cards = customer.cards
                 self.loadingView.removeFromSuperview()
                 self.tableview.reloadData()
@@ -78,8 +78,8 @@ class SimpleVaultViewController: UIViewController, UITableViewDataSource, UITabl
 	override func viewWillAppear(animated: Bool) {
 		declareAndInitCells()
 		super.viewWillAppear(animated)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "willShowKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "willHideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SimpleVaultViewController.willShowKeyboard(_:)), name: UIKeyboardWillShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SimpleVaultViewController.willHideKeyboard(_:)), name: UIKeyboardWillHideNotification, object: nil)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
@@ -238,7 +238,7 @@ class SimpleVaultViewController: UIViewController, UITableViewDataSource, UITabl
     
     func getCreatePaymentCallback() -> (token: Token?) -> Void {
         return { (token: Token?) -> Void in
-            self.callback!(paymentMethod: self.selectedPaymentMethod!, token: token)
+            self.callback!(self.selectedPaymentMethod!, token)
         }
     }
     

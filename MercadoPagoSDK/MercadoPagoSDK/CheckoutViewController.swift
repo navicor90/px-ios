@@ -166,7 +166,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
             exitButtonCell.callbackCancel = {
                 self.dismissViewControllerAnimated(true, completion: {})
             }
-            exitButtonCell.exitButton.addTarget(self, action: "exitCheckoutFlow", forControlEvents: .TouchUpInside)
+            exitButtonCell.exitButton.addTarget(self, action: #selector(CheckoutViewController.exitCheckoutFlow), forControlEvents: .TouchUpInside)
             return exitButtonCell
         }
         return nil
@@ -416,7 +416,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
             return footer
         case 2 :
             let termsAndConditionsButton = self.checkoutTable.dequeueReusableCellWithIdentifier("purchaseTermsAndConditions") as! TermsAndConditionsViewCell
-            termsAndConditionsButton.paymentButton.addTarget(self, action: "confirmPayment", forControlEvents: .TouchUpInside)
+            termsAndConditionsButton.paymentButton.addTarget(self, action: #selector(CheckoutViewController.confirmPayment), forControlEvents: .TouchUpInside)
             termsAndConditionsButton.delegate = self
             return termsAndConditionsButton
         default:
@@ -447,7 +447,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
             return footer
         default:
             let termsAndConditionsButton = self.checkoutTable.dequeueReusableCellWithIdentifier("purchaseTermsAndConditions") as! TermsAndConditionsViewCell
-            termsAndConditionsButton.paymentButton.addTarget(self, action: "confirmPayment", forControlEvents: .TouchUpInside)
+            termsAndConditionsButton.paymentButton.addTarget(self, action: #selector(CheckoutViewController.confirmPayment), forControlEvents: .TouchUpInside)
             return termsAndConditionsButton
         }
     }

@@ -78,9 +78,9 @@ public class TextFieldEffects : MPTextField {
     
     override public func willMoveToSuperview(newSuperview: UIView!) {
         if newSuperview != nil {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidEndEditing", name:UITextFieldTextDidEndEditingNotification, object: self)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TextFieldEffects.textFieldDidEndEditing), name:UITextFieldTextDidEndEditingNotification, object: self)
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "textFieldDidBeginEditing", name:UITextFieldTextDidBeginEditingNotification, object: self)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TextFieldEffects.textFieldDidBeginEditing), name:UITextFieldTextDidBeginEditingNotification, object: self)
         } else {
             NSNotificationCenter.defaultCenter().removeObserver(self)
         }

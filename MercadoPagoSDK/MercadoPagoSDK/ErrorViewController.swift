@@ -47,10 +47,10 @@ public class ErrorViewController: MercadoPagoUIViewController {
         super.viewDidLoad()
         self.errorTitle.text = error.message
         self.errorSubtitle.text = error.messageDetail
-        self.exitButton.addTarget(self, action: "invokeExitCallback", forControlEvents: .TouchUpInside)
+        self.exitButton.addTarget(self, action: #selector(ErrorViewController.invokeExitCallback), forControlEvents: .TouchUpInside)
         
         if self.error.retry! {
-            self.retryButton.addTarget(self, action: "invokeCallback", forControlEvents: .TouchUpInside)
+            self.retryButton.addTarget(self, action: #selector(ErrorViewController.invokeCallback), forControlEvents: .TouchUpInside)
             self.retryButton.hidden = false
         } else {
             self.retryButton.hidden = true
