@@ -674,6 +674,11 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
 
                 markErrorLabel(cvvLabel!)
             }
+        } else if (self.cardFormManager!.token != nil){ // C4A
+            var ct = CardToken()
+            ct.securityCode = cvvLabel?.text
+            self.callback!(paymentMethod: cardFormManager!.paymentMethod!, cardtoken: ct)
+            return
         } else {
             self.cardFormManager!.tokenHidratate(cardNumberLabel!.text!, expirationDate: self.expirationDateLabel!.text!, cvv: self.cvvLabel!.text!, cardholderName : self.nameLabel!.text!)
             

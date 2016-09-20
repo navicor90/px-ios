@@ -208,6 +208,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         
         switch indexPath.section {
         case 0:
+<<<<<<< HEAD
             if self.viewModel.getCustomerPaymentMethodsToDisplayCount() > 0 {
                 if indexPath.row == 0 && self.viewModel.isMPLoginAvailable() {
                     //TODO : ir a MPConnect

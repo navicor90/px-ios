@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class CustomerPaymentMethod: NSObject {
+public class CustomerPaymentMethod: NSObject, CardInformation {
     
     var _id : String!
     var _description : String!

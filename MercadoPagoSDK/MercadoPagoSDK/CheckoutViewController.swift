@@ -17,7 +17,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     var accessToken : String!
     var bundle : NSBundle? = MercadoPago.getBundle()
     var callback : (Payment -> Void)!
-   
+
     var viewModel : CheckoutViewModel?
     
     var issuer : Issuer?
@@ -121,10 +121,9 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
 
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            // Purchase description
             return 1
         }
-       return self.viewModel!.numberOfRowsInMainSection()
+        return self.viewModel!.numberOfRowsInMainSection()
     }
     
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -145,7 +144,7 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
             self.checkoutTable.deselectRowAtIndexPath(indexPath, animated: true)
-        } else if indexPath.section == 1 && indexPath.row == 0 && !self.viewModel!.isUniquePaymentMethodAvailable() {
+        } else if indexPath.section == 1 && indexPath.row == 0 &&  !self.viewModel!.isUniquePaymentMethodAvailable() {
             self.checkoutTable.deselectRowAtIndexPath(indexPath, animated: true)
             self.showLoading()
             self.loadGroupsAndStartPaymentVault()
@@ -279,7 +278,6 @@ public class CheckoutViewController: MercadoPagoUIViewController, UITableViewDat
     
     internal func confirmPaymentOff(){
         MercadoPago.createMPPayment(self.preference!.payer.email, preferenceId: self.preference!._id, paymentMethod: self.viewModel!.paymentMethod!, token : self.token, success: { (payment) -> Void in
-
             MPTracker.trackPaymentOffEvent(String(payment._id), mpDelegate: MercadoPagoContext.sharedInstance)
             
            self.displayPaymentResult(payment)
