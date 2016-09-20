@@ -132,7 +132,7 @@ public class MPStepBuilder : NSObject {
                 
                 
             }else{
-                 self.getIssuers(paymentMethod, cardToken: cardToken!, ccf: ccf, callback: callback)
+                self.getIssuers(paymentMethod, cardToken: cardToken!, ccf: ccf, callback: callback)
             }
             
             },callbackCancel: callbackCancel)
@@ -218,7 +218,6 @@ public class MPStepBuilder : NSObject {
         
         if cardToken.isCustomerPaymentMethod() {
             MPServicesBuilder.createToken(cardToken as! SavedCardToken, success: { (token) in
-                 
                 callback(paymentMethod: paymentMethod, token: token!, issuer: issuer)
                 }, failure: { (error) in
                     let errorVC = MPStepBuilder.startErrorViewController(MPError.convertFrom(error), callback: { (Void) in

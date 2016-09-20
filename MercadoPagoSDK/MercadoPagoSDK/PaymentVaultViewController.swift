@@ -30,7 +30,6 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     
     private var tintColor = true
     
-    
     @IBOutlet weak var paymentsTable: UITableView!
     
 
@@ -178,13 +177,14 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 && self.viewModel.getCustomerPaymentMethodsToDisplayCount() > 0 {
             let customerPaymentMethodCell = self.paymentsTable.dequeueReusableCellWithIdentifier("customerPaymentMethodCell") as! CustomerPaymentMethodCell
+
             if indexPath.row == 0 && self.viewModel.isMPLoginAvailable() {
                 customerPaymentMethodCell.paymentMethodTitle.text = "Tu cuenta de Mercado Pago".localized
                 customerPaymentMethodCell.paymentIcon.image =  MercadoPago.getImage("account_money")
             } else {
                 customerPaymentMethodCell.fillRowWithCustomerPayment(self.viewModel.customerPaymentMethods![indexPath.row])
             }
-        
+
             return customerPaymentMethodCell
         }
         
@@ -208,7 +208,6 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         
         switch indexPath.section {
         case 0:
-<<<<<<< HEAD
             if self.viewModel.getCustomerPaymentMethodsToDisplayCount() > 0 {
                 if indexPath.row == 0 && self.viewModel.isMPLoginAvailable() {
                     //TODO : ir a MPConnect
@@ -246,7 +245,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                 let paymentVault = PaymentVaultViewController(amount: self.viewModel.amount, paymentPreference: self.viewModel.paymentPreference, paymentMethodSearchItem: paymentSearchItemSelected.children, paymentMethods : self.viewModel.paymentMethods, title:paymentSearchItemSelected.childrenHeader, callback: { (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void in
                     self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
                 })
-                paymentVault.viewModel.isRoot = false
+                paymentVault.viewModel!.isRoot = false
                 self.navigationController!.pushViewController(paymentVault, animated: true)
             } else {
                 self.viewModel.optionSelected(paymentSearchItemSelected, navigationController: self.navigationController!, cancelPaymentCallback: cardFormCallbackCancel())
@@ -267,7 +266,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     }
     
     private func getCustomerCards(){
-        if self.viewModel.shouldGetCustomerCardsInfo() {
+        if self.viewModel!.shouldGetCustomerCardsInfo() {
             MerchantServer.getCustomer({ (customer: Customer) -> Void in
                 self.viewModel!.customerCards = customer.cards
                 self.loadPaymentMethodSearch()
@@ -382,7 +381,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         
         //En caso de que el vc no sea root
         if (navigationController != nil && navigationController!.viewControllers.count > 1 && navigationController!.viewControllers[0] != self) || (navigationController != nil && navigationController!.viewControllers.count == 1) {
-            if self.viewModel.isRoot {
+            if self.viewModel!.isRoot {
                 self.callbackCancel!()
             }
             return true
@@ -409,6 +408,8 @@ class PaymentVaultViewModel : NSObject {
     var isRoot = true
     
     var enableMPLogin = false
+    
+    internal var isRoot = true
     
     init(amount : Double, paymentPrefence : PaymentPreference?){
         self.amount = amount

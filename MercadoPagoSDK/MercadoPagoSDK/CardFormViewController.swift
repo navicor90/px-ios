@@ -122,8 +122,6 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
 
         
         self.updateCardSkin()
-        //C4A
-
         
         if self.cardFormManager!.customerCard != nil {
           /*  let textMaskFormaterAux = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces: true)
@@ -133,7 +131,7 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
             let textMaskFormaterAuxSec = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces: true, leftToRight: false)*/
          //   textMaskFormaterAuxSec.textMasked(self.)
             self.prepareCVVLabelForEdit()
-        }else if cardFormManager!.token != nil {
+        } else if cardFormManager!.token != nil {
             let textMaskFormaterAux = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces: true)
             self.cardNumberLabel?.text = textMaskFormaterAux.textMasked(cardFormManager!.token?.firstSixDigit, remasked: false)
             self.cardNumberLabel?.text = textMaskFormaterAux.textMasked(cardFormManager!.token?.firstSixDigit, remasked: false)
@@ -157,7 +155,6 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
 
                 self.updateCardSkin()
 
-                self.cardFormManager?.paymentMethods = paymentMethods
 
                 }) { (error) -> Void in
                     // Mensaje de error correspondiente, ver que hacemos con el flujo

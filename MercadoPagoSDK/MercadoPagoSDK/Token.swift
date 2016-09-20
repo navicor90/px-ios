@@ -54,8 +54,12 @@ public class Token : NSObject {
 	}
     
     public func getBin() -> String? {
-        let range = Range(start: firstSixDigit!.startIndex, end: firstSixDigit!.characters.startIndex.advancedBy(6))
-        let bin :String? = firstSixDigit!.characters.count >= 6 ? firstSixDigit!.substringWithRange(range) : nil
+        var bin :String? = nil
+        if firstSixDigit != nil && firstSixDigit.characters.count > 0 {
+            let range = Range(start: firstSixDigit!.startIndex, end: firstSixDigit!.characters.startIndex.advancedBy(6))
+            bin = firstSixDigit!.characters.count >= 6 ? firstSixDigit!.substringWithRange(range) : nil
+        }
+        
         return bin
     }
       

@@ -107,7 +107,7 @@ public class PayerCostViewController: MercadoPagoUIViewController {
             self.fontColor = MercadoPago.getFontColorFor(self.paymentMethod!)!
             
             
-            let lastFourDigits = (self.token!.lastFourDigits as String) ?? "XXXX "
+            let lastFourDigits = (self.token!.lastFourDigits as? String) ?? "XXXX "
             cardFront?.cardNumber.text =  "XXXX XXXX XXXX " + lastFourDigits
         
                 
