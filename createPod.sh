@@ -1,5 +1,5 @@
 #!/bin/bash
-#!/bin/bash   
+#!/bin/bash
 
 if [ $# -eq 0 ]
   then
@@ -8,9 +8,9 @@ if [ $# -eq 0 ]
 fi
 
 VERSION=$1
-PROJECT="MercadoPagoSDK-BETA"
+PROJECT="MercadoPagoSDK"
 PODSPEC_FILE="$PROJECT.podspec"
-GIT_BRANCH="development"
+GIT_BRANCH="master"
 
 if [ "$#" -eq 2 ]
   then
@@ -19,7 +19,7 @@ if [ "$#" -eq 2 ]
 fi
 
 echo "=========================================="
-echo "    Creating POD Project : $PROJECT  " 
+echo "    Creating POD Project : $PROJECT  "
 echo "=========================================="
 
 echo "======================================================"
@@ -29,7 +29,7 @@ echo "======================================================"
 awk '/s.version.*/{if (M==""){sub("s.version.*","s.version          = \"'$VERSION'\"");M=1}}{print}' $PODSPEC_FILE > $PODSPEC_FILE.temp
 STATUS=$?
 if [ $STATUS -ne 0 ]
-	then 
+	then
 		rm $PODSPEC_FILE.temp
 		echo "Cannot update spec version in podspect file."
 		exit 0
@@ -40,13 +40,13 @@ rm $PODSPEC_FILE.temp
 
 
 echo "=========================================="
-echo "2) Validate .podspec --allow-warnings" 
+echo "2) Validate .podspec --allow-warnings"
 echo "=========================================="
 
 pod lib lint --allow-warnings
 STATUS=$?
 if [ $STATUS -ne 0 ]
-	then 
+	then
 		echo "Error ocurred. Validate podspec."
 		exit 0
 fi
@@ -61,7 +61,7 @@ git tag $VERSION
 git push origin $VERSION
 PUSH_STATUS=$?
 if [ $PUSH_STATUS -ne 0 ]
-	then 
+	then
 		echo "Error ocurred pushing tag."
 		exit 0
 fi
@@ -74,7 +74,7 @@ pod trunk push $PODSPEC_FILE --allow-warnings
 POD_TRUNK_STATUS=$?
 
 if [ $POD_TRUNK_STATUS -ne 0 ]
-	then 
+	then
 		echo "Error ocurred pushing pod into trunk."
 		exit 0
 fi
@@ -89,5 +89,3 @@ echo "		Pod created from tag $VERSION. 		"
 echo " 			Versions available in 			"
 echo "https://github.com/CocoaPods/Specs/tree/master/Specs/$PROJECT"
 echo "=========================================="
-
-

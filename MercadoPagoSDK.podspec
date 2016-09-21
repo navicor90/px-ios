@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-  s.name             = "MercadoPagoSDK-BETA"
-  s.version          = "0.9.14"
-  s.summary          = "MercadoPagoSDK-BETA"
+  s.name             = "MercadoPagoSDK"
+  s.version          = "2.0.3"
+  s.summary          = "MercadoPagoSDK"
   s.homepage         = "https://www.mercadopago.com"
   s.license          = { :type => "MIT", :file => "LICENSE" }
   s.author           = { "Matias Gualino" => "matias.gualino@mercadolibre.com" }
@@ -12,14 +12,14 @@ Pod::Spec.new do |s|
 
   s.resources = ['MercadoPagoSDK/MercadoPagoSDK/*.xcassets', 'MercadoPagoSDK/MercadoPagoSDK/*.ttf']
   s.source_files = 'MercadoPagoSDK/MercadoPagoSDK/*'
-  
+
   s.dependency 'MercadoPagoTracker'
 
   s.subspec 'Localization' do |t|
     %w|pt es es-MX es-CO|.map {|localename|
       t.subspec localename do |u|
         u.ios.resources = "MercadoPagoSDK/MercadoPagoSDK/#{localename}.lproj"
-        u.ios.preserve_paths = "MercadoPagoSDK/MercadoPagoSDK/#{localename}.lproj" 
+        u.ios.preserve_paths = "MercadoPagoSDK/MercadoPagoSDK/#{localename}.lproj"
      end
     }
   end
