@@ -23,9 +23,9 @@ class CustomerPaymentMethodCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func fillRowWithCustomerPayment(customerPaymentMethod : CustomerPaymentMethod){
-        self.paymentIcon.image = MercadoPago.getImage(customerPaymentMethod.paymentMethodId)
-        self.paymentMethodTitle.text = customerPaymentMethod._description
+    func fillRowWithCustomerPayment(customerPaymentMethod : CustomerInformation){
+        self.paymentIcon.image = MercadoPago.getImage(customerPaymentMethod.getPaymentMethodId())
+        self.paymentMethodTitle.text = customerPaymentMethod.getDescription()
     }
 
 }

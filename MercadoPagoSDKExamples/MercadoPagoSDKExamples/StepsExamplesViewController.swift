@@ -97,7 +97,7 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         MercadoPagoContext.setPublicKey(ExamplesUtils.MERCHANT_PUBLIC_KEY_TEST)
         MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
         MercadoPagoContext.setBaseURL(ExamplesUtils.MERCHANT_MOCK_BASE_URL)
-        MercadoPagoContext.setCustomerURI(ExamplesUtils.MERCHANT_MOCK_GET_CUSTOMER_URI)
+        //MercadoPagoContext.setCustomerURI(ExamplesUtils.MERCHANT_MOCK_GET_CUSTOMER_URI)
 
         let pv = MPFlowBuilder.startPaymentVaultViewController(1000, callback: { (paymentMethod, token, issuer, payerCost) in
 

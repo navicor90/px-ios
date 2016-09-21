@@ -8,13 +8,13 @@
 
 import UIKit
 
-public class CustomerPaymentMethod: NSObject, CardInformation {
+public class CustomerPaymentMethod: NSObject, CustomerInformation {
     
     var _id : String!
     var _description : String!
     var type : String!
     var paymentMethodId : String!
-    
+    private var paymentMethod : PaymentMethod?
     
     var securityCode : SecurityCode = SecurityCode()
     
@@ -56,7 +56,7 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
         return self.toJSON().toString()
     }
 
-    /*public func isSecurityCodeRequired() -> Bool {
+    public func isSecurityCodeRequired() -> Bool {
         return true;
     }
     
@@ -68,30 +68,34 @@ public class CustomerPaymentMethod: NSObject, CardInformation {
         return self.securityCode
     }
     
-    public func getCardDescription() -> String {
+    public func getDescription() -> String {
         return self._description
     }
     
+    public func getPaymentTypeId() -> String {
+        return self.type
+    }
+    
     public func getPaymentMethod() -> PaymentMethod {
+        if self.paymentMethod != nil {
+            return paymentMethod!
+        }
+        
         let pm = PaymentMethod()
-        pm._id = self._id
+        pm._id = self.paymentMethodId
         return pm
     }
     
     public func getPaymentMethodId() -> String {
-        return self._id
+        return self.paymentMethodId
     }
     
-    public func getCardBin() -> String? {
-        return "XXXX"
+    public func setupPaymentMethod(paymentMethod : PaymentMethod) {
+        self.paymentMethod = paymentMethod
     }
     
-    public func getCardLastForDigits() -> String? {
-        return "XXXX"
+    public func getLastFourDigits() -> String {
+        return ""
     }
     
-    public func setupPaymentMethodSettings(settings : [Setting]) {
-        self.securityCode = settings[0].securityCode
-    }
-    */
 }

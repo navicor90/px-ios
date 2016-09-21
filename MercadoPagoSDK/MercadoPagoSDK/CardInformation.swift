@@ -9,23 +9,23 @@
 import UIKit
 
 @objc
-public protocol CardInformation : NSObjectProtocol {
+public protocol CustomerInformation : NSObjectProtocol {
     
     func isSecurityCodeRequired() -> Bool
     
     func getId() -> String
     
-    func getCardSecurityCode() -> SecurityCode
-    
-    func getCardDescription() -> String
+    func getDescription() -> String
     
     func getPaymentMethod() -> PaymentMethod
     
     func getPaymentMethodId() -> String
     
-    func getCardBin() -> String?
-    
-    func getCardLastForDigits() -> String?
+    func getPaymentTypeId() -> String
     
     func setupPaymentMethod(paymentMethod : PaymentMethod)
+    
+    func getLastFourDigits() -> String
+    
 }
+

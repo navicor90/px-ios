@@ -19,7 +19,7 @@ public class SavedCardToken : CardToken {
         self.securityCode = securityCode
     }
     
-    public init(card : CardInformation, securityCode : String?, securityCodeRequired: Bool) {
+    public init(card : CustomerInformation, securityCode : String?, securityCodeRequired: Bool) {
         super.init()
         self.cardId = card.getId()
         self.securityCode = securityCode

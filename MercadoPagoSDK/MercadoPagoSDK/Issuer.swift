@@ -21,7 +21,10 @@ public class Issuer : NSObject {
 				issuer._id = NSNumber(longLong: (json["id"] as? NSNumber)!.longLongValue)
 			}
         }
-        issuer.name = JSON(json["name"]!).asString
+        
+        if json["name"] != nil && !(json["name"]! is NSNull) {
+            issuer.name = JSON(json["name"]!).asString
+        }
         return issuer
     }
     

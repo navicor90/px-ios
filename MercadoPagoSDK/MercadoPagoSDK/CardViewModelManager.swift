@@ -13,7 +13,7 @@ class CardViewModelManager: NSObject {
     
     var paymentMethods : [PaymentMethod]?
     var paymentMethod : PaymentMethod?
-    var customerCard : CardInformation?
+    var customerCard : CustomerInformation?
     var token : Token?
     var cardToken : CardToken?
     var paymentSettings : PaymentPreference?
@@ -25,7 +25,7 @@ class CardViewModelManager: NSObject {
     var cvvEmpty: Bool = true
     var cardholderNameEmpty: Bool = true
     
-    init(amount : Double, paymentMethods : [PaymentMethod]?, paymentMethod : PaymentMethod? = nil, customerCard : CardInformation? = nil, token : Token? = nil, paymentSettings : PaymentPreference?){
+    init(amount : Double, paymentMethods : [PaymentMethod]?, paymentMethod : PaymentMethod? = nil, customerCard : CustomerInformation? = nil, token : Token? = nil, paymentSettings : PaymentPreference?){
         self.amount = amount
         self.paymentMethods = paymentMethods
         self.paymentMethod = paymentMethod
