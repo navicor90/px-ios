@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		02A60D0F6F98D701FF8A8F29D0563495 /* Pods-MercadoPagoSDK-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC1CFC60A0460F97197F6394080F541B /* Pods-MercadoPagoSDK-dummy.m */; };
 		142D44A49280458010BB23A78041FFBF /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 459E38B4083BADC667C409D33877C63B /* Info.plist */; };
-		1E8DD45021BAAE41628F9CF49E53FB1E /* MPGoogleAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACB3FB36017D2F6385E2A247E72A305 /* MPGoogleAnalytics.framework */; };
 		20C95B681CC836468B002F9B7249C6DE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B329D49490D68AFCB0B3ADF53CF43A36 /* CoreData.framework */; };
 		35C60BC76E1B86E39213A7B402CCE087 /* GAIEcommerceProductAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A1E602BEE85555B5B781903E75453B2 /* GAIEcommerceProductAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42BC81C5AC482551B06AF74485866F09 /* GAITracker.h in Headers */ = {isa = PBXBuildFile; fileRef = B0F4681313CAC3476B8DBF8B6C0165A7 /* GAITracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -93,7 +92,6 @@
 		850377D0D8BC6663667FCA7B90CA94BE /* GATracker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GATracker.swift; path = MPTracker/GATracker.swift; sourceTree = "<group>"; };
 		87200FF0786F302A59399A9123105948 /* GAILogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = MPGoogleAnalytics/Classes/GAILogger.h; sourceTree = "<group>"; };
 		88ECD9BDBE08D3E4D72411EB6606ACC8 /* FlowTrackInfo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FlowTrackInfo.swift; path = MPTracker/FlowTrackInfo.swift; sourceTree = "<group>"; };
-		8ACB3FB36017D2F6385E2A247E72A305 /* MPGoogleAnalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MPGoogleAnalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EE6C2274F7E35EE35DE13EFBF7FE83 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		98E8A51D6FF136CAA659B67EA5330967 /* MPTracker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MPTracker.swift; path = MPTracker/MPTracker.swift; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 				20C95B681CC836468B002F9B7249C6DE /* CoreData.framework in Frameworks */,
 				4E2F3A9BE0D3EA5D0D5366190F95BE0C /* Foundation.framework in Frameworks */,
 				D4CA02D58B6ACF9C6A80743FC9F860AA /* MPGoogleAnalytics.framework in Frameworks */,
-				1E8DD45021BAAE41628F9CF49E53FB1E /* MPGoogleAnalytics.framework in Frameworks */,
 				D640F4D24F9743551A014500B845D11B /* SystemConfiguration.framework in Frameworks */,
 				CCEC61D7CB62D9367EFA75224355DA2B /* UIKit.framework in Frameworks */,
 			);
@@ -279,7 +276,6 @@
 		B56F05EC37E622F9A4177ABDE439347D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8ACB3FB36017D2F6385E2A247E72A305 /* MPGoogleAnalytics.framework */,
 				60C782C1C7161A19B31517F3DD4A1041 /* iOS */,
 			);
 			name = Frameworks;
@@ -414,6 +410,11 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					E64C8F08696453E633DE528C692BF193 = {
+						LastSwiftMigration = 0800;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -639,6 +640,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -745,6 +747,7 @@
 				PRODUCT_NAME = MercadoPagoTracker;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

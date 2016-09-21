@@ -46,7 +46,6 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         self.stepsExamplesTable.delegate = self
         self.stepsExamplesTable.dataSource = self
-        MercadoPagoContext.setPublicKey(ExamplesUtils.MERCHANT_PUBLIC_KEY)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,6 +91,7 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     public func startPaymentVault(){
+        
          MercadoPagoContext.setSite(MercadoPagoContext.Site.MLA)
 
         MercadoPagoContext.setPublicKey(ExamplesUtils.MERCHANT_PUBLIC_KEY_TEST)
