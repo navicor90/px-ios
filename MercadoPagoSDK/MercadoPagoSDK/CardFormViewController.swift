@@ -510,7 +510,6 @@ public class CardFormViewController: MercadoPagoUIViewController , UITextFieldDe
             
             if (cardFormManager!.paymentMethod != nil){
                 let bin = self.cardFormManager?.getBIN(self.cardNumberLabel!.text!)
-                //TODO : esto te estalla en la cara cris
                 if (!(cardFormManager!.paymentMethod?.isSecurityCodeRequired((bin)!))!){
                     self.confirmPaymentMethod()
                     return
