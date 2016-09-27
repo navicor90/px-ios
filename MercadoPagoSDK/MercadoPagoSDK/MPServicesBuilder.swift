@@ -285,6 +285,22 @@ public class MPServicesBuilder : NSObject {
             success(preference: preference)
             }, failure: failure)
     }
+    public class func getUserCredentials(code:String,
+                                         redirectUri:String,
+                                         success : (userCredential : UserCredential) -> Void,
+                                         failure: ((error: NSError) -> Void)){
+        let service : CredentialService = CredentialService(baseURL: "http://private-000e1-mp11.apiary-mock.com")
+        service.getCredentials(public_key: MercadoPagoContext.publicKey(), code: code, redirectUri: redirectUri , success: {(jsonResult: AnyObject?) -> Void in
+            var userCredential : UserCredential? = nil
+            
+            if let credentialsDic = jsonResult as? NSDictionary {
+                userCredential = UserCredential.fromJSON(credentialsDic)
+                success(userCredential:userCredential!)
+            }
+            
+            }, failure: failure);
+    }
+
 
 }
 

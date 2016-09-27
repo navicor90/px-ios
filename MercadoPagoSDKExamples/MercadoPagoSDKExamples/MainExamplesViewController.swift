@@ -66,6 +66,8 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
         case 0:
             MercadoPagoContext.setPublicKey(ExamplesUtils.MERCHANT_PUBLIC_KEY_TEST)
             //Checkout Example - "150216849-2af7cedc-282a-4d97-ae54-1c9f6f6a74af"
+            MercadoPagoContext.setClientId("3339632528347950")
+            MercadoPagoContext.setReturnURI("http://www.mercadopago.com.ar")
             let choFlow = MPFlowBuilder.startCheckoutViewController( "150216849-174f39fe-1989-48da-bb1f-142da78aad52", callback: { (payment: Payment) in
             
             })

@@ -1,14 +1,14 @@
 PODS:
   - MercadoPagoTracker (0.9.0):
     - MPGoogleAnalytics
-  - MPGoogleAnalytics (0.2.3)
+  - MPGoogleAnalytics (0.2.4)
 
 DEPENDENCIES:
   - MercadoPagoTracker (= 0.9.0)
 
 SPEC CHECKSUMS:
   MercadoPagoTracker: 216adffb578d1ca38cc0c1c7ea7c2cfe5f54c30c
-  MPGoogleAnalytics: 4cdaf9376d525dc37a93b88a1376f7e59b8c4894
+  MPGoogleAnalytics: 175fcff2a72363c43850887ad0a0ae4216597b23
 
 PODFILE CHECKSUM: e40702cc3fd5976cf4a8109d1d02f2452b961f43
 

@@ -175,9 +175,10 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     }
 
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0 && self.viewModel.getCustomerPaymentMethodsToDisplayCount() > 0 {
+        if indexPath.section == 0 && self.viewModel.getCustomerPaymentMethodsToDisplayCount() > indexPath.row {
             let customerPaymentMethodCell = self.paymentsTable.dequeueReusableCellWithIdentifier("customerPaymentMethodCell") as! CustomerPaymentMethodCell
-            customerPaymentMethodCell.fillRowWithCustomerPayment(self.viewModel.getCustomerPaymentMethod(indexPath.row)!)
+            let cpm = self.viewModel.getCustomerPaymentMethod(indexPath.row)
+            customerPaymentMethodCell.fillRowWithCustomerPayment(cpm!)
             return customerPaymentMethodCell
         }
         
@@ -204,13 +205,22 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
             if self.viewModel.getCustomerPaymentMethodsToDisplayCount() > 0 {
                 if indexPath.row == 0 && self.viewModel.isMPLoginAvailable() {
                     //TODO : ir a MPConnect
-                    let customerAccessToken = "TEST-3655020329214032-122910-7f125ed5eecbaaa3d04f0c56953c95b6__LD_LC__-170206767"
+                    
+                    let connectVC = ConnectViewController(callback: { (userCredential) in
+                        self.viewModel.customerAccessToken = userCredential.accessToken
+                        self.viewModel.isRoot = false
+                        self.viewModel.currentPaymentMethodSearch = nil
+                        self.loadPaymentMethodSearch()
+                        
+                    })
+                    navigationController?.pushViewController(connectVC, animated: true)
+                   /* let customerAccessToken = "TEST-3655020329214032-122910-7f125ed5eecbaaa3d04f0c56953c95b6__LD_LC__-170206767"
                     //let customerAccessToken = "TEST-1094487241196549-081708-671348c2ca5f84421353f3a82dda02e2__LA_LC__-145698489"
                     let paymentVault = PaymentVaultViewController(amount: self.viewModel.amount, paymentPreference: self.viewModel.paymentPreference, customerAccessToken: customerAccessToken, callback: { (paymentMethod, token, issuer, payerCost) in
                         self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
                     })
                     paymentVault.viewModel.isRoot = false
-                    self.navigationController!.pushViewController(paymentVault, animated: true)
+                    self.navigationController!.pushViewController(paymentVault, animated: true)*/
                 } else {
                     let customerPaymentMethod = self.viewModel.getCustomerPaymentMethod(indexPath.row)!
                     if customerPaymentMethod.getPaymentTypeId() == PaymentTypeId.ACCOUNT_MONEY.rawValue {
@@ -533,7 +543,7 @@ class PaymentVaultViewModel : NSObject {
     
     func getCustomerPaymentMethod(row : Int) -> CustomerInformation? {
         
-        if self.customerPaymentMethods != nil && self.customerPaymentMethods?.count > 0 {
+        if self.customerPaymentMethods != nil && self.customerPaymentMethods?.count > row {
             return self.customerPaymentMethods![row]
         }
         
@@ -544,9 +554,10 @@ class PaymentVaultViewModel : NSObject {
             return mpPayment
         }
         
-        if customerCards != nil && customerCards?.count > 0 && customerCards?.count >= row {
-            return self.customerCards![row]
+        if customerCards != nil  && customerCards?.count >= row {
+            return self.customerCards![row-1]
         }
+        
         
         return nil
         
