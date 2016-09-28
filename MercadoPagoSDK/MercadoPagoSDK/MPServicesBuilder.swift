@@ -289,7 +289,7 @@ public class MPServicesBuilder : NSObject {
                                          redirectUri:String,
                                          success : (userCredential : UserCredential) -> Void,
                                          failure: ((error: NSError) -> Void)){
-        let service : CredentialService = CredentialService(baseURL: "http://private-000e1-mp11.apiary-mock.com")
+        let service : CredentialService = CredentialService(baseURL:  "http://mpconnect-wrapper.herokuapp.com/checkout/get_credentials")
         service.getCredentials(public_key: MercadoPagoContext.publicKey(), code: code, redirectUri: redirectUri , success: {(jsonResult: AnyObject?) -> Void in
             var userCredential : UserCredential? = nil
             

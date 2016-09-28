@@ -27,5 +27,6 @@ public protocol CustomerInformation : NSObjectProtocol {
     
     func getLastFourDigits() -> String
     
+    
 }
 

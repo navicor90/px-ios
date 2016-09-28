@@ -9,8 +9,9 @@
 import UIKit
 
 class CredentialService: MercadoPagoService {
-    public func getCredentials(url : String = "/oauth/token", method : String = "POST", public_key : String, code:String, redirectUri:String, success: (jsonResult: AnyObject?) -> Void, failure: ((error: NSError) -> Void)?) {
-        self.request(url, params: "", body: public_key, method: method, success: success, failure: failure)
+    public func getCredentials(url : String = "", method : String = "POST", public_key : String, code:String, redirectUri:String, success: (jsonResult: AnyObject?) -> Void, failure: ((error: NSError) -> Void)?) {
+        let body = "{\"code\": \"\(code)\", \"redirect_uri\": \"\(redirectUri)\"}"
+        self.request(url, params: "", body: body, method: method, success: success, failure: failure)
     }
 
 }

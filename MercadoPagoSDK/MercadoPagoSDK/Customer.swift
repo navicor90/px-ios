@@ -11,7 +11,7 @@ import UIKit
 
 public class Customer : NSObject {
     public var address : Address?
-    public var cards : [Card]?
+    public var cards = [Card]()
     public var defaultCard : NSNumber?
     public var _description : String?
     public var dateCreated : NSDate?
@@ -83,7 +83,7 @@ public func ==(obj1: Customer, obj2: Customer) -> Bool {
     
     let areEqual =
         obj1.address! == obj2.address! &&
-        obj1.cards! == obj2.cards! &&
+        obj1.cards == obj2.cards &&
         obj1.defaultCard! == obj2.defaultCard! &&
         obj1._description == obj2._description &&
         obj1.dateCreated == obj2.dateCreated &&

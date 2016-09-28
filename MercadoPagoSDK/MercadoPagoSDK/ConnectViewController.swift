@@ -53,20 +53,19 @@ class ConnectViewController: MercadoPagoUIViewController, UIWebViewDelegate {
                 if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies {
                     for cookie in cookies {
                         if cookie.domain == ".mercadopago.com.ar" || cookie.domain == ".mercadolibre.com"{
-                            var cookieProperties = [String: AnyObject]()
-                            cookieProperties[NSHTTPCookieName] = cookie.name
-                            cookieProperties[NSHTTPCookieValue] = cookie.value
-                            cookieProperties[NSHTTPCookieDomain] = cookie.domain
-                            cookieProperties[NSHTTPCookiePath] = cookie.path
-                            cookieProperties[NSHTTPCookieVersion] = NSNumber(integer: cookie.version)
-                            cookieProperties[NSHTTPCookieExpires] = cookie.expiresDate
-                            cookieProperties[NSHTTPCookieDiscard] = true
-                            
-                            NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
-                            let newCookie = NSHTTPCookie(properties: cookieProperties)
-                            NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(newCookie!)
+//                            var cookieProperties = [String: AnyObject]()
+//                            cookieProperties[NSHTTPCookieName] = cookie.name
+//                            cookieProperties[NSHTTPCookieValue] = cookie.value
+//                            cookieProperties[NSHTTPCookieDomain] = cookie.domain
+//                            cookieProperties[NSHTTPCookiePath] = cookie.path
+//                            cookieProperties[NSHTTPCookieVersion] = NSNumber(integer: cookie.version)
+//                            cookieProperties[NSHTTPCookieExpires] = cookie.expiresDate
+//                            cookieProperties[NSHTTPCookieDiscard] = true
+//                            
+//                            NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
+//                            let newCookie = NSHTTPCookie(properties: cookieProperties)
+//                            NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(newCookie!)
                         }
-                        
                     }
                 }
                 
