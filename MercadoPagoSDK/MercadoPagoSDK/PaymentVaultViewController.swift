@@ -1,30 +1,26 @@
  //
-//  PaymentVaultViewController.swift
-//  MercadoPagoSDK
-//
-//  Created by Maria cristina rodriguez on 15/1/16.
-//  Copyright © 2016 MercadoPago. All rights reserved.
-//
-
-import UIKit
-
-
-public class PaymentVaultViewController: MercadoPagoUIViewController, UITableViewDataSource, UITableViewDelegate {
+ //  PaymentVaultViewController.swift
+ //  MercadoPagoSDK
+ //
+ //  Created by Maria cristina rodriguez on 15/1/16.
+ //  Copyright © 2016 MercadoPago. All rights reserved.
+ //
+ 
+ import UIKit
+ 
+ 
+ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableViewDataSource, UITableViewDelegate {
     
     static let VIEW_CONTROLLER_NIB_NAME : String = "PaymentVaultViewController"
     
-    var merchantBaseUrl : String!
-    var merchantAccessToken : String!
-    var publicKey : String!
-    var currency : Currency!
-
+    var merchantBaseUrl: String!
+    var merchantAccessToken: String!
+    var publicKey: String!
+    var currency: Currency!
     
-    var defaultInstallments : Int?
-    var installments : Int?
-    var viewModel : PaymentVaultViewModel!
-
-    // Info loaded from groups service :
-    
+    var defaultInstallments: Int?
+    var installments: Int?
+    var viewModel: PaymentVaultViewModel!
     
     var bundle = MercadoPago.getBundle()
     
@@ -32,52 +28,45 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     
     @IBOutlet weak var paymentsTable: UITableView!
     
-
-    
-    public init(amount : Double, paymentPreference : PaymentPreference?, callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void) {
+    public init(amount: Double, paymentPreference: PaymentPreference?, callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void) {
         super.init(nibName: PaymentVaultViewController.VIEW_CONTROLLER_NIB_NAME, bundle: bundle)
         self.initCommon()
         self.initViewModel(amount, paymentPreference : paymentPreference, callback: callback)
-        
-       
-        
     }
     
-    public init(amount : Double, paymentPreference : PaymentPreference?, customerAccessToken : String, callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void) {
+    public init(amount: Double, paymentPreference: PaymentPreference?, customerAccessToken: String, callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void) {
         super.init(nibName: PaymentVaultViewController.VIEW_CONTROLLER_NIB_NAME, bundle: bundle)
         self.initCommon()
-        self.initViewModel(amount, paymentPreference : paymentPreference, callback: callback)
+        self.initViewModel(amount, paymentPreference: paymentPreference, callback: callback)
         
         self.viewModel.customerAccessToken = customerAccessToken
     }
     
     
-    public init(amount : Double, paymentPreference : PaymentPreference? = nil, paymentMethodSearch : PaymentMethodSearch,
+    public init(amount: Double, paymentPreference: PaymentPreference? = nil, paymentMethodSearch: PaymentMethodSearch,
                 callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void,
                 callbackCancel : (Void -> Void)? = nil) {
         super.init(nibName: PaymentVaultViewController.VIEW_CONTROLLER_NIB_NAME, bundle: bundle)
         self.initCommon()
-        self.initViewModel(amount, paymentPreference: paymentPreference, customerPaymentMethods: paymentMethodSearch.customerOptions, customerCards: paymentMethodSearch.cards, accountMoney : paymentMethodSearch.accountMoney, paymentMethodSearchItem : paymentMethodSearch.groups, paymentMethods: paymentMethodSearch.paymentMethods, callback: callback)
+        self.initViewModel(amount, paymentPreference: paymentPreference, customerPaymentMethods: paymentMethodSearch.customerOptions, customerCards: paymentMethodSearch.cards, accountMoney: paymentMethodSearch.accountMoney, paymentMethodSearchItem: paymentMethodSearch.groups, paymentMethods: paymentMethodSearch.paymentMethods, callback: callback)
         
         self.callbackCancel = callbackCancel
         
     }
     
-    internal init(amount: Double, paymentPreference : PaymentPreference?, paymentMethodSearchItem : [PaymentMethodSearchItem]? = nil, paymentMethods: [PaymentMethod], title: String? = "", tintColor : Bool = false, callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void, callbackCancel : (Void -> Void)? = nil) {
+    internal init(amount: Double, paymentPreference: PaymentPreference?, paymentMethodSearchItem: [PaymentMethodSearchItem]? = nil, paymentMethods: [PaymentMethod], title: String? = "", tintColor : Bool = false, callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void, callbackCancel: (Void -> Void)? = nil) {
         
         super.init(nibName: PaymentVaultViewController.VIEW_CONTROLLER_NIB_NAME, bundle: bundle)
         self.initCommon()
-        self.initViewModel(amount, paymentPreference: paymentPreference, paymentMethodSearchItem: paymentMethodSearchItem, paymentMethods: paymentMethods, callback : callback)
+        self.initViewModel(amount, paymentPreference: paymentPreference, paymentMethodSearchItem: paymentMethodSearchItem, paymentMethods: paymentMethods, callback: callback)
         
         //Installment > 0
         
         //Vaidar que no excluyo todos los payment method
-        
         self.title = title
         self.tintColor = tintColor
         
         self.callbackCancel = callbackCancel
-        
         
     }
     
@@ -89,17 +78,16 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         self.currency = MercadoPagoContext.getCurrency()
     }
     
-    private func initViewModel(amount : Double, paymentPreference : PaymentPreference?, customerPaymentMethods: [CustomerPaymentMethod]? = [CustomerPaymentMethod](), customerCards : [CustomerInformation]? = [CustomerInformation](), accountMoney : AccountMoneyPaymentMethod? = nil, paymentMethodSearchItem : [PaymentMethodSearchItem]? = nil, paymentMethods: [PaymentMethod]? = nil, callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void){
+    private func initViewModel(amount: Double, paymentPreference: PaymentPreference?, customerPaymentMethods: [CustomerPaymentMethod]? = nil, customerCards: [CustomerInformation]? = [CustomerInformation](), accountMoney: AccountMoneyPaymentMethod? = nil, paymentMethodSearchItem: [PaymentMethodSearchItem]? = nil, paymentMethods: [PaymentMethod]? = nil, callback: (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void){
         self.viewModel = PaymentVaultViewModel(amount: amount, paymentPrefence: paymentPreference)
         
         self.viewModel.currentPaymentMethodSearch = paymentMethodSearchItem
         self.viewModel.paymentMethods = paymentMethods
-        self.viewModel.customerPaymentMethods = customerPaymentMethods!
+        self.viewModel.customerPaymentMethods = customerPaymentMethods
         self.viewModel.customerCards = customerCards!
         self.viewModel.accountMoney = accountMoney
         self.viewModel.callback = callback
     }
-
     
     required  public init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -114,7 +102,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         
         self.paymentsTable.tableHeaderView = UIView(frame: CGRectMake(0.0, 0.0, self.paymentsTable.bounds.size.width, 0.01))
         self.registerAllCells()
-    
+        
         if callbackCancel == nil {
             self.callbackCancel = {(Void) -> Void in
                 if self.navigationController?.viewControllers[0] == self {
@@ -128,17 +116,13 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         } else {
             self.callbackCancel = callbackCancel
         }
-
-        
-        
-        
     }
     
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.leftBarButtonItem!.action = Selector("invokeCallbackCancel")
     }
-
+    
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.getCustomerCards()
@@ -157,7 +141,6 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         }
     }
     
-    
     public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return self.viewModel.getCustomerPaymentMethodsToDisplayCount() > 0 ? 16 : 0
     }
@@ -167,35 +150,33 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         case 0:
             return self.viewModel.getCustomerCardRowHeight()
         case 1:
-           return self.viewModel.getPaymentMethodRowHeight(indexPath.row)
+            return self.viewModel.getPaymentMethodRowHeight(indexPath.row)
         default:
-                return 100
+            return 100
         }
-        
     }
-
+    
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 && self.viewModel.getCustomerPaymentMethodsToDisplayCount() > indexPath.row {
             let customerPaymentMethodCell = self.paymentsTable.dequeueReusableCellWithIdentifier("customerPaymentMethodCell") as! CustomerPaymentMethodCell
-            let cpm = self.viewModel.getCustomerPaymentMethod(indexPath.row)
-            customerPaymentMethodCell.fillRowWithCustomerPayment(cpm!)
+            customerPaymentMethodCell.fillRowWithCustomerPayment(self.viewModel.getCustomerPaymentMethod(indexPath.row)!)
             return customerPaymentMethodCell
-        }
         
-        
-        let currentPaymentMethod = self.viewModel.currentPaymentMethodSearch[indexPath.row]
-                
-        let paymentMethodCell = getCellFor(currentPaymentMethod)
-        // Add shadow effect to last cell in table
-        if (indexPath.row == self.viewModel.currentPaymentMethodSearch.count - 1) {
-            paymentMethodCell.clipsToBounds = false
-            paymentMethodCell.layer.masksToBounds = false
-            paymentMethodCell.layer.shadowOffset = CGSizeMake(0, 1)
-            paymentMethodCell.layer.shadowColor = UIColor(red: 153, green: 153, blue: 153).CGColor
-            paymentMethodCell.layer.shadowRadius = 1
-            paymentMethodCell.layer.shadowOpacity = 0.6
+        } else {
+            let currentPaymentMethod = self.viewModel.currentPaymentMethodSearch[indexPath.row]
+            
+            let paymentMethodCell = getCellFor(currentPaymentMethod)
+            // Add shadow effect to last cell in table
+            if (indexPath.row == self.viewModel.currentPaymentMethodSearch.count - 1) {
+                paymentMethodCell.clipsToBounds = false
+                paymentMethodCell.layer.masksToBounds = false
+                paymentMethodCell.layer.shadowOffset = CGSizeMake(0, 1)
+                paymentMethodCell.layer.shadowColor = UIColor(red: 153, green: 153, blue: 153).CGColor
+                paymentMethodCell.layer.shadowRadius = 1
+                paymentMethodCell.layer.shadowOpacity = 0.6
+            }
+            return paymentMethodCell
         }
-        return paymentMethodCell
     }
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -207,13 +188,12 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                 let customerCard = self.viewModel.getCustomerPaymentMethod(indexPath.row)!
                 
                 if self.viewModel.isLogged(){
-                    
-                    if customerCard.getPaymentTypeId() == PaymentTypeId.ACCOUNT_MONEY.rawValue {
+                    if self.viewModel.isAccountMoneyRow(customerCard) {
                         let token = self.viewModel!.getAccountMoneyToken(customerCard.getId())
                         let accountMoneyPaymentmethod = self.viewModel.getAccountMoneyPaymentMethod()
                         self.viewModel.callback!(paymentMethod : accountMoneyPaymentmethod, token: token, issuer: nil, payerCost : nil)
-                    }
-                    else {
+                        
+                    } else {
                         goToCardFlow(customerCard)
                     }
                     
@@ -224,43 +204,43 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                             self.viewModel.isRoot = false
                             self.viewModel.currentPaymentMethodSearch = nil
                             self.loadPaymentMethodSearch()
-                            
                         })
                         navigationController?.pushViewController(connectVC, animated: true)
+                        
                     } else {
                         goToCardFlow(customerCard)
                     }
                 }
                 
-//                if indexPath.row == 0 && self.viewModel.isMPLoginAvailable() {
-//                    
-//                    let connectVC = ConnectViewController(callback: { (userCredential) in
-//                        self.viewModel.customerAccessToken = userCredential.accessToken
-//                        self.viewModel.isRoot = false
-//                        self.viewModel.currentPaymentMethodSearch = nil
-//                        self.loadPaymentMethodSearch()
-//                        
-//                    })
-//                    navigationController?.pushViewController(connectVC, animated: true)
-//                } else {
-//                    let customerPaymentMethod = self.viewModel.getCustomerPaymentMethod(indexPath.row)!
-//                    if customerPaymentMethod.getPaymentTypeId() == PaymentTypeId.ACCOUNT_MONEY.rawValue {
-//                        let token = self.viewModel!.getAccountMoneyToken(customerPaymentMethod.getId())
-//                        let accountMoneyPaymentmethod = self.viewModel.getAccountMoneyPaymentMethod()
-//                        self.viewModel.callback!(paymentMethod : accountMoneyPaymentmethod, token: token, issuer: nil, payerCost : nil)
-//                    } else {
-//                        let customerCard = self.viewModel.getCustomerCard(customerPaymentMethod.getId())
-//                        let paymentMethod = self.viewModel.getLocalPaymentMethod(customerPaymentMethod.getPaymentMethodId())
-//                        customerCard.setupPaymentMethod(paymentMethod)
-//                        
-//                        let cardFlow = MPFlowBuilder.startCardFlow(amount: self.viewModel.amount, cardInformation : customerCard, callback: { (paymentMethod, token, issuer, payerCost) in
-//                            self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
-//                            }, callbackCancel: {
-//                                self.navigationController!.popToViewController(self, animated: true)
-//                        })
-//                        self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
-//                    }
-//                }
+                //                if indexPath.row == 0 && self.viewModel.isMPLoginAvailable() {
+                //
+                //                    let connectVC = ConnectViewController(callback: { (userCredential) in
+                //                        self.viewModel.customerAccessToken = userCredential.accessToken
+                //                        self.viewModel.isRoot = false
+                //                        self.viewModel.currentPaymentMethodSearch = nil
+                //                        self.loadPaymentMethodSearch()
+                //
+                //                    })
+                //                    navigationController?.pushViewController(connectVC, animated: true)
+                //                } else {
+                //                    let customerPaymentMethod = self.viewModel.getCustomerPaymentMethod(indexPath.row)!
+                //                    if customerPaymentMethod.getPaymentTypeId() == PaymentTypeId.ACCOUNT_MONEY.rawValue {
+                //                        let token = self.viewModel!.getAccountMoneyToken(customerPaymentMethod.getId())
+                //                        let accountMoneyPaymentmethod = self.viewModel.getAccountMoneyPaymentMethod()
+                //                        self.viewModel.callback!(paymentMethod : accountMoneyPaymentmethod, token: token, issuer: nil, payerCost : nil)
+                //                    } else {
+                //                        let customerCard = self.viewModel.getCustomerCard(customerPaymentMethod.getId())
+                //                        let paymentMethod = self.viewModel.getLocalPaymentMethod(customerPaymentMethod.getPaymentMethodId())
+                //                        customerCard.setupPaymentMethod(paymentMethod)
+                //
+                //                        let cardFlow = MPFlowBuilder.startCardFlow(amount: self.viewModel.amount, cardInformation : customerCard, callback: { (paymentMethod, token, issuer, payerCost) in
+                //                            self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
+                //                            }, callbackCancel: {
+                //                                self.navigationController!.popToViewController(self, animated: true)
+                //                        })
+                //                        self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
+                //                    }
+                //                }
             }
         default:
             let paymentSearchItemSelected = self.viewModel.currentPaymentMethodSearch[indexPath.row]
@@ -274,12 +254,12 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
             } else {
                 self.viewModel.optionSelected(paymentSearchItemSelected, navigationController: self.navigationController!, cancelPaymentCallback: cardFormCallbackCancel())
             }
-
+            
         }
     }
     func goToCardFlow (customerCard: CustomerInformation) -> Void {
-        let paymentMethod = self.viewModel.getLocalPaymentMethod(customerCard.getPaymentMethodId())
-        customerCard.setupPaymentMethod(paymentMethod)
+        //        let paymentMethod = self.viewModel.getLocalPaymentMethod(customerCard.getPaymentMethodId())
+        //        customerCard.setupPaymentMethod(paymentMethod)
         
         let cardFlow = MPFlowBuilder.startCardFlow(amount: self.viewModel.amount, cardInformation : customerCard, callback: { (paymentMethod, token, issuer, payerCost) in
             self.viewModel.callback(paymentMethod: paymentMethod, token: token, issuer: issuer, payerCost: payerCost)
@@ -328,8 +308,8 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
                     self.hideLoading()
                     self.requestFailure(error, callback: {
                         self.navigationController!.dismissViewControllerAnimated(true, completion: {})
-                        }, callbackCancel: {
-                            self.invokeCallbackCancel()
+                    }, callbackCancel: {
+                        self.invokeCallbackCancel()
                     })
             })
             
@@ -348,9 +328,6 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
             }
         }
     }
-
-
-    
     
     internal func getCellFor(currentPaymentMethodItem : PaymentMethodSearchItem) -> UITableViewCell {
         if currentPaymentMethodItem.showIcon.boolValue {
@@ -384,9 +361,9 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         let paymentSearchCell = self.paymentsTable.dequeueReusableCellWithIdentifier("paymentSearchTitleCell") as! PaymentTitleViewCell
         paymentSearchCell.paymentTitle.text = currentPaymentMethodItem.description
         return paymentSearchCell
-
+        
     }
-
+    
     private func registerAllCells(){
         let paymentMethodSearchNib = UINib(nibName: "PaymentSearchCell", bundle: self.bundle)
         let paymentSearchTitleCell = UINib(nibName: "PaymentTitleViewCell", bundle: self.bundle)
@@ -411,7 +388,7 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     public override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         
         //En caso de que el vc no sea root
@@ -423,11 +400,11 @@ public class PaymentVaultViewController: MercadoPagoUIViewController, UITableVie
         }
         return false
     }
-
-}
-
-
-class PaymentVaultViewModel : NSObject {
+    
+ }
+ 
+ 
+ class PaymentVaultViewModel : NSObject {
     
     var amount : Double
     var paymentPreference : PaymentPreference?
@@ -435,8 +412,8 @@ class PaymentVaultViewModel : NSObject {
     
     var currentPaymentMethodSearch : [PaymentMethodSearchItem]!
     var paymentMethods : [PaymentMethod]!
-    var customerPaymentMethods = [CustomerPaymentMethod]()
-    var customerCards = [CustomerInformation]()
+    var customerPaymentMethods: [CustomerPaymentMethod]?
+    var customerCards: [CustomerInformation]?
     var accountMoney : AccountMoneyPaymentMethod?
     
     var callback : ((paymentMethod: PaymentMethod, token:Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void)!
@@ -458,31 +435,47 @@ class PaymentVaultViewModel : NSObject {
         firstTimeCustormersCards = false
         return MercadoPagoContext.isCustomerInfoAvailable() && !self.isLogged() && self.isRoot
     }
-  
+    
     func getCustomerPaymentMethodsToDisplayCount() -> Int {
         if !self.isRoot && !self.isLogged() {
             return 0
-        }
-        else if self.isLogged(){
-            return customerPaymentMethods.count
-        }
-        else {
+            
+        } else if self.isLogged(){
+            return customerPaymentMethods!.count
+            
+        } else if let customerCards = customerCards {
             return self.isMPLoginAvailable() ? customerCards.count + 1 : customerCards.count
+            
+        } else {
+            return 0
         }
-
-//        let numberOfRows = self.isMPLoginAvailable() ? 1 : 0
-//        if (self.customerCards != nil && self.customerCards?.count > 0) {
-//            return (self.customerCards!.count <= (3 - numberOfRows)) ? self.customerCards!.count + numberOfRows : 3
-//        }
-//        return numberOfRows
+        
+        //        let numberOfRows = self.isMPLoginAvailable() ? 1 : 0
+        //        if (self.customerCards != nil && self.customerCards?.count > 0) {
+        //            return (self.customerCards!.count <= (3 - numberOfRows)) ? self.customerCards!.count + numberOfRows : 3
+        //        }
+        //        return numberOfRows
         
     }
     func isLogged() -> Bool{
-        if self.customerAccessToken.characters.count == 0 {
+        guard customerPaymentMethods != nil else {
             return false
         }
-        else {
+        return true
+        
+        //        if self.customerAccessToken.characters.count == 0 {
+        //            return false
+        //        }
+        //        else {
+        //            return true
+        //        }
+    }
+    func isAccountMoneyRow (customerCard: CustomerInformation) -> Bool{
+        if customerCard.getPaymentTypeId() == PaymentTypeId.ACCOUNT_MONEY.rawValue {
             return true
+            
+        } else {
+            return false
         }
     }
     
@@ -520,20 +513,24 @@ class PaymentVaultViewModel : NSObject {
         
         if paymentMethodSearchResponse.customerOptions != nil && paymentMethodSearchResponse.customerOptions?.count > 0 {
             self.customerPaymentMethods = paymentMethodSearchResponse.customerOptions!
+        } else {
+            self.customerPaymentMethods = []
         }
         
         if paymentMethodSearchResponse.cards != nil && paymentMethodSearchResponse.cards?.count > 0 {
             self.customerCards = paymentMethodSearchResponse.cards! as [CustomerInformation]
+        } else {
+            self.customerCards = []
         }
         
         if paymentMethodSearchResponse.accountMoney != nil {
             self.accountMoney = paymentMethodSearchResponse.accountMoney!
         }
-
+        
     }
     
     func isMPLoginAvailable() -> Bool {
-        return self.enableMPLogin && self.customerAccessToken.characters.count == 0 && self.isRoot
+        return self.enableMPLogin && !self.isLogged() && self.isRoot
     }
     
     internal func optionSelected(paymentSearchItemSelected : PaymentMethodSearchItem, navigationController : UINavigationController, cancelPaymentCallback : (Void -> (Void)),animated: Bool = true) {
@@ -572,9 +569,9 @@ class PaymentVaultViewModel : NSObject {
     }
     
     func getCustomerCard(cardId : String) -> CustomerInformation {
-        return (self.customerCards.filter({$0.getId() == cardId})[0])
+        return (self.customerCards!.filter({$0.getId() == cardId})[0])
     }
-
+    
     func getAccountMoneyToken(accountMoneyTokenId : String) -> Token {
         let token = Token()
         token._id = accountMoneyTokenId
@@ -587,7 +584,7 @@ class PaymentVaultViewModel : NSObject {
         accountMoneyPaymentmethod.paymentTypeId = PaymentTypeId.ACCOUNT_MONEY.rawValue
         accountMoneyPaymentmethod.name = PaymentTypeId.ACCOUNT_MONEY.rawValue
         return accountMoneyPaymentmethod
-
+        
     }
     
     func getLocalPaymentMethod(paymentMethodId : String) -> PaymentMethod {
@@ -597,40 +594,40 @@ class PaymentVaultViewModel : NSObject {
     func getCustomerPaymentMethod(row : Int) -> CustomerInformation? {
         
         if isLogged() && getCustomerPaymentMethodsToDisplayCount() > row {
-            return self.customerPaymentMethods[row]
-        
+            return self.customerPaymentMethods![row]
+            
         } else {
             
-            if (self.isMPLoginAvailable() && row == 0){
+            if self.isMPLoginAvailable() && row == 0{
                 let mpPayment = CustomerPaymentMethod()
                 mpPayment._description = "Tu cuenta de Mercado Pago".localized
                 mpPayment.paymentMethodId = "account_money"
                 return mpPayment
                 
             } else if getCustomerPaymentMethodsToDisplayCount() > row {
-                return self.customerCards[row - Int(self.isMPLoginAvailable())]
+                return self.customerCards![row - Int(self.isMPLoginAvailable())]
             }
             
             return nil
         }
-//        if self.customerPaymentMethods != nil && self.customerPaymentMethods?.count > row {
-//            return self.customerPaymentMethods![row]
-//        }
-//        
-//        if row == 0 && self.isMPLoginAvailable() {
-//            let mpPayment = CustomerPaymentMethod()
-//            mpPayment._description = "Tu cuenta de Mercado Pago".localized
-//            mpPayment.paymentMethodId = "account_money"
-//            return mpPayment
-//        }
-//        
-//        if customerCards != nil  && customerCards?.count >= row {
-//            return self.customerCards![row-1]
-//        }
-//        
-//        
-//        return nil
+        //        if self.customerPaymentMethods != nil && self.customerPaymentMethods?.count > row {
+        //            return self.customerPaymentMethods![row]
+        //        }
+        //
+        //        if row == 0 && self.isMPLoginAvailable() {
+        //            let mpPayment = CustomerPaymentMethod()
+        //            mpPayment._description = "Tu cuenta de Mercado Pago".localized
+        //            mpPayment.paymentMethodId = "account_money"
+        //            return mpPayment
+        //        }
+        //
+        //        if customerCards != nil  && customerCards?.count >= row {
+        //            return self.customerCards![row-1]
+        //        }
+        //
+        //
+        //        return nil
         
     }
-
-}
+    
+ }

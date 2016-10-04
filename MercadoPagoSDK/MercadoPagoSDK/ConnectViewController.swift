@@ -46,25 +46,24 @@ class ConnectViewController: MercadoPagoUIViewController, UIWebViewDelegate {
         if surl!.rangeOfString("\(MercadoPagoContext.returnURI())/?code=") != nil{
             let urlArray = surl?.characters.split{$0 == "="}.map(String.init)
             let code = urlArray![(urlArray?.count)!-1]
-            print("Code: ", code)
+            LoadingOverlay.shared.showOverlay(self.view, backgroundColor: UIColor(red: 217, green: 217, blue: 217), indicatorColor: UIColor.whiteColor())
             MPServicesBuilder.getUserCredentials(code, redirectUri: returnUri, success: { (userCredential) in
-                print("Access Token: ", userCredential.accessToken)
-                
+                LoadingOverlay.shared.hideOverlayView()
                 if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies {
                     for cookie in cookies {
                         if cookie.domain == ".mercadopago.com.ar" || cookie.domain == ".mercadolibre.com"{
-//                            var cookieProperties = [String: AnyObject]()
-//                            cookieProperties[NSHTTPCookieName] = cookie.name
-//                            cookieProperties[NSHTTPCookieValue] = cookie.value
-//                            cookieProperties[NSHTTPCookieDomain] = cookie.domain
-//                            cookieProperties[NSHTTPCookiePath] = cookie.path
-//                            cookieProperties[NSHTTPCookieVersion] = NSNumber(integer: cookie.version)
-//                            cookieProperties[NSHTTPCookieExpires] = cookie.expiresDate
-//                            cookieProperties[NSHTTPCookieDiscard] = true
-//                            
-//                            NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
-//                            let newCookie = NSHTTPCookie(properties: cookieProperties)
-//                            NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(newCookie!)
+                            var cookieProperties = [String: AnyObject]()
+                            cookieProperties[NSHTTPCookieName] = cookie.name
+                            cookieProperties[NSHTTPCookieValue] = cookie.value
+                            cookieProperties[NSHTTPCookieDomain] = cookie.domain
+                            cookieProperties[NSHTTPCookiePath] = cookie.path
+                            cookieProperties[NSHTTPCookieVersion] = NSNumber(integer: cookie.version)
+                            cookieProperties[NSHTTPCookieExpires] = cookie.expiresDate
+                            cookieProperties[NSHTTPCookieDiscard] = true
+                            
+                            NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
+                            let newCookie = NSHTTPCookie(properties: cookieProperties)
+                            NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(newCookie!)
                         }
                     }
                 }
@@ -74,7 +73,7 @@ class ConnectViewController: MercadoPagoUIViewController, UIWebViewDelegate {
                 self.navigationController?.popViewControllerAnimated(true);
                 
                 }, failure: { (error) in
-                    
+                    LoadingOverlay.shared.hideOverlayView()
             })
             
             return false
