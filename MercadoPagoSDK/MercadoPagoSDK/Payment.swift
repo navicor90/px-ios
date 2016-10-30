@@ -51,7 +51,7 @@ public class Payment : NSObject {
         let payment : Payment = Payment()
 		
 		if json["id"] != nil && !(json["id"]! is NSNull) {
-			payment._id = (json["id"]! as? Int)!
+            payment._id = (json["id"]! as? Int)!
 		}
 		
         if json["binary_mode"] != nil && !(json["binary_mode"]! is NSNull) {
@@ -163,8 +163,12 @@ public class Payment : NSObject {
     }
     
     public func toJSONString() -> String {
+        return self.toJSON().toString()
+    }
+    
+    public func toJSON() -> JSON {
         let obj:[String:AnyObject] = [
-            "id" : String(self._id),
+            "id" : self._id,
             "transaction_amount": self.transactionAmount,
             "tokenId": self.tokenId == nil ? "" : self.tokenId!,
             "issuerId" : self.issuerId,
@@ -176,7 +180,7 @@ public class Payment : NSObject {
             "card" : card == nil ? "" : card.toJSON().mutableCopyOfTheObject()
         ]
         
-        return JSON(obj).toString()
+        return JSON(obj)
     }
     
     public class func getDateFromString(string: String!) -> NSDate! {
