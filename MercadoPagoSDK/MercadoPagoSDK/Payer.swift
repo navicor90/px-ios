@@ -38,15 +38,27 @@ open class Payer : NSObject {
 	
 	
 	open func toJSONString() -> String {
-		let email : Any = self.email == nil ? JSONHandler.null : (self.email!)
-		let _id : Any = self._id as! Decimal == 0 ? JSONHandler.null : self._id
-		let identification : Any = self.identification == nil ? JSONHandler.null : self.identification.toJSONString()
-		let obj:[String:Any] = [
-			"email": email,
-			"_id": _id,
-			"identification" : identification
-		]
-		return JSONHandler.jsonCoding(obj)
+        let email : Any = self.email == nil ? JSONHandler.null : (self.email!)
+        let _id : Any = self._id == 0 ? JSONHandler.null : self._id
+        let identification : Any = self.identification == nil ? JSONHandler.null : self.identification.toJSONString()
+        
+        let payerAccessToken = MercadoPagoContext.payerAccessToken()
+        var payerObj:[String:Any] = [
+            "email": email,
+            "id": _id,
+            "identification" : identification,
+            
+        ]
+        
+        if !String.isNullOrEmpty(payerAccessToken) {
+            payerObj["access_token"] = payerAccessToken
+        }
+    
+        
+        let obj:[String:Any] = [
+            "payer" : payerObj
+        ]
+        return JSONHandler.jsonCoding(obj)
 	}
 	
 }
@@ -54,21 +66,27 @@ open class Payer : NSObject {
 public class GroupsPayer : Payer {
     
     override public func toJSONString() -> String {
-        let payerAccessToken = MercadoPagoContext.payerAccessToken()
-        if String.isNullOrEmpty(payerAccessToken) {
-            return ""
-        }
-    
+        let email : Any = self.email == nil ? JSONHandler.null : (self.email!)
+        let _id : Any = self._id == 0 ? JSONHandler.null : self._id
+        let identification : Any = self.identification == nil ? JSONHandler.null : self.identification.toJSONString()
         
-        let payerObj:[String:Any] = [
-            "access_token": payerAccessToken
-        ]
+        let payerAccessToken = MercadoPagoContext.payerAccessToken()
+        var payerObj:[String:Any] = [
+            "email": email,
+            "id": _id,
+            "identification" : identification,
+            
+            ]
+        
+        if !String.isNullOrEmpty(payerAccessToken) {
+            payerObj["access_token"] = payerAccessToken
+        }
+        
         
         let obj:[String:Any] = [
             "payer" : payerObj
         ]
         return JSONHandler.jsonCoding(obj)
-        
     }
 }
 

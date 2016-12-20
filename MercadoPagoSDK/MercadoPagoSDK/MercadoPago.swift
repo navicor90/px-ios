@@ -62,7 +62,7 @@ import UIKit
     static let MP_PROD_ENV = "/v1"
     static let API_VERSION = "1.3.X"
 
-    static let MP_ENVIROMENT = MP_PROD_ENV  + "/checkout"
+    static let MP_ENVIROMENT = MP_TEST_ENV  + "/checkout"
     
     static let MP_OP_ENVIROMENT = "/v1"
     
@@ -410,7 +410,7 @@ import UIKit
         
     }
     
-    open class func createMPPayment(_ email : String, preferenceId : String, paymentMethod: PaymentMethod, token : Token? = nil, installments: Int = 1, issuer: Issuer? = nil, success: @escaping (_ payment: Payment) -> Void, failure: ((_ error: NSError) -> Void)?) {
+    open class func createMPPayment(_ email : String, preferenceId : String, paymentMethod: PaymentMethod, token : Token? = nil, installments: Int = 1, issuer: Issuer? = nil, payer : Payer? = nil,  success: @escaping (_ payment: Payment) -> Void, failure: ((_ error: NSError) -> Void)?) {
     
         var issuerId = ""
         if issuer != nil {
@@ -423,7 +423,7 @@ import UIKit
             tokenId = token!._id
         }
         
-        let mpPayment = MPPayment(email: email, preferenceId: preferenceId, publicKey: MercadoPagoContext.publicKey(), paymentMethodId: paymentMethod._id, installments: installments, issuerId: issuerId, tokenId: tokenId)
+        let mpPayment = MPPayment(email: email, preferenceId: preferenceId, publicKey: MercadoPagoContext.publicKey(), paymentMethodId: paymentMethod._id, installments: installments, issuerId: issuerId, tokenId: tokenId, payer : payer)
         let service : MerchantService = MerchantService()
         service.createMPPayment(payment: mpPayment, success: { (jsonResult) in
             var payment : Payment? = nil

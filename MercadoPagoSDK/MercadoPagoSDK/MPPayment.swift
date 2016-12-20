@@ -37,9 +37,9 @@ open class MPPayment: NSObject {
     open var installments : Int = 0
     open var issuerId : String?
     open var tokenId : String?
-    
+    open var payer : Payer?
 
-    init(email : String, preferenceId : String, publicKey : String, paymentMethodId : String, installments : Int = 0, issuerId : String = "", tokenId : String = "") {
+    init(email : String, preferenceId : String, publicKey : String, paymentMethodId : String, installments : Int = 0, issuerId : String = "", tokenId : String = "", payer : Payer? = nil) {
         self.email = email
         self.preferenceId = preferenceId
         self.publicKey = publicKey
@@ -47,6 +47,7 @@ open class MPPayment: NSObject {
         self.installments = installments
         self.issuerId = issuerId
         self.tokenId = tokenId
+        self.payer = payer
     }
     
     open func toJSONString() -> String {
@@ -57,10 +58,12 @@ open class MPPayment: NSObject {
             "pref_id" : self.preferenceId,
         ]
         
-        if self.tokenId != nil && self.tokenId?.characters.count > 0 {
-                obj["token"] = self.tokenId!
+        if self.payer != nil {
+                obj["payer"] = self.payer?.toJSONString()
         }
-        
+        if self.tokenId != nil && self.tokenId?.characters.count > 0 {
+            obj["token"] = self.tokenId!
+        }
         obj["installments"] = self.installments
         
         if self.issuerId != nil && self.issuerId?.characters.count > 0 {
