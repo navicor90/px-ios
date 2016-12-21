@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Test_F3" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gy-4o-ioN">
+                                <rect key="frame" x="16" y="126" width="343" height="102"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="102" id="mml-Yn-nAD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                <state key="normal" title="F3"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5h2-JJ-sKY">
+                                <rect key="frame" x="16" y="236" width="343" height="102"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="102" id="uqz-uL-NlW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                <state key="normal" title="F2"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="on0-H3-wXL">
+                                <rect key="frame" x="16" y="346" width="343" height="102"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="102" id="egU-3z-NXo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                <state key="normal" title="F1"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="on0-H3-wXL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1oN-ia-rY8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="on0-H3-wXL" secondAttribute="trailing" id="2XO-fe-wEq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5gy-4o-ioN" secondAttribute="trailing" id="3Nl-ou-Ysb"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="on0-H3-wXL" secondAttribute="leading" id="C9t-cN-tqw"/>
+                            <constraint firstItem="on0-H3-wXL" firstAttribute="top" secondItem="5h2-JJ-sKY" secondAttribute="bottom" constant="8" id="EA1-ge-thf"/>
+                            <constraint firstItem="5h2-JJ-sKY" firstAttribute="top" secondItem="5gy-4o-ioN" secondAttribute="bottom" constant="8" id="EiU-Kz-u6h"/>
+                            <constraint firstItem="5gy-4o-ioN" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="106" id="SaH-5d-ENQ"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="5gy-4o-ioN" secondAttribute="leading" id="Ziv-1l-gqN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5h2-JJ-sKY" secondAttribute="trailing" id="mYf-gS-SLe"/>
+                            <constraint firstItem="5gy-4o-ioN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="npq-cr-Bww"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="5h2-JJ-sKY" secondAttribute="leading" id="qEs-7z-1fe"/>
+                            <constraint firstItem="5h2-JJ-sKY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uPr-hY-gAE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="f1Button" destination="on0-H3-wXL" id="Vye-vV-6D4"/>
+                        <outlet property="f2Button" destination="5h2-JJ-sKY" id="TBk-2L-lCW"/>
+                        <outlet property="f3Button" destination="5gy-4o-ioN" id="yCM-Op-2du"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="37.331334332833585"/>
+        </scene>
+    </scenes>
+</document>
