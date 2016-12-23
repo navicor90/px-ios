@@ -2164,6 +2164,7 @@
 					};
 					0F9883141AD2A97A00F750F0 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = ULW3UE3Q6Z;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -3069,6 +3070,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_HEADERS_RUN_UNIFDEF = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = ULW3UE3Q6Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -3095,6 +3097,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_HEADERS_RUN_UNIFDEF = NO;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = ULW3UE3Q6Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
