@@ -316,6 +316,18 @@
 		15E19C7D1D6F281700D49D7B /* MaskElementTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E19C7C1D6F281700D49D7B /* MaskElementTest.swift */; };
 		15E7D6E81C87164E00101872 /* MockedData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15E7D6E71C87164E00101872 /* MockedData.plist */; };
 		15EEE1D91D89D477004D3A19 /* CardViewModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EEE1D81D89D477004D3A19 /* CardViewModelManager.swift */; };
+		15F1A6631E0DA4B1007B6768 /* CouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6611E0DA4B1007B6768 /* CouponDetailViewController.swift */; };
+		15F1A6641E0DA4B1007B6768 /* CouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6611E0DA4B1007B6768 /* CouponDetailViewController.swift */; };
+		15F1A6651E0DA4B1007B6768 /* CouponDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15F1A6621E0DA4B1007B6768 /* CouponDetailViewController.xib */; };
+		15F1A6661E0DA4B1007B6768 /* CouponDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15F1A6621E0DA4B1007B6768 /* CouponDetailViewController.xib */; };
+		15F1A6681E1154AD007B6768 /* DiscountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6671E1154AD007B6768 /* DiscountDetailView.swift */; };
+		15F1A6691E1154AD007B6768 /* DiscountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6671E1154AD007B6768 /* DiscountDetailView.swift */; };
+		15F1A66B1E1154BC007B6768 /* DiscountDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15F1A66A1E1154BC007B6768 /* DiscountDetailView.xib */; };
+		15F1A66C1E1154BC007B6768 /* DiscountDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15F1A66A1E1154BC007B6768 /* DiscountDetailView.xib */; };
+		15F1A6711E119280007B6768 /* DiscountCoupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6701E119280007B6768 /* DiscountCoupon.swift */; };
+		15F1A6721E119280007B6768 /* DiscountCoupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6701E119280007B6768 /* DiscountCoupon.swift */; };
+		15F1A6751E11A569007B6768 /* DiscountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6741E11A569007B6768 /* DiscountService.swift */; };
+		15F1A6761E11A569007B6768 /* DiscountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6741E11A569007B6768 /* DiscountService.swift */; };
 		15FCA7901C84993B00D9E8CE /* PaymentMethodImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */; };
 		15FCA7911C84993B00D9E8CE /* PaymentMethodImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */; };
 		4B62AC281DD005B500D668DA /* InstructionBodyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62AC261DD005B500D668DA /* InstructionBodyTableViewCell.swift */; };
@@ -850,6 +862,12 @@
 		15E19C7C1D6F281700D49D7B /* MaskElementTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskElementTest.swift; sourceTree = "<group>"; };
 		15E7D6E71C87164E00101872 /* MockedData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MockedData.plist; sourceTree = "<group>"; };
 		15EEE1D81D89D477004D3A19 /* CardViewModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModelManager.swift; sourceTree = "<group>"; };
+		15F1A6611E0DA4B1007B6768 /* CouponDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponDetailViewController.swift; sourceTree = "<group>"; };
+		15F1A6621E0DA4B1007B6768 /* CouponDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponDetailViewController.xib; sourceTree = "<group>"; };
+		15F1A6671E1154AD007B6768 /* DiscountDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountDetailView.swift; sourceTree = "<group>"; };
+		15F1A66A1E1154BC007B6768 /* DiscountDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountDetailView.xib; sourceTree = "<group>"; };
+		15F1A6701E119280007B6768 /* DiscountCoupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCoupon.swift; sourceTree = "<group>"; };
+		15F1A6741E11A569007B6768 /* DiscountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountService.swift; sourceTree = "<group>"; };
 		15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodImageViewCell.swift; sourceTree = "<group>"; };
 		15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodImageViewCell.xib; sourceTree = "<group>"; };
 		4B62AC261DD005B500D668DA /* InstructionBodyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionBodyTableViewCell.swift; sourceTree = "<group>"; };
@@ -1240,6 +1258,7 @@
 		0F9883C01AD2AD3200F750F0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				15F1A6571E0DA351007B6768 /* Cupon */,
 				15F561EA1D5B9379005577DA /* Base */,
 				766012D71CEB920C00897F9D /* Error */,
 				76445AD91CC8114F008EE68E /* Common */,
@@ -1607,6 +1626,43 @@
 			children = (
 			);
 			name = Json;
+			sourceTree = "<group>";
+		};
+		15F1A6571E0DA351007B6768 /* Cupon */ = {
+			isa = PBXGroup;
+			children = (
+				15F1A6731E11A382007B6768 /* Services */,
+				15F1A66F1E11925E007B6768 /* View */,
+				15F1A66E1E119259007B6768 /* Model */,
+			);
+			name = Cupon;
+			sourceTree = "<group>";
+		};
+		15F1A66E1E119259007B6768 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				15F1A6701E119280007B6768 /* DiscountCoupon.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		15F1A66F1E11925E007B6768 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				15F1A6611E0DA4B1007B6768 /* CouponDetailViewController.swift */,
+				15F1A6621E0DA4B1007B6768 /* CouponDetailViewController.xib */,
+				15F1A6671E1154AD007B6768 /* DiscountDetailView.swift */,
+				15F1A66A1E1154BC007B6768 /* DiscountDetailView.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		15F1A6731E11A382007B6768 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				15F1A6741E11A569007B6768 /* DiscountService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		15F561EA1D5B9379005577DA /* Base */ = {
@@ -2281,6 +2337,7 @@
 				76151B971C74CD8C007DF0E3 /* InstructionsTwoLabelsViewCell.xib in Resources */,
 				0FC4FC411B0FB83700CF7148 /* PromosTyCViewController.xib in Resources */,
 				0F9884231AD2AE2700F750F0 /* MPUserIdTableViewCell.xib in Resources */,
+				15F1A6651E0DA4B1007B6768 /* CouponDetailViewController.xib in Resources */,
 				0F0749051AED5BAE003DD39D /* Localizable.strings in Resources */,
 				4B762E9D1DCFAF4700694336 /* InstructionsRevampViewController.xib in Resources */,
 				765F8E631DCA59C500943FAC /* PurchaseItemDetailTableViewCell.xib in Resources */,
@@ -2320,6 +2377,7 @@
 				76B084E81CE0DB0200C157BF /* AuthorizePaymentHeaderTableViewCell.xib in Resources */,
 				0F9883F61AD2ADD300F750F0 /* PaymentMethodsViewController.xib in Resources */,
 				4BAE1D431DCBE8FF0000ED5C /* ApprovedTableViewCell.xib in Resources */,
+				15F1A66B1E1154BC007B6768 /* DiscountDetailView.xib in Resources */,
 				157A4F8B1D805BE900C92D0B /* RecoverPaymentBodyTableViewCell.xib in Resources */,
 				0F9884211AD2AE2700F750F0 /* MPCardholderNameTableViewCell.xib in Resources */,
 				15C5279A1CDBC7E400D113F6 /* IssuerCardViewController.xib in Resources */,
@@ -2335,6 +2393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76FD24801C5BFEA1008C5DC0 /* CardFormViewController.xib in Resources */,
+				15F1A6661E0DA4B1007B6768 /* CouponDetailViewController.xib in Resources */,
 				76CD12131D6F3AE80052350D /* CustomerPaymentMethodCell.xib in Resources */,
 				15C5279C1CDBC7F500D113F6 /* IssuerCardViewController.xib in Resources */,
 				768927131D78BFBA0056A71C /* PendingPaymentHeaderTableViewCell.xib in Resources */,
@@ -2353,6 +2412,7 @@
 				76B0852F1CE519DE00C157BF /* InstallmentSelectionTableViewCell.xib in Resources */,
 				0F9883E11AD2AD5500F750F0 /* CongratsViewController.xib in Resources */,
 				0F9883DD1AD2AD5500F750F0 /* PaymentDateTableViewCell.xib in Resources */,
+				15F1A66C1E1154BC007B6768 /* DiscountDetailView.xib in Resources */,
 				76B085171CE3690600C157BF /* ApprovedPaymentHeaderTableViewCell.xib in Resources */,
 				0FC4FC301B0FB32400CF7148 /* PromoEmptyTableViewCell.xib in Resources */,
 				76B64B1F1C75F91D00300F50 /* InstructionsWithButtonViewCell.xib in Resources */,
@@ -2498,6 +2558,8 @@
 				4BAE1D441DCBE8FF0000ED5C /* CallForAuthTableViewCell.swift in Sources */,
 				76B084F41CE1701D00C157BF /* RejectedPaymentBodyTableViewCell.swift in Sources */,
 				76B085091CE258BA00C157BF /* CongratsFillmentDelegate.swift in Sources */,
+				15F1A6751E11A569007B6768 /* DiscountService.swift in Sources */,
+				15F1A6681E1154AD007B6768 /* DiscountDetailView.swift in Sources */,
 				0F9883A11AD2AB8000F750F0 /* GatewayService.swift in Sources */,
 				4BAE1D4A1DCBE8FF0000ED5C /* RejectedTableViewCell.swift in Sources */,
 				0F9883D21AD2AD5500F750F0 /* CongratsPaymentMethodTableViewCell.swift in Sources */,
@@ -2542,6 +2604,7 @@
 				76445AEE1CCA7334008EE68E /* MockBuilder.swift in Sources */,
 				0FC4FC181B0FAA6400CF7148 /* Promo.swift in Sources */,
 				76B085041CE2464700C157BF /* ExitButtonTableViewCell.swift in Sources */,
+				15F1A6631E0DA4B1007B6768 /* CouponDetailViewController.swift in Sources */,
 				0F98844B1AD2AEC000F750F0 /* MPInstallmentsTableViewCell.swift in Sources */,
 				76B0851E1CE4DE6C00C157BF /* PendingPaymentHeaderTableViewCell.swift in Sources */,
 				76445AF61CCF9847008EE68E /* MPPayment.swift in Sources */,
@@ -2603,6 +2666,7 @@
 				15FCA7901C84993B00D9E8CE /* PaymentMethodImageViewCell.swift in Sources */,
 				0F9883E81AD2ADB000F750F0 /* PaymentMethodTableViewCell.swift in Sources */,
 				15DA7E5E1CD92C670068896E /* IdentificationViewController.swift in Sources */,
+				15F1A6711E119280007B6768 /* DiscountCoupon.swift in Sources */,
 				76AA2E341CBD8BCA006D0678 /* MPTextView.swift in Sources */,
 				76445ADB1CC921B5008EE68E /* ViewUtils.swift in Sources */,
 				765F8E5D1DCA57D000943FAC /* ConfirmPaymentTableViewCell.swift in Sources */,
@@ -2705,6 +2769,7 @@
 				766012E81CEBA19700897F9D /* ErrorViewController.swift in Sources */,
 				76EC47CE1C85E4930086FA53 /* CardNumberTest.swift in Sources */,
 				76EC47E01C85E9DD0086FA53 /* ItemTest.swift in Sources */,
+				15F1A6761E11A569007B6768 /* DiscountService.swift in Sources */,
 				76EC47D81C85E8740086FA53 /* FeedDetailTest.swift in Sources */,
 				7622E3261DF5EE6F00490C4E /* MercadoPagoUIScrollViewController.swift in Sources */,
 				76151B961C74CD8C007DF0E3 /* InstructionsTwoLabelsViewCell.swift in Sources */,
@@ -2720,6 +2785,7 @@
 				0FC4FC221B0FAF0E00CF7148 /* PromoTableViewCell.swift in Sources */,
 				76EC47EE1C8615330086FA53 /* PaymentTypeTest.swift in Sources */,
 				15D79A0B1CA9B6B900623A84 /* MPButton.swift in Sources */,
+				15F1A6691E1154AD007B6768 /* DiscountDetailView.swift in Sources */,
 				76EC47F61C8619E70086FA53 /* SavedCardTokenTest.swift in Sources */,
 				76B085051CE2464700C157BF /* ExitButtonTableViewCell.swift in Sources */,
 				0FC4FBF61B0F4F4800CF7148 /* KeyboardDelegate.swift in Sources */,
@@ -2746,6 +2812,7 @@
 				7652F43F1D78ADEE006022AF /* PaymentCongratsViewControllerTest.swift in Sources */,
 				76062BDE1C4D24050067A14B /* PaymentSearchCell.swift in Sources */,
 				76D00A101CB5932E00F52BC6 /* MPCellValidator.swift in Sources */,
+				15F1A6721E119280007B6768 /* DiscountCoupon.swift in Sources */,
 				15ABAD531DB5489D00481E8E /* GATracker.swift in Sources */,
 				0F9883901AD2AB6000F750F0 /* Refund.swift in Sources */,
 				0F9884561AD2AEF800F750F0 /* MPPaymentMethodTableViewCell.swift in Sources */,
@@ -2773,6 +2840,7 @@
 				0F9883ED1AD2ADB000F750F0 /* CustomerCardsViewController.swift in Sources */,
 				0F9883761AD2AB6000F750F0 /* Identification.swift in Sources */,
 				15E19C7D1D6F281700D49D7B /* MaskElementTest.swift in Sources */,
+				15F1A6641E0DA4B1007B6768 /* CouponDetailViewController.swift in Sources */,
 				0F98842A1AD2AE3100F750F0 /* NewCardViewController.swift in Sources */,
 				157A4F8A1D805BE900C92D0B /* RecoverPaymentBodyTableViewCell.swift in Sources */,
 				76EC47E81C8612C40086FA53 /* PayerCostTest.swift in Sources */,

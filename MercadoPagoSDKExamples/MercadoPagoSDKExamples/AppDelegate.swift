@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
     
-        MercadoPagoContext.setPublicKey("TEST-ad365c37-8012-4014-84f5-6c895b3f8e0a")
-        //MercadoPagoContext.setPublicKey("APP_USR-5bd14fdd-3807-446f-babd-095788d5ed4d")
+        //MercadoPagoContext.setPublicKey("TEST-ad365c37-8012-4014-84f5-6c895b3f8e0a")
+        MercadoPagoContext.setPublicKey("APP_USR-f72d6d3b-dff8-4d69-ad2e-ec4e9773f94d")
 
     MercadoPagoContext.setPayerAccessToken("APP_USR-1094487241196549-081708-4bc39f94fd147e7ce839c230c93261cb__LA_LC__-145698489")
         
@@ -45,6 +45,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //        MercadoPagoContext.setupPrimaryColor(UIColor.black, complementaryColor: UIColor.black)
 
+        
+        let disco = DiscountService()
+        
+        disco.getDiscount(amount: 1000, code: "PRUEBA", success: { (cupon) in
+            print("")
+        }) { (error) in
+            
+        }
+        
+        
         MercadoPagoContext.setLightTextColor()
         MercadoPagoContext.setSite(MercadoPagoContext.Site.MLA)
         
