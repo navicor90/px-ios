@@ -328,6 +328,10 @@
 		15F1A6721E119280007B6768 /* DiscountCoupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6701E119280007B6768 /* DiscountCoupon.swift */; };
 		15F1A6751E11A569007B6768 /* DiscountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6741E11A569007B6768 /* DiscountService.swift */; };
 		15F1A6761E11A569007B6768 /* DiscountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A6741E11A569007B6768 /* DiscountService.swift */; };
+		15F1A67C1E16BC97007B6768 /* AddCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A67A1E16BC97007B6768 /* AddCouponViewController.swift */; };
+		15F1A67D1E16BC97007B6768 /* AddCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F1A67A1E16BC97007B6768 /* AddCouponViewController.swift */; };
+		15F1A67E1E16BC97007B6768 /* AddCouponViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15F1A67B1E16BC97007B6768 /* AddCouponViewController.xib */; };
+		15F1A67F1E16BC97007B6768 /* AddCouponViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15F1A67B1E16BC97007B6768 /* AddCouponViewController.xib */; };
 		15FCA7901C84993B00D9E8CE /* PaymentMethodImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */; };
 		15FCA7911C84993B00D9E8CE /* PaymentMethodImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */; };
 		4B62AC281DD005B500D668DA /* InstructionBodyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62AC261DD005B500D668DA /* InstructionBodyTableViewCell.swift */; };
@@ -868,6 +872,8 @@
 		15F1A66A1E1154BC007B6768 /* DiscountDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscountDetailView.xib; sourceTree = "<group>"; };
 		15F1A6701E119280007B6768 /* DiscountCoupon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCoupon.swift; sourceTree = "<group>"; };
 		15F1A6741E11A569007B6768 /* DiscountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountService.swift; sourceTree = "<group>"; };
+		15F1A67A1E16BC97007B6768 /* AddCouponViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCouponViewController.swift; sourceTree = "<group>"; };
+		15F1A67B1E16BC97007B6768 /* AddCouponViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCouponViewController.xib; sourceTree = "<group>"; };
 		15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodImageViewCell.swift; sourceTree = "<group>"; };
 		15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodImageViewCell.xib; sourceTree = "<group>"; };
 		4B62AC261DD005B500D668DA /* InstructionBodyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionBodyTableViewCell.swift; sourceTree = "<group>"; };
@@ -1653,6 +1659,8 @@
 				15F1A6621E0DA4B1007B6768 /* CouponDetailViewController.xib */,
 				15F1A6671E1154AD007B6768 /* DiscountDetailView.swift */,
 				15F1A66A1E1154BC007B6768 /* DiscountDetailView.xib */,
+				15F1A67A1E16BC97007B6768 /* AddCouponViewController.swift */,
+				15F1A67B1E16BC97007B6768 /* AddCouponViewController.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2330,6 +2338,7 @@
 				76882AD71C4FBAD900B440B1 /* PaymentTitleViewCell.xib in Resources */,
 				0F9884491AD2AEC000F750F0 /* MPInstallmentsTableViewCell.xib in Resources */,
 				76134ABA1C5BED2300A1BAF1 /* OfflinePaymentMethodCell.xib in Resources */,
+				15F1A67E1E16BC97007B6768 /* AddCouponViewController.xib in Resources */,
 				0F9883D81AD2AD5500F750F0 /* PaymentIDTableViewCell.xib in Resources */,
 				76FD24831C5BFEA1008C5DC0 /* CardFrontView.xib in Resources */,
 				762B57391E008DEB00EF3EE4 /* PaymentMethod.plist in Resources */,
@@ -2438,6 +2447,7 @@
 				760BD1F21C99ADE300FDA170 /* MockedResponse.plist in Resources */,
 				768927101D78BFA30056A71C /* ApprovedPaymentBodyTableViewCell.xib in Resources */,
 				0F0749061AED5BAE003DD39D /* Localizable.strings in Resources */,
+				15F1A67F1E16BC97007B6768 /* AddCouponViewController.xib in Resources */,
 				0F9883D11AD2AD5500F750F0 /* PaymentTotalTableViewCell.xib in Resources */,
 				768927151D78BFC70056A71C /* AuthorizePaymentBodyTableViewCell.xib in Resources */,
 				76B085071CE2464700C157BF /* ExitButtonTableViewCell.xib in Resources */,
@@ -2609,6 +2619,7 @@
 				76B0851E1CE4DE6C00C157BF /* PendingPaymentHeaderTableViewCell.swift in Sources */,
 				76445AF61CCF9847008EE68E /* MPPayment.swift in Sources */,
 				0FC4FC391B0FB53500CF7148 /* PromoViewController.swift in Sources */,
+				15F1A67C1E16BC97007B6768 /* AddCouponViewController.swift in Sources */,
 				0F9883A71AD2AB8000F750F0 /* MercadoPagoService.swift in Sources */,
 				150786A31CD7CD1E0034C5B1 /* IdentificationCardView.swift in Sources */,
 				76B084DF1CE0D5A100C157BF /* RejectedPaymentHeaderTableViewCell.swift in Sources */,
@@ -2753,6 +2764,7 @@
 				15ABAD511DB5489D00481E8E /* FlowTrackInfo.swift in Sources */,
 				7656CA211C764EA50043BDB2 /* InstructionsFillmentDelegate.swift in Sources */,
 				7622E3381DF5F0B100490C4E /* IssuerRowTableViewCell.swift in Sources */,
+				15F1A67D1E16BC97007B6768 /* AddCouponViewController.swift in Sources */,
 				15D79A001CA1D3A100623A84 /* PayerCostTableViewCell.swift in Sources */,
 				0F9883331AD2AB3C00F750F0 /* MerchantServer.swift in Sources */,
 				7622E33C1DF5F25400490C4E /* ApprovedTableViewCell.swift in Sources */,

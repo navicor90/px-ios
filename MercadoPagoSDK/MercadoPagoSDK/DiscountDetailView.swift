@@ -15,9 +15,8 @@ class DiscountDetailView: UIView {
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var productAmount: UILabel!
     
-    @IBOutlet weak var shiphingTitle: UILabel!
-    @IBOutlet weak var shippingAmount: UILabel!
-    
+    @IBOutlet weak var discountTitle: UILabel!
+    @IBOutlet weak var discountAmount: UILabel!
     
     @IBOutlet weak var totalTitle: UILabel!
     @IBOutlet weak var totalAmount: UILabel!
