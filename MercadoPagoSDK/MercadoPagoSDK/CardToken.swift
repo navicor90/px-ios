@@ -141,19 +141,12 @@ open class CardToken : NSObject, CardInformationForm {
     }
 
     open func validateSecurityCodeWithPaymentMethod(_ paymentMethod: PaymentMethod) -> String? {
-        
-        guard let cardNumber = cardNumber else{
-            return nil
-        }
-        if cardNumber.characters.count < 6 {
-              return nil
-        }
         let validSecurityCode = self.validateSecurityCode(securityCode)
         if validSecurityCode != nil {
             return validSecurityCode
         } else {
-            let range = cardNumber.startIndex ..< cardNumber.characters.index(cardNumber.characters.startIndex, offsetBy: 6)
-             return validateSecurityCodeWithPaymentMethod(securityCode!, paymentMethod: paymentMethod, bin: cardNumber.substring(with: range))
+            let range = cardNumber!.startIndex ..< cardNumber!.characters.index(cardNumber!.characters.startIndex, offsetBy: 6)
+            return validateSecurityCodeWithPaymentMethod(securityCode!, paymentMethod: paymentMethod, bin: cardNumber!.substring(with: range))
         }
     }
     
