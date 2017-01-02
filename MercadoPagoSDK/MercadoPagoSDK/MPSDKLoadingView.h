@@ -18,6 +18,4 @@
 
 - (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color loadingText:(NSString *)text;
 
-@property (nonatomic, strong) UIImageView *spinner;
-
 @end

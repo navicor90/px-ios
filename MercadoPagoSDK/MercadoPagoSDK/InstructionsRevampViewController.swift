@@ -132,7 +132,7 @@ open class InstructionsRevampViewController: MercadoPagoUIViewController, UITabl
     }
     
     fileprivate func getInstructions(){
-        MPServicesBuilder.getInstructions(payment._id, paymentTypeId : self.paymentTypeId, success: { (instructionsInfo : InstructionsInfo) -> Void in
+        MPServicesBuilder.getInstructions(for: payment._id, paymentTypeId : self.paymentTypeId, success: { (instructionsInfo : InstructionsInfo) -> Void in
             self.instruction = instructionsInfo.instructions[0]
             self.tableView.reloadData()
             self.hideLoading()

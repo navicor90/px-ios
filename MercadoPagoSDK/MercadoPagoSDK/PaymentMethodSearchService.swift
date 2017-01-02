@@ -70,7 +70,13 @@ open class PaymentMethodSearchService: MercadoPagoService {
         
         params = params + "&api_version=" + MercadoPago.API_VERSION
 
-        let groupsPayerBody = MercadoPagoContext.payerAccessToken().characters.count > 0 ? GroupsPayer().toJSONString() as AnyObject? : nil
+        var groupsPayerBody : AnyObject? = nil
+        if !String.isNullOrEmpty(MercadoPagoContext.payerAccessToken()) {
+            let groupsPayerBodyJson : [String:Any] = [
+                "payer" : GroupsPayer().toJSON()
+            ]
+            groupsPayerBody = JSONHandler.jsonCoding(groupsPayerBodyJson) as AnyObject?
+        }
 
         
         self.request(uri: MP_SEARCH_PAYMENTS_URI, params: params, body: groupsPayerBody, method: "POST", cache: false , success: { (jsonResult) -> Void in

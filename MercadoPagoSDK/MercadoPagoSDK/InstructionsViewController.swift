@@ -230,7 +230,7 @@ open class InstructionsViewController: MercadoPagoUIViewController, UITableViewD
     }
     
     fileprivate func getInstructions(){
-        MPServicesBuilder.getInstructions(payment._id, paymentTypeId : self.paymentTypeId!.rawValue.lowercased(), success: { (instructionsInfo : InstructionsInfo) -> Void in
+        MPServicesBuilder.getInstructions(for: payment._id, paymentTypeId : self.paymentTypeId!.rawValue.lowercased(), success: { (instructionsInfo : InstructionsInfo) -> Void in
             self.currentInstruction = instructionsInfo.instructions[0]
             self.amountInfo = instructionsInfo.amountInfo
             self.congratsTable.delegate = self

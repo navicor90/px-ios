@@ -313,7 +313,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     }
 
     internal func confirmPaymentOn(){
-        MercadoPago.createMPPayment(self.viewModel.preference!.payer.email, preferenceId: self.viewModel.preference!._id, paymentMethod: self.viewModel.paymentMethod!,token : self.token, installments: self.viewModel.payerCost!.installments , issuer: self.issuer,success: { (payment) -> Void in
+        MercadoPago.createMPPayment(self.viewModel.preference!.payer.email, preferenceId: self.viewModel.preference!._id, paymentMethod: self.viewModel.paymentMethod!,token : self.token, installments: self.viewModel.payerCost!.installments , issuer: self.issuer, customerId : CheckoutViewModel.CUSTOMER_ID, success: { (payment) -> Void in
             
             
                 self.clearMercadoPagoStyle()
@@ -539,6 +539,12 @@ open class CheckoutViewModel {
     var discountIncluded = false
     
     var preference : CheckoutPreference?
+    
+    public static var CUSTOMER_ID = ""
+    
+    public init(){
+        CheckoutViewModel.CUSTOMER_ID = ""
+    }
     
     func isPaymentMethodSelectedCard() -> Bool {
         return self.paymentMethod != nil && self.paymentMethod!.isCard()

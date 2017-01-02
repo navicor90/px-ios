@@ -108,8 +108,11 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
             self.createdToken = token
             self.selectedIssuer = issuer
             self.installmentsSelected = payerCost
+        } , callbackCancel: {
+            print("Callback Cancel Normal")
         })
         
+    
         let myNav = UINavigationController(rootViewController: pv.viewControllers[0])
         self.present(myNav, animated: true, completion: {})
     }

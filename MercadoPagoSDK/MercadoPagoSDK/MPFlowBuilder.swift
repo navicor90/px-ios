@@ -46,6 +46,9 @@ open class MPFlowBuilder : NSObject {
                 callback(paymentMethod, token, issuer, payerCost)}
             )}
         paymentVault.modalTransitionStyle = .crossDissolve
+        
+        ErrorViewController.defaultErrorCancel = callbackCancel
+        
         return MPFlowController.createNavigationControllerWith(paymentVault)
     }
     

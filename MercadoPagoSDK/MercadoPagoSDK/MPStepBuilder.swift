@@ -111,7 +111,7 @@ open class MPStepBuilder : NSObject {
             if paymentMethods[0].paymentTypeId == PaymentTypeId.CREDIT_CARD.rawValue || paymentMethods[1].paymentTypeId == PaymentTypeId.CREDIT_CARD.rawValue {
                 if paymentMethods[0].paymentTypeId == PaymentTypeId.DEBIT_CARD.rawValue || paymentMethods[1].paymentTypeId == PaymentTypeId.DEBIT_CARD.rawValue{
                     let creditDebitForm = startCreditDebitForm(paymentMethods, issuer: nil, token: cardToken, amount: amount, timer: timer, callback: { (selectedPaymentMethod) in
-                        self.getIssuers(selectedPaymentMethod as! PaymentMethod, cardToken: cardToken, customerCard: cardInformation, ccf: ccf, callback: callback)
+                        self.getIssuers(selectedPaymentMethod as! PaymentMethod, cardToken: cardToken, customerCard: cardInformation, ccf: ccf, callback: callback, callbackCancel: callbackCancel)
                     })
                     creditDebitForm.callbackCancel = callbackCancel
                     ccf.navigationController!.pushViewController(creditDebitForm, animated: false)
@@ -239,7 +239,8 @@ open class MPStepBuilder : NSObject {
     }
     
     fileprivate class func getIssuers(_ paymentMethod : PaymentMethod, cardToken : CardToken, customerCard : CardInformation? = nil, timer : CountdownTimer? = nil, ccf : MercadoPagoUIViewController,
-                                      callback : @escaping (_ paymentMethod: PaymentMethod, _ token: Token, _ issuer:Issuer?) -> Void){
+                                      callback : @escaping (_ paymentMethod: PaymentMethod, _ token: Token, _ issuer:Issuer?) -> Void ,
+                                      callbackCancel : ((Void) -> Void)? = nil){
         MercadoPagoContext.initFlavor2()
 
         
@@ -252,7 +253,7 @@ open class MPStepBuilder : NSObject {
                                 
                             }
                             
-                            self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: issuer as? Issuer, ccf : ccf, callback: callback)
+                            self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: issuer as? Issuer, ccf : ccf, callback: callback, callbackCancel: callbackCancel)
                         })
                         issuerForm.callbackCancel = { Void -> Void in
                             ccf.navigationController!.dismiss(animated: true, completion: {})
@@ -260,7 +261,7 @@ open class MPStepBuilder : NSObject {
                         
                     ccf.navigationController!.pushViewController(issuerForm, animated: false)
                 } else {
-                    self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: issuers[0], ccf: ccf, callback: callback)
+                    self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: issuers[0], ccf: ccf, callback: callback, callbackCancel: callbackCancel)
                 }
                 }, failure: { (error) -> Void in
                     if let nav = ccf.navigationController {
@@ -275,13 +276,14 @@ open class MPStepBuilder : NSObject {
                     ccf.navigationController?.present(errorVC, animated: true, completion: {})
             })
         } else {
-            self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: customerCard?.getIssuer(), customerCard: customerCard, ccf: ccf, callback: callback)
+            self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: customerCard?.getIssuer(), customerCard: customerCard, ccf: ccf, callback: callback, callbackCancel: callbackCancel)
         }
     }
     
     
     fileprivate class func createNewCardToken(_ cardToken : CardToken, paymentMethod : PaymentMethod, issuer : Issuer?, customerCard : CardInformation? = nil, ccf : MercadoPagoUIViewController,
-                                              callback : @escaping (_ paymentMethod: PaymentMethod, _ token: Token, _ issuer:Issuer?) -> Void){
+                                              callback : @escaping (_ paymentMethod: PaymentMethod, _ token: Token, _ issuer:Issuer?) -> Void ,
+                                              callbackCancel : ((Void) -> Void)? = nil){
         
         if cardToken.isCustomerPaymentMethod() {
             MPServicesBuilder.createToken(cardToken as! SavedCardToken, success: { (token) in
@@ -292,7 +294,7 @@ open class MPStepBuilder : NSObject {
                 }, failure: { (error) in
                     let errorVC = MPStepBuilder.startErrorViewController(MPSDKError.convertFrom(error), callback: { (Void) in
                         ccf.dismiss(animated: true, completion: {})
-                        self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: issuer, ccf : ccf, callback: callback)
+                        self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: issuer, ccf : ccf, callback: callback, callbackCancel: callbackCancel)
                     })
                     errorVC.callbackCancel = { ccf.hideLoading() }
                     ccf.navigationController?.present(errorVC, animated: true, completion: {})
@@ -306,9 +308,14 @@ open class MPStepBuilder : NSObject {
             }) { (error) -> Void in
                 let errorVC = MPStepBuilder.startErrorViewController(MPSDKError.convertFrom(error), callback: { (Void) in
                     ccf.dismiss(animated: true, completion: {})
-                    self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: issuer, ccf : ccf, callback: callback)
+                    self.createNewCardToken(cardToken, paymentMethod: paymentMethod, issuer: issuer, ccf : ccf, callback: callback, callbackCancel: callbackCancel)
                 })
-                errorVC.callbackCancel = { ccf.hideLoading() }
+                errorVC.callbackCancel = {
+                    ccf.hideLoading()
+                    if ( callbackCancel != nil ){
+                        callbackCancel!()
+                    }
+                }
                 ccf.navigationController?.present(errorVC, animated: true, completion: {})
             }
         }

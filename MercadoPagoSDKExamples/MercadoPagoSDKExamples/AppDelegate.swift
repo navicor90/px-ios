@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
     
-        MercadoPagoContext.setPublicKey("TEST-ad365c37-8012-4014-84f5-6c895b3f8e0a")
+        MercadoPagoContext.setPublicKey("APP_USR-8e3869a6-638f-45cd-b5b7-267c8e6f2b09")
         //MercadoPagoContext.setPublicKey("APP_USR-5bd14fdd-3807-446f-babd-095788d5ed4d")
 
-    MercadoPagoContext.setPayerAccessToken("APP_USR-1094487241196549-081708-4bc39f94fd147e7ce839c230c93261cb__LA_LC__-145698489")
+        //MercadoPagoContext.setPayerAccessToken("APP_USR-6105282339975037-110310-7994b404127b8d755adff11a60052b01__LC_LA__-233395668")
         
         MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
 
@@ -34,8 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let tracker = TrackerExample()
 //        
 //        MercadoPagoContext.setTrack(listener: tracker)
-        //MercadoPagoContext.setBaseURL("http://private-4d9654-mercadopagoexamples.apiary-mock.com")
-        //MercadoPagoContext.setCustomerURI("/get_customer")
+        MercadoPagoContext.setBaseURL("https://private-0c3e9-testingcustomer.apiary-mock.com")
+        MercadoPagoContext.setCustomerURI("/get_customer")
 
         
 

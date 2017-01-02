@@ -24,6 +24,8 @@ open class ErrorViewController: MercadoPagoUIViewController {
     
     override open var screenName : String { get { return "ERROR" } }
     
+   open static var defaultErrorCancel : ((Void) -> Void)?
+    
     open var exitErrorCallback : ((Void) -> Void)!
     
     public init(error : MPSDKError!, callback : ((Void) -> Void)?, callbackCancel : ((Void) -> Void)? = nil){
@@ -78,7 +80,12 @@ open class ErrorViewController: MercadoPagoUIViewController {
     }
     
     internal func invokeExitCallback(){
-       self.exitErrorCallback()
+        if let cancelCallback = ErrorViewController.defaultErrorCancel {
+            cancelCallback()
+        }
+            self.exitErrorCallback()
+        
+       
     }
     
     
