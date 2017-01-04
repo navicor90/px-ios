@@ -71,7 +71,7 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
         return  "iOS"
     }
     open func sdkVersion() -> String!{
-        return "2.2.4"
+        return "2.2.5"
     }
  
     static let siteIdsSettings : [String : NSDictionary] = [
@@ -152,8 +152,8 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
     fileprivate static var primaryColor : UIColor = UIColor.mpDefaultColor()
 
     
-    fileprivate static var complementaryColor : UIColor = UIColor.blueMercadoPago()
-    fileprivate static var textColor : UIColor = UIColor.white()
+    fileprivate static var complementaryColor : UIColor = UIColor.px_blueMercadoPago()
+    fileprivate static var textColor : UIColor = UIColor.px_white()
     
     open static func setupPrimaryColor(_ color: UIColor, complementaryColor: UIColor? = nil){
         MercadoPagoContext.primaryColor = color
@@ -161,7 +161,7 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
             MercadoPagoContext.setupComplementaryColor(complementaryColor!)
         }else{
             if (color == UIColor.mpDefaultColor()){
-                MercadoPagoContext.setupComplementaryColor(UIColor.blueMercadoPago())
+                MercadoPagoContext.setupComplementaryColor(UIColor.px_blueMercadoPago())
             }else{
                 MercadoPagoContext.setupComplementaryColor(color.lighter())
             }
@@ -186,7 +186,7 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
         textColor = UIColor.black
     }
     open static func setLightTextColor(){
-        textColor = UIColor.white()
+        textColor = UIColor.px_white()
     }
     
     
@@ -207,7 +207,7 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
     
     open class func setPublicKey(_ public_key : String){
         
-       sharedInstance.public_key = public_key
+       sharedInstance.public_key = public_key.trimSpaces()
        _ = CardFrontView()
        _ = CardBackView()
         

@@ -28,7 +28,6 @@ class ServicesExamplesViewController: UIViewController, UITableViewDataSource, U
         pm._id = "master"
         pm.name = "Mastercard"
         pm.paymentTypeId = PaymentTypeId.CREDIT_CARD.rawValue
-        
         self.paymentMethod = pm
         
     }

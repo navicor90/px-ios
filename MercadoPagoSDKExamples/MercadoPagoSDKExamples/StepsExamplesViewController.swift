@@ -91,17 +91,24 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     internal func startPaymentVault(){
-        /*MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
+        /*
+        MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
         MercadoPagoContext.setBaseURL(ExamplesUtils.MERCHANT_MOCK_BASE_URL)
         MercadoPagoContext.setCustomerURI(ExamplesUtils.MERCHANT_MOCK_GET_CUSTOMER_URI)
-         
-*/
+        */
+        
+        let step = MPStepBuilder.startAddCouponStep(amount: 1000, callback: { (cupon) in
+            print(cupon.name)
+        } ,callbackCancel: {
+        })
+        self.present(step, animated: true, completion: {})
+
+        /*
         MercadoPagoContext.setAccountMoneyAvailable(accountMoneyAvailable: true)
         let pp = PaymentPreference()
         pp.excludedPaymentTypeIds = ["ticket",  "atm"]
         //pp.excludedPaymentMethodIds = ["master"]
         pp.maxAcceptedInstallments = 3
-
         let pv = MPFlowBuilder.startPaymentVaultViewController(5, paymentPreference : pp, callback: { (paymentMethod, token, issuer, payerCost) in
             print(paymentMethod._id)
             self.paymentMethod = paymentMethod
@@ -111,10 +118,9 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         } , callbackCancel: {
             print("Callback Cancel Normal")
         })
-        
-    
         let myNav = UINavigationController(rootViewController: pv.viewControllers[0])
         self.present(myNav, animated: true, completion: {})
+ */
     }
     
     func startCardFlow(){

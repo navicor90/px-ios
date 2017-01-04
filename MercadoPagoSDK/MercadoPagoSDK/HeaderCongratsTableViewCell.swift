@@ -39,7 +39,7 @@ class HeaderCongratsTableViewCell: UITableViewCell {
             
             if amountRange != nil {
                 let attributedTitle = NSMutableAttributedString(string: (titleWithParams.substring(to: (amountRange?.lowerBound)!)))
-                let attributedAmount = Utils.getAttributedAmount(payment.transactionAmount, thousandSeparator: thousandSeparator, decimalSeparator: decimalSeparator, currencySymbol: currencySymbol, color: UIColor.white())
+                let attributedAmount = Utils.getAttributedAmount(payment.transactionAmount, thousandSeparator: thousandSeparator, decimalSeparator: decimalSeparator, currencySymbol: currencySymbol, color: UIColor.px_white())
                 attributedTitle.append(attributedAmount)
                 let endingTitle = NSAttributedString(string: (titleWithParams.substring(from: (amountRange?.upperBound)!)))
                 attributedTitle.append(endingTitle)
@@ -61,7 +61,7 @@ class HeaderCongratsTableViewCell: UITableViewCell {
             
             if amountRange != nil {
                 let attributedTitle = NSMutableAttributedString(string: (instruction?.title.substring(to: (amountRange?.lowerBound)!))!)
-                let attributedAmount = Utils.getAttributedAmount(payment.transactionAmount, thousandSeparator: thousandSeparator, decimalSeparator: decimalSeparator, currencySymbol: currencySymbol, color: UIColor.white())
+                let attributedAmount = Utils.getAttributedAmount(payment.transactionAmount, thousandSeparator: thousandSeparator, decimalSeparator: decimalSeparator, currencySymbol: currencySymbol, color: UIColor.px_white())
                 attributedTitle.append(attributedAmount)
                 let endingTitle = NSAttributedString(string: (instruction?.title.substring(from: (amountRange?.upperBound)!))!)
                 attributedTitle.append(endingTitle)

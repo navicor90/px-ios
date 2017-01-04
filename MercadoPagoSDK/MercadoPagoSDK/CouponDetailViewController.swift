@@ -8,28 +8,54 @@
 
 import UIKit
 
-class CouponDetailViewController: MercadoPagoUIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+open class CouponDetailViewController: MercadoPagoUIViewController {
+    
+    override open var screenName : String { get { return "DISCOUNT_SUMMARY" } }
+    
+    var coupon : DiscountCoupon!
+    var amount : Double!
+    var couponView : DiscountDetailView!
+    
+    
+    init(coupon : DiscountCoupon, amount: Double, callbackCancel : ((Void) -> Void)? = nil) {
+        super.init(nibName: "CouponDetailViewController", bundle: MercadoPago.getBundle())
+        self.callbackCancel = callbackCancel
+        self.amount = amount
+        self.coupon = coupon
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    */
-
+    
+    
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = MercadoPagoContext.getPrimaryColor()
+        let screenSize: CGRect = UIScreen.main.bounds
+        let screenHeight = screenSize.height
+        let screenWidth = screenSize.width
+        //TODO ARREGALAR BONITO
+        let xPos = (screenWidth - 256)/2
+        let yPos = (screenHeight - 233)/2
+        self.couponView = DiscountDetailView(frame:CGRect(x: xPos, y: yPos, width: 256, height: 233), coupon: self.coupon, amount:amount)
+        self.couponView.layer.cornerRadius = 7
+        self.couponView.layer.masksToBounds = true
+        self.view.addSubview(self.couponView)
+    }
+    override open func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func exit(){
+        guard let callbackCancel = self.callbackCancel else {
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
+        self.dismiss(animated: false) { 
+            callbackCancel()
+        }
+        
+    }
+    
 }

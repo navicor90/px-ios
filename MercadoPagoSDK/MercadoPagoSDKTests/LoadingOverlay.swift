@@ -31,7 +31,7 @@ open class LoadingOverlay {
       return UIView()
     }
     
-    open func showOverlay(_ view: UIView, backgroundColor : UIColor, indicatorColor : UIColor = UIColor.white()) -> UIView {
+    open func showOverlay(_ view: UIView, backgroundColor : UIColor, indicatorColor : UIColor = UIColor.px_white()) -> UIView {
         return UIView()
     }
     

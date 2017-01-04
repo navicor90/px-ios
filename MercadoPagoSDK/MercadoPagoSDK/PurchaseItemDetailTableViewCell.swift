@@ -45,7 +45,7 @@ class PurchaseItemDetailTableViewCell: UITableViewCell {
             self.itemDescription.attributedText = NSAttributedString(string: "")
         }
         self.itemQuantity.attributedText = NSAttributedString(string: "Cantidad : ".localized + String(item.quantity))
-        let unitPrice = Utils.getAttributedAmount(item.unitPrice, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : UIColor.grayDark(), fontSize : 18, baselineOffset: 5)
+        let unitPrice = Utils.getAttributedAmount(item.unitPrice, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : UIColor.px_grayDark(), fontSize : 18, baselineOffset: 5)
         let unitPriceTitle = NSMutableAttributedString(string: "Precio Unitario : ".localized)
         unitPriceTitle.append(unitPrice)
         self.itemUnitPrice.attributedText = unitPriceTitle

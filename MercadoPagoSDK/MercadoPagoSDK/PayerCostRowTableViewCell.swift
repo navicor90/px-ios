@@ -16,9 +16,9 @@ class PayerCostRowTableViewCell: UITableViewCell {
     func fillCell(payerCost : PayerCost) {
         let currency = MercadoPagoContext.getCurrency()
         if (payerCost.hasInstallmentsRate() || payerCost.installments == 1){
-            let attributedTotal = NSMutableAttributedString(attributedString: NSAttributedString(string: "(", attributes: [NSForegroundColorAttributeName : UIColor.grayLight()]))
-            attributedTotal.append(Utils.getAttributedAmount(payerCost.totalAmount, currency: currency, color : UIColor.grayLight(), fontSize: 15, baselineOffset:3))
-            attributedTotal.append(NSAttributedString(string: ")", attributes: [NSForegroundColorAttributeName : UIColor.grayLight()]))
+            let attributedTotal = NSMutableAttributedString(attributedString: NSAttributedString(string: "(", attributes: [NSForegroundColorAttributeName : UIColor.px_grayLight()]))
+            attributedTotal.append(Utils.getAttributedAmount(payerCost.totalAmount, currency: currency, color : UIColor.px_grayLight(), fontSize: 15, baselineOffset:3))
+            attributedTotal.append(NSAttributedString(string: ")", attributes: [NSForegroundColorAttributeName : UIColor.px_grayLight()]))
             interestDescription.attributedText = attributedTotal
         } else {
             interestDescription.attributedText = NSAttributedString(string : "Sin interés".localized)
@@ -39,7 +39,7 @@ class PayerCostRowTableViewCell: UITableViewCell {
         let lineFrame = CGRect(origin: CGPoint(x: 0,y :Int(y)), size: CGSize(width: width, height: 0.5))
         let line = UIView(frame: lineFrame)
         line.alpha = 0.6
-        line.backgroundColor = UIColor.grayLight()
+        line.backgroundColor = UIColor.px_grayLight()
         addSubview(line)
     }
     

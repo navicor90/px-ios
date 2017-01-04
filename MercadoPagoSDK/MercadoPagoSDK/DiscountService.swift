@@ -31,8 +31,8 @@ open class DiscountService: MercadoPagoService {
         self.request(uri: MP_DISCOUNT_CAMPAING, params: params, body: nil, method: "GET", cache: false , success: { (jsonResult) -> Void in
             
             if let discount = jsonResult as? NSDictionary {
-                if discount["error"] != nil {
-                    failure(NSError(domain: "mercadopago.sdk.PaymentMethodSearchService.getPaymentMethods", code: MercadoPago.ERROR_API_CODE, userInfo: [NSLocalizedDescriptionKey : "Ha ocurrido un error".localized, NSLocalizedFailureReasonErrorKey : "No se ha podido obtener los métodos de pago".localized]))
+                if let error = discount["error"] {
+                    failure(NSError(domain: "mercadopago.sdk.DiscountService.getDiscount", code: MercadoPago.ERROR_API_CODE, userInfo: [NSLocalizedDescriptionKey : error]))
                 } else {
                     let discount = DiscountCoupon.fromJSON(jsonResult as! NSDictionary)
                     success(discount)

@@ -34,12 +34,12 @@ open class DiscountCoupon: NSObject {
      
      */
     
-    var _id : String!
-    var name : String!
-    var percent_off : String!
-    var amount_off : String!
-    var coupon_amount : String!
-    var currency_id : String!
+   open var _id : String!
+   open var name : String!
+   open var percent_off : String!
+   open var amount_off : String!
+   open var coupon_amount : String!
+   open var currency_id : String!
     
     /*
     public init(id : String, name : String, percent_off : String, amount_off : String, coupon_amount : String, currency_id : String) {

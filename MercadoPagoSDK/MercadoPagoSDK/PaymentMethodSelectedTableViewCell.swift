@@ -50,7 +50,7 @@ class PaymentMethodSelectedTableViewCell: UITableViewCell {
             self.noRateLabel.attributedText = NSAttributedString(string : "Sin interés".localized)
         }
         
-        let attributedAmount = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.grayBaseText(), fontSize : 16, baselineOffset : 4)
+        let attributedAmount = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.px_grayBaseText(), fontSize : 16, baselineOffset : 4)
         let attributedAmountFinal = NSMutableAttributedString(string : "(")
         attributedAmountFinal.append(attributedAmount)
         attributedAmountFinal.append(NSAttributedString(string : ")"))

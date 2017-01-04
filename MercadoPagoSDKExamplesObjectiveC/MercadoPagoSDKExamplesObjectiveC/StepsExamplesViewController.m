@@ -82,6 +82,7 @@ int installmentsSelected = 1;
         currentToken = token;
         selectedIssuer = issuer;
         paymentMethod = pm;
+        
         [self dismissViewControllerAnimated:YES completion:^{}];
     } callbackCancel:^{
         [self dismissViewControllerAnimated:YES completion:^{}];

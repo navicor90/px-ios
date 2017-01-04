@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 if [ $# -eq 0 ]
   then
@@ -19,6 +18,8 @@ if [ "$#" -eq 2 ]
   	GIT_BRANCH=$2
 
 fi
+
+cd ..
 
 echo "=========================================="
 echo "    Creating POD Project : $PROJECT  "

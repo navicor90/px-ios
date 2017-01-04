@@ -2,22 +2,22 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "imagenCupon.png"
+      "filename" : "imagen_cupon@1x-1.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "imagenCupon@2x.png"
+      "filename" : "imagen_cupon.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "imagenCupon@3x.png"
+      "filename" : "imagen_cupon@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "zeplin",
-    "version" : "1"
+    "version" : 1,
+    "author" : "xcode"
   }
 }

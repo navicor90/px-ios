@@ -186,6 +186,14 @@ open class MPStepBuilder : NSObject {
         MercadoPagoContext.initFlavor2()
         return CardAdditionalStep(paymentMethod: paymentMethod, issuer: issuer, token: token, amount: amount, paymentPreference: paymentPreference, installment : nil, timer: timer, callback: callback )
     }
+    open class func startAddCouponStep(amount: Double, callback : @escaping ((_ coupon: DiscountCoupon) -> Void), callbackCancel : ((Void) -> Void)? = nil) -> AddCouponViewController {
+        
+        MercadoPagoContext.initFlavor2()
+        return AddCouponViewController(amount: amount, callback:callback , callbackCancel: callbackCancel)
+    }
+    
+    
+    
     
     open class func startPayerCostForm(_ paymentMethod : PaymentMethod , issuer:Issuer?, token : Token? , amount: Double, paymentPreference: PaymentPreference? = nil, installment : Installment? = nil, timer: CountdownTimer? = nil,
                                        callback : @escaping ((_ payerCost: PayerCost?) -> Void),

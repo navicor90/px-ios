@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "MercadoPagoSDK"
-  s.version          = "2.2.3"
+  s.version          = "2.2.4"
   s.summary          = "MercadoPagoSDK"
   s.homepage         = "https://www.mercadopago.com"
   s.license          = { :type => "MIT", :file => "LICENSE" }
@@ -23,5 +23,9 @@ Pod::Spec.new do |s|
      end
     }
   end
+
+s.pod_target_xcconfig = {
+  'SWIFT_VERSION' => '3.0.1'
+}
 
 end

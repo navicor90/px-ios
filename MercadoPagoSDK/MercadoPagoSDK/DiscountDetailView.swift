@@ -21,9 +21,17 @@ class DiscountDetailView: UIView {
     @IBOutlet weak var totalTitle: UILabel!
     @IBOutlet weak var totalAmount: UILabel!
     
-    override init(frame: CGRect) {
+    
+    var coupon: DiscountCoupon!
+    var amount: Double!
+    
+    
+    init(frame: CGRect, coupon: DiscountCoupon, amount: Double) {
         super.init(frame: frame)
+        self.coupon = coupon
+        self.amount = amount
         loadViewFromNib ()
+        
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -37,6 +45,9 @@ class DiscountDetailView: UIView {
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
+        self.productAmount.text = "$" + String(amount)
+        self.discountAmount.text = "$" + coupon.amount_off
+        self.totalAmount.text = "$" + String(amount - Double(coupon.amount_off)!)
     }
 
 }

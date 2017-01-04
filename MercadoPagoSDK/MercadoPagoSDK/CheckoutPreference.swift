@@ -74,8 +74,8 @@ open class CheckoutPreference : NSObject {
             preference.siteId = siteId
         }
 
-        if let playerDic = json["payer"] as? NSDictionary {
-            preference.payer = Payer.fromJSON(playerDic)
+        if let payerDic = json["payer"] as? NSDictionary {
+            preference.payer = Payer.fromJSON(payerDic)
         }
         
         var items = [Item]()

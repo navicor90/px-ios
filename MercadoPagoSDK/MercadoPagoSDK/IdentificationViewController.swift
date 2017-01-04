@@ -45,7 +45,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
                 self.navigationController!.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
                 self.navigationItem.hidesBackButton = true
                 self.navigationController!.interactivePopGestureRecognizer?.delegate = self
-                self.navigationController?.navigationBar.tintColor = UIColor.white()
+                self.navigationController?.navigationBar.tintColor = UIColor.px_white()
                 self.navigationController?.navigationBar.barTintColor =  UIColor.primaryColor()
                 self.navigationController?.navigationBar.removeBottomLine()
                 self.navigationController?.navigationBar.isTranslucent = false
@@ -53,9 +53,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
             }
         }
         let pickerView = UIPickerView(frame: CGRect(x: 0, y: 150, width: view.frame.width, height: 216))
-        pickerView.backgroundColor = .white()
+        pickerView.backgroundColor = UIColor.px_white()
         pickerView.showsSelectionIndicator = true
-        pickerView.backgroundColor = .white()
+        pickerView.backgroundColor = UIColor.px_white()
         pickerView.showsSelectionIndicator = true
         pickerView.dataSource = self
         pickerView.delegate = self

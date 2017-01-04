@@ -169,7 +169,7 @@ class ExamplesUtils {
         
         //Create Payer
         let payer = Payer()
-        payer._id = 2
+        payer._id = "2"
         payer.email = "thisis@nemail.com"
         
         

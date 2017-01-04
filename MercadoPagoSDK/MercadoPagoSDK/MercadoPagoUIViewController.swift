@@ -163,7 +163,7 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
         shoppingCartButton.style = .plain
         shoppingCartButton.title = ""
         shoppingCartButton.target = self
-        shoppingCartButton.tintColor = UIColor.white()
+        shoppingCartButton.tintColor = UIColor.px_white()
         if action != nil {
             shoppingCartButton.action = action!
         }
@@ -178,7 +178,7 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
         shoppingCartButton.image = shoppingCartImage
         shoppingCartButton.title = ""
         shoppingCartButton.target = self
-        shoppingCartButton.tintColor = UIColor.white()
+        shoppingCartButton.tintColor = UIColor.px_white()
         if action != nil {
             shoppingCartButton.action = action!
         }

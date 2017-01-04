@@ -68,6 +68,8 @@ class UtilsTest: BaseTest {
         date = Utils.getDateFromString(dateExample)
         XCTAssertNil(date)
         
+        date = Utils.getDateFromString(nil)
+        XCTAssertNil(date)
     }
     
     /**
@@ -109,7 +111,7 @@ class UtilsTest: BaseTest {
      * getExpirationMonthFromLabelText
      *
      **/
-    func getExpirationMonthFromLabelText(){
+    func testGetExpirationMonthFromLabelText(){
         
         var text = "09/07"
         var result = Utils.getExpirationMonthFromLabelText(text)
@@ -125,7 +127,7 @@ class UtilsTest: BaseTest {
         
         text = "999999999999/98"
         result = Utils.getExpirationMonthFromLabelText(text)
-        XCTAssertEqual(98, result)
+        XCTAssertEqual(0, result)
         
         text = "This is garbage data"
         result = Utils.getExpirationMonthFromLabelText(text)
@@ -309,6 +311,43 @@ class UtilsTest: BaseTest {
         amountFormatted = Utils.getAmountFormatted(MockBuilder.MILLIONS, thousandSeparator: ",", decimalSeparator: ".")
         XCTAssertEqual(amountFormatted, "10,000,000,000,000,000")
      }
+    
+    /**
+     *
+     * findPaymentMethodSearchItemInGroups
+     *
+     **/
+    func testFindPaymentMethodSearchItemInGroups(){
+        let paymentMethodSearch = PaymentMethodSearch()
+        
+        let paymentMethodSearchitemRoot = MockBuilder.buildPaymentMethodSearchItem("id1")
+        let paymentMethodSearchitemRootFirst = MockBuilder.buildPaymentMethodSearchItem("id1_1")
+        let paymentMethodSearchitemRootSecond = MockBuilder.buildPaymentMethodSearchItem("id1_2")
+        
+        paymentMethodSearchitemRoot.children = [paymentMethodSearchitemRootFirst, paymentMethodSearchitemRootSecond]
+        
+        let paymentMethodSearchitemSecondRoot = MockBuilder.buildPaymentMethodSearchItem("id2")
+        let paymentMethodSearchitemSecondRootFirst = MockBuilder.buildPaymentMethodSearchItem("id2_1")
+        let paymentMethodSearchitemecondRootSecond = MockBuilder.buildPaymentMethodSearchItem("id2_2")
+        
+        paymentMethodSearchitemSecondRoot.children = [paymentMethodSearchitemSecondRootFirst, paymentMethodSearchitemecondRootSecond]
+        
+        paymentMethodSearch.groups = [paymentMethodSearchitemRoot, paymentMethodSearchitemSecondRoot]
+        
+        let rootFirst = Utils.findPaymentMethodSearchItemInGroups(paymentMethodSearch, paymentMethodId: "id1_1", paymentTypeId: nil)
+        
+        XCTAssertNotNil(rootFirst)
+        XCTAssertEqual(paymentMethodSearchitemRootFirst.idPaymentMethodSearchItem, rootFirst!.idPaymentMethodSearchItem)
+        
+        let secondRoot = Utils.findPaymentMethodSearchItemInGroups(paymentMethodSearch, paymentMethodId: "id2", paymentTypeId: nil)
+        XCTAssertNotNil(secondRoot)
+        XCTAssertEqual(paymentMethodSearchitemSecondRoot.idPaymentMethodSearchItem, secondRoot!.idPaymentMethodSearchItem)
+        
+        let invalidData = Utils.findPaymentMethodSearchItemInGroups(PaymentMethodSearch(), paymentMethodId: "id2", paymentTypeId: nil)
+        XCTAssertNil(invalidData)
+        
+        
+    }
     
     
     func testGetAttributedAmount(){

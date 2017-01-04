@@ -10,32 +10,21 @@ import XCTest
 
 class PaymentTest: BaseTest {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
     
     func testFromJSON(){
         let json : NSDictionary = MockManager.getMockFor("Payment")!
         let paymentFromJSON = Payment.fromJSON(json)
-        XCTAssertEqual(paymentFromJSON, paymentFromJSON)
+        XCTAssertEqual(paymentFromJSON._id, "123123124235")
+        XCTAssertEqual(paymentFromJSON.currencyId, "currency_id")
+        XCTAssertEqual(paymentFromJSON.card.idCard, 123456)
+        XCTAssertEqual(paymentFromJSON.card.lastFourDigits, "4444")
+        XCTAssertEqual(paymentFromJSON.card.customerId, "customer_id")
+        XCTAssertEqual(paymentFromJSON.card.firstSixDigits, "451234")
+        XCTAssertEqual(paymentFromJSON.paymentMethodId, "payment_method_id")
+        XCTAssertEqual(paymentFromJSON.paymentTypeId, "payment_type_id")
+        XCTAssertEqual(paymentFromJSON.payer.email, "email")
+        XCTAssertEqual(paymentFromJSON.status, "status")
+        XCTAssertEqual(paymentFromJSON.statusDetail, "status_detail")
     }
     
 }

@@ -29,7 +29,7 @@ class PaymentSearchCollectionViewCell: UICollectionViewCell {
         self.subtitleSearch.text = subtitle
         self.imageSearch.image = image
 
-        self.backgroundColor = UIColor.white()
+        self.backgroundColor = UIColor.px_white()
         self.titleSearch.textColor = UIColor.black
         self.layoutIfNeeded()
     }

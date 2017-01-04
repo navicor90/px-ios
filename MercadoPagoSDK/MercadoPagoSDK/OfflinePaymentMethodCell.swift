@@ -46,7 +46,7 @@ class OfflinePaymentMethodCell: UITableViewCell {
         super.awakeFromNib()
         var image = MercadoPago.getImage("time")
         image = image?.withRenderingMode(.alwaysTemplate)
-        self.accreditationTimeIcon.tintColor = UIColor.grayLight()
+        self.accreditationTimeIcon.tintColor = UIColor.px_grayLight()
         self.accreditationTimeIcon.image = image
     }
 

@@ -70,8 +70,8 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         
         self.showLoading()
         self.navigationItem.rightBarButtonItem = nil
-        self.navBarBackgroundColor = UIColor.white()
-        self.navBarTextColor = UIColor.blueMercadoPago()
+        self.navBarBackgroundColor = UIColor.px_white()
+        self.navBarTextColor = UIColor.px_blueMercadoPago()
         
         
     }
@@ -84,7 +84,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         self.checkoutTable.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.checkoutTable.bounds.size.width, height: 0.01))
         
         self.displayBackButton()
-        self.navigationItem.leftBarButtonItem!.tintColor = UIColor.blueMercadoPago()
+        self.navigationItem.leftBarButtonItem!.tintColor = UIColor.px_blueMercadoPago()
         self.navigationItem.leftBarButtonItem?.action = #selector(invokeCallbackCancel)
         
         if !self.viewModel.isPreferenceLoaded() {
@@ -313,7 +313,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     }
 
     internal func confirmPaymentOn(){
-        MercadoPago.createMPPayment(self.viewModel.preference!.payer.email, preferenceId: self.viewModel.preference!._id, paymentMethod: self.viewModel.paymentMethod!,token : self.token, installments: self.viewModel.payerCost!.installments , issuer: self.issuer,success: { (payment) -> Void in
+        MercadoPago.createMPPayment(self.viewModel.preference!.payer.email, preferenceId: self.viewModel.preference!._id, paymentMethod: self.viewModel.paymentMethod!,token : self.token, installments: self.viewModel.payerCost!.installments , issuer: self.issuer, customerId : CheckoutViewModel.CUSTOMER_ID, success: { (payment) -> Void in
             
             
                 self.clearMercadoPagoStyle()
@@ -430,8 +430,8 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     private func getMainTitleCell(indexPath : IndexPath) -> UITableViewCell{
         let payerCostTitleTableViewCell = self.checkoutTable.dequeueReusableCell(withIdentifier: "payerCostTitleTableViewCell", for: indexPath) as! PayerCostTitleTableViewCell
         payerCostTitleTableViewCell.setTitle(string: "Confirma tu compra".localized)
-        payerCostTitleTableViewCell.title.textColor = UIColor.blueMercadoPago()
-        payerCostTitleTableViewCell.cell.backgroundColor = UIColor.white()
+        payerCostTitleTableViewCell.title.textColor = UIColor.px_blueMercadoPago()
+        payerCostTitleTableViewCell.cell.backgroundColor = UIColor.px_white()
         titleCell = payerCostTitleTableViewCell
         return payerCostTitleTableViewCell
     }
@@ -539,6 +539,12 @@ open class CheckoutViewModel {
     var discountIncluded = false
     
     var preference : CheckoutPreference?
+    
+    public static var CUSTOMER_ID = ""
+    
+    public init(){
+        CheckoutViewModel.CUSTOMER_ID = ""
+    }
     
     func isPaymentMethodSelectedCard() -> Bool {
         return self.paymentMethod != nil && self.paymentMethod!.isCard()

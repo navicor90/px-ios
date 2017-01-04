@@ -63,11 +63,11 @@ class Utils {
         return dateFormatter.string(from: date)
     }
     
-    class func getAttributedAmount(_ amount : Double, currency : Currency, color : UIColor = UIColor.white(), fontSize : CGFloat = 20, baselineOffset : Int = 7) -> NSAttributedString {
+    class func getAttributedAmount(_ amount : Double, currency : Currency, color : UIColor = UIColor.px_white(), fontSize : CGFloat = 20, baselineOffset : Int = 7) -> NSAttributedString {
         return self.getAttributedAmount(amount, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : color, fontSize : fontSize, baselineOffset : baselineOffset)
     }
     
-    class func getAttributedAmount(_ formattedString : String, thousandSeparator: String, decimalSeparator: String, currencySymbol : String, color : UIColor = UIColor.white(), fontSize : CGFloat = 20, baselineOffset : Int = 7) -> NSAttributedString {
+    class func getAttributedAmount(_ formattedString : String, thousandSeparator: String, decimalSeparator: String, currencySymbol : String, color : UIColor = UIColor.px_white(), fontSize : CGFloat = 20, baselineOffset : Int = 7) -> NSAttributedString {
         let cents = getCentsFormatted(formattedString, decimalSeparator: decimalSeparator)
         let amount = getAmountFormatted(String(describing: Int(formattedString)), thousandSeparator : thousandSeparator, decimalSeparator: decimalSeparator)
         
@@ -89,7 +89,7 @@ class Utils {
     }
     
     
-    class func getAttributedAmount(_ amount : Double, thousandSeparator: String, decimalSeparator: String, currencySymbol : String, color : UIColor = UIColor.white(), fontSize : CGFloat = 20, centsFontSize: CGFloat = 10, baselineOffset : Int = 7) -> NSAttributedString {
+    class func getAttributedAmount(_ amount : Double, thousandSeparator: String, decimalSeparator: String, currencySymbol : String, color : UIColor = UIColor.px_white(), fontSize : CGFloat = 20, centsFontSize: CGFloat = 10, baselineOffset : Int = 7) -> NSAttributedString {
         let cents = getCentsFormatted(String(amount), decimalSeparator: ".")
         let amount = getAmountFormatted(String(describing: Int(amount)), thousandSeparator : thousandSeparator, decimalSeparator: ".")
         
@@ -193,6 +193,9 @@ class Utils {
     }
     
     static internal func findPaymentMethodSearchItemInGroups(_ paymentMethodSearch : PaymentMethodSearch, paymentMethodId : String, paymentTypeId : PaymentTypeId?) -> PaymentMethodSearchItem? {
+        guard let _ = paymentMethodSearch.groups
+            else {return nil}
+    
         if let result = Utils.findPaymentMethodSearchItemById(paymentMethodSearch.groups, paymentMethodId: paymentMethodId, paymentTypeId: paymentTypeId) {
             return result
         }
@@ -283,7 +286,10 @@ class Utils {
         }
         let floatMMYY = Float( validInt! / 100 )
         let mm : Int = Int(floor(floatMMYY))
-        return mm
+        if (mm >= 1 && mm <= 12) {
+            return mm
+        }
+        return 0
     }
     
 }
