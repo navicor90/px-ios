@@ -491,14 +491,40 @@
 }</string>
 	<key>PaymentMethod</key>
 	<string>{
-&quot;id&quot;: &quot;id&quot;,
-&quot;name&quot;: &quot;name&quot;,
-&quot;payment_type_id&quot;: &quot;debit_card&quot;,
-&quot;additional_info_needed&quot;: &quot;additional_info_needed&quot;,
-&quot;settings&quot;: &quot;settings&quot;,
-&quot;additional_info_needed&quot;: [&quot;additional_info_needed 1&quot;,&quot;additional_info_needed 2&quot;]
-}
-</string>
+    &quot;id&quot;: &quot;visa&quot;,
+    &quot;name&quot;: &quot;Visa&quot;,
+    &quot;payment_type_id&quot;: &quot;credit_card&quot;,
+    &quot;status&quot;: &quot;active&quot;,
+    &quot;secure_thumbnail&quot;: &quot;https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif&quot;,
+    &quot;thumbnail&quot;: &quot;http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif&quot;,
+    &quot;deferred_capture&quot;: &quot;supported&quot;,
+    &quot;settings&quot;: [
+      {
+        &quot;bin&quot;: {
+          &quot;pattern&quot;: &quot;^4&quot;,
+          &quot;exclusion_pattern&quot;: &quot;^(487017|451766|451772|405896|473711|451769|451765|451757|451764|439818|451377|451761|406290|499859|451751|489412|477053|446344|473721)&quot;,
+          &quot;installments_pattern&quot;: &quot;^4&quot;
+        },
+        &quot;card_number&quot;: {
+          &quot;length&quot;: 16,
+          &quot;validation&quot;: &quot;standard&quot;
+        },
+        &quot;security_code&quot;: {
+          &quot;mode&quot;: &quot;mandatory&quot;,
+          &quot;length&quot;: 3,
+          &quot;card_location&quot;: &quot;back&quot;
+        }
+      }
+    ],
+    &quot;additional_info_needed&quot;: [
+      &quot;cardholder_name&quot;,
+      &quot;cardholder_identification_type&quot;,
+      &quot;cardholder_identification_number&quot;
+    ],
+    &quot;min_allowed_amount&quot;: 0,
+    &quot;max_allowed_amount&quot;: 250000,
+    &quot;accreditation_time&quot;: 2880
+  }</string>
 	<key>PaymentMethodSearch</key>
 	<string>{
    &quot;groups&quot;:[

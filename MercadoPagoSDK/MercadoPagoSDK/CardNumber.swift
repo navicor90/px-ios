@@ -27,6 +27,18 @@ open class CardNumber : NSObject {
         return cardNumber
     }
     
+    open func toJSONString() -> String {
+        return JSONHandler.jsonCoding(toJSON())
+    }
+    
+    open func toJSON() -> [String:Any] {
+        let validation : Any = String.isNullOrEmpty(self.validation) ? JSONHandler.null : self.validation!
+        let obj:[String:Any] = [
+            "length": self.length,
+            "validation" : validation
+            ]
+        return obj
+    }
 }
 
 

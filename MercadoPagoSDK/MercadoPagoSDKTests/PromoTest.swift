@@ -16,4 +16,14 @@ class PromoTest: BaseTest {
         let promoTypeFromJSON = Promo.fromJSON(json)
         XCTAssertEqual(promoTypeFromJSON, promoTypeFromJSON)
     }
+    
+    func testToJSON(){
+        let promo = MockBuilder.buildPromo()
+        let promoJSON = promo.toJSON()
+        
+        XCTAssertNotNil(promo.toJSONString())
+        XCTAssertEqual("promoId", promoJSON["promoId"] as? String)
+        XCTAssertEqual("legals", promoJSON["legals"] as? String)
+        
+    }
 }

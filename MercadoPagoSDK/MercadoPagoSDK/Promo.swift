@@ -57,28 +57,31 @@ open class Promo : NSObject {
 	}
     
     open func toJSONString() -> String {
+        return JSONHandler.jsonCoding(toJSON())
+    }
+	
+    open func toJSON() -> [String:Any] {
         let issuer : Any = (self.issuer == nil) ? JSONHandler.null : self.issuer.toJSON()
         let url : Any = (self.url != nil) ? self.url! : ""
+        
         var obj : [String:Any] = [
             "promoId": self.promoId ,
             "issuer" : issuer,
-            "recommendedMessage" : self.recommendedMessage,
-            "legals" : self.legals,
+            "recommendedMessage" : self.recommendedMessage ?? "",
+            "legals" : self.legals ?? "",
             "url" : url
         ]
         
-        let arrayPMs = NSMutableArray()
-        
-        if self.paymentMethods != nil && self.paymentMethods.count > 0 {
-            for pms in self.paymentMethods {
-               arrayPMs.add(pms)
+        var arrayPMs = ""
+        if !Array.isNullOrEmpty(self.paymentMethods) {
+            for pm in self.paymentMethods {
+                arrayPMs.append(pm.toJSONString() + ",")
             }
-            obj["payment_methods"] = arrayPMs
+            obj["payment_methods"] = String(arrayPMs.characters.dropLast())
         }
-
-        return JSONHandler.jsonCoding(obj)
+        
+        return obj
     }
-	
 	open class func getDateFromString(_ string: String!) -> Date! {
 		if string == nil {
 			return nil

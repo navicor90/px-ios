@@ -15,8 +15,23 @@ class BinTest: BaseTest {
     func testFromJSON(){
         let json : NSDictionary = MockManager.getMockFor("BinMask")!
         let binFromJSON = BinMask.fromJSON(json)
-        XCTAssertEqual(binFromJSON, binFromJSON)
+        
+        XCTAssertEqual("4", binFromJSON.pattern)
+        XCTAssertEqual("(487017)", binFromJSON.exclusionPattern)
+        XCTAssertEqual("4", binFromJSON.installmentsPattern)
     }
+    
+    
+    func testToJSON(){
+        
+        let bin = MockBuilder.buildBinMask()
+        let binJSON = bin.toJSON()
+        
+        XCTAssertEqual("pattern", binJSON["pattern"] as! String)
+        XCTAssertEqual("exclusion_pattern", binJSON["exclusionPattern"] as! String)
+        XCTAssertEqual("installments_pattern", binJSON["installmentsPattern"] as! String)
+    }
+
     
     
 }
