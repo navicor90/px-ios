@@ -39,15 +39,17 @@ class DiscountDetailView: UIView {
         loadViewFromNib ()
     }
     func loadViewFromNib() {
+        let currency = MercadoPagoContext.getCurrency()
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "DiscountDetailView", bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         view.frame = bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
-        self.productAmount.text = "$" + String(amount)
-        self.discountAmount.text = "$" + coupon.amount_off
-        self.totalAmount.text = "$" + String(amount - Double(coupon.amount_off)!)
+        self.viewTitle.text = coupon.getDescription()
+        self.productAmount.attributedText = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.px_grayLight(), fontSize: 18, baselineOffset:6)
+        self.discountAmount.attributedText = Utils.getAttributedAmount(Double(coupon.amount_off)!, currency: currency, color : UIColor.mpGreenishTeal(), fontSize: 18, baselineOffset:6)
+        self.totalAmount.attributedText = Utils.getAttributedAmount(amount - Double(coupon.amount_off)!, currency: currency, color : UIColor.px_grayLight(), fontSize: 18, baselineOffset:6)
     }
 
 }

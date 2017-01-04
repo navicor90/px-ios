@@ -11,6 +11,8 @@ import UIKit
 open class DiscountCoupon: NSObject {
 
     
+    open static var activeCoupon : DiscountCoupon!
+    
     /*
      
      {
@@ -41,19 +43,6 @@ open class DiscountCoupon: NSObject {
    open var coupon_amount : String!
    open var currency_id : String!
     
-    /*
-    public init(id : String, name : String, percent_off : String, amount_off : String, coupon_amount : String, currency_id : String) {
-        
-        self._id = id
-        self.name = name
-        self.percent_off = percent_off
-        self.amount_off = amount_off
-        self.coupon_amount = coupon_amount
-        self.currency_id = currency_id
-        
-    }
-    */
-    
     open class func fromJSON(_ json : NSDictionary) -> DiscountCoupon? {
         let discount = DiscountCoupon()
         if json["id"] != nil && !(json["id"]! is NSNull) {
@@ -77,5 +66,16 @@ open class DiscountCoupon: NSObject {
             discount.currency_id = json["currency_id"] as! String
         }
         return discount
+    }
+    
+    open func getDescription() -> String {
+        let currency = MercadoPagoContext.getCurrency()
+        if (percent_off != "0"){
+            return percent_off + " de descuento".localized
+        }else if (amount_off != "0"){
+                return currency.symbol + amount_off + " de descuento".localized
+        }else{
+            return ""
+        }
     }
 }

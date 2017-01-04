@@ -119,6 +119,11 @@ extension UIColor {
         return MercadoPagoContext.getComplementaryColor()
     }
     
+    class public func mpGreenishTeal() -> UIColor
+    {
+        return UIColorFromRGB(0x3bc280)
+    }
+    
     func lighter() -> UIColor {
             return self.adjust(0.25, green: 0.25, blue: 0.25, alpha: 1)
     }

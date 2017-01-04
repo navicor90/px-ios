@@ -107,6 +107,8 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
         }) { (error) in
             if (error.localizedDescription == "campaign-code-doesnt-match"){
                 self.showErrorMessage("Código inválido".localized)
+            }else {
+                 self.showErrorMessage("Hubo un error".localized)
             }
             self.textBox.becomeFirstResponder()
             self.hideLoading()
