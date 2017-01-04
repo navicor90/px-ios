@@ -63,8 +63,8 @@ class Utils {
         return dateFormatter.string(from: date)
     }
     
-    class func getAttributedAmount(_ amount : Double, currency : Currency, color : UIColor = UIColor.px_white(), fontSize : CGFloat = 20, baselineOffset : Int = 7) -> NSAttributedString {
-        return self.getAttributedAmount(amount, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : color, fontSize : fontSize, baselineOffset : baselineOffset)
+    class func getAttributedAmount(_ amount : Double, currency : Currency, color : UIColor = UIColor.px_white(), fontSize : CGFloat = 20, baselineOffset : Int = 7, negativeAmount: Bool = false) -> NSAttributedString {
+        return self.getAttributedAmount(amount, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : color, fontSize : fontSize, baselineOffset : baselineOffset, negativeAmount:negativeAmount)
     }
     
     class func getAttributedAmount(_ formattedString : String, thousandSeparator: String, decimalSeparator: String, currencySymbol : String, color : UIColor = UIColor.px_white(), fontSize : CGFloat = 20, baselineOffset : Int = 7) -> NSAttributedString {
@@ -89,7 +89,7 @@ class Utils {
     }
     
     
-    class func getAttributedAmount(_ amount : Double, thousandSeparator: String, decimalSeparator: String, currencySymbol : String, color : UIColor = UIColor.px_white(), fontSize : CGFloat = 20, centsFontSize: CGFloat = 10, baselineOffset : Int = 7) -> NSAttributedString {
+    class func getAttributedAmount(_ amount : Double, thousandSeparator: String, decimalSeparator: String, currencySymbol : String, color : UIColor = UIColor.px_white(), fontSize : CGFloat = 20, centsFontSize: CGFloat = 10, baselineOffset : Int = 7, negativeAmount: Bool = false) -> NSAttributedString {
         let cents = getCentsFormatted(String(amount), decimalSeparator: ".")
         let amount = getAmountFormatted(String(describing: Int(amount)), thousandSeparator : thousandSeparator, decimalSeparator: ".")
         
@@ -97,8 +97,13 @@ class Utils {
         let normalAttributes: [String:AnyObject] = [NSFontAttributeName : UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: fontSize) ?? UIFont.systemFont(ofSize: fontSize),NSForegroundColorAttributeName: color]
         let smallAttributes : [String:AnyObject] = [NSFontAttributeName : UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: centsFontSize) ?? UIFont.systemFont(ofSize: centsFontSize),NSForegroundColorAttributeName: color, NSBaselineOffsetAttributeName : baselineOffset as AnyObject]
         
-        
-        let attributedSymbol = NSMutableAttributedString(string: currencySymbol, attributes: normalAttributes)
+        var symbols : String!
+        if (negativeAmount){
+            symbols = "-" + currencySymbol
+        }else{
+            symbols = currencySymbol
+        }
+        let attributedSymbol = NSMutableAttributedString(string: symbols, attributes: normalAttributes)
         let attributedAmount = NSMutableAttributedString(string: amount, attributes: normalAttributes)
         let attributedCents = NSAttributedString(string: cents, attributes: smallAttributes)
         let space = NSAttributedString(string: String.NON_BREAKING_LINE_SPACE, attributes: smallAttributes)
