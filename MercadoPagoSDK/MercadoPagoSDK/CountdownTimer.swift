@@ -65,7 +65,7 @@ open class CountdownTimer: NSObject {
             minutes = minutes % 60
         }
         
-        
+        Esto es un error
         if minutes < 10  && minutes >= 0{
             minutesStr = "0"
         }
