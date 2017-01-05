@@ -34,7 +34,7 @@ open class DiscountService: MercadoPagoService {
                 if let error = discount["error"] {
                     failure(NSError(domain: "mercadopago.sdk.DiscountService.getDiscount", code: MercadoPago.ERROR_API_CODE, userInfo: [NSLocalizedDescriptionKey : error]))
                 } else {
-                    let discount = DiscountCoupon.fromJSON(jsonResult as! NSDictionary)
+                    let discount = DiscountCoupon.fromJSON(jsonResult as! NSDictionary, amount: amount)
                     success(discount)
                 }
             }

@@ -100,7 +100,7 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
             self.hideLoading()
             if let coupon = coupon{
                 self.coupon = coupon
-                let couponDetailVC =  CouponDetailViewController(coupon: coupon, amount: self.amount, callbackCancel: { () in
+                let couponDetailVC =  CouponDetailViewController(coupon: coupon, callbackCancel: { () in
                     self.callbackAndExit()
                 })
                 self.present(couponDetailVC, animated: false, completion: {})

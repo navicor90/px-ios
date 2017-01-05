@@ -13,14 +13,12 @@ open class CouponDetailViewController: MercadoPagoUIViewController {
     override open var screenName : String { get { return "DISCOUNT_SUMMARY" } }
     
     var coupon : DiscountCoupon!
-    var amount : Double!
     var couponView : DiscountDetailView!
     
     
-    init(coupon : DiscountCoupon, amount: Double, callbackCancel : ((Void) -> Void)? = nil) {
+    init(coupon : DiscountCoupon, callbackCancel : ((Void) -> Void)? = nil) {
         super.init(nibName: "CouponDetailViewController", bundle: MercadoPago.getBundle())
         self.callbackCancel = callbackCancel
-        self.amount = amount
         self.coupon = coupon
     }
     
@@ -37,8 +35,8 @@ open class CouponDetailViewController: MercadoPagoUIViewController {
         let screenWidth = screenSize.width
         //TODO ARREGALAR BONITO
         let xPos = (screenWidth - 256)/2
-        let yPos = (screenHeight - 233)/2
-        self.couponView = DiscountDetailView(frame:CGRect(x: xPos, y: yPos, width: 256, height: 200), coupon: self.coupon, amount:amount)
+        let yPos = (screenHeight - 200)/2
+        self.couponView = DiscountDetailView(frame:CGRect(x: xPos, y: yPos, width: 256, height: 200), coupon: self.coupon, amount:self.coupon.amount)
         self.couponView.layer.cornerRadius = 4
         self.couponView.layer.masksToBounds = true
         self.view.addSubview(self.couponView)
