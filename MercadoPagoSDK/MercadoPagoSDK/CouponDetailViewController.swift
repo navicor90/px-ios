@@ -38,7 +38,7 @@ open class CouponDetailViewController: MercadoPagoUIViewController {
         //TODO ARREGALAR BONITO
         let xPos = (screenWidth - 256)/2
         let yPos = (screenHeight - 233)/2
-        self.couponView = DiscountDetailView(frame:CGRect(x: xPos, y: yPos, width: 256, height: 233), coupon: self.coupon, amount:amount)
+        self.couponView = DiscountDetailView(frame:CGRect(x: xPos, y: yPos, width: 256, height: 200), coupon: self.coupon, amount:amount)
         self.couponView.layer.cornerRadius = 4
         self.couponView.layer.masksToBounds = true
         self.view.addSubview(self.couponView)
@@ -49,7 +49,7 @@ open class CouponDetailViewController: MercadoPagoUIViewController {
     
     @IBAction func exit(){
         guard let callbackCancel = self.callbackCancel else {
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: false, completion: nil)
             return
         }
         self.dismiss(animated: false) { 

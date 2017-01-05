@@ -38,7 +38,7 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         textBox.placeholder = "Código de descuento".localized
-        textBox.becomeFirstResponder()
+        
     }
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +48,7 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
         textBox.delegate = self
         textBox.addTarget(self, action: #selector(CardFormViewController.editingChanged(_:)), for: UIControlEvents.editingChanged)
         view.setNeedsUpdateConstraints()
+        textBox.becomeFirstResponder()
     }
 
     var buttonNext : UIBarButtonItem!
@@ -118,7 +119,7 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
     @IBAction func exit(){
         self.textBox.resignFirstResponder()
         guard let callbackCancel = self.callbackCancel else {
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: false, completion: nil)
             return
         }
         self.dismiss(animated: false) {
@@ -135,7 +136,7 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
                 callback(coupon)
             }
         }
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
 
     func showErrorMessage(_ errorMessage:String){

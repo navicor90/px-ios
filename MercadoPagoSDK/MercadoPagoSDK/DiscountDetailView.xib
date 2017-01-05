@@ -58,19 +58,19 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AV5-4M-iui">
-                            <rect key="frame" x="0.0" y="0.0" width="301" height="101"/>
+                            <rect key="frame" x="0.0" y="5" width="301" height="96"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tI9-hY-ree">
-                                    <rect key="frame" x="0.0" y="0.0" width="301" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="301" height="47.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Productos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ass-6f-uvQ">
-                                            <rect key="frame" x="20" y="0.0" width="261" height="50"/>
+                                            <rect key="frame" x="20" y="0.0" width="261" height="47.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$654.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROv-1e-fa2">
-                                            <rect key="frame" x="20" y="0.0" width="261" height="50"/>
+                                            <rect key="frame" x="20" y="2" width="261" height="45.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -83,22 +83,22 @@
                                         <constraint firstAttribute="bottom" secondItem="Ass-6f-uvQ" secondAttribute="bottom" id="aow-oy-FSY"/>
                                         <constraint firstItem="Ass-6f-uvQ" firstAttribute="top" secondItem="tI9-hY-ree" secondAttribute="top" id="dEc-WW-zaX"/>
                                         <constraint firstAttribute="trailing" secondItem="Ass-6f-uvQ" secondAttribute="trailing" constant="20" id="eTy-hN-7hW"/>
-                                        <constraint firstItem="ROv-1e-fa2" firstAttribute="top" secondItem="tI9-hY-ree" secondAttribute="top" id="fhq-bo-mEJ"/>
+                                        <constraint firstItem="ROv-1e-fa2" firstAttribute="top" secondItem="tI9-hY-ree" secondAttribute="top" constant="2" id="fhq-bo-mEJ"/>
                                         <constraint firstItem="Ass-6f-uvQ" firstAttribute="leading" secondItem="tI9-hY-ree" secondAttribute="leading" constant="20" id="jq3-ch-nwZ"/>
                                         <constraint firstAttribute="bottom" secondItem="ROv-1e-fa2" secondAttribute="bottom" id="zj2-DI-aXe"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zpb-FM-1MH">
-                                    <rect key="frame" x="0.0" y="50" width="301" height="50"/>
+                                    <rect key="frame" x="0.0" y="47.5" width="301" height="47.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descuento" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9w-23-pv7">
-                                            <rect key="frame" x="20" y="-1" width="261" height="50"/>
+                                            <rect key="frame" x="20" y="-1" width="261" height="47.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.23137254900000001" green="0.76078431369999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$654.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REw-m7-3uX">
-                                            <rect key="frame" x="20" y="-1" width="261" height="50"/>
+                                            <rect key="frame" x="20" y="-1" width="261" height="47.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.23137254900000001" green="0.76078431369999999" blue="0.50196078430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -135,7 +135,7 @@
                         <constraint firstAttribute="trailing" secondItem="vgK-Hk-29S" secondAttribute="trailing" constant="20" id="8jK-Wi-fCC"/>
                         <constraint firstAttribute="trailing" secondItem="AV5-4M-iui" secondAttribute="trailing" id="CFJ-Of-asg"/>
                         <constraint firstAttribute="bottom" secondItem="vgK-Hk-29S" secondAttribute="bottom" id="JvK-cq-Vcm"/>
-                        <constraint firstItem="AV5-4M-iui" firstAttribute="top" secondItem="3Ra-NQ-L1F" secondAttribute="top" id="MJn-tT-Qgk"/>
+                        <constraint firstItem="AV5-4M-iui" firstAttribute="top" secondItem="3Ra-NQ-L1F" secondAttribute="top" constant="5" id="MJn-tT-Qgk"/>
                         <constraint firstItem="AV5-4M-iui" firstAttribute="leading" secondItem="3Ra-NQ-L1F" secondAttribute="leading" id="tI0-Bm-Qu0"/>
                         <constraint firstItem="vgK-Hk-29S" firstAttribute="leading" secondItem="3Ra-NQ-L1F" secondAttribute="leading" constant="20" id="tPo-cg-k8h"/>
                         <constraint firstAttribute="bottom" secondItem="AV5-4M-iui" secondAttribute="bottom" id="xdQ-9y-Zhx"/>

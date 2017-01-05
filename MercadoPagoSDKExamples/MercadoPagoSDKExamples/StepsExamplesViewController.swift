@@ -19,6 +19,7 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         "Selección de Banco".localized,
         "Selección de Cuotas".localized,
         "Crear Pago".localized,
+        "Agregar cupon de descuento".localized,
     ]
     
     @IBOutlet weak var stepsExamplesTable: UITableView!
@@ -85,25 +86,19 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
             startInstallmentsStep()
         case 6:
             createPayment()
+        case 7:
+            startAddCouponStep()
         default:
             break
         }
     }
     
     internal func startPaymentVault(){
-        /*
+        
         MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
         MercadoPagoContext.setBaseURL(ExamplesUtils.MERCHANT_MOCK_BASE_URL)
         MercadoPagoContext.setCustomerURI(ExamplesUtils.MERCHANT_MOCK_GET_CUSTOMER_URI)
-        */
-        
-        let step = MPStepBuilder.startAddCouponStep(amount: 1000, callback: { (cupon) in
-            print(cupon.name)
-        } ,callbackCancel: {
-        })
-        self.present(step, animated: true, completion: {})
 
-        /*
         MercadoPagoContext.setAccountMoneyAvailable(accountMoneyAvailable: true)
         let pp = PaymentPreference()
         pp.excludedPaymentTypeIds = ["ticket",  "atm"]
@@ -120,12 +115,20 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         })
         let myNav = UINavigationController(rootViewController: pv.viewControllers[0])
         self.present(myNav, animated: true, completion: {})
- */
+ 
+    }
+    
+    func startAddCouponStep(){
+        
+        let step = MPStepBuilder.startAddCouponStep(amount: 1000, callback: { (cupon) in
+            print(cupon.name)
+        } ,callbackCancel: {
+        })
+        self.present(step, animated: false, completion: {})
     }
     
     func startCardFlow(){
         var cf : UINavigationController!
-        
         let timeoutCallback : (Void) -> Void = {
             let alert = UIAlertView(title: "Ups!",
                                     message: "Se ha acabado el tiempo. Reinicie la compra",
