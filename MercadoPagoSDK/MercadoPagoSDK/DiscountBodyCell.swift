@@ -20,10 +20,9 @@ class DiscountBodyCell: UIView {
     
     
     var coupon: DiscountCoupon!
-    var amount: Double!
 
     
-    init(frame: CGRect, coupon: DiscountCoupon, amount: Double) {
+    init(frame: CGRect, coupon: DiscountCoupon) {
         super.init(frame: frame)
         self.coupon = coupon
         loadViewFromNib ()

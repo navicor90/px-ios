@@ -268,6 +268,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         let paymentVaultTitleCollectionViewCell = UINib(nibName: "PaymentVaultTitleCollectionViewCell", bundle: self.bundle)
         self.collectionSearch.register(paymentVaultTitleCollectionViewCell, forCellWithReuseIdentifier: "paymentVaultTitleCollectionViewCell")
         
+        self.collectionSearch.register(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "CouponCell")
     }
     
     override func getNavigationBarTitle() -> String {
@@ -298,13 +299,14 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         if self.loadingGroups {
             return 0
         }
-        return 2
+        return 3
     }
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if indexPath.section == 1 {
          
+            
             if self.viewModel.isCustomerPaymentMethodOptionSelected(indexPath.row) {
                 let customerCardSelected = self.viewModel.customerCards![indexPath.row] as CardInformation
                 CheckoutViewModel.CUSTOMER_ID = self.viewModel!.customerId ?? ""
@@ -335,7 +337,10 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
             return 0
         }
         
-        if (section == 0){
+        if (isHeaderSection(section: section)){
+            return 1
+        }
+        if (isCouponSection(section: section)){
             return 1
         }
         
@@ -343,7 +348,29 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         
     }
     
+    func isHeaderSection(section: Int) -> Bool {
+        if (section == 0 ){
+            return true
+        }else{
+            return false
+        }
+    }
+    func isCouponSection(section: Int) -> Bool {
+        if (section == 1 ){
+            return true
+        }else{
+            return false
+        }
+    }
+    func isGroupSection(section: Int) -> Bool {
+        if (section == 2 ){
+            return true
+        }else{
+            return false
+        }
+    }
 
+    
     public func collectionView(_ collectionView: UICollectionView,
                                  cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchCollectionCell",
@@ -357,7 +384,12 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
             self.titleSectionReference = cell
             titleCell = cell
             return cell
-        } else {
+        } else if indexPath.section == 1 {
+            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "CouponCell",for: indexPath)
+            cell2.contentView.addSubview(DiscountBodyCell(frame: CGRect(x: 0, y: 0, width : view.frame.width, height : 82), coupon: DiscountCoupon()))
+            cell2.backgroundColor = .red
+            return cell2
+        }else{
             let paymentMethodToDisplay = self.viewModel.getPaymentMethodOption(row: indexPath.row)
             cell.fillCell(drawablePaymentOption: paymentMethodToDisplay)
         }
@@ -384,7 +416,9 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         if indexPath.section == 0 {
             return CGSize(width : view.frame.width, height : titleCellHeight)
         }
-        
+        if indexPath.section == 1 {
+            return CGSize(width : view.frame.width, height : 82)
+        }
        
         
         let widthPerItem = availableWidth / itemsPerRow
