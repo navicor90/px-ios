@@ -193,6 +193,10 @@ open class MPStepBuilder : NSObject {
     }
     
     
+    open class func startDetailDiscountDetailStep(coupon: DiscountCoupon) -> CouponDetailViewController {
+        MercadoPagoContext.initFlavor2()
+        return CouponDetailViewController(coupon: coupon)
+    }
     
     
     open class func startPayerCostForm(_ paymentMethod : PaymentMethod , issuer:Issuer?, token : Token? , amount: Double, paymentPreference: PaymentPreference? = nil, installment : Installment? = nil, timer: CountdownTimer? = nil,

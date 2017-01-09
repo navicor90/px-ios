@@ -63,6 +63,8 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
     fileprivate var defaultOptionSelected = false;
     
     
+    var coupon : DiscountCoupon? = nil
+    
     public init(amount : Double, paymentPreference : PaymentPreference?, callback: @escaping (_ paymentMethod: PaymentMethod, _ token: Token?, _ issuer: Issuer?, _ payerCost: PayerCost?) -> Void, callbackCancel : ((Void) -> Void)? = nil) {
         super.init(nibName: PaymentVaultViewController.VIEW_CONTROLLER_NIB_NAME, bundle: bundle)
         self.initCommon()
@@ -304,7 +306,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if indexPath.section == 1 {
+        if isGroupSection(section: indexPath.section) {
          
             
             if self.viewModel.isCustomerPaymentMethodOptionSelected(indexPath.row) {
@@ -325,6 +327,19 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
                     self.viewModel.optionSelected(paymentSearchItemSelected, navigationController: self.navigationController!, cancelPaymentCallback: cardFormCallbackCancel())
                 }
             }
+        }else  if isCouponSection(section: indexPath.section) {
+            var step : UIViewController!
+            if let coupon = self.coupon  {
+                step = MPStepBuilder.startDetailDiscountDetailStep(coupon: coupon)
+        }else{
+                step = MPStepBuilder.startAddCouponStep(amount: self.viewModel.amount, callback: { (coupon) in
+                    self.coupon = coupon
+                    collectionView.reloadData()
+                } ,callbackCancel: {
+                })
+            }
+            
+            self.present(step, animated: false, completion: {})
         }
     
     }
@@ -386,8 +401,8 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
             return cell
         } else if indexPath.section == 1 {
             let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "CouponCell",for: indexPath)
-            cell2.contentView.addSubview(DiscountBodyCell(frame: CGRect(x: 0, y: 0, width : view.frame.width, height : 82), coupon: DiscountCoupon()))
-            cell2.backgroundColor = .red
+            cell2.contentView.addSubview(DiscountBodyCell(frame: CGRect(x: 0, y: 0, width : view.frame.width, height : 82), coupon: self.coupon))
+            
             return cell2
         }else{
             let paymentMethodToDisplay = self.viewModel.getPaymentMethodOption(row: indexPath.row)

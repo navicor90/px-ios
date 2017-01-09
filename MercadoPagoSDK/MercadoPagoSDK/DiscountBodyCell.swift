@@ -10,23 +10,25 @@ import UIKit
 
 class DiscountBodyCell: UIView {
 
-    @IBOutlet weak var viewTitle: UILabel!
+   // @IBOutlet weak var viewTitle: UILabel!
     
     @IBOutlet weak var discountTitle: UILabel!
-    @IBOutlet weak var discountAmount: UILabel!
+ //   @IBOutlet weak var discountAmount: UILabel!
     
-    @IBOutlet weak var totalTitle: UILabel!
-    @IBOutlet weak var totalAmount: UILabel!
+  //  @IBOutlet weak var totalTitle: UILabel!
+  //  @IBOutlet weak var totalAmount: UILabel!
     
     
-    var coupon: DiscountCoupon!
+    var coupon: DiscountCoupon?
 
     
-    init(frame: CGRect, coupon: DiscountCoupon) {
+    init(frame: CGRect, coupon: DiscountCoupon?) {
         super.init(frame: frame)
         self.coupon = coupon
         loadViewFromNib ()
-        
+        if self.coupon == nil{
+            self.discountTitle.text = "No hay descuento"
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -38,6 +40,7 @@ class DiscountBodyCell: UIView {
         let nib = UINib(nibName: "DiscountBodyCell", bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
         view.frame = bounds
+      
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
     }
