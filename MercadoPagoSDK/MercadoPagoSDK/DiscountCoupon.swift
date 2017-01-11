@@ -72,13 +72,25 @@ open class DiscountCoupon: NSObject {
     }
     
     open func getDescription() -> String {
+        if (getDiscountDescription() != ""){
+            return getDiscountDescription() + " de descuento".localized
+        } else{
+            return ""
+        }
+    }
+    
+    open func getDiscountDescription() -> String {
         let currency = MercadoPagoContext.getCurrency()
         if (percent_off != "0"){
-            return percent_off + " de descuento".localized
+            return percent_off + " %"
         }else if (amount_off != "0"){
-                return currency.symbol + amount_off + " de descuento".localized
+            return currency.symbol + amount_off
         }else{
             return ""
         }
+    }
+    
+    open func newAmount() -> Double {
+        return (amount - Double(coupon_amount)!)
     }
 }

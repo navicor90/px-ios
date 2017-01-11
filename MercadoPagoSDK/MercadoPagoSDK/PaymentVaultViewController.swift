@@ -400,10 +400,12 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
             titleCell = cell
             return cell
         } else if indexPath.section == 1 {
-            let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "CouponCell",for: indexPath)
-            cell2.contentView.addSubview(DiscountBodyCell(frame: CGRect(x: 0, y: 0, width : view.frame.width, height : 82), coupon: self.coupon))
-            
-            return cell2
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CouponCell",for: indexPath)
+            cell.contentView.viewWithTag(1)?.removeFromSuperview()
+            let discountBody = DiscountBodyCell(frame: CGRect(x: 0, y: 0, width : view.frame.width, height : 84), coupon: self.coupon, amount:self.viewModel.amount)
+            discountBody.tag = 1
+            cell.contentView.addSubview(discountBody)
+            return cell
         }else{
             let paymentMethodToDisplay = self.viewModel.getPaymentMethodOption(row: indexPath.row)
             cell.fillCell(drawablePaymentOption: paymentMethodToDisplay)
@@ -432,7 +434,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
             return CGSize(width : view.frame.width, height : titleCellHeight)
         }
         if indexPath.section == 1 {
-            return CGSize(width : view.frame.width, height : 82)
+            return CGSize(width : view.frame.width, height : 84)
         }
        
         
