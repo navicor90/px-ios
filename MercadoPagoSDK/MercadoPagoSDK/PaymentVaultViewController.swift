@@ -193,6 +193,17 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         }
     }
     
+    fileprivate func getCoupon(){
+        let service = DiscountService()
+        self.showLoading()
+        service.getDiscount(amount: self.viewModel.amount, success: { (coupon) in
+            self.hideLoading()
+            self.coupon = coupon
+            self.collectionSearch.reloadData()
+        }) { (error) in
+            self.hideLoading()
+        }
+    }
     fileprivate func getCustomerCards(){
        
         if self.viewModel!.shouldGetCustomerCardsInfo() {
@@ -256,7 +267,10 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
                 self.collectionSearch.dataSource = self
                 self.collectionSearch.reloadData()
                 self.loadingGroups = false
-            }
+                if (self.coupon == nil){
+                    self.getCoupon()
+                }
+             }
         }
     }
     
@@ -504,6 +518,8 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         self.hideLoading()
     }
     
+    
+    
  }
 
 
@@ -689,6 +705,8 @@ class PaymentVaultViewModel : NSObject {
         }
 
     }
+    
+    
     
 }
 

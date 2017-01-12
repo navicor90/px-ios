@@ -43,8 +43,5 @@ open class DiscountService: MercadoPagoService {
             failure(NSError(domain: "mercadopago.sdk.DiscountService.getDiscount", code: error.code, userInfo: [NSLocalizedDescriptionKey: "Hubo un error".localized, NSLocalizedFailureReasonErrorKey : "Verifique su conexión a internet e intente nuevamente".localized]))
         })
     }
-    
-    
-    
-    
+
 }
