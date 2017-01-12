@@ -84,7 +84,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         self.checkoutTable.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.checkoutTable.bounds.size.width, height: 0.01))
         
         self.displayBackButton()
-        self.navigationItem.leftBarButtonItem!.tintColor = UIColor.px_blueMercadoPago()
+        self.navigationItem.leftBarButtonItem!.tintColor = UIColor.px_white()
         self.navigationItem.leftBarButtonItem?.action = #selector(invokeCallbackCancel)
         
         if !self.viewModel.isPreferenceLoaded() {
@@ -269,6 +269,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         
         self.hideNavBar()
         self.hideBackButton()
+        self.hideTimer()
         self.showLoading()
         if self.viewModel.isPaymentMethodSelectedCard(){
             self.confirmPaymentOn()

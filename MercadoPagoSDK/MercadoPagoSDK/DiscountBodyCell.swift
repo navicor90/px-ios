@@ -34,7 +34,7 @@ class DiscountBodyCell: UIView {
         }else{
             loadCouponView()
         }
-        
+        self.backgroundColor = .red
         self.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.px_grayLight(), thickness: 1)
         /*
         let totalWidth = frame.size.width

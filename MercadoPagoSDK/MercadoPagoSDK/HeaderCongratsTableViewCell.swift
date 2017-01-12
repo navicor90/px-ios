@@ -8,12 +8,13 @@
 
 import UIKit
 
-class HeaderCongratsTableViewCell: UITableViewCell {
+class HeaderCongratsTableViewCell: UITableViewCell, TimerDelegate {
     
     @IBOutlet weak var messageError: UILabel!
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var title: UILabel!
+    var timerLabel : MPLabel?
     
     func fillCell(payment: Payment, paymentMethod: PaymentMethod?, color: UIColor, instruction: Instruction?){
         messageError.text = ""
@@ -74,6 +75,21 @@ class HeaderCongratsTableViewCell: UITableViewCell {
             if !title.existsLocalized() {
                 title = "Uy, no pudimos procesar el pago".localized
             }
+          
+            
+            if CountdownTimer.getInstance().hasTimer() {
+                self.timerLabel = MPLabel(frame: CGRect(x: UIScreen.main.bounds.size.width - 66, y: 10, width: 56, height: 20))
+                self.timerLabel!.backgroundColor = color
+                self.timerLabel!.textColor = UIColor.px_white()
+                self.timerLabel!.textAlignment = .right
+                CountdownTimer.getInstance().delegate = self
+                self.addSubview(timerLabel!)
+            }
+            
+            
+            
+            
+            
             
             if let paymentMethodName = paymentMethod?.name {
                 let titleWithParams = (title.localized as NSString).replacingOccurrences(of: "%0", with: "\(paymentMethodName)")
@@ -85,5 +101,12 @@ class HeaderCongratsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func updateTimer() {
+        if self.timerLabel != nil {
+            self.timerLabel!.text = CountdownTimer.getInstance().getCurrentTiming()
+        }
+        
     }
 }

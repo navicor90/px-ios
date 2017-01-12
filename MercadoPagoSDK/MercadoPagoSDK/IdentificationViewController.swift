@@ -29,10 +29,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     
     override open var screenName : String { get { return "IDENTIFICATION_NUMBER" } }
     
-    public init(callback : @escaping (( _ identification: Identification) -> Void), timer : CountdownTimer? = nil) {
+    public init(callback : @escaping (( _ identification: Identification) -> Void)) {
         super.init(nibName: "IdentificationViewController", bundle: MercadoPago.getBundle())
         self.callback = callback
-        self.timer = timer
     }
     
     override func loadMPStyles(){

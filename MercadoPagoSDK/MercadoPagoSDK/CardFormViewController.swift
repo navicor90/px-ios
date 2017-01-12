@@ -81,7 +81,7 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
                 self.navigationController?.navigationBar.isTranslucent = false
                 self.cardBackground.backgroundColor =  MercadoPagoContext.getComplementaryColor()
                 
-                if self.timer == nil && cardFormManager.showBankDeals(){
+                if cardFormManager.showBankDeals(){
                     let promocionesButton : UIBarButtonItem = UIBarButtonItem(title: "Ver promociones".localized, style: UIBarButtonItemStyle.plain, target: self, action: #selector(CardFormViewController.verPromociones))
                     promocionesButton.tintColor = UIColor.systemFontColor()
                     self.navigationItem.rightBarButtonItem = promocionesButton
@@ -94,12 +94,11 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
         
     }
     
-    public init(paymentSettings : PaymentPreference?, amount:Double!, token: Token? = nil, cardInformation : CardInformation? = nil, paymentMethods : [PaymentMethod]? = nil,  timer : CountdownTimer? = nil, callback : @escaping ((_ paymentMethod: [PaymentMethod], _ cardToken: CardToken?) -> Void), callbackCancel : ((Void) -> Void)? = nil) {
+    public init(paymentSettings : PaymentPreference?, amount:Double!, token: Token? = nil, cardInformation : CardInformation? = nil, paymentMethods : [PaymentMethod]? = nil, callback : @escaping ((_ paymentMethod: [PaymentMethod], _ cardToken: CardToken?) -> Void), callbackCancel : ((Void) -> Void)? = nil) {
         super.init(nibName: "CardFormViewController", bundle: MercadoPago.getBundle())
         self.cardFormManager = CardViewModelManager(amount: amount, paymentMethods: paymentMethods, customerCard: cardInformation, token: token, paymentSettings: paymentSettings)
         self.callbackCancel = callbackCancel
         self.callback = callback
-        self.timer = timer
     }
     
     override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -124,6 +123,16 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     open override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
+        
+        if self.navigationController != nil {
+            if self.timer == nil && cardFormManager.showBankDeals(){
+                let promocionesButton : UIBarButtonItem = UIBarButtonItem(title: "Ver promociones".localized, style: UIBarButtonItemStyle.plain, target: self, action: #selector(CardFormViewController.verPromociones))
+                promocionesButton.tintColor = UIColor.systemFontColor()
+                self.navigationItem.rightBarButtonItem = promocionesButton
+            }
+        }
+
+        
         self.showNavBar()
         
         textBox.placeholder = "Número de tarjeta".localized
@@ -156,13 +165,12 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
                 
 
                 self.cardFormManager.paymentMethods = paymentMethods
-                
-                self.updateCardSkin()
-                
-                
+                self.getPromos()
             }) { (error) -> Void in
                 // Mensaje de error correspondiente, ver que hacemos con el flujo
             }
+        } else {
+            self.getPromos()
         }
         
         
@@ -209,6 +217,18 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
         
     }
     
+    private func getPromos(){
+        MPServicesBuilder.getPromos({(promos : [Promo]?) -> Void in
+            self.cardFormManager.promos = promos
+            self.updateCardSkin()
+        }, failure: { (error: NSError) in
+            // Si no se pudieron obtener promociones se ignora tal caso
+            CardFormViewController.showBankDeals = false
+            self.updateCardSkin()
+        })
+
+    }
+    
     func getCardWidth() -> CGFloat {
         let widthTotal = UIScreen.main.bounds.size.width * 0.70
         if widthTotal < 512 {
@@ -246,7 +266,7 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     
     
     open func verPromociones(){
-        self.navigationController?.present(UINavigationController(rootViewController: MPStepBuilder.startPromosStep()), animated: true, completion: {})
+        self.navigationController?.present(UINavigationController(rootViewController: MPStepBuilder.startPromosStep(promos : self.cardFormManager.promos)), animated: true, completion: {})
     }
     
     

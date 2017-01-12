@@ -23,7 +23,7 @@ open class IssuerCardViewController: MercadoPagoUIViewController {
     
     override open var screenName : String { get { return "CARD_ISSUER" } }
     
-    public init(paymentMethod: PaymentMethod,  cardToken: CardToken , issuerList: [Issuer]? = nil, timer : CountdownTimer? = nil, callback : @escaping (( _ issuer: Issuer) -> Void)) {
+    public init(paymentMethod: PaymentMethod,  cardToken: CardToken , issuerList: [Issuer]? = nil, callback : @escaping (( _ issuer: Issuer) -> Void)) {
         
         super.init(nibName: "IssuerCardViewController", bundle: MercadoPago.getBundle())
         
@@ -32,7 +32,6 @@ open class IssuerCardViewController: MercadoPagoUIViewController {
         self.callback = callback
         self.paymentMethod = paymentMethod
         self.issuerList = issuerList
-        self.timer = timer
         
     }
     

@@ -83,6 +83,40 @@ class CardViewModelManagerTest: BaseTest {
         let expectedPaymentMethod = MockBuilder.buildPaymentMethod("master")
         XCTAssertEqual(MercadoPago.getFontColorFor(expectedPaymentMethod), self.cardFormManager!.getLabelTextColor())
     }
+   
+    /*
+     *
+     * showBankDeals() tests for no promos loaded, promos loaded and custom setting in CardFormVC
+     *
+     */
+    func testShowBankDeals_noPromosLoaded(){
+        self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentSettings: nil)
+        let result = self.cardFormManager!.showBankDeals()
+        XCTAssertNil(self.cardFormManager!.promos)
+        XCTAssertFalse(result)
+    }
+    
+    func testShowBankDeals_promosLoaded(){
+        self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentSettings: nil)
+        self.cardFormManager!.promos = [MockBuilder.buildPromo()]
+        let result = self.cardFormManager!.showBankDeals()
+        XCTAssertTrue(result)
+    }
+    
+    func testShowBankDeals_promosLoadedIsEmpty(){
+        self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentSettings: nil)
+        self.cardFormManager!.promos = []
+        let result = self.cardFormManager!.showBankDeals()
+        XCTAssertFalse(result)
+    }
+    
+    func testShowBankDeals_promosLoadedHidePromosByUser(){
+        self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentSettings: nil)
+        self.cardFormManager!.promos = [MockBuilder.buildPromo()]
+        CardFormViewController.showBankDeals = false
+        let result = self.cardFormManager!.showBankDeals()
+        XCTAssertFalse(result)
+    }
     
     func testGetEditingLabelColorDefaultColor() {
         self.cardFormManager = CardViewModelManager(amount: 10, paymentMethods: nil, paymentMethod: nil, customerCard: nil, token: nil, paymentSettings: nil)

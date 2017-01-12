@@ -31,7 +31,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
     
     
     
-    public init(paymentMethod : PaymentMethod?,issuer : Issuer?,token : Token?, amount : Double?, paymentPreference: PaymentPreference? = nil, installment : Installment? = nil, timer: CountdownTimer? = nil,
+    public init(paymentMethod : PaymentMethod?,issuer : Issuer?,token : Token?, amount : Double?, paymentPreference: PaymentPreference? = nil, installment : Installment? = nil,
                 callback : @escaping ((_ payerCost: PayerCost) -> Void),
                 callbackCancel : ((Void) -> Void)? = nil) {
         super.init(nibName: "PayerCostViewController", bundle: self.bundle)
@@ -52,7 +52,6 @@ open class PayerCostViewController: MercadoPagoUIViewController {
 
         self.amount = amount
         self.issuer = issuer
-        self.timer = timer
 
     }
     
