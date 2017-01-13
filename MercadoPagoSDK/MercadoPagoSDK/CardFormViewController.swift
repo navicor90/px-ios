@@ -108,29 +108,17 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     }
     
     open override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
-        if (self.discountCoupon == nil){
-            self.getCoupon()
-        }else{
-            self.repaintDiscountToolbar()
-        }
-
         updateLabelsFontColors()
-        
         if(callbackCancel != nil){
             self.navigationItem.leftBarButtonItem?.target = self
             self.navigationItem.leftBarButtonItem!.action = #selector(invokeCallbackCancel)
         }
-        
         textEditMaskFormater.emptyMaskElement = nil
-        
     }
     
     open override func viewDidAppear(_ animated: Bool) {
-        
         super.viewDidAppear(animated)
-        
         if self.navigationController != nil {
             if self.timer == nil && cardFormManager.showBankDeals(){
                 let promocionesButton : UIBarButtonItem = UIBarButtonItem(title: "Ver promociones".localized, style: UIBarButtonItemStyle.plain, target: self, action: #selector(CardFormViewController.verPromociones))
@@ -138,17 +126,17 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
                 self.navigationItem.rightBarButtonItem = promocionesButton
             }
         }
-
-
+        if (self.discountCoupon == nil){
+            self.getCoupon()
+        }else{
+            self.repaintDiscountToolbar()
+        }
         self.showNavBar()
         
         textBox.placeholder = "Número de tarjeta".localized
         textBox.becomeFirstResponder()
-        
         self.updateCardSkin()
-        
         if self.cardFormManager.customerCard != nil {
-            
             let textMaskFormaterAux = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces: true)
             self.cardNumberLabel?.text = textMaskFormaterAux.textMasked(self.cardFormManager.customerCard?.getCardBin(), remasked: false)
             self.cardNumberLabel?.text = textMaskFormaterAux.textMasked(self.cardFormManager.customerCard?.getCardBin(), remasked: false)
@@ -507,6 +495,8 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     }
     
     fileprivate func getCoupon(){
+        self.repaintDiscountToolbar()
+        return
         let service = DiscountService()
         service.getDiscount(amount: self.cardFormManager.amount!, success: { (coupon) in
             self.discountCoupon = coupon
