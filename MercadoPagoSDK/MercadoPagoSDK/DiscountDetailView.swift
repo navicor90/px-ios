@@ -31,13 +31,13 @@ class DiscountDetailView: UIView {
         self.coupon = coupon
         self.amount = amount
         loadViewFromNib ()
-        
     }
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         loadViewFromNib ()
     }
+    
     func loadViewFromNib() {
         let currency = MercadoPagoContext.getCurrency()
         let bundle = Bundle(for: type(of: self))
@@ -51,5 +51,4 @@ class DiscountDetailView: UIView {
         self.discountAmount.attributedText = Utils.getAttributedAmount(Double(coupon.coupon_amount)!, currency: currency, color : UIColor.mpGreenishTeal(), fontSize: 18, baselineOffset:6, negativeAmount: true)
         self.totalAmount.attributedText = Utils.getAttributedAmount( amount - Double(coupon.coupon_amount)!, currency: currency, color : UIColor.px_grayDark(), fontSize: 18, baselineOffset:6)
     }
-
 }

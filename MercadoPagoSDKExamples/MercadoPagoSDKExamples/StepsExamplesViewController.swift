@@ -154,8 +154,7 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     
     func startCardForm(){
        var cf : UINavigationController!
-        
-        
+
         let timeoutCallback : (Void) -> Void = {
             let alert = UIAlertView(title: "Ups!",
                                     message: "Se ha acabado el tiempo. Reinicie la compra",

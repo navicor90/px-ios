@@ -53,7 +53,8 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     
     override open var screenName : String { get { return "CARD_NUMBER" } }
     
-    
+    var discountCoupon : DiscountCoupon?
+    var discountToolBar : DiscountToolBar?
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -99,6 +100,7 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
         self.cardFormManager = CardViewModelManager(amount: amount, paymentMethods: paymentMethods, customerCard: cardInformation, token: token, paymentSettings: paymentSettings)
         self.callbackCancel = callbackCancel
         self.callback = callback
+        
     }
     
     override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -108,7 +110,12 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     open override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-        
+        if (self.discountCoupon == nil){
+            self.getCoupon()
+        }else{
+            self.repaintDiscountToolbar()
+        }
+
         updateLabelsFontColors()
         
         if(callbackCancel != nil){
@@ -132,7 +139,7 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
             }
         }
 
-        
+
         self.showNavBar()
         
         textBox.placeholder = "Número de tarjeta".localized
@@ -497,6 +504,41 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
         
         
         
+    }
+    
+    fileprivate func getCoupon(){
+        let service = DiscountService()
+        service.getDiscount(amount: self.cardFormManager.amount!, success: { (coupon) in
+            self.discountCoupon = coupon
+            self.repaintDiscountToolbar()
+        }) { (error) in
+        }
+    }
+    
+    func couponAction(){
+        var step : UIViewController!
+        if let coupon = self.discountCoupon  {
+            step = MPStepBuilder.startDetailDiscountDetailStep(coupon: coupon)
+        }else{
+            step = MPStepBuilder.startAddCouponStep(amount: self.cardFormManager.amount!, callback: { (coupon) in
+                self.discountCoupon = coupon
+                self.repaintDiscountToolbar()
+            } ,callbackCancel: {
+            })
+        }
+        
+        self.present(step, animated: false, completion: {})
+    }
+    
+    fileprivate func repaintDiscountToolbar() {
+        self.discountToolBar?.removeFromSuperview()
+        self.discountToolBar = DiscountToolBar(frame: CGRect(x: 0, y:  self.cardBackground.bounds.size.height - 44 , width:  self.cardBackground.bounds.size.width, height: 44), coupon: self.discountCoupon, amount: self.cardFormManager.amount!)
+        let tap = UITapGestureRecognizer(target: self, action:  #selector(self.couponAction))
+        tap.delegate = self
+         self.discountToolBar?.addGestureRecognizer(tap)
+        
+        self.cardBackground.addSubview(self.discountToolBar!)
+
     }
     
     func showErrorMessage(_ errorMessage:String){

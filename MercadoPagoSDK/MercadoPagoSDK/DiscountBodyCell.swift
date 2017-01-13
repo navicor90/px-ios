@@ -10,20 +10,9 @@ import UIKit
 
 class DiscountBodyCell: UIView {
 
-   // @IBOutlet weak var viewTitle: UILabel!
-    
-    @IBOutlet weak var discountTitle: UILabel!
- //   @IBOutlet weak var discountAmount: UILabel!
-    
-  //  @IBOutlet weak var totalTitle: UILabel!
-  //  @IBOutlet weak var totalAmount: UILabel!
-    
     let margin : CGFloat = 5.0
-    
     var coupon: DiscountCoupon?
     var amount: Double!
-    
-    
     
     init(frame: CGRect, coupon: DiscountCoupon?, amount:Double) {
         super.init(frame: frame)
@@ -34,45 +23,11 @@ class DiscountBodyCell: UIView {
         }else{
             loadCouponView()
         }
-        self.backgroundColor = .red
-        self.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.px_grayLight(), thickness: 1)
-        /*
-        let totalWidth = frame.size.width
-        
-        
-        let tituloLabel = MPLabel(frame: CGRect(x: margin, y: margin, width: (frame.size.width - 2 * margin), height: 20) )
-        tituloLabel.textAlignment = .center;
-        tituloLabel.textAlignment = .center
-        
-        let contentViewSubSection = UIView(frame: CGRect(x: 0, y: (margin * 2 + 20), width: frame.size.width, height: 20))
-        
-        let detailLabel = MPLabel(frame: CGRect(x: margin, y: (margin * 2 + 20), width: (frame.size.width - 2 * margin), height: 20) )
-        detailLabel.textAlignment = .center
-        
-        let rightArrow = UIImageView(frame: CGRect(x: 0, y: 4, width: 8, height: 12))
-       rightArrow.image = MercadoPago.getImage("rightArrow")
-        
-        let couponFlag = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        couponFlag.image = MercadoPago.getImage("iconDiscount")
-        
-        let labelDiscount = MPLabel()
-        labelDiscount.text = coupon?.getDiscountDescription()
-        let widthlabelDiscount = labelDiscount.attributedText?.widthWithConstrainedHeight(height: 20)
-        labelDiscount.backgroundColor = MercadoPagoContext.getPrimaryColor()
-        
-        self.addSubview(tituloLabel)
-
-        if self.coupon == nil{
-             tituloLabel.text = "No hay descuento"
-            detailLabel.text = "Tengo un descuento".localized
-        }
-        
-        
-         let widthDetailLabel = detailLabel.attributedText?.widthWithConstrainedHeight(height: 20)
-        detailLabel.frame = CGRect(x: margin, y: (margin * 2 + 20), width: widthDetailLabel!, height: 20)
-        detailLabel.backgroundColor = .red
-        self.addSubview(detailLabel)
-        */
+        self.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.px_grayLight(), thickness: 0.5)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -206,39 +161,16 @@ class DiscountBodyCell: UIView {
         
         let frameArrow = CGRect(x: x, y: 4 + (margin * 2 + 40), width: 8, height: 12)
         rightArrow.frame = frameArrow
-        
-        
         self.addSubview(tituloLabel)
         self.addSubview(detailLabel)
         self.addSubview(picFlag)
         self.addSubview(discountAmountLabel)
         self.addSubview(rightArrow)
-        
-        
+
     }
-    
-    
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
- //       loadViewFromNib ()
-    }
-    func loadViewFromNib() {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: "DiscountBodyCell", bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
-        view.frame = bounds
-      
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.addSubview(view)
-    }
+
 
 }
-
-
-
-
-
 
 extension CALayer {
     
@@ -267,4 +199,130 @@ extension CALayer {
         
         self.addSublayer(border)
     }
+}
+
+class DiscountToolBar: UIView {
+    var margin : CGFloat = 7.0
+    var coupon: DiscountCoupon?
+    var amount: Double!
+    
+    init(frame: CGRect, coupon: DiscountCoupon?, amount:Double) {
+        super.init(frame: frame)
+        self.coupon = coupon
+        self.amount = amount
+        
+        self.margin = (frame.size.height - 18 ) / 2
+        self.backgroundColor = UIColor.mpGreenishTeal()
+        if (self.coupon == nil){
+            loadNoCouponView()
+        }else{
+            loadCouponView()
+        }
+    }
+
+    
+    func loadNoCouponView() {
+        let currency = MercadoPagoContext.getCurrency()
+        let screenWidth = frame.size.width
+    
+        let couponFlag = UIImageView()
+        couponFlag.image = MercadoPago.getImage("iconDiscount")
+        couponFlag.image = couponFlag.image?.withRenderingMode(.alwaysTemplate)
+        couponFlag.tintColor = UIColor.white
+        let rightArrow = UIImageView()
+        rightArrow.image = MercadoPago.getImage("rightArrow")
+        rightArrow.image = rightArrow.image?.withRenderingMode(.alwaysTemplate)
+        rightArrow.tintColor = UIColor.white
+        
+        
+        let detailLabel = MPLabel()
+        detailLabel.textAlignment = .center
+        detailLabel.text = "Tengo un descuento".localized
+        detailLabel.textColor = UIColor.white
+        detailLabel.font = UIFont.init(name: detailLabel.font.fontName, size: 16)
+        
+        let widthlabelDiscount = detailLabel.attributedText?.widthWithConstrainedHeight(height: 18)
+        let totalViewWidth = widthlabelDiscount! + 20 + 8 + 2 * margin
+        var x = (screenWidth - totalViewWidth) / 2
+        
+        let frameFlag = CGRect(x: x, y: margin , width: 20, height: 20)
+        couponFlag.frame = frameFlag
+        x = x + 20 + margin
+        let frameLabel = CGRect(x: x , y: margin, width: widthlabelDiscount!, height: 18)
+        detailLabel.frame = frameLabel
+        x = x + widthlabelDiscount! + margin
+        let frameArrow = CGRect(x: x, y: 4 + margin , width: 8, height: 12)
+        rightArrow.frame = frameArrow
+        
+        self.addSubview(couponFlag)
+        self.addSubview(detailLabel)
+        self.addSubview(rightArrow)
+        
+        
+    }
+    
+    
+    func loadCouponView() {
+        let screenWidth = frame.size.width
+        
+        guard let coupon = self.coupon else {
+            return
+        }
+        
+        let picFlag = UIImageView()
+        picFlag.image = MercadoPago.getImage("couponArrowFlag")
+        picFlag.image = picFlag.image?.withRenderingMode(.alwaysTemplate)
+        picFlag.tintColor = UIColor.white
+        
+        
+        let rightArrow = UIImageView()
+        rightArrow.image = MercadoPago.getImage("rightArrow")
+        rightArrow.image = rightArrow.image?.withRenderingMode(.alwaysTemplate)
+        rightArrow.tintColor = UIColor.white
+        
+        let detailLabel = MPLabel()
+        detailLabel.textAlignment = .center
+        detailLabel.text = "Descuento".localized
+        detailLabel.textColor = UIColor.white
+        detailLabel.font = UIFont.init(name: detailLabel.font.fontName, size: 16)
+        
+        let discountAmountLabel = MPLabel()
+        discountAmountLabel.textAlignment = .center
+        discountAmountLabel.text = coupon.getDiscountDescription()
+        discountAmountLabel.backgroundColor = UIColor.white
+        discountAmountLabel.textColor = UIColor.mpGreenishTeal()
+        discountAmountLabel.font = UIFont.init(name: discountAmountLabel.font.fontName, size: 12)
+        
+        let widthlabelDiscount = detailLabel.attributedText?.widthWithConstrainedHeight(height: 18)
+        let widthlabelAmount = (discountAmountLabel.attributedText?.widthWithConstrainedHeight(height: 12))! + 8
+        let totalViewWidth = widthlabelDiscount! + widthlabelAmount + 10 + 8 + 2 * margin
+        var x = (screenWidth - totalViewWidth) / 2
+        
+        
+        let frameLabel = CGRect(x: x , y: margin, width: widthlabelDiscount!, height: 18)
+        detailLabel.frame = frameLabel
+        x = x + widthlabelDiscount! + margin
+        
+        let framePic = CGRect(x: x, y: margin, width: 10, height: 19)
+        picFlag.frame = framePic
+        x = x + 10
+        
+        let frameAmountLabel = CGRect(x: x , y: margin, width: widthlabelAmount, height: 19)
+        discountAmountLabel.frame = frameAmountLabel
+        x = x + widthlabelAmount + margin
+        
+        let frameArrow = CGRect(x: x, y: 4 + margin , width: 8, height: 12)
+        rightArrow.frame = frameArrow
+        
+        
+        self.addSubview(detailLabel)
+        self.addSubview(picFlag)
+        self.addSubview(discountAmountLabel)
+        self.addSubview(rightArrow)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
