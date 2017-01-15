@@ -13,8 +13,7 @@ open class DiscountCoupon: NSObject {
     
     open static var activeCoupon : DiscountCoupon!
     
-    /*
-     
+    /*  JSON EXAMPLE
      {
      "id": 12572,
      "name": "testChoOFF",
@@ -23,7 +22,6 @@ open class DiscountCoupon: NSObject {
      "coupon_amount": 11,
      "currency_id": "ARS"
      }
-     
      {
      "id": 15098,
      "name": "TestChoNativo2 (236387490)",
@@ -32,16 +30,14 @@ open class DiscountCoupon: NSObject {
      "coupon_amount": 15,
      "currency_id": "ARS"
      }
-     
-     
      */
     
    open var _id : String!
-   open var name : String!
-   open var percent_off : String!
-   open var amount_off : String!
-   open var coupon_amount : String!
-   open var currency_id : String!
+   open var name : String?
+   open var percent_off : String! = "0"
+   open var amount_off : String! = "0"
+   open var coupon_amount : String! = "0"
+   open var currency_id : String?
     
    open var amount: Double!
     

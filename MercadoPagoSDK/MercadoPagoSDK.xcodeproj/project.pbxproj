@@ -1579,6 +1579,13 @@
 			name = Revamp;
 			sourceTree = "<group>";
 		};
+		153622AE1E2BC62E007914ED /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Coupon;
+			sourceTree = "<group>";
+		};
 		1565B12F1CBFD7B200181998 /* GuessingForm */ = {
 			isa = PBXGroup;
 			children = (
@@ -2050,6 +2057,7 @@
 		767254651C7CB28B00EB5EBA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				153622AE1E2BC62E007914ED /* Coupon */,
 				767C9CD01E266BD400BB4662 /* Promos */,
 				76265C551E2422B1005FFC0E /* Common */,
 				7652F4401D78ADF2006022AF /* Congrats */,

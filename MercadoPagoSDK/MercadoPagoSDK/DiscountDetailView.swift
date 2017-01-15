@@ -11,20 +11,18 @@ import UIKit
 class DiscountDetailView: UIView {
     
     @IBOutlet weak var viewTitle: UILabel!
-   
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var productAmount: UILabel!
-    
     @IBOutlet weak var discountTitle: UILabel!
     @IBOutlet weak var discountAmount: UILabel!
-    
     @IBOutlet weak var totalTitle: UILabel!
     @IBOutlet weak var totalAmount: UILabel!
     
+    let fontSize : CGFloat = 18.0
+    let baselineOffSet : Int = 6
     
     var coupon: DiscountCoupon!
     var amount: Double!
-    
     
     init(frame: CGRect, coupon: DiscountCoupon, amount: Double) {
         super.init(frame: frame)
@@ -47,8 +45,8 @@ class DiscountDetailView: UIView {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.addSubview(view)
         self.viewTitle.text = coupon.getDescription()
-        self.productAmount.attributedText = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.px_grayDark(), fontSize: 18, baselineOffset:6)
-        self.discountAmount.attributedText = Utils.getAttributedAmount(Double(coupon.coupon_amount)!, currency: currency, color : UIColor.mpGreenishTeal(), fontSize: 18, baselineOffset:6, negativeAmount: true)
-        self.totalAmount.attributedText = Utils.getAttributedAmount( amount - Double(coupon.coupon_amount)!, currency: currency, color : UIColor.px_grayDark(), fontSize: 18, baselineOffset:6)
+        self.productAmount.attributedText = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.px_grayDark(), fontSize: fontSize, baselineOffset:baselineOffSet)
+        self.discountAmount.attributedText = Utils.getAttributedAmount(Double(coupon.coupon_amount)!, currency: currency, color : UIColor.mpGreenishTeal(), fontSize: fontSize, baselineOffset:baselineOffSet, negativeAmount: true)
+        self.totalAmount.attributedText = Utils.getAttributedAmount( amount - Double(coupon.coupon_amount)!, currency: currency, color : UIColor.px_grayDark(), fontSize: fontSize, baselineOffset:baselineOffSet)
     }
 }
