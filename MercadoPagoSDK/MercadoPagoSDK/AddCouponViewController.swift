@@ -12,24 +12,19 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
 
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var textBox: HoshiTextField!
-    
-    
+    override open var screenName : String { get { return "DISCOUNT_INPUT_CODE" } }
     var toolbar : UIToolbar?
     var errorLabel : MPLabel?
-    var amount : Double!
-    
+    var viewModel : AddCouponViewModel!
+
     var callback : ((_ coupon: DiscountCoupon) -> Void)?
-    var coupon : DiscountCoupon?
-    
-    override open var screenName : String { get { return "DISCOUNT_INPUT_CODE" } }
     
     
-    
-    init(amount : Double, callback : @escaping ((_ coupon: DiscountCoupon) -> Void), callbackCancel : ((Void) -> Void)? = nil) {
+    init(amount: Double, callback : @escaping ((_ coupon: DiscountCoupon) -> Void), callbackCancel : ((Void) -> Void)? = nil) {
         super.init(nibName: "AddCouponViewController", bundle: MercadoPago.getBundle())
-        self.callbackCancel = callbackCancel
         self.callback = callback
-        self.amount = amount
+        self.callbackCancel = callbackCancel
+        self.viewModel = AddCouponViewModel(amount: amount)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -93,26 +88,22 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
     
     
     func rightArrowKeyTapped(){
-        let disco = DiscountService()
+        guard let couponCode = textBox.text else{
+            return
+        }
         self.showLoading()
         self.textBox.resignFirstResponder()
-        disco.getDiscount(amount: self.amount, code: self.textBox.text!, success: { (coupon) in
+        self.viewModel.getCoupon(code: couponCode, success: { () in
             self.hideLoading()
-            if let coupon = coupon{
-                self.coupon = coupon
+            if let coupon = self.viewModel.coupon{
                 let couponDetailVC =  CouponDetailViewController(coupon: coupon, callbackCancel: { () in
                     self.callbackAndExit()
                 })
                 self.present(couponDetailVC, animated: false, completion: {})
             }
-        }) { (error) in
-            if (error.localizedDescription == "campaign-code-doesnt-match"){
-                self.showErrorMessage("Código inválido".localized)
-            }else {
-                 self.showErrorMessage("Hubo un error".localized)
-            }
-            self.textBox.becomeFirstResponder()
+        }) { (errorMessage) in
             self.hideLoading()
+             self.showErrorMessage(errorMessage)
         }
     }
     
@@ -129,18 +120,23 @@ open class AddCouponViewController: MercadoPagoUIViewController , UITextFieldDel
 
     }
     
-    func callbackAndExit() {
-        self.textBox.resignFirstResponder()
+    
+    func executeCallback(){
         if let callback = self.callback {
-            if let coupon = self.coupon {
+            if let coupon = self.viewModel.coupon {
                 callback(coupon)
             }
         }
+    }
+    
+    
+    func callbackAndExit() {
+        self.textBox.resignFirstResponder()
+        self.executeCallback()
         self.dismiss(animated: false, completion: nil)
     }
 
     func showErrorMessage(_ errorMessage:String){
-        
         errorLabel = MPLabel(frame: toolbar!.frame)
         self.errorLabel!.backgroundColor = UIColor(netHex: 0xEEEEEE)
         self.errorLabel!.textColor = UIColor(netHex: 0xf04449)

@@ -245,6 +245,8 @@
 		151A941B1DBFBBC700A5557B /* PaymentSearchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151A94171DBFBBC700A5557B /* PaymentSearchCollectionViewCell.xib */; };
 		1529D9A51C7DEA4E00880C29 /* CheckoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1529D9A41C7DEA4E00880C29 /* CheckoutViewController.xib */; };
 		1529D9A61C7DEA4E00880C29 /* CheckoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1529D9A41C7DEA4E00880C29 /* CheckoutViewController.xib */; };
+		153622AC1E2AC2D7007914ED /* AddCouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */; };
+		153622AD1E2AC2D7007914ED /* AddCouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */; };
 		153AEB2D1D382983008A3338 /* PaymentVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76062BD51C4D20C30067A14B /* PaymentVaultViewController.swift */; };
 		155692D11C47D75900521403 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76743C801C46A21C00120347 /* CheckoutViewController.swift */; };
 		155692D21C47DA1200521403 /* PaymentPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76743C771C45A24600120347 /* PaymentPreference.swift */; };
@@ -836,6 +838,7 @@
 		151A94161DBFBBC700A5557B /* PaymentSearchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		151A94171DBFBBC700A5557B /* PaymentSearchCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentSearchCollectionViewCell.xib; sourceTree = "<group>"; };
 		1529D9A41C7DEA4E00880C29 /* CheckoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutViewController.xib; sourceTree = "<group>"; };
+		153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCouponViewModel.swift; sourceTree = "<group>"; };
 		1565B1301CBFD7F100181998 /* GuessingFormTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuessingFormTest.swift; sourceTree = "<group>"; };
 		156DA6421CC55636006B892F /* PayerCostFormTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayerCostFormTest.swift; sourceTree = "<group>"; };
 		157420F41DF881770041171E /* UIView+RotateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RotateView.h"; sourceTree = "<group>"; };
@@ -1546,6 +1549,7 @@
 				15F1A6621E0DA4B1007B6768 /* CouponDetailViewController.xib */,
 				15F1A67A1E16BC97007B6768 /* AddCouponViewController.swift */,
 				15F1A67B1E16BC97007B6768 /* AddCouponViewController.xib */,
+				153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -2575,6 +2579,7 @@
 				15E08F661DA2A2BF0087041B /* JSONHandler.swift in Sources */,
 				151A94181DBFBBC700A5557B /* PaymentSearchCollectionViewCell.swift in Sources */,
 				76FD24851C5BFEA1008C5DC0 /* HoshiTextField.swift in Sources */,
+				153622AC1E2AC2D7007914ED /* AddCouponViewModel.swift in Sources */,
 				15D799F91CA1CE9A00623A84 /* PayerCostViewController.swift in Sources */,
 				CC8AA1501DC5612300503910 /* UILabel+Additions.swift in Sources */,
 				76134AB81C5BED2300A1BAF1 /* OfflinePaymentMethodCell.swift in Sources */,
@@ -3005,6 +3010,7 @@
 				76D936421CDA5BE000238CB0 /* PreferenceService.swift in Sources */,
 				0F9883BF1AD2AD1600F750F0 /* UIColor+Additions.swift in Sources */,
 				0F9883AA1AD2AB8000F750F0 /* IdentificationService.swift in Sources */,
+				153622AD1E2AC2D7007914ED /* AddCouponViewModel.swift in Sources */,
 				0F98835A1AD2AB6000F750F0 /* ApiException.swift in Sources */,
 				76151B6E1C7376E1007DF0E3 /* InstructionsHeaderViewCell.swift in Sources */,
 				7622E3371DF5F0A800490C4E /* InstructionBodyTableViewCell.swift in Sources */,

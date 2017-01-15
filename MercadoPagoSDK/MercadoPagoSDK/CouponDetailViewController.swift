@@ -11,21 +11,18 @@ import UIKit
 open class CouponDetailViewController: MercadoPagoUIViewController {
     
     override open var screenName : String { get { return "DISCOUNT_SUMMARY" } }
-    
-    var coupon : DiscountCoupon!
     var couponView : DiscountDetailView!
-    
+    var viewModel : CouponDetailViewModel!
     
     init(coupon : DiscountCoupon, callbackCancel : ((Void) -> Void)? = nil) {
         super.init(nibName: "CouponDetailViewController", bundle: MercadoPago.getBundle())
         self.callbackCancel = callbackCancel
-        self.coupon = coupon
+        self.viewModel = CouponDetailViewModel(coupon: coupon)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +33,7 @@ open class CouponDetailViewController: MercadoPagoUIViewController {
         //TODO ARREGALAR BONITO
         let xPos = (screenWidth - 256)/2
         let yPos = (screenHeight - 200)/2
-        self.couponView = DiscountDetailView(frame:CGRect(x: xPos, y: yPos, width: 256, height: 200), coupon: self.coupon, amount:self.coupon.amount)
+        self.couponView = DiscountDetailView(frame:CGRect(x: xPos, y: yPos, width: 256, height: 200), coupon: self.viewModel.coupon, amount:self.viewModel.coupon.amount)
         self.couponView.layer.cornerRadius = 4
         self.couponView.layer.masksToBounds = true
         self.view.addSubview(self.couponView)
@@ -54,6 +51,15 @@ open class CouponDetailViewController: MercadoPagoUIViewController {
             callbackCancel()
         }
         
+    }
+    
+}
+
+
+class CouponDetailViewModel : NSObject {
+    var coupon : DiscountCoupon!
+    init(coupon : DiscountCoupon) {
+        self.coupon = coupon
     }
     
 }
