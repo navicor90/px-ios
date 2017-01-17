@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
     
-        MercadoPagoContext.setPublicKey("APP_USR-8e3869a6-638f-45cd-b5b7-267c8e6f2b09")
+        MercadoPagoContext.setPublicKey("APP_USR-d16a4b81-58d3-4167-8067-e12dd16b549a")
         //MercadoPagoContext.setPublicKey("APP_USR-5bd14fdd-3807-446f-babd-095788d5ed4d")
 
         //MercadoPagoContext.setPayerAccessToken("APP_USR-6105282339975037-110310-7994b404127b8d755adff11a60052b01__LC_LA__-233395668")

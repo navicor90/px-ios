@@ -67,7 +67,7 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
             //Checkout Example
             let pp = PaymentPreference()
             pp.excludedPaymentTypeIds = ["ticket", "atm", ""]
-            let choFlow = MPFlowBuilder.startCheckoutViewController( "223362579-96d6c137-02c3-48a2-bf9c-76e2d263c632", callback: { (payment: Payment) in
+            let choFlow = MPFlowBuilder.startCheckoutViewController( "240954703-6964eb0e-2d39-41a4-a3ac-aafe3de8384e", callback: { (payment: Payment) in
             })
             self.present(choFlow, animated: true, completion: {})
         case 1:
