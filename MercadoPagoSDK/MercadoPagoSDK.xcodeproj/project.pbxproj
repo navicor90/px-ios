@@ -247,6 +247,8 @@
 		1529D9A61C7DEA4E00880C29 /* CheckoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1529D9A41C7DEA4E00880C29 /* CheckoutViewController.xib */; };
 		153622AC1E2AC2D7007914ED /* AddCouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */; };
 		153622AD1E2AC2D7007914ED /* AddCouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */; };
+		153622B01E2BC9D1007914ED /* AddCouponTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153622AF1E2BC9D1007914ED /* AddCouponTest.swift */; };
+		153622B11E2D3151007914ED /* UILabel+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8AA14F1DC5612300503910 /* UILabel+Additions.swift */; };
 		153AEB2D1D382983008A3338 /* PaymentVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76062BD51C4D20C30067A14B /* PaymentVaultViewController.swift */; };
 		155692D11C47D75900521403 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76743C801C46A21C00120347 /* CheckoutViewController.swift */; };
 		155692D21C47DA1200521403 /* PaymentPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76743C771C45A24600120347 /* PaymentPreference.swift */; };
@@ -839,6 +841,7 @@
 		151A94171DBFBBC700A5557B /* PaymentSearchCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentSearchCollectionViewCell.xib; sourceTree = "<group>"; };
 		1529D9A41C7DEA4E00880C29 /* CheckoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutViewController.xib; sourceTree = "<group>"; };
 		153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCouponViewModel.swift; sourceTree = "<group>"; };
+		153622AF1E2BC9D1007914ED /* AddCouponTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCouponTest.swift; sourceTree = "<group>"; };
 		1565B1301CBFD7F100181998 /* GuessingFormTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuessingFormTest.swift; sourceTree = "<group>"; };
 		156DA6421CC55636006B892F /* PayerCostFormTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayerCostFormTest.swift; sourceTree = "<group>"; };
 		157420F41DF881770041171E /* UIView+RotateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RotateView.h"; sourceTree = "<group>"; };
@@ -1582,6 +1585,7 @@
 		153622AE1E2BC62E007914ED /* Coupon */ = {
 			isa = PBXGroup;
 			children = (
+				153622AF1E2BC9D1007914ED /* AddCouponTest.swift */,
 			);
 			name = Coupon;
 			sourceTree = "<group>";
@@ -2886,6 +2890,7 @@
 				0F98839A1AD2AB6000F750F0 /* TransactionDetails.swift in Sources */,
 				15ABAD581DB5489D00481E8E /* MPTracker.swift in Sources */,
 				76EC47DE1C85E9CC0086FA53 /* IssuerTest.swift in Sources */,
+				153622B11E2D3151007914ED /* UILabel+Additions.swift in Sources */,
 				15DA7E5F1CD92C670068896E /* IdentificationViewController.swift in Sources */,
 				7622E3331DF5F04700490C4E /* CallForAuthTableViewCell.swift in Sources */,
 				0F9883861AD2AB6000F750F0 /* PayerCost.swift in Sources */,
@@ -2952,6 +2957,7 @@
 				0F9883661AD2AB6000F750F0 /* CardToken.swift in Sources */,
 				0F9884261AD2AE2700F750F0 /* MPUserIdTableViewCell.swift in Sources */,
 				0F9883841AD2AB6000F750F0 /* Payer.swift in Sources */,
+				153622B01E2BC9D1007914ED /* AddCouponTest.swift in Sources */,
 				76EC48061C862B000086FA53 /* InstructionTest.swift in Sources */,
 				0F98836E1AD2AB6000F750F0 /* Device.swift in Sources */,
 				767C9CD61E266C0600BB4662 /* MPPaymentTest.swift in Sources */,
