@@ -1548,11 +1548,11 @@
 		150CD6141E1E8E8B00EDD359 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				15F1A67A1E16BC97007B6768 /* AddCouponViewController.swift */,
+				153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */,
+				15F1A67B1E16BC97007B6768 /* AddCouponViewController.xib */,
 				15F1A6611E0DA4B1007B6768 /* CouponDetailViewController.swift */,
 				15F1A6621E0DA4B1007B6768 /* CouponDetailViewController.xib */,
-				15F1A67A1E16BC97007B6768 /* AddCouponViewController.swift */,
-				15F1A67B1E16BC97007B6768 /* AddCouponViewController.xib */,
-				153622AB1E2AC2D7007914ED /* AddCouponViewModel.swift */,
 			);
 			name = Screens;
 			sourceTree = "<group>";

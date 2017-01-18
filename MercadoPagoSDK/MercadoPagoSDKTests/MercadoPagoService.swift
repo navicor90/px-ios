@@ -42,11 +42,19 @@ open class MercadoPagoService: NSObject {
         
         do {
             let jsonResponse = try MockManager.getMockResponseFor(finalUri, method: method)
+            
+            if let jsonResult = jsonResponse as? NSDictionary {
+                if let error = jsonResult["error"] {
+                    failure!(NSError(domain: uri, code: 400, userInfo: nil))
+                    return
+                }
+            }
+            /*
             if (jsonResponse != nil && jsonResponse!["error"] != nil){
                 failure!(NSError(domain: uri, code: 400, userInfo: nil))
                 return
             }
-            
+            */
             success(jsonResponse)
             //MercadoPagoTestContext.fulfillExpectation(BaseTest.WAIT_FOR_REQUEST_EXPECTATION_DESCRIPTION + uri)
         } catch {

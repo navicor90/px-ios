@@ -5713,5 +5713,23 @@
     }
   ]
 }</string>
+	<key>GET/discount_campaigns/?public_key=PK_MLA&amp;transaction_amount=1000.0&amp;coupon_code=&amp;api_version=1.3.X</key>
+	<string>{
+     &quot;id&quot;: 12572,
+     &quot;name&quot;: &quot;testChoOFF&quot;,
+     &quot;percent_off&quot;: 10,
+     &quot;amount_off&quot;: 0,
+     &quot;coupon_amount&quot;: 11,
+     &quot;currency_id&quot;: &quot;ARS&quot;
+     }</string>
+	<key>GET/discount_campaigns/?public_key=PK_MLA&amp;transaction_amount=1000.0&amp;coupon_code=Prueba&amp;api_version=1.3.X</key>
+	<string> {
+     &quot;id&quot;: 15098,
+     &quot;name&quot;: &quot;TestChoNativo2 (236387490)&quot;,
+     &quot;percent_off&quot;: 0,
+     &quot;amount_off&quot;: 15,
+     &quot;coupon_amount&quot;: 15,
+     &quot;currency_id&quot;: &quot;ARS&quot;
+     }</string>
 </dict>
 </plist>

@@ -48,7 +48,7 @@
                 <constraint firstItem="bcL-oW-74o" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="n0z-N8-4Th"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <point key="canvasLocation" x="-795.5" y="-585.5"/>
+            <point key="canvasLocation" x="-1140" y="-828"/>
         </view>
     </objects>
     <resources>
