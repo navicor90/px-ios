@@ -10,6 +10,22 @@ import UIKit
 import MercadoPagoSDK
 
 class MainExamplesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    //ARGENTINA
+    //let prefID = "241325285-6ac8e517-3030-48f7-b9de-91089d74255d"
+    
+    //PERU
+    let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
+    
+    //URUGUAY
+    //let prefID = "241113255-a6f9f812-6b92-48d0-9bb5-6f7f9f03740e"
+    
+    //COLOMBIA
+    //let prefID = "241110424-00be5088-ad07-4e2d-bfc9-78f4bffbc3c7"
+    
+    //VENEZUELA
+    //let prefID = "241113185-a2eef4bd-ccb6-42e0-b543-12f6aab885ef"
+    
 
     let examples = [["title" : "Nuestro Checkout".localized, "image" : "PlugNplay"],
                                ["title" : "Components de UI".localized, "image" : "Puzzle"],
@@ -64,10 +80,17 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
         self.tableExamples.deselectRow(at: indexPath, animated: true)
         switch (indexPath as NSIndexPath).row {
         case 0:
+            
+            
             //Checkout Example
-            let pp = PaymentPreference()
-            pp.excludedPaymentTypeIds = ["ticket", "atm", ""]
-            let choFlow = MPFlowBuilder.startCheckoutViewController( "240954703-6964eb0e-2d39-41a4-a3ac-aafe3de8384e", callback: { (payment: Payment) in
+//<<<<<<< Updated upstream
+          //  let pp = PaymentPreference()
+           // pp.excludedPaymentTypeIds = ["ticket", "atm", ""]
+//=======
+//>>>>>>> Stashed changes
+            
+            
+            let choFlow = MPFlowBuilder.startCheckoutViewController(prefID, callback: { (payment: Payment) in
             })
             self.present(choFlow, animated: true, completion: {})
         case 1:
