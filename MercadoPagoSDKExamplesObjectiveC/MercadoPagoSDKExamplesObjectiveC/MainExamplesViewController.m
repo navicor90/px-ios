@@ -26,9 +26,12 @@
 
 - (IBAction)checkoutFlow:(id)sender {
     
-    UINavigationController *choFlow = [MPFlowBuilder startCheckoutViewController:PREF_ID_NO_EXCLUSIONS callback:^(Payment *payment) {
-    } callbackCancel:nil];
-    [self presentViewController:choFlow animated:YES completion:^{}];
+    Item *item = [[Item alloc] initWith_id:ITEM_ID title:ITEM_TITLE quantity:ITEM_QUANTITY unitPrice:ITEM_UNIT_PRICE description:nil];
+    
+    
+   // MPFlowBuilder startCheckoutViewController:"preferenceid" navigationController:<#(UINavigationController * _Nonnull)#> callback:<#^(Payment * _Nonnull)callback#> callbackCancel:<#^(void)callbackCancel#>
+   
+       
 }
 
 

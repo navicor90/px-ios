@@ -365,6 +365,9 @@
 		76062BDE1C4D24050067A14B /* PaymentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76062BDB1C4D24050067A14B /* PaymentSearchCell.swift */; };
 		76062BDF1C4D24050067A14B /* PaymentSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76062BDC1C4D24050067A14B /* PaymentSearchCell.xib */; };
 		76062BE01C4D24050067A14B /* PaymentSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76062BDC1C4D24050067A14B /* PaymentSearchCell.xib */; };
+		760890281E30248E001C4335 /* PaymentVaultFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760890271E30248E001C4335 /* PaymentVaultFlowController.swift */; };
+		7608902C1E3139C0001C4335 /* CheckoutFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7608902B1E3139C0001C4335 /* CheckoutFlowController.swift */; };
+		7608902E1E3251DD001C4335 /* MercadoPagoCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7608902D1E3251DD001C4335 /* MercadoPagoCheckout.swift */; };
 		760BD1F21C99ADE300FDA170 /* MockedResponse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 760BD1F11C99ADE300FDA170 /* MockedResponse.plist */; };
 		76128AC11DD10BA600D3B3CD /* MercadoPagoUIScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76128AC01DD10BA600D3B3CD /* MercadoPagoUIScrollViewController.swift */; };
 		76134AB81C5BED2300A1BAF1 /* OfflinePaymentMethodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76134AB61C5BED2300A1BAF1 /* OfflinePaymentMethodCell.swift */; };
@@ -530,6 +533,9 @@
 		769A73611DF736D30089A1BF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE3E37E1AE706B600C27B97 /* Utils.swift */; };
 		769EC35C1E130D860054E940 /* CardViewModelManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769EC35B1E130D860054E940 /* CardViewModelManagerTest.swift */; };
 		769EC3611E1404BD0054E940 /* PaymentMethod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 762B57381E008DEB00EF3EE4 /* PaymentMethod.plist */; };
+		76A571091E2E66B000C99DFA /* CardFormFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A571081E2E66B000C99DFA /* CardFormFlowController.swift */; };
+		76A5710B1E2E66E000C99DFA /* FlowConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A5710A1E2E66E000C99DFA /* FlowConfigure.swift */; };
+		76A5710D1E2E673F00C99DFA /* FlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A5710C1E2E673F00C99DFA /* FlowController.swift */; };
 		76AA2E341CBD8BCA006D0678 /* MPTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA2E331CBD8BCA006D0678 /* MPTextView.swift */; };
 		76AA2E351CBD8C38006D0678 /* MPTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AA2E331CBD8BCA006D0678 /* MPTextView.swift */; };
 		76B084DA1CE0D47C00C157BF /* PaymentCongratsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B084D81CE0D47C00C157BF /* PaymentCongratsViewController.swift */; };
@@ -899,6 +905,9 @@
 		76062BD61C4D20C30067A14B /* PaymentVaultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentVaultViewController.xib; sourceTree = "<group>"; };
 		76062BDB1C4D24050067A14B /* PaymentSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSearchCell.swift; sourceTree = "<group>"; };
 		76062BDC1C4D24050067A14B /* PaymentSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentSearchCell.xib; sourceTree = "<group>"; };
+		760890271E30248E001C4335 /* PaymentVaultFlowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentVaultFlowController.swift; sourceTree = "<group>"; };
+		7608902B1E3139C0001C4335 /* CheckoutFlowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutFlowController.swift; sourceTree = "<group>"; };
+		7608902D1E3251DD001C4335 /* MercadoPagoCheckout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MercadoPagoCheckout.swift; sourceTree = "<group>"; };
 		760BD1F11C99ADE300FDA170 /* MockedResponse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MockedResponse.plist; sourceTree = "<group>"; };
 		76128AC01DD10BA600D3B3CD /* MercadoPagoUIScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MercadoPagoUIScrollViewController.swift; sourceTree = "<group>"; };
 		76134AB61C5BED2300A1BAF1 /* OfflinePaymentMethodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfflinePaymentMethodCell.swift; sourceTree = "<group>"; };
@@ -987,6 +996,9 @@
 		76882AD51C4FBAD900B440B1 /* PaymentTitleViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentTitleViewCell.xib; sourceTree = "<group>"; };
 		76943ED81D51405E00358442 /* InstructionsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsInfo.swift; sourceTree = "<group>"; };
 		769EC35B1E130D860054E940 /* CardViewModelManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModelManagerTest.swift; sourceTree = "<group>"; };
+		76A571081E2E66B000C99DFA /* CardFormFlowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardFormFlowController.swift; sourceTree = "<group>"; };
+		76A5710A1E2E66E000C99DFA /* FlowConfigure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowConfigure.swift; sourceTree = "<group>"; };
+		76A5710C1E2E673F00C99DFA /* FlowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowController.swift; sourceTree = "<group>"; };
 		76AA2E331CBD8BCA006D0678 /* MPTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPTextView.swift; sourceTree = "<group>"; };
 		76B084D81CE0D47C00C157BF /* PaymentCongratsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentCongratsViewController.swift; sourceTree = "<group>"; };
 		76B084D91CE0D47C00C157BF /* PaymentCongratsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentCongratsViewController.xib; sourceTree = "<group>"; };
@@ -1169,6 +1181,7 @@
 		0F98832D1AD2AB0D00F750F0 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				76A571071E2E669400C99DFA /* FlowController */,
 				762B8C1B1D1974DE00A86097 /* QuickStarterKit */,
 				0F98832E1AD2AB3C00F750F0 /* MercadoPago.swift */,
 				0F98832F1AD2AB3C00F750F0 /* MerchantServer.swift */,
@@ -1822,6 +1835,7 @@
 				762B8C1D1D19752A00A86097 /* MPFlowBuilder.swift */,
 				762B8C1F1D19752A00A86097 /* MPServicesBuilder.swift */,
 				762B8C201D19752A00A86097 /* MPStepBuilder.swift */,
+				7608902D1E3251DD001C4335 /* MercadoPagoCheckout.swift */,
 			);
 			name = QuickStarterKit;
 			sourceTree = "<group>";
@@ -2021,6 +2035,18 @@
 				767C9CDD1E266E2C00BB4662 /* PromoViewControllerTest.swift */,
 			);
 			name = Promos;
+			sourceTree = "<group>";
+		};
+		76A571071E2E669400C99DFA /* FlowController */ = {
+			isa = PBXGroup;
+			children = (
+				76A571081E2E66B000C99DFA /* CardFormFlowController.swift */,
+				76A5710A1E2E66E000C99DFA /* FlowConfigure.swift */,
+				76A5710C1E2E673F00C99DFA /* FlowController.swift */,
+				760890271E30248E001C4335 /* PaymentVaultFlowController.swift */,
+				7608902B1E3139C0001C4335 /* CheckoutFlowController.swift */,
+			);
+			name = FlowController;
 			sourceTree = "<group>";
 		};
 		76B084DC1CE0D58200C157BF /* Header */ = {
@@ -2471,6 +2497,7 @@
 				76B64B1C1C75F91D00300F50 /* InstructionsWithButtonViewCell.swift in Sources */,
 				76B64B161C75F45C00300F50 /* InstructionsTwoLabelsAndButtonViewCell.swift in Sources */,
 				157A4F891D805BE900C92D0B /* RecoverPaymentBodyTableViewCell.swift in Sources */,
+				76A5710B1E2E66E000C99DFA /* FlowConfigure.swift in Sources */,
 				76D00A0E1CB5917600F52BC6 /* MPCellValidator.swift in Sources */,
 				0FC4FBF51B0F4F4800CF7148 /* KeyboardDelegate.swift in Sources */,
 				76151B6D1C7376E1007DF0E3 /* InstructionsHeaderViewCell.swift in Sources */,
@@ -2505,6 +2532,7 @@
 				76445AE21CC9576B008EE68E /* InstructionsAtmViewCell.swift in Sources */,
 				76B084DA1CE0D47C00C157BF /* PaymentCongratsViewController.swift in Sources */,
 				0FE3E37F1AE706B600C27B97 /* Utils.swift in Sources */,
+				7608902C1E3139C0001C4335 /* CheckoutFlowController.swift in Sources */,
 				76B0850C1CE2669C00C157BF /* CallbackCancelDelegate.swift in Sources */,
 				15D79A0A1CA9B6B900623A84 /* MPButton.swift in Sources */,
 				15D79A041CA96D6400623A84 /* MPLabel.swift in Sources */,
@@ -2536,6 +2564,7 @@
 				0F9883D21AD2AD5500F750F0 /* CongratsPaymentMethodTableViewCell.swift in Sources */,
 				7656CA1D1C7646600043BDB2 /* InstructionAction.swift in Sources */,
 				0F98837B1AD2AB6000F750F0 /* Issuer.swift in Sources */,
+				76A5710D1E2E673F00C99DFA /* FlowController.swift in Sources */,
 				0F98837D1AD2AB6000F750F0 /* Item.swift in Sources */,
 				76151B731C738E14007DF0E3 /* InstructionsViewCell.swift in Sources */,
 				0F9884431AD2AEB600F750F0 /* MPSecurityCodeTableViewCell.swift in Sources */,
@@ -2558,6 +2587,7 @@
 				0F9883631AD2AB6000F750F0 /* CardNumber.swift in Sources */,
 				763AD8081CD3FE1F0039E09B /* LoadingOverlay.swift in Sources */,
 				0F98836D1AD2AB6000F750F0 /* Device.swift in Sources */,
+				7608902E1E3251DD001C4335 /* MercadoPagoCheckout.swift in Sources */,
 				0F9886201AD39E7E00F750F0 /* ErrorTableViewCell.swift in Sources */,
 				0F9883571AD2AB6000F750F0 /* Address.swift in Sources */,
 				0F9884251AD2AE2700F750F0 /* MPUserIdTableViewCell.swift in Sources */,
@@ -2565,6 +2595,7 @@
 				766012E71CEBA19700897F9D /* ErrorViewController.swift in Sources */,
 				0F9883671AD2AB6000F750F0 /* Cause.swift in Sources */,
 				76062BC71C4D1F220067A14B /* PaymentMethodSearchItem.swift in Sources */,
+				760890281E30248E001C4335 /* PaymentVaultFlowController.swift in Sources */,
 				76151B651C737608007DF0E3 /* InstructionsViewController.swift in Sources */,
 				762B8C221D19752A00A86097 /* MPFlowBuilder.swift in Sources */,
 				15EEE1D91D89D477004D3A19 /* CardViewModelManager.swift in Sources */,
@@ -2650,6 +2681,7 @@
 				0F9883BA1AD2AD1600F750F0 /* String+Additions.swift in Sources */,
 				76062BD71C4D20C30067A14B /* PaymentVaultViewController.swift in Sources */,
 				0FDB3DAE1B1683610047A4D4 /* MPToolbar.swift in Sources */,
+				76A571091E2E66B000C99DFA /* CardFormFlowController.swift in Sources */,
 				15C527991CDBC7E400D113F6 /* IssuerCardViewController.swift in Sources */,
 				0F9883871AD2AB6000F750F0 /* Payment.swift in Sources */,
 				15904D551E09748C00B3B9FD /* MLSpinner.m in Sources */,

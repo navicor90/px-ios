@@ -232,6 +232,10 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         MPServicesBuilder.getInstallments(bin, amount: self.viewModel.amount, issuer: self.viewModel.issuer, paymentMethodId: self.viewModel.paymentMethod[0]._id, success: { (installments) -> Void in
             self.viewModel.installment = installments?[0]
             self.viewModel.payerCosts = installments![0].payerCosts
+            if self.viewModel.payerCosts!.count == 1 {
+                self.viewModel.callback!(self.viewModel.payerCosts![0])
+                return
+            }
             self.tableView.reloadData()
             self.hideLoading()
         }) { (error) -> Void in
@@ -240,6 +244,10 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
     }
     fileprivate func getIssuers(){
         MPServicesBuilder.getIssuers(self.viewModel.paymentMethod[0], bin: self.viewModel.token?.getCardBin(), success: { (issuers) -> Void in
+            if issuers.count == 1 {
+                self.viewModel.callback!(issuers[0])
+                return
+            }
             self.viewModel.issuersList = issuers
             self.tableView.reloadData()
             self.hideLoading()

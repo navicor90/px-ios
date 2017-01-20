@@ -18,6 +18,9 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
+class ViewModel : NSObject {
+
+}
 
 class CardViewModelManager: NSObject {
 
@@ -29,14 +32,17 @@ class CardViewModelManager: NSObject {
     var cardToken : CardToken?
     var paymentSettings : PaymentPreference?
     var amount : Double?
+    var selectedPaymentMethod : PaymentMethod?
     
     let textMaskFormater = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX")
     let textEditMaskFormater = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces :false)
     
     var cvvEmpty: Bool = true
     var cardholderNameEmpty: Bool = true
+    var issuer : Issuer?
     
     var promos : [Promo]?
+    var installment : PayerCost?
     
     init(amount : Double, paymentMethods : [PaymentMethod]?, paymentMethod : [PaymentMethod]? = nil, customerCard : CardInformation? = nil, token : Token? = nil, paymentSettings : PaymentPreference?){
         self.amount = amount
@@ -234,5 +240,33 @@ class CardViewModelManager: NSObject {
     
     func showBankDeals() -> Bool{
         return !Array.isNullOrEmpty(self.promos) && CardFormViewController.showBankDeals
+    }
+    
+    func updateIdentification(identification : Identification) {
+        self.cardToken?.cardholder?.identification = identification
+    }
+    
+    func isIdentificationRequired() -> Bool {
+        return !Array.isNullOrEmpty(guessedPMS) && self.guessedPMS![0].isIdentificationRequired()
+    }
+    
+    func isCreditAndDebitAvailable() -> Bool {
+        if guessedPMS != nil && guessedPMS!.count == 2 {
+            if guessedPMS![0].paymentTypeId == PaymentTypeId.CREDIT_CARD.rawValue || guessedPMS![1].paymentTypeId == PaymentTypeId.CREDIT_CARD.rawValue {
+                if guessedPMS![0].paymentTypeId == PaymentTypeId.DEBIT_CARD.rawValue || guessedPMS![1].paymentTypeId == PaymentTypeId.DEBIT_CARD.rawValue{
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    //OJO
+    func getSelectedPaymentMethod() -> PaymentMethod? {
+        if guessedPMS != nil && guessedPMS!.count == 1 {
+            self.selectedPaymentMethod = guessedPMS![0]
+        }
+        
+        return selectedPaymentMethod
     }
 }

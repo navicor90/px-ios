@@ -63,14 +63,16 @@ int installmentsSelected = 1;
 }
 
 - (void)startPaymentVault {
+ //   [MercadoPagoContext setPublicKey:@"APP_USR-f163b2d7-7462-4e7b-9bd5-9eae4a7f99c3"];
     
-    UIViewController *paymentVaultVC = [MPFlowBuilder startPaymentVaultViewController:AMOUNT paymentPreference:nil callback:^(PaymentMethod *pm, Token *token, Issuer *issuer, PayerCost *payerCost) {
+    
+    [MPFlowBuilder startPaymentVaultViewController:AMOUNT paymentPreference:nil navigationController: self.navigationController callback:^(PaymentMethod *pm, Token *token, Issuer *issuer, PayerCost *payerCost) {
         currentToken = token;
         selectedIssuer = issuer;
         paymentMethod = pm;
     } callbackCancel:nil];
    
-    [self presentViewController:paymentVaultVC animated:YES completion:^{}];
+    //[self presentViewController:paymentVaultVC animated:YES completion:^{}];
 
 }
 
@@ -78,23 +80,34 @@ int installmentsSelected = 1;
 
 - (void)startCardFlow {
     
-    UINavigationController *cf = [MPFlowBuilder startCardFlow:nil amount:AMOUNT cardInformation:nil paymentMethods:nil token:nil callback:^(PaymentMethod * pm, Token * token, Issuer * issuer, PayerCost * payercost) {
-        currentToken = token;
-        selectedIssuer = issuer;
-        paymentMethod = pm;
-        
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    } callbackCancel:^{
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    }];
+    //returnType (^blockName)(parameterTypes) = ^returnType(parameters) {...};
     
-    [self presentViewController:cf animated:YES completion:^{}];
+//    (^callback)(PaymentMethod * pm, Token * token, Issuer * issuer, PayerCost * payercost) = ^(PaymentMethod * pm, Token * token, Issuer * issuer, PayerCost * payercost) {
+//        currentToken = token;
+//        selectedIssuer = issuer;
+//        paymentMethod = pm;
+//    
+//        [self dismissViewControllerAnimated:YES completion:^{}];
+//    }
+//    
+//    UINavigationController *cf = [MPFlowBuilder startCardFlow:nil amount:AMOUNT cardInformation:nil paymentMethods:nil token:nil callback:^(PaymentMethod * pm, Token * token, Issuer * issuer, PayerCost * payercost) {
+//        currentToken = token;
+//        selectedIssuer = issuer;
+//        paymentMethod = pm;
+//        
+//        [self dismissViewControllerAnimated:YES completion:^{}];
+//    } callbackCancel:^{
+//        [self dismissViewControllerAnimated:YES completion:^{}];
+//    }];
+//    
+//    [self presentViewController:cf animated:YES completion:^{}];
 
 }
 
 -(void)startCardForm {
+    
 
-    UINavigationController *cf = [MPStepBuilder startCreditCardForm:nil amount:1000 cardInformation:nil paymentMethods:nil token:nil callback:^(PaymentMethod *pm, Token *token, Issuer *issuer) {
+    [MPStepBuilder startCreditCardForm:nil amount:1000 cardInformation:nil paymentMethods:nil token:nil navigationController:self.navigationController  callback:^(PaymentMethod *pm, Token *token, Issuer *issuer) {
         currentToken = token;
         selectedIssuer = issuer;
         paymentMethod = pm;
@@ -104,7 +117,7 @@ int installmentsSelected = 1;
     }];
    
     
-    [self presentViewController:cf animated:YES completion:^{}];
+    //[self presentViewController:cf animated:YES completion:^{}];
     
 }
 

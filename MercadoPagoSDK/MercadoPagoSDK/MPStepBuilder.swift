@@ -132,50 +132,20 @@ open class MPStepBuilder : NSObject {
     }
     
     
-    open class func startCreditCardForm(_ paymentSettings : PaymentPreference? = nil , amount: Double, cardInformation: CardInformation? = nil, paymentMethods : [PaymentMethod]? = nil, token: Token? = nil, callback : @escaping ((_ paymentMethod: PaymentMethod, _ token: Token? ,  _ issuer: Issuer?) -> Void), callbackCancel : ((Void) -> Void)?) -> UINavigationController {
+    open class func startCreditCardForm(_ paymentSettings : PaymentPreference? = nil , amount: Double, cardInformation: CardInformation? = nil, paymentMethods : [PaymentMethod]? = nil, token: Token? = nil,
+                                        navigationController : UINavigationController,
+                                        callback : @escaping ((_ paymentMethod: PaymentMethod, _ token: Token? ,  _ issuer: Issuer?) -> Void), callbackCancel : ((Void) -> Void)?) -> UINavigationController {
         MercadoPagoContext.initFlavor2()
-        var navigation : UINavigationController?
         
-        var ccf : CardFormViewController = CardFormViewController()
+        //var ccf : CardFormViewController = CardFormViewController()
         
         //C4A
         
-        ccf = CardFormViewController(paymentSettings : paymentSettings , amount: amount, token: token, cardInformation: cardInformation, paymentMethods : paymentMethods, callback : { (paymentMethod, cardToken) -> Void in
-            
-            if (token != nil){ // flujo token recuperable C4A
-                MPServicesBuilder.cloneToken(token!,securityCode:(cardToken?.securityCode)!, success: { (token) in
-                    callback(paymentMethod[0], token, nil)
-                    }, failure: { (error) in
-                        
-                })
-                return
-            }
-            
-            if(paymentMethod[0].isIdentificationRequired()){
-                let identificationForm = MPStepBuilder.startIdentificationForm({ (identification) -> Void in
-                    cardToken?.cardholder?.identification = identification
-                    
-                    if !verifyPaymentMethods(paymentMethods: paymentMethod, cardToken: cardToken!, amount: amount, cardInformation: cardInformation, callback: callback, ccf: ccf, callbackCancel: callbackCancel){
-                        self.getIssuers(paymentMethod[0], cardToken: cardToken!, customerCard: cardInformation, ccf: ccf, callback: callback)
-                    }
-                    
-                    })
-                
-                identificationForm.callbackCancel = callbackCancel
-                
-                ccf.navigationController!.pushViewController(identificationForm, animated: false)
-                
-            }else{
-                
-                if !verifyPaymentMethods(paymentMethods: paymentMethod, cardToken: cardToken!, amount: amount, cardInformation: cardInformation, callback: callback, ccf: ccf, callbackCancel: callbackCancel){
-                    self.getIssuers(paymentMethod[0], cardToken: cardToken!, customerCard: cardInformation, ccf: ccf, callback: callback)
-                }
-            }
-            },callbackCancel: callbackCancel)
-        
-        navigation = MPFlowController.createNavigationControllerWith(ccf)
-        
-        return navigation!
+        let cardManager = CardViewModelManager(amount: amount, paymentMethods: paymentMethods, paymentMethod: paymentMethods, customerCard: nil, token: nil, paymentSettings: paymentSettings)
+        let flowConfig = FlowConfigure(navigationController: navigationController, parent: nil)
+        let flow = CardFormFlowController(flowConfigure: flowConfig, cardViewModelManager: cardManager, callback : callback, callbackCancel : callbackCancel)
+        flow.start()
+        return flow.flowConfigure.navigationController!
         
     }
     

@@ -14,15 +14,14 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     static let kNavBarOffset = CGFloat(-64.0);
     static let kDefaultNavBarOffset = CGFloat(0.0);
     
-    var preferenceId : String!
+    
     var publicKey : String!
     var accessToken : String!
     var bundle : Bundle? = MercadoPago.getBundle()
-    var callback : ((Payment) -> Void)!
+    
     var viewModel : CheckoutViewModel!
     
-    var issuer : Issuer?
-    var token : Token?
+    var delegate : CheckoutFlowDelegate!
     
     override open var screenName : String { get{ return "REVIEW_AND_CONFIRM" } }
     fileprivate var reviewAndConfirmContent = Set<String>()
@@ -37,9 +36,9 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         super.init(nibName: "CheckoutViewController", bundle: MercadoPago.getBundle())
         self.publicKey = MercadoPagoContext.publicKey()
         self.accessToken = MercadoPagoContext.merchantAccessToken()
-        self.preferenceId = preferenceId
+        self.viewModel.preferenceId = preferenceId
         self.viewModel = CheckoutViewModel()
-        self.callback = callback
+        self.viewModel.callback = callback
         self.callbackCancel = {
                 self.dismiss(animated: true, completion: {
                     if(callbackCancel != nil){
@@ -95,11 +94,11 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
                 self.checkoutTable.reloadData()
                 if (recover){
                     recover = false
-                    self.startRecoverCard()
+                    self.delegate.startRecoverCard()
                 }
                 if (auth){
                     auth = false
-                    self.startAuthCard(self.token!)
+                    self.delegate.startAuthCard(self.viewModel.token!)
                 }
                 
             } else {
@@ -201,6 +200,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
             MPServicesBuilder.searchPaymentMethods(self.viewModel.preference!.getAmount(), defaultPaymenMethodId: self.viewModel.preference!.getDefaultPaymentMethodId(), excludedPaymentTypeIds: self.viewModel.preference?.getExcludedPaymentTypesIds(), excludedPaymentMethodIds: self.viewModel.preference?.getExcludedPaymentMethodsIds(), success: { (paymentMethodSearch) in
                 self.viewModel.paymentMethodSearch = paymentMethodSearch
                 
+                
                 self.startPaymentVault()
                 }, failure: { (error) in
                     self.requestFailure(error, callback: {}, callbackCancel:
@@ -216,53 +216,9 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     
     internal func startPaymentVault(_ animated : Bool = false){
         self.registerAllCells()
-        
-        let paymentVaultVC = MPFlowBuilder.startPaymentVaultInCheckout(self.viewModel.preference!.getAmount(), paymentPreference: self.viewModel.preference!.getPaymentPreference(), paymentMethodSearch: self.viewModel.paymentMethodSearch!, callback: { (paymentMethod, token, issuer, payerCost) in
-            self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : animated)
-        })
-        
-        var callbackCancel : ((Void) -> Void)
-        
-        // Set action for cancel callback
-        if self.viewModel.paymentMethod == nil {
-            callbackCancel = { Void -> Void in
-                self.callbackCancel!()
-            }
-        } else {
-            callbackCancel = { Void -> Void in
-               self.navigationController!.popViewController(animated: true)
-            }
-        }
-        
-        (paymentVaultVC.viewControllers[0] as! PaymentVaultViewController).callbackCancel = callbackCancel
-        self.navigationController?.pushViewController(paymentVaultVC.viewControllers[0], animated: animated)
-        
+        self.delegate.startPaymentVault(animated: animated)
     }
     
-    internal func startRecoverCard(){
-         MPServicesBuilder.getPaymentMethods({ (paymentMethods) in
-        let cardFlow = MPFlowBuilder.startCardFlow(amount: (self.viewModel.preference?.getAmount())!, cardInformation : nil, callback: { (paymentMethod, token, issuer, payerCost) in
-             self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : true)
-            }, callbackCancel: {
-                self.navigationController!.popToViewController(self, animated: true)
-        })
-        self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
-         }) { (error) in
-            
-        }
-        
-        
-    }
-    internal func startAuthCard(_ token:Token ){
-        
-        let vc = MPStepBuilder.startSecurityCodeForm(paymentMethod: self.viewModel.paymentMethod!, cardInfo: token) { (token) in
-            self.token = token
-            self.navigationController!.popToViewController(self, animated: true)
-        }
-        
-        self.navigationController?.pushViewController(vc, animated: true)
-            
-    }
     
     
     @objc fileprivate func confirmPayment(){
@@ -288,9 +244,9 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         
         
         self.viewModel.paymentMethod = paymentMethod
-        self.token = token
+        self.viewModel.token = token
         if (issuer != nil){
-            self.issuer = issuer
+            self.viewModel.issuer = issuer
         }
 
         self.viewModel.payerCost = payerCost
@@ -314,7 +270,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     }
 
     internal func confirmPaymentOn(){
-        MercadoPago.createMPPayment(self.viewModel.preference!.payer.email, preferenceId: self.viewModel.preference!._id, paymentMethod: self.viewModel.paymentMethod!,token : self.token, installments: self.viewModel.payerCost!.installments , issuer: self.issuer, customerId : CheckoutViewModel.CUSTOMER_ID, success: { (payment) -> Void in
+        MercadoPago.createMPPayment(self.viewModel.preference!.payer.email, preferenceId: self.viewModel.preference!._id, paymentMethod: self.viewModel.paymentMethod!,token : self.viewModel.token, installments: self.viewModel.payerCost!.installments , issuer: self.viewModel.issuer, customerId : CheckoutViewModel.CUSTOMER_ID, success: { (payment) -> Void in
             
             
                 self.clearMercadoPagoStyle()
@@ -350,14 +306,14 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
                 self.auth = true
             }else {
                 self.dismiss(animated: true, completion: {})
-                self.callback(payment)
+                self.viewModel.callback(payment)
             }
         })
         self.navigationController!.pushViewController(congrats, animated: true)
     }
  
     fileprivate func loadPreference(){
-        MPServicesBuilder.getPreference(self.preferenceId, success: { (preference) in
+        MPServicesBuilder.getPreference(self.viewModel.preferenceId, success: { (preference) in
                 if let error = preference.validate() {
                     // Invalid preference - cannot continue
                     let mpError =  MPSDKError(message: "Hubo un error".localized, messageDetail: error.localized, retry: false)
@@ -378,7 +334,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     }
     
     fileprivate func startPayerCostStep(){
-        let pcf = MPStepBuilder.startPayerCostForm(self.viewModel.paymentMethod!, issuer: self.issuer, token: self.token!, amount: self.viewModel.preference!.getAmount(), paymentPreference: self.viewModel.preference!.paymentPreference, callback: { (payerCost) -> Void in
+        let pcf = MPStepBuilder.startPayerCostForm(self.viewModel.paymentMethod!, issuer: self.viewModel.issuer, token: self.viewModel.token!, amount: self.viewModel.preference!.getAmount(), paymentPreference: self.viewModel.preference!.paymentPreference, callback: { (payerCost) -> Void in
             self.viewModel.payerCost = payerCost
             self.navigationController?.popViewController(animated: true)
             self.checkoutTable.reloadData()
@@ -473,7 +429,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     private func getOnlinePaymentMethodSelectedCell(indexPath : IndexPath) ->UITableViewCell {
         let paymentMethodSelectedTableViewCell = self.checkoutTable.dequeueReusableCell(withIdentifier: "paymentMethodSelectedTableViewCell", for: indexPath) as! PaymentMethodSelectedTableViewCell
         
-        paymentMethodSelectedTableViewCell.fillCell(self.viewModel.paymentMethod!, amount : self.viewModel.payerCost!.totalAmount, payerCost : self.viewModel.payerCost, lastFourDigits: self.token!.lastFourDigits)
+        paymentMethodSelectedTableViewCell.fillCell(self.viewModel.paymentMethod!, amount : self.viewModel.payerCost!.totalAmount, payerCost : self.viewModel.payerCost, lastFourDigits: self.viewModel.token!.lastFourDigits)
         
         paymentMethodSelectedTableViewCell.selectOtherPaymentMethodButton.addTarget(self, action: #selector(loadGroupsAndStartPaymentVault), for: .touchUpInside)
         return paymentMethodSelectedTableViewCell
@@ -539,12 +495,22 @@ open class CheckoutViewModel {
     var freeShippingIncluded = false
     var discountIncluded = false
     
-    var preference : CheckoutPreference?
+    var preferenceId : String!
+    var issuer : Issuer?
+    var token : Token?
+    
+    var preference : CheckoutPreference!
+    
+    var callback : ((Payment) -> Void)!
     
     public static var CUSTOMER_ID = ""
     
     public init(){
         CheckoutViewModel.CUSTOMER_ID = ""
+    }
+    
+    public init(checkoutPreference : CheckoutPreference) {
+        self.preference = checkoutPreference
     }
     
     func isPaymentMethodSelectedCard() -> Bool {
@@ -641,5 +607,20 @@ open class CheckoutViewModel {
     
     func shouldDisplayNoRate() -> Bool {
         return self.payerCost != nil && !self.payerCost!.hasInstallmentsRate() && self.payerCost!.installments != 1
+    }
+    
+    func getAmount() -> Double {
+        return self.preference.getAmount()
+    }
+    
+    func getPaymentPreference() -> PaymentPreference? {
+        return self.preference.paymentPreference
+    }
+    
+    func updatePaymentData(paymentMethod : PaymentMethod, token : Token?, issuer : Issuer?, payerCost : PayerCost?) {
+        self.paymentMethod = paymentMethod
+        self.token = token
+        self.issuer = issuer
+        self.payerCost = payerCost
     }
 }
