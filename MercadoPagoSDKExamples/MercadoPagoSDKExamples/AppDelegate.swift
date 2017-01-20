@@ -28,7 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         //PERU
+        
+            //test
+        MercadoPagoContext.setPublicKey("TEST-962a648a-959f-457c-a4df-a6fbe3f10c82")
+        
+            //produ
+        
         //MercadoPagoContext.setPublicKey("APP_USR-d16a4b81-58d3-4167-8067-e12dd16b549a")
+        
+        
         
         //URUGUAY
         
@@ -38,12 +46,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //produ
         //MercadoPagoContext.setPublicKey("APP_USR-83c6e8f7-3b0e-4290-96a1-c222560a891c")
         
+        
+        
         //COLOMBIA
-        MercadoPagoContext.setPublicKey("APP_USR-399e7628-3d81-423f-a7cf-5ad8341eb06e")
+        
+            //test
+        //MercadoPagoContext.setPublicKey("TEST-d661b2f9-3241-421d-bd9e-7d1a42b27d1c")
+        
+            //produ
+        //MercadoPagoContext.setPublicKey("APP_USR-399e7628-3d81-423f-a7cf-5ad8341eb06e")
+        
+        
         
         //VENEZUELA
         //MercadoPagoContext.setPublicKey("APP_USR-a865216a-a035-4629-8ec4-b1e1908b8b0d")
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         //MercadoPagoContext.setPayerAccessToken("")
 //=======
