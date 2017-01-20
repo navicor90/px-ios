@@ -252,25 +252,20 @@
 		<key>image_name</key>
 		<string>mediosMercantil</string>
 	</dict>
-	<key>pagoefectivo_atm_scotiabank_bank_transfer</key>
+	<key>oca</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosScotiabank</string>
+		<string>mediosOca</string>
 	</dict>
-	<key>pagoefectivo_atm_interbank_bank_transfer</key>
+	<key>lider</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosInterbank</string>
+		<string>mediosLider</string>
 	</dict>
-	<key>pagoefectivo_atm_bcp_bank_transfer</key>
+	<key>codensa</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosBCP</string>
-	</dict>
-	<key>pagoefectivo_atm_bbva_continental_bank_transfer</key>
-	<dict>
-		<key>image_name</key>
-		<string>mediosBBVAContinental</string>
+		<string>mediosCodensa</string>
 	</dict>
 </dict>
 </plist>

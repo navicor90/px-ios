@@ -14,14 +14,27 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     //ARGENTINA
     //let prefID = "241325285-6ac8e517-3030-48f7-b9de-91089d74255d"
     
+    
+    
     //PERU
-    let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
+    //let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
+    
+    
     
     //URUGUAY
     //let prefID = "241113255-a6f9f812-6b92-48d0-9bb5-6f7f9f03740e"
     
+    
+    
     //COLOMBIA
-    //let prefID = "241110424-00be5088-ad07-4e2d-bfc9-78f4bffbc3c7"
+    
+        // Amount = 1000
+    //let prefID = "241110424-00be5088-2ad07-4e2d-bfc9-78f4bffbc3c7"
+    
+        // Amount = 10000
+    let prefID = "241110424-155891fe-607e-424c-b85e-fe05b67b4ad9"
+    
+    
     
     //VENEZUELA
     //let prefID = "241113185-a2eef4bd-ccb6-42e0-b543-12f6aab885ef"
