@@ -17,7 +17,7 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     
     
     //PERU
-    let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
+    //let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
     
     
     
@@ -37,7 +37,7 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     
     
     //VENEZUELA
-    //let prefID = "241113185-a2eef4bd-ccb6-42e0-b543-12f6aab885ef"
+    let prefID = "241113185-a2eef4bd-ccb6-42e0-b543-12f6aab885ef"
     
 
     let examples = [["title" : "Nuestro Checkout".localized, "image" : "PlugNplay"],
