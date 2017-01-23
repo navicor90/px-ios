@@ -255,37 +255,47 @@
 	<key>pagoefectivo_atm_scotiabank_bank_transfer</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosScotiabank</string>
+		<string>bankTransferScotiabank</string>
 	</dict>
 	<key>pagoefectivo_atm_interbank_bank_transfer</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosInterbank</string>
+		<string>bankTransferInterbank</string>
 	</dict>
 	<key>pagoefectivo_atm_bcp_bank_transfer</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosBCP</string>
+		<string>bankTransferBCP</string>
 	</dict>
 	<key>pagoefectivo_atm_bbva_continental_bank_transfer</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosBBVAContinental</string>
+		<string>bankTransferBBVAContinental</string>
 	</dict>
 	<key>oca</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosOca</string>
+		<string>mediosTcOca</string>
 	</dict>
 	<key>lider</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosLider</string>
+		<string>mediosTcLider</string>
 	</dict>
 	<key>codensa</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosCodensa</string>
+		<string>mediosTcCodensa</string>
+	</dict>
+	<key>movilred</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosMovilred</string>
+	</dict>
+	<key>viabaloto</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosViabaloto</string>
 	</dict>
 </dict>
 </plist>
