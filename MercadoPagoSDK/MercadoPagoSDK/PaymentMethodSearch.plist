@@ -275,17 +275,17 @@
 	<key>oca</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosTcOca</string>
+		<string>mediosOca</string>
 	</dict>
 	<key>lider</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosTcLider</string>
+		<string>mediosLider</string>
 	</dict>
 	<key>codensa</key>
 	<dict>
 		<key>image_name</key>
-		<string>mediosTcCodensa</string>
+		<string>mediosCodensa</string>
 	</dict>
 	<key>movilred</key>
 	<dict>
