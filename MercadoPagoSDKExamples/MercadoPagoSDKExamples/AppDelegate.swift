@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //URUGUAY
         
             //test
-        MercadoPagoContext.setPublicKey("TEST-e7b54e3e-f1a7-4518-868d-4a3e6d8b0b30")
+        //MercadoPagoContext.setPublicKey("TEST-e7b54e3e-f1a7-4518-868d-4a3e6d8b0b30")
         
             //produ
         //MercadoPagoContext.setPublicKey("APP_USR-83c6e8f7-3b0e-4290-96a1-c222560a891c")
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //COLOMBIA
         
             //test
-        //MercadoPagoContext.setPublicKey("TEST-d661b2f9-3241-421d-bd9e-7d1a42b27d1c")
+        MercadoPagoContext.setPublicKey("TEST-d661b2f9-3241-421d-bd9e-7d1a42b27d1c")
         
             //produ
         //MercadoPagoContext.setPublicKey("APP_USR-399e7628-3d81-423f-a7cf-5ad8341eb06e")
