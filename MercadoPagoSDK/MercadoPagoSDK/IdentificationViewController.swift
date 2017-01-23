@@ -292,11 +292,27 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     
     
     fileprivate func remask(){
+        
+        //BRASIL
         if (self.identificationType!.name == "CPF"){
             self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX-XX",completeEmptySpaces: true,leftToRight: true)
         }else if (self.identificationType!.name == "CNPJ"){
             self.indentificationMask = TextMaskFormater(mask: "XX.XXX.XXX/XXXX-XX",completeEmptySpaces: true,leftToRight: true)
-        }else{
+        }
+        
+        //PERU
+        else if (self.identificationType!.name == "RUC"){
+            self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: true)
+        }
+        
+        //URUGUAY
+        else if (self.identificationType!.name == "CI"){
+            self.indentificationMask = TextMaskFormater(mask: "X.XXX.XXX-X",completeEmptySpaces: true,leftToRight: true)
+        }
+        
+        
+        //DEFAULT
+        else{
             self.indentificationMask = defaultMask
         }
         self.numberTextField.text = ""

@@ -17,12 +17,12 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     
     
     //PERU
-    let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
+    //let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
     
     
     
     //URUGUAY
-    //let prefID = "241113255-a6f9f812-6b92-48d0-9bb5-6f7f9f03740e"
+    let prefID = "241113255-a6f9f812-6b92-48d0-9bb5-6f7f9f03740e"
     
     
     
