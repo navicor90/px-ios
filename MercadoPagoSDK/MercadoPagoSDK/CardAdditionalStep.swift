@@ -50,6 +50,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         self.tableView.register(rowIssuerNib, forCellReuseIdentifier: "rowIssuerNib")
         let cardTypeNib = UINib(nibName: "CardTypeTableViewCell", bundle: self.bundle)
         self.tableView.register(cardTypeNib, forCellReuseIdentifier: "cardTypeNib")
+
         
     }
     
@@ -70,13 +71,24 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         self.showLoading()
         
         if !self.viewModel.hasIssuer() {
+         
             self.getIssuers()
         } else if self.viewModel.hasPaymentMethod(){
             if self.viewModel.installment == nil {
-                self.getInstallments()
+                if viewModel.coupon == nil {
+                    getCoupon()
+                }else{
+                    self.getInstallments()
+                }
+
             } else {
-                self.viewModel.payerCosts = self.viewModel.installment!.payerCosts
-                self.hideLoading()
+                if viewModel.coupon == nil {
+                    getCoupon()
+                }else{
+                       self.viewModel.payerCosts = self.viewModel.installment!.payerCosts
+                        self.hideLoading()
+                }
+
             }
         }
         self.extendedLayoutIncludesOpaqueBars = true
@@ -117,6 +129,9 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
+        if isCouponCell(indexPath: indexPath){
+            return 84
+        }
         switch indexPath.section {
         case 0:
             return self.titleCellHeight
@@ -139,12 +154,38 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         if (section == 0 || section == 1){
             return 1
         } else {
-            return self.viewModel.numberOfPayerCost()
+            if screenName == "PAYER_COST" {
+                return (self.viewModel.numberOfCell() + 1)
+            }else{
+              return self.viewModel.numberOfCell()
+            }
+            
         }
+    }
+    
+    fileprivate func isCouponCell(indexPath: IndexPath) -> Bool {
+        if screenName == "PAYER_COST"{
+            if indexPath.section == 2 {
+                if indexPath.row == 0 {
+                    return true
+                }
+            }
+        }
+        return false
     }
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if isCouponCell(indexPath: indexPath){
+            let cell = UITableViewCell.init(style: .default, reuseIdentifier: "CouponCell")
+            cell.contentView.viewWithTag(1)?.removeFromSuperview()
+            let discountBody = DiscountBodyCell(frame: CGRect(x: 0, y: 0, width : view.frame.width, height : 84), coupon: self.viewModel.coupon, amount:self.viewModel.amount)
+            discountBody.tag = 1
+            cell.contentView.addSubview(discountBody)
+            return cell
+        }
+        
         
         if (indexPath.section == 0){
             
@@ -167,7 +208,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
             
         } else {
             if self.viewModel.hasIssuer(){
-                let payerCost : PayerCost = self.viewModel.payerCosts![indexPath.row]
+                let payerCost : PayerCost = self.viewModel.payerCosts![indexPath.row - 1]
                 let installmentCell = tableView.dequeueReusableCell(withIdentifier: "rowInstallmentNib", for: indexPath as IndexPath) as! PayerCostRowTableViewCell
                 installmentCell.fillCell(payerCost: payerCost)
                 installmentCell.selectionStyle = .none
@@ -192,6 +233,23 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if isCouponCell(indexPath: indexPath){
+            var step : UIViewController!
+            if let coupon = self.viewModel.coupon  {
+                step = MPStepBuilder.startDetailDiscountDetailStep(coupon: coupon)
+            }else{
+                step = MPStepBuilder.startAddCouponStep(amount: self.viewModel.amount, callback: { (coupon) in
+                    self.viewModel.coupon = coupon
+                    self.tableView.reloadData()
+                } ,callbackCancel: {
+                })
+            }
+            
+            self.present(step, animated: false, completion: {})
+            return
+        }
+
         
         if (indexPath.section == 2){
             self.showLoading()
@@ -257,8 +315,23 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         self.hideLoading()
     }
     
+    
+    fileprivate func getCoupon(){
+        let service = DiscountService()
+        service.getDiscount(amount: self.viewModel.amount, success: { (coupon) in
+            self.viewModel.coupon = coupon
+            self.viewModel.amount = coupon?.newAmount()
+            self.getInstallments()
+        }) { (error) in
+            self.hideLoading()
+        }
+    }
+    
 }
 class CardAdditionalStepViewModel : NSObject {
+    
+    
+    var coupon : DiscountCoupon? = nil
     
     var payerCosts : [PayerCost]?
     var installment : Installment?
@@ -281,7 +354,7 @@ class CardAdditionalStepViewModel : NSObject {
         self.paymentPreference = paymentPreference
         self.callback = callback
     }
-    func numberOfPayerCost() -> Int{
+    func numberOfCell() -> Int{
         if hasIssuer(){
             return (self.installment?.numberOfPayerCostToShow(self.paymentPreference?.maxAcceptedInstallments)) ?? 0
         }else if hasPaymentMethod(){
