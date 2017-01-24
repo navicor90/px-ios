@@ -35,29 +35,51 @@ open class Instruction: NSObject {
             instruction.references = (json["references"] as! Array).map({InstructionReference.fromJSON($0)})
         }
         
+        
+        
+        
+        
         if json["info"] != nil && !(json["info"]! is NSNull) {
             var info = [String]()
-            for value in (json["info"] as! NSArray) {
-                info.append(value as! String)
+            
+            if let arrayValues = json["info"] as? NSArray {
+                for value in arrayValues {
+                    info.append(value as! String)
+                }
             }
+
             instruction.info = info
         }
         
+        
+        
         if json["secondary_info"] != nil && !(json["secondary_info"]! is NSNull) {
             var info = [String]()
-            for value in (json["secondary_info"] as! NSArray) {
+            
+            if let arrayValues = json["secondary_info"] as? NSArray{
+                for value in arrayValues {
                 info.append(value as! String)
+                }
+                
             }
             instruction.secondaryInfo = info
         }
         
+        
+        
         if json["tertiary_info"] != nil && !(json["tertiary_info"]! is NSNull) {
             var info = [String]()
-            for value in (json["tertiary_info"] as! NSArray) {
-                info.append(value as! String)
+            
+            if let arrayValues = json["tertiary_info"] as? NSArray{
+                for value in arrayValues {
+                    info.append(value as! String)
+                }
+                
             }
-            instruction.tertiaryInfo = info
+            instruction.secondaryInfo = info
         }
+        
+        
         
         if json["actions"] != nil && !(json["actions"]! is NSNull) {
             instruction.actions = (json["actions"] as! Array).map({InstructionAction.fromJSON($0)})
