@@ -34,7 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
             //produ
         
-        MercadoPagoContext.setPublicKey("APP_USR-d16a4b81-58d3-4167-8067-e12dd16b549a")
+        //MercadoPagoContext.setPublicKey("APP_USR-d16a4b81-58d3-4167-8067-e12dd16b549a")
+        
+            //produ backend
+        MercadoPagoContext.setPublicKey("APP_USR-b2a01cb3-2f31-4ee8-bd65-d0d939a727bd")
         
         
         
@@ -59,6 +62,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         //VENEZUELA
+       
+            //test
+        //MercadoPagoContext.setPublicKey("TEST-d5639c69-1b7f-4777-9ed0-d0e74bfc2c3b")
+        
+            //produ
         //MercadoPagoContext.setPublicKey("APP_USR-a865216a-a035-4629-8ec4-b1e1908b8b0d")
 
         

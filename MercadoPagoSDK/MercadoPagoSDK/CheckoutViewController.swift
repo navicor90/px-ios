@@ -308,7 +308,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
                 self.requestFailure(error, callback: {
                     self.navigationController?.dismiss(animated: true, completion: {})
                     self.confirmPayment()
-                })
+                })  
         })
         
     }
