@@ -35,7 +35,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         var upperFrame = UIScreen.main.bounds
         upperFrame.origin.y = -upperFrame.size.height;
         let upperView = UIView(frame: upperFrame)
-        upperView.backgroundColor = MercadoPagoContext.getPrimaryColor()
+        upperView.backgroundColor = UIColor.primaryColor()
         tableView.addSubview(upperView)
         
         self.showNavBar()
@@ -88,7 +88,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         if self.navigationController != nil {
             self.navigationController!.interactivePopGestureRecognizer?.delegate = self
             self.navigationController?.navigationBar.tintColor = UIColor(red: 255, green: 255, blue: 255)
-            self.navigationController?.navigationBar.barTintColor = MercadoPagoContext.getPrimaryColor()
+            self.navigationController?.navigationBar.barTintColor = UIColor.primaryColor()
             self.navigationController?.navigationBar.removeBottomLine()
             self.navigationController?.navigationBar.isTranslucent = false
             
@@ -100,20 +100,19 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         fatalError("init(coder:) has not been implemented")
     }
     
-    public init(cardInformation : CardInformation, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, timer: CountdownTimer?, callback: ((_ payerCost: NSObject?)->Void)? ){
+    public init(cardInformation : CardInformation, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, callback: ((_ payerCost: NSObject?)->Void)? ){
         self.viewModel = CardAdditionalStepViewModel(paymentMethod: [cardInformation.getPaymentMethod()], issuer: cardInformation.getIssuer(), token: cardInformation, amount: amount, paymentPreference: paymentPreference, installment:installment, callback: callback)
         self.viewModel.cardInformation = cardInformation
         
         super.init(nibName: "CardAdditionalStep", bundle: self.bundle)
-        self.timer=timer
     }
     
-    public init(paymentMethod : [PaymentMethod] ,issuer : Issuer?, token : CardInformationForm?, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, timer: CountdownTimer?, callback: ((_ payerCost: NSObject?)->Void)? ){
+    public init(paymentMethod : [PaymentMethod] ,issuer : Issuer?, token : CardInformationForm?, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, callback: ((_ payerCost: NSObject?)->Void)? ){
         
         self.viewModel = CardAdditionalStepViewModel(paymentMethod: paymentMethod, issuer: issuer, token: token, amount: amount, paymentPreference: paymentPreference, installment:installment, callback: callback)
         
         super.init(nibName: "CardAdditionalStep", bundle: self.bundle)
-        self.timer=timer
+        
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -152,7 +151,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "titleNib", for: indexPath as IndexPath) as! PayerCostTitleTableViewCell
             titleCell.selectionStyle = .none
             titleCell.setTitle(string: self.getNavigationBarTitle())
-            titleCell.backgroundColor = MercadoPagoContext.getPrimaryColor()
+            titleCell.backgroundColor = UIColor.primaryColor()
             self.titleCell = titleCell
             
             return titleCell
@@ -162,7 +161,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
             cardCell.selectionStyle = .none
             cardCell.loadCard()
             cardCell.updateCardSkin(token: self.viewModel.token, paymentMethod: self.viewModel.paymentMethod[0])
-            cardCell.backgroundColor = MercadoPagoContext.getPrimaryColor()
+            cardCell.backgroundColor = UIColor.primaryColor()
             
             return cardCell
             
@@ -193,8 +192,9 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.showLoading()
+        
         if (indexPath.section == 2){
+            self.showLoading()
             if self.viewModel.hasIssuer(){
                 let payerCost : PayerCost = self.viewModel.payerCosts![(indexPath as NSIndexPath).row]
                 self.viewModel.callback!(payerCost)

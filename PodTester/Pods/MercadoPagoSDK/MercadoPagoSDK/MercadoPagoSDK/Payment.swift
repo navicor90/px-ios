@@ -40,7 +40,7 @@ open class Payment : NSObject {
     open var _description : String!
     open var externalReference : String!
     open var feesDetails : [FeesDetail]!
-    open var _id : Int = 0
+    open var _id : String = ""
     open var installments : Int = 0
     open var liveMode : Bool!
     open var metadata : NSObject!
@@ -70,7 +70,7 @@ open class Payment : NSObject {
     open class func fromJSON(_ json : NSDictionary) -> Payment {
         let payment : Payment = Payment()
 		
-        if let _id = JSONHandler.attemptParseToInt(json["id"]){
+        if let _id = JSONHandler.attemptParseToString(json["id"]){
             payment._id = _id
         }
         if let binaryMode = JSONHandler.attemptParseToBool(json["binary_mode"]){

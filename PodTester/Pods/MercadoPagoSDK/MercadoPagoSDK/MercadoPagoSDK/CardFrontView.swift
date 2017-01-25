@@ -38,8 +38,11 @@ import UIKit
         
         cardNumber.numberOfLines = 0
         cardName.numberOfLines = 0
+        cardName.font = UIFont.systemFont(ofSize: cardName.font.pointSize)
         cardExpirationDate.numberOfLines = 0
+        cardExpirationDate.font = UIFont.systemFont(ofSize: cardExpirationDate.font.pointSize)
         cardCVV.numberOfLines = 0
+        cardCVV.font = UIFont.systemFont(ofSize: cardCVV.font.pointSize)
     }
     
     open func finishLoad(){

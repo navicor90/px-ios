@@ -29,33 +29,32 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     
     override open var screenName : String { get { return "IDENTIFICATION_NUMBER" } }
     
-    public init(callback : @escaping (( _ identification: Identification) -> Void), timer : CountdownTimer? = nil) {
+    public init(callback : @escaping (( _ identification: Identification) -> Void)) {
         super.init(nibName: "IdentificationViewController", bundle: MercadoPago.getBundle())
         self.callback = callback
-        self.timer = timer
     }
     
     override func loadMPStyles(){
         var titleDict : NSDictionary = [:]
         if self.navigationController != nil {
-            if let font = UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 18){
+            if let font = UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: 18){
                 titleDict = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: font]
             }
             if self.navigationController != nil {
                 self.navigationController!.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
                 self.navigationItem.hidesBackButton = true
                 self.navigationController!.interactivePopGestureRecognizer?.delegate = self
-                self.navigationController?.navigationBar.tintColor = UIColor.white()
-                self.navigationController?.navigationBar.barTintColor =  UIColor.primaryColor()
+                self.navigationController?.navigationBar.tintColor = UIColor.px_white()
+                self.navigationController?.navigationBar.barTintColor = UIColor.primaryColor()
                 self.navigationController?.navigationBar.removeBottomLine()
                 self.navigationController?.navigationBar.isTranslucent = false
                 displayBackButton()
             }
         }
         let pickerView = UIPickerView(frame: CGRect(x: 0, y: 150, width: view.frame.width, height: 216))
-        pickerView.backgroundColor = .white()
+        pickerView.backgroundColor = UIColor.px_white()
         pickerView.showsSelectionIndicator = true
-        pickerView.backgroundColor = .white()
+        pickerView.backgroundColor = UIColor.px_white()
         pickerView.showsSelectionIndicator = true
         pickerView.dataSource = self
         pickerView.delegate = self
@@ -67,7 +66,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         let doneButton = UIBarButtonItem(title: "OK".localized, style: .plain, target: self, action: #selector(IdentificationViewController.donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         
-        if let font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 14) {
+        if let font = UIFont(name:MercadoPagoContext.getDecorationPreference().getFontName(), size: 14) {
             doneButton.setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
           }
 
@@ -120,7 +119,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         self.tipoDeDocumentoLabel.text =  "DOCUMENTO DEL TITULAR DE LA TARJETA".localized
         self.numberTextField.placeholder = "Número".localized
         self.textField.placeholder = "Tipo".localized
-        self.view.backgroundColor = UIColor.complementaryColor()
+        self.view.backgroundColor = UIColor.primaryColor()
         numberTextField.autocorrectionType = UITextAutocorrectionType.no
         numberTextField.keyboardType = UIKeyboardType.numberPad
         numberTextField.addTarget(self, action: #selector(IdentificationViewController.editingChanged(_:)), for: UIControlEvents.editingChanged)
@@ -199,7 +198,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         let buttonNext = UIBarButtonItem(title: "Continuar".localized, style: .done, target: self, action: #selector(CardFormViewController.rightArrowKeyTapped))
         let buttonPrev = UIBarButtonItem(title: "Anterior".localized, style: .plain, target: self, action: #selector(CardFormViewController.leftArrowKeyTapped))
         
-        let font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 14) ?? UIFont.systemFont(ofSize: 14)
+        let font = Utils.getFont(size: 14)
         buttonNext.setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
         buttonPrev.setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
         
@@ -220,9 +219,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     }
 
     func rightArrowKeyTapped(){
-        let idnt = Identification(type: self.identificationType?.name , number: indentificationMask.textUnmasked(numberDocLabel.text))
+        let idnt = Identification(type: self.identificationType?.name , number: indentificationMask.textUnmasked(numberTextField.text))
         
-        let cardToken = CardToken(cardNumber: "", expirationMonth: 10, expirationYear: 10, securityCode: "", cardholderName: "", docType: (self.identificationType?.type)!, docNumber:  indentificationMask.textUnmasked(numberDocLabel.text))
+        let cardToken = CardToken(cardNumber: "", expirationMonth: 10, expirationYear: 10, securityCode: "", cardholderName: "", docType: (self.identificationType?.type)!, docNumber:  indentificationMask.textUnmasked(numberTextField.text))
 
         if ((cardToken.validateIdentificationNumber(self.identificationType)) == nil){
             self.numberTextField.resignFirstResponder()

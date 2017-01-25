@@ -27,13 +27,14 @@ class PurchaseSimpleDetailTableViewCell: UITableViewCell {
     internal func fillCell(_ title : String, amount : Double, currency : Currency, payerCost : PayerCost? = nil, addSeparatorLine : Bool = true){
         
         //Deafult values for cells
-        self.titleLabel.attributedText = NSAttributedString(string: title)
+        self.titleLabel.text = title
+        self.titleLabel.font = Utils.getFont(size: titleLabel.font.pointSize)
         self.removeFromSuperview()
         if payerCost != nil {
             let purchaseAmount = getInstallmentsAmount(payerCost: payerCost!)
             self.unitPrice.attributedText = purchaseAmount
         } else {
-            self.unitPrice.attributedText = Utils.getAttributedAmount(amount, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : UIColor.grayDark(), fontSize : 18, baselineOffset : 5)
+            self.unitPrice.attributedText = Utils.getAttributedAmount(amount, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : UIColor.px_grayDark(), fontSize : 18, baselineOffset : 5)
         }
         if addSeparatorLine {
             let separatorLine = ViewUtils.getTableCellSeparatorLineView(21, y: PurchaseSimpleDetailTableViewCell.SEPARATOR_LINE_HEIGHT, width: self.frame.width - 42, height: 1)
@@ -42,7 +43,7 @@ class PurchaseSimpleDetailTableViewCell: UITableViewCell {
     }
     
     private func getInstallmentsAmount(payerCost : PayerCost) -> NSAttributedString {
-        return Utils.getTransactionInstallmentsDescription(payerCost.installments.description, installmentAmount: payerCost.installmentAmount, color: UIColor.grayBaseText(), fontSize : 24, baselineOffset : 8)
+        return Utils.getTransactionInstallmentsDescription(payerCost.installments.description, installmentAmount: payerCost.installmentAmount, color: UIColor.px_grayBaseText(), fontSize : 24, baselineOffset : 8)
         
     }
     

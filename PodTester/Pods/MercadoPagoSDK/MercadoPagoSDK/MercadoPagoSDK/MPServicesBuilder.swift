@@ -261,14 +261,22 @@ open class MPServicesBuilder : NSObject {
         
     }
     
+    @available(*, deprecated: 2.4.4, message: "Use getInstructions(for paymentId : String ...) instead")
     open class func getInstructions(_ paymentId : Int, paymentTypeId: String? = "",
+                                    success : @escaping (_ instructionsInfo : InstructionsInfo) -> Void,
+                                    failure: ((_ error: NSError) -> Void)?) {
+        let paymentId = String(paymentId)
+        MPServicesBuilder.getInstructions(for: paymentId, paymentTypeId: paymentTypeId, success: success, failure: failure)
+    }
+    
+    open class func getInstructions(for paymentId : String, paymentTypeId: String? = "",
                                     success : @escaping (_ instructionsInfo : InstructionsInfo) -> Void,
                                     failure: ((_ error: NSError) -> Void)?) {
         
         MercadoPagoContext.initFlavor1()
         MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "GET_INSTRUCTIONS", result: nil)
         let instructionsService = InstructionsService()
-        instructionsService.getInstructions(paymentId, paymentTypeId: paymentTypeId, success:  { (instructionsInfo : InstructionsInfo) -> Void in
+        instructionsService.getInstructions(for: paymentId, paymentTypeId: paymentTypeId, success:  { (instructionsInfo : InstructionsInfo) -> Void in
             success(instructionsInfo)
         }, failure : failure)
     }

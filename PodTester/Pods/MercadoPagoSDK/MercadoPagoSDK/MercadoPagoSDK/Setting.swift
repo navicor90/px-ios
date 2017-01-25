@@ -40,6 +40,23 @@ open class Setting : NSObject {
         setting.securityCode = SecurityCode.fromJSON(json["security_code"]! as! NSDictionary)
         return setting
     }
+    
+    open func toJSONString() -> String {
+        return JSONHandler.jsonCoding(self.toJSON())
+    }
+    
+    open func toJSON() -> [String:Any] {
+        let binMask : Any = self.binMask == nil ?  JSONHandler.null : self.binMask.toJSON()
+        let cardNumber : Any = self.cardNumber == nil ?  JSONHandler.null : self.cardNumber.toJSON()
+        let securityCode : Any = self.securityCode == nil ? JSONHandler.null : self.securityCode.toJSON()
+        
+        let obj:[String:Any] = [
+            "bin": binMask,
+            "card_number" : cardNumber,
+            "security_code" : securityCode
+        ]
+        return obj
+    }
 }
 
 public func ==(obj1: Setting, obj2: Setting) -> Bool {

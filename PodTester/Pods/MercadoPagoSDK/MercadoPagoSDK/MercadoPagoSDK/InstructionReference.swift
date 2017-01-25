@@ -15,14 +15,16 @@ open class InstructionReference: Equatable {
     var separator : String!
     
     open func getFullReferenceValue() -> String {
-        if separator == nil  {
+        if String.isNullOrEmpty(separator) {
             self.separator = ""
         }
         if value.count == 0 {
             return ""
         }
-        let referenceFullValue : String = value.reduce("", {($0 as String) + self.separator + $1})
-       // return referenceFullValue.substring(from: self.separator.characters.count)
+        var referenceFullValue : String = value.reduce("", {($0 as String) + self.separator + $1})
+        if self.separator != "" {
+            referenceFullValue = String(referenceFullValue.characters.dropFirst())
+        }
         return referenceFullValue
     }
     

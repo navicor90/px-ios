@@ -6,104 +6,63 @@
 // Copyright (c) 2014 MercadoPago. All rights reserved.
 //
 
-#import <MercadoPagoSDK/MercadoPagoSDK-Swift.h>
-#import "UIView+RotateView.h"
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16)) / 255.0 green: ((float)((rgbValue & 0xFF00) >> 8)) / 255.0 blue: ((float)(rgbValue & 0xFF)) / 255.0 alpha: 1.0]
+
 #import "MPSDKLoadingView.h"
+#import "MLSpinner.h"
 
 @interface MPSDKLoadingView ()
 
-
+@property (nonatomic, strong) MLSpinner *spinner;
 
 @end
 
 @implementation MPSDKLoadingView
 
-
-
-#define LABEL_WIDTH 90
-#define LABEL_HEIGHT 20
-
 - (id)initWithFrame:(CGRect)frame
 {
-	return [self initWithFrame:frame backgroundColor:[UIColor whiteColor] loadingText:nil];
+	return [self initWithFrame:frame backgroundColor:[UIColor whiteColor] loadingText:nil loadingColor:nil];
 }
 
 - (id)initWithBackgroundColor:(UIColor *)color
 {
-	return [self initWithBackgroundColor:color loadingText:nil];
+    return [self initWithBackgroundColor:color loadingText:nil];
 }
 
 - (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color
 {
-	return [self initWithFrame:frame backgroundColor:color loadingText:nil];
+    return [self initWithFrame:frame backgroundColor:color loadingText:nil loadingColor:nil];
+}
+- (id)initWithLoadingColor:(UIColor *)loadingColor
+{
+    CGRect frame = [[UIScreen mainScreen] applicationFrame];
+    return [self initWithFrame:frame backgroundColor:nil loadingText:nil loadingColor:loadingColor];
 }
 
 - (id)initWithBackgroundColor:(UIColor *)color loadingText:(NSString *)text
 {
 	CGRect frame = [[UIScreen mainScreen] applicationFrame];
-	return [self initWithFrame:frame backgroundColor:color loadingText:text];
+	return [self initWithFrame:frame backgroundColor:color loadingText:text loadingColor:nil];
 }
 
-- (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color loadingText:(NSString *)text
+- (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color loadingText:(NSString *)text loadingColor:(UIColor *)loadingColor
 {
 	self = [super initWithFrame:frame];
 
 	if (self) {
 		self.tintColor = [UIColor blackColor];
-        self.backgroundColor = color; //? color : [UIColor backgroundColor];
+		self.backgroundColor = color ? color : UIColorFromRGB(0xFFFFFF);
 		self.accessibilityLabel = @"Loading";
 		self.opaque = YES;
 		self.alpha = 1;
 		self.tag = kLoadingViewTag;
 
-		UILabel *label = [UILabel new];
-		NSMutableAttributedString *attributedString;
 
-		if (text != nil) {
-			attributedString = [[NSMutableAttributedString alloc] initWithString:text];
-		} else {
-            NSString *bundlePath = [[MercadoPago getBundle] pathForResource:@"Localizable" ofType:@"strings" inDirectory:nil forLocalization:[MercadoPagoContext getLanguage]];
-            
-            NSBundle *spanishBundle = [[NSBundle alloc] initWithPath:[bundlePath stringByDeletingLastPathComponent]];
-            NSString *defaultText = NSLocalizedStringFromTableInBundle(@"Cargando...", nil, spanishBundle, nil);
-//            NSString *defaultText = NSLocalizedStringFromTableInBundle(@"Cargando...", @"Localizable", [MercadoPago getBundle], nil);
-			attributedString = [[NSMutableAttributedString alloc] initWithString:defaultText];
-		}
+        MLSpinnerConfig *config = [[MLSpinnerConfig alloc] initWithSize:MLSpinnerSizeBig primaryColor:loadingColor? loadingColor : UIColorFromRGB(0x009EE3) secondaryColor:loadingColor? loadingColor : UIColorFromRGB(0x009EE3)];
 
-		UIFont *font = [UIFont fontWithName:@"Helvetica Neue" size:13.0];
-		NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
-		style.alignment = NSTextAlignmentCenter;
-		[attributedString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, attributedString.length)];
-		[attributedString addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, attributedString.length)];
-		[attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, attributedString.length)];
-		label.attributedText = attributedString;
 
-		[self addSubview:label];
-		[label setTranslatesAutoresizingMaskIntoConstraints:NO];
+		self.spinner = [[MLSpinner alloc] initWithConfig:config text:text];
 
-		// center label horizontally in view
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:label
-		                                                 attribute:NSLayoutAttributeCenterX
-		                                                 relatedBy:NSLayoutRelationEqual
-		                                                    toItem:self
-		                                                 attribute:NSLayoutAttributeCenterX
-		                                                multiplier:1.0
-		                                                  constant:10]];
-
-		// center label vertically in view
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:label
-		                                                 attribute:NSLayoutAttributeCenterY
-		                                                 relatedBy:NSLayoutRelationEqual
-		                                                    toItem:self
-		                                                 attribute:NSLayoutAttributeCenterY
-		                                                multiplier:1.0
-		                                                  constant:0.0]];
-
-        
-        
-        UIImage *image = [MercadoPago getImage:@"mpui-loading_default"];
-		self.spinner = [[UIImageView alloc] initWithImage:image];
-        
 		[self addSubview:self.spinner];
 		[self.spinner setTranslatesAutoresizingMaskIntoConstraints:NO];
 
@@ -117,13 +76,13 @@
 		                                                  constant:0.0]];
 
 		// set spinner alligned with label
-		[self addConstraint:[NSLayoutConstraint constraintWithItem:label
-		                                                 attribute:NSLayoutAttributeLeading
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:self.spinner
+		                                                 attribute:NSLayoutAttributeCenterX
 		                                                 relatedBy:NSLayoutRelationEqual
-		                                                    toItem:self.spinner
-		                                                 attribute:NSLayoutAttributeTrailing
+		                                                    toItem:self
+		                                                 attribute:NSLayoutAttributeCenterX
 		                                                multiplier:1.0f
-		                                                  constant:10]];
+		                                                  constant:0]];
 
 		[self rotateSpinner];
 
@@ -148,7 +107,7 @@
 
 - (void)rotateSpinner
 {
-	[self.spinner rotateViewWithDuration:15];
+	[self.spinner showSpinner];
 }
 
 - (void)dealloc

@@ -27,7 +27,7 @@ open class MPLabel: UILabel {
         super.init(frame: frame)
         
         if(self.font != nil) {
-            self.font = UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: (self.font?.pointSize)!)
+            self.font = Utils.getFont(size: self.font!.pointSize)
             
         }
      }
@@ -36,7 +36,7 @@ open class MPLabel: UILabel {
         super.init(coder: aDecoder)
 
         if(self.font != nil) {
-            self.font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: (self.font?.pointSize)!)
+            self.font = Utils.getFont(size: self.font!.pointSize)
             
         }
     }

@@ -115,7 +115,7 @@ class InstructionBodyTableViewCell: UITableViewCell {
                 
                 let views = ["label": label, "image": image] as [String : Any]
                 
-                let widthConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:[image]-[label]-\((UIScreen.main.bounds.width - label.frame.width - 16)/2)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+                let widthConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:[image]-[label]-(\((UIScreen.main.bounds.width - label.frame.width - 16)/2))-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
                 NSLayoutConstraint.activate(widthConstraints)
                 Utils.setContrainsVertical(label: label, previus: previus, constrain: 30)
                 
@@ -127,9 +127,9 @@ class InstructionBodyTableViewCell: UITableViewCell {
             if instruction.actions != nil && (instruction.actions?.count)! > 0 {
                 if instruction.actions![0].tag == ActionTag.LINK.rawValue {
                     let button = MPButton(frame: CGRect(x: 0, y: 0, width: 160, height: 30))
-                    button.titleLabel?.font = UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 16) ?? UIFont.systemFont(ofSize: 16)
+                    button.titleLabel?.font = Utils.getFont(size: 16)
                     button.setTitle(instruction.actions![0].label, for: .normal)
-                    button.setTitleColor(UIColor.blueMercadoPago(), for: .normal)
+                    button.setTitleColor(UIColor.px_blueMercadoPago(), for: .normal)
                     button.translatesAutoresizingMaskIntoConstraints = false
                     
                     button.actionLink = instruction.actions![0].url
@@ -148,7 +148,7 @@ class InstructionBodyTableViewCell: UITableViewCell {
             NSLayoutConstraint.activate(heightConstraints)
     }
     func getAttributes(fontSize:Int, color:UIColor)-> [String:AnyObject] {
-        return [NSFontAttributeName : UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: CGFloat(fontSize)) ?? UIFont.systemFont(ofSize: CGFloat(fontSize)),NSForegroundColorAttributeName: color]
+        return [NSFontAttributeName : Utils.getFont(size: CGFloat(fontSize)), NSForegroundColorAttributeName: color]
     }
     
     func goToURL(sender:MPButton!)

@@ -62,7 +62,7 @@ import UIKit
     static let MP_PROD_ENV = "/v1"
     static let API_VERSION = "1.3.X"
 
-    static let MP_ENVIROMENT = MP_PROD_ENV  + "/checkout"
+    static let MP_ENVIROMENT = MP_TEST_ENV  + "/checkout"
     
     static let MP_OP_ENVIROMENT = "/v1"
     
@@ -325,12 +325,23 @@ import UIKit
     open class func getImageForPaymentMethod(withDescription : String) -> UIImage?{
         let path = MercadoPago.getBundle()!.path(forResource: "PaymentMethodSearch", ofType: "plist")
         let dictPM = NSDictionary(contentsOfFile: path!)
+        var description = withDescription
         
-        guard let itemSelected = dictPM?.value(forKey: withDescription) as? NSDictionary else {
+        if description == "credit_card" || description == "account_money" || description == "prepaid_card" || description == "debit_card" || description == "bank_transfer" || description == "ticket" || description == "cards" {
+            description = UIColor.primaryColor() == UIColor.px_blueMercadoPago() ? description+"Azul" : description
+        }
+        
+        guard let itemSelected = dictPM?.value(forKey: description) as? NSDictionary else {
             return nil
         }
         
-        return MercadoPago.getImage(itemSelected.object(forKey: "image_name") as! String?)
+        let image = MercadoPago.getImage(itemSelected.object(forKey: "image_name") as! String?)
+        
+        if description == "credit_card" || description == "account_money" || description == "prepaid_card" || description == "debit_card" || description == "bank_transfer" || description == "ticket" || description == "cards" {
+            return image?.imageWithOverlayTint(tintColor: UIColor.primaryColor())
+        } else {
+            return image
+        }
         
     }
     
@@ -410,7 +421,7 @@ import UIKit
         
     }
     
-    open class func createMPPayment(_ email : String, preferenceId : String, paymentMethod: PaymentMethod, token : Token? = nil, installments: Int = 1, issuer: Issuer? = nil, success: @escaping (_ payment: Payment) -> Void, failure: ((_ error: NSError) -> Void)?) {
+    open class func createMPPayment(_ email : String, preferenceId : String, paymentMethod: PaymentMethod, token : Token? = nil, installments: Int = 1, issuer: Issuer? = nil, customerId : String? = nil, success: @escaping (_ payment: Payment) -> Void, failure: ((_ error: NSError) -> Void)?) {
     
         var issuerId = ""
         if issuer != nil {
@@ -423,7 +434,10 @@ import UIKit
             tokenId = token!._id
         }
         
-        let mpPayment = MPPayment(email: email, preferenceId: preferenceId, publicKey: MercadoPagoContext.publicKey(), paymentMethodId: paymentMethod._id, installments: installments, issuerId: issuerId, tokenId: tokenId)
+        let isBlacklabelPayment = token != nil && token?.cardId != nil && String.isNullOrEmpty(customerId)
+        
+        let mpPayment = MPPaymentFactory.createMPPayment(email: email, preferenceId: preferenceId, publicKey: MercadoPagoContext.publicKey(), paymentMethodId: paymentMethod._id, installments: installments, issuerId: issuerId, tokenId: tokenId, customerId: customerId, isBlacklabelPayment: isBlacklabelPayment)
+
         let service : MerchantService = MerchantService()
         service.createMPPayment(payment: mpPayment, success: { (jsonResult) in
             var payment : Payment? = nil

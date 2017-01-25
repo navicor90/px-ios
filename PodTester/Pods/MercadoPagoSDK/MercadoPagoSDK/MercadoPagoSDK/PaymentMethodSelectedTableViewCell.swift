@@ -37,25 +37,27 @@ class PaymentMethodSelectedTableViewCell: UITableViewCell {
     }
 
     func fillCell(_ paymentMethod : PaymentMethod, amount : Double, payerCost : PayerCost? = nil, lastFourDigits : String? = "") {
-        self.noRateLabel.attributedText = NSAttributedString(string : "")
+        self.noRateLabel.text = ""
+        self.noRateLabel.font = Utils.getFont(size: self.noRateLabel.font.pointSize)
         self.totalAmountLabel.attributedText = NSAttributedString(string : "")
         let currency = MercadoPagoContext.getCurrency()
 
         self.paymentMethodIcon.image = MercadoPago.getImage("iconCard")
         self.paymentDescription.attributedText = Utils.getTransactionInstallmentsDescription(String(payerCost!.installments), installmentAmount: payerCost!.installmentAmount, additionalString: NSAttributedString(string : ""), color: UIColor.black, fontSize : 24, centsFontSize: 12, baselineOffset: 9)
-        let paymentMethodDescription = NSMutableAttributedString(string: paymentMethod.name.localized)
-        paymentMethodDescription.append(NSAttributedString(string : " terminada en ".localized + lastFourDigits!))
+        let paymentMethodDescription = NSMutableAttributedString(string: paymentMethod.name.localized, attributes: [NSFontAttributeName: Utils.getFont(size: self.noRateLabel.font.pointSize)])
+        paymentMethodDescription.append(NSAttributedString(string : " terminada en ".localized + lastFourDigits!, attributes: [NSFontAttributeName: Utils.getFont(size: self.noRateLabel.font.pointSize)]))
         self.paymentMethodDescription.attributedText = paymentMethodDescription
         if payerCost != nil && !payerCost!.hasInstallmentsRate() && payerCost?.installments != 1 {
             self.noRateLabel.attributedText = NSAttributedString(string : "Sin interés".localized)
         }
         
-        let attributedAmount = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.grayBaseText(), fontSize : 16, baselineOffset : 4)
+        let attributedAmount = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.px_grayBaseText(), fontSize : 16, baselineOffset : 4)
         let attributedAmountFinal = NSMutableAttributedString(string : "(")
         attributedAmountFinal.append(attributedAmount)
         attributedAmountFinal.append(NSAttributedString(string : ")"))
         self.totalAmountLabel.attributedText = attributedAmountFinal
         self.selectOtherPaymentMethodButton.setTitle("Cambiar pago".localized, for: .normal)
+        self.selectOtherPaymentMethodButton.titleLabel?.font = Utils.getFont(size: self.noRateLabel.font.pointSize)
     }
     
     public static func getCellHeight(payerCost : PayerCost? = nil) -> CGFloat {

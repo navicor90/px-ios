@@ -1,22 +1,22 @@
 PODS:
-  - MercadoPagoSDK (2.2.4):
-    - MercadoPagoSDK/Localization (= 2.2.4)
-  - MercadoPagoSDK/Localization (2.2.4):
-    - MercadoPagoSDK/Localization/es (= 2.2.4)
-    - MercadoPagoSDK/Localization/es-CO (= 2.2.4)
-    - MercadoPagoSDK/Localization/es-MX (= 2.2.4)
-    - MercadoPagoSDK/Localization/pt (= 2.2.4)
-  - MercadoPagoSDK/Localization/es (2.2.4)
-  - MercadoPagoSDK/Localization/es-CO (2.2.4)
-  - MercadoPagoSDK/Localization/es-MX (2.2.4)
-  - MercadoPagoSDK/Localization/pt (2.2.4)
+  - MercadoPagoSDK (2.2.8):
+    - MercadoPagoSDK/Localization (= 2.2.8)
+  - MercadoPagoSDK/Localization (2.2.8):
+    - MercadoPagoSDK/Localization/es (= 2.2.8)
+    - MercadoPagoSDK/Localization/es-CO (= 2.2.8)
+    - MercadoPagoSDK/Localization/es-MX (= 2.2.8)
+    - MercadoPagoSDK/Localization/pt (= 2.2.8)
+  - MercadoPagoSDK/Localization/es (2.2.8)
+  - MercadoPagoSDK/Localization/es-CO (2.2.8)
+  - MercadoPagoSDK/Localization/es-MX (2.2.8)
+  - MercadoPagoSDK/Localization/pt (2.2.8)
 
 DEPENDENCIES:
-  - MercadoPagoSDK (= 2.2.4)
+  - MercadoPagoSDK (= 2.2.8)
 
 SPEC CHECKSUMS:
-  MercadoPagoSDK: 5d1640c248dc72ce9ccb1587017942ca062aca2e
+  MercadoPagoSDK: 52967018cbeb3a944ef686f42dadb995ea7f7f2b
 
-PODFILE CHECKSUM: d6cefa765f7a2b03f5120fd9c2aaff51df7917b4
+PODFILE CHECKSUM: 8a896d1ce4da55f0c2c422c1f685bdba47635474
 
 COCOAPODS: 1.1.1

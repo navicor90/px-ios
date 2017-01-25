@@ -170,6 +170,7 @@ class FirstTableViewController: UITableViewController {
     /// F3
     
     func startCheckout(){
+        MercadoPagoContext.setLanguage(language: MercadoPagoContext.languages.PORTUGUESE)
         let checkout = MPFlowBuilder.startCheckoutViewController(prefIdNoExlusions, callback: { (payment: Payment) in
             // Listo! El pago ya fue procesado por MP.
             // En el paso siguiente esta el metodo displayPaymentInfo
@@ -257,7 +258,7 @@ class FirstTableViewController: UITableViewController {
     } // crash
 
     func startPayerCost(){
-        
+        /*
         let payerCost = MPStepBuilder.startPayerCostForm(paymentMethod, issuer: issuer, token: nil, amount: amount, paymentPreference: nil, installment: nil, timer: nil, callback: { (payerCost:PayerCost?) in
         
             self.dismiss(animated: true, completion: {})
@@ -265,7 +266,7 @@ class FirstTableViewController: UITableViewController {
         }, callbackCancel: {})
         
         self.present(payerCost, animated: true, completion: {})
-        
+        */
 
     } // done
 

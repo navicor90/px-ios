@@ -33,8 +33,10 @@ open class PurchaseDetailTableViewCell: UITableViewCell {
     internal func fillCell(_ title : String, amount : Double, currency : Currency, payerCost : PayerCost? = nil){
         
         //Deafult values for cells
-        self.purchaseDetailTitle.attributedText = NSAttributedString(string: title.localized)
-        self.noRateLabel.attributedText = NSAttributedString(string : "")
+        self.purchaseDetailTitle.text = title.localized
+        self.purchaseDetailTitle.font = Utils.getFont(size: purchaseDetailTitle.font.pointSize)
+        self.noRateLabel.text = ""
+        self.noRateLabel.font = Utils.getFont(size: noRateLabel.font.pointSize)
         self.removeFromSuperview()
         var separatorLineHeight = CGFloat(54)
         
@@ -51,7 +53,7 @@ open class PurchaseDetailTableViewCell: UITableViewCell {
             let separatorLine = ViewUtils.getTableCellSeparatorLineView(21, y: separatorLineHeight, width: self.frame.width - 42, height: 1)
             self.addSubview(separatorLine)
         } else {
-            self.purchaseDetailAmount.attributedText = Utils.getAttributedAmount(amount, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : UIColor.grayDark(), fontSize : 18, centsFontSize: 12, baselineOffset : 5)
+            self.purchaseDetailAmount.attributedText = Utils.getAttributedAmount(amount, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : UIColor.px_grayDark(), fontSize : 18, centsFontSize: 12, baselineOffset : 5)
             let separatorLine = ViewUtils.getTableCellSeparatorLineView(21, y: separatorLineHeight, width: self.frame.width - 42, height: 1)
             self.addSubview(separatorLine)
         }
@@ -68,7 +70,7 @@ open class PurchaseDetailTableViewCell: UITableViewCell {
     }
     
     private func getInstallmentsAmount(payerCost : PayerCost) -> NSAttributedString {
-        return Utils.getTransactionInstallmentsDescription(payerCost.installments.description, installmentAmount: payerCost.installmentAmount, color: UIColor.grayBaseText(), fontSize : 24, baselineOffset : 8)
+        return Utils.getTransactionInstallmentsDescription(payerCost.installments.description, installmentAmount: payerCost.installmentAmount, color: UIColor.px_grayBaseText(), fontSize : 24, baselineOffset : 8)
 
     }
     

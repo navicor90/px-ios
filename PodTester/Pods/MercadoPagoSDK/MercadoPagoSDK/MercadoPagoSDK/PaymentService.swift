@@ -42,7 +42,7 @@ open class PaymentService : MercadoPagoService {
 
             params = params + "&amount=" + String(format:"%.2f", amount)
         if issuer_id != nil {
-            params = params + "&issuer_id=" + String(describing: issuer_id!)
+            params = params + "&issuer.id=" + String(describing: issuer_id!)
         }
         params = params + "&payment_method_id=" + payment_method_id
         self.request( uri: uri, params:params, body: nil, method: method, success: {(jsonResult: AnyObject?) -> Void in

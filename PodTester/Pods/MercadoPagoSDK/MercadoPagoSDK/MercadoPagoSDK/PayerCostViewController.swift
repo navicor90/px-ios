@@ -31,7 +31,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
     
     
     
-    public init(paymentMethod : PaymentMethod?,issuer : Issuer?,token : Token?, amount : Double?, paymentPreference: PaymentPreference? = nil, installment : Installment? = nil, timer: CountdownTimer? = nil,
+    public init(paymentMethod : PaymentMethod?,issuer : Issuer?,token : Token?, amount : Double?, paymentPreference: PaymentPreference? = nil, installment : Installment? = nil,
                 callback : @escaping ((_ payerCost: PayerCost) -> Void),
                 callbackCancel : ((Void) -> Void)? = nil) {
         super.init(nibName: "PayerCostViewController", bundle: self.bundle)
@@ -52,7 +52,6 @@ open class PayerCostViewController: MercadoPagoUIViewController {
 
         self.amount = amount
         self.issuer = issuer
-        self.timer = timer
 
     }
     
@@ -78,7 +77,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
             
             var titleDict: NSDictionary = [:]
             //Navigation bar colors
-            if let font = UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 18) {
+            if let font = UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: 18) {
                 titleDict = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: font]
             }
             
@@ -137,7 +136,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.complementaryColor()
+        self.view.backgroundColor = UIColor.primaryColor()
         tableView.tableFooterView = UIView()
         cardFront = CardFrontView(frame: self.cardView.bounds)
         cardFront?.autoresizingMask = [.flexibleWidth, .flexibleHeight]

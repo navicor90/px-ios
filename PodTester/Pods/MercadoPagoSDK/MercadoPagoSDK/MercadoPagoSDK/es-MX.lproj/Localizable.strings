@@ -172,7 +172,7 @@
 // PaymentTypes para RyC
 "ryc_title_default"=" en un ";
 "ryc_title_cargavirtual"=" en ";
-"ryc_title_redlink_bank_transfer"=" en tu";
+"ryc_title_redlink_bank_transfer"=" en tu ";
 "ryc_title_bancomer_bank_transfer"=" en tu ";
 "ryc_title_serfin_bank_transfer"=" en tu ";
 "ryc_title_banamex_bank_transfer"=" en tu ";

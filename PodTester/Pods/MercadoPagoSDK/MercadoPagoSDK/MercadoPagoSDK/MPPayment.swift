@@ -27,7 +27,6 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 open class MPPayment: NSObject {
     
     open var email : String!
@@ -37,28 +36,30 @@ open class MPPayment: NSObject {
     open var installments : Int = 0
     open var issuerId : String?
     open var tokenId : String?
-    
 
     init(email : String, preferenceId : String, publicKey : String, paymentMethodId : String, installments : Int = 0, issuerId : String = "", tokenId : String = "") {
-        self.email = email
         self.preferenceId = preferenceId
         self.publicKey = publicKey
         self.paymentMethodId = paymentMethodId
         self.installments = installments
         self.issuerId = issuerId
         self.tokenId = tokenId
+        self.email = email
     }
     
     open func toJSONString() -> String {
+        return JSONHandler.jsonCoding(toJSON())
+    }
+    
+    open func toJSON() -> [String:Any] {
         var obj:[String:Any] = [
             "public_key": self.publicKey,
-            "email": self.email,
             "payment_method_id": self.paymentMethodId,
             "pref_id" : self.preferenceId,
-        ]
+            ]
         
         if self.tokenId != nil && self.tokenId?.characters.count > 0 {
-                obj["token"] = self.tokenId!
+            obj["token"] = self.tokenId!
         }
         
         obj["installments"] = self.installments
@@ -67,7 +68,56 @@ open class MPPayment: NSObject {
             obj["issuer_id"] = self.issuerId
         }
         
-        return JSONHandler.jsonCoding(obj)
+        let payer = Payer(email : self.email)
+        obj["payer"] = payer.toJSON()
+        
+        return obj
+    }
+}
+
+open class CustomerPayment: MPPayment {
+    
+    open var customerId : String!
+    
+    init(email: String, preferenceId: String, publicKey: String, paymentMethodId: String, installments : Int = 0, issuerId : String = "", tokenId : String = "", customerId : String){
+        super.init(email: email, preferenceId: preferenceId, publicKey: publicKey, paymentMethodId: paymentMethodId, installments: installments, tokenId : tokenId)
+        self.customerId = customerId
     }
     
+    open override func toJSON() -> [String:Any] {
+        var customerPaymentObj : [String:Any] = super.toJSON()
+        // Override payer object
+        let payer = Payer(_id: customerId, email: self.email)
+        customerPaymentObj["payer"] = payer.toJSON()
+        return customerPaymentObj
+    }
+
+}
+
+open class BlacklabelPayment: MPPayment {
+    
+    open override func toJSON() -> [String:Any] {
+        var blacklabelPaymentObj : [String:Any] = super.toJSON()
+        // Override payer object with groupsPayer (which includes AT in its body)
+        let payer = GroupsPayer(email: self.email)
+        blacklabelPaymentObj["payer"] = payer.toJSON()
+        return blacklabelPaymentObj
+    }
+}
+
+
+open class MPPaymentFactory {
+    
+    open class func createMPPayment(email: String, preferenceId: String, publicKey: String, paymentMethodId: String, installments : Int = 0, issuerId : String = "", tokenId : String = "", customerId : String? = nil, isBlacklabelPayment : Bool) -> MPPayment {
+        
+        if !String.isNullOrEmpty(customerId) {
+            return CustomerPayment(email: email, preferenceId: preferenceId, publicKey: publicKey, paymentMethodId: paymentMethodId, installments: installments, issuerId : issuerId, tokenId : tokenId, customerId: customerId!)
+        } else if (isBlacklabelPayment) {
+            return BlacklabelPayment(email: email, preferenceId: preferenceId, publicKey: publicKey, paymentMethodId: paymentMethodId, installments: installments, issuerId : issuerId, tokenId : tokenId)
+        }
+        
+        return MPPayment(email: email, preferenceId: preferenceId, publicKey: publicKey, paymentMethodId: paymentMethodId, installments: installments, issuerId : issuerId, tokenId : tokenId)
+        
+    }
+
 }

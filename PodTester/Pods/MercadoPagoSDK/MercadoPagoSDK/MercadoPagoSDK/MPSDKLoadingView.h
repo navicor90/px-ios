@@ -15,9 +15,7 @@
 - (id)initWithBackgroundColor:(UIColor *)color;
 - (id)initWithBackgroundColor:(UIColor *)color loadingText:(NSString *)text;
 - (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color;
-
+- (id)initWithLoadingColor:(UIColor *)loadingColor;
 - (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color loadingText:(NSString *)text;
-
-@property (nonatomic, strong) UIImageView *spinner;
 
 @end

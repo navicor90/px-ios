@@ -23,7 +23,7 @@ open class IssuerCardViewController: MercadoPagoUIViewController {
     
     override open var screenName : String { get { return "CARD_ISSUER" } }
     
-    public init(paymentMethod: PaymentMethod,  cardToken: CardToken , issuerList: [Issuer]? = nil, timer : CountdownTimer? = nil, callback : @escaping (( _ issuer: Issuer) -> Void)) {
+    public init(paymentMethod: PaymentMethod,  cardToken: CardToken , issuerList: [Issuer]? = nil, callback : @escaping (( _ issuer: Issuer) -> Void)) {
         
         super.init(nibName: "IssuerCardViewController", bundle: MercadoPago.getBundle())
         
@@ -32,7 +32,6 @@ open class IssuerCardViewController: MercadoPagoUIViewController {
         self.callback = callback
         self.paymentMethod = paymentMethod
         self.issuerList = issuerList
-        self.timer = timer
         
     }
     
@@ -42,7 +41,7 @@ open class IssuerCardViewController: MercadoPagoUIViewController {
             
             
             //Navigation bar colors
-            let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 18) ?? UIFont.systemFont(ofSize: 18)]
+            let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: Utils.getFont(size: 18)]
             
             if self.navigationController != nil {
                 self.navigationController!.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]

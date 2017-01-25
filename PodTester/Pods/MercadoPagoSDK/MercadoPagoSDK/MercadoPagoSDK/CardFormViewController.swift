@@ -68,22 +68,23 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
             //Navigation bar colors
             var titleDict: NSDictionary = [:]
             //Navigation bar colors
-            if let fontChosed = UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 18) {
-                titleDict = [NSForegroundColorAttributeName: MercadoPagoContext.getTextColor(), NSFontAttributeName:fontChosed]
+            if let fontChosed = UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: 18) {
+                titleDict = [NSForegroundColorAttributeName: MercadoPagoContext.getDecorationPreference().getFontColor(), NSFontAttributeName:fontChosed]
             }
             
             if self.navigationController != nil {
                 self.navigationController!.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
                 self.navigationItem.hidesBackButton = true
                 self.navigationController!.interactivePopGestureRecognizer?.delegate = self
-                self.navigationController?.navigationBar.barTintColor = MercadoPagoContext.getPrimaryColor()
+                self.navigationController?.navigationBar.barTintColor = UIColor.primaryColor()
                 self.navigationController?.navigationBar.removeBottomLine()
                 self.navigationController?.navigationBar.isTranslucent = false
-                self.cardBackground.backgroundColor =  MercadoPagoContext.getComplementaryColor()
+                self.cardBackground.backgroundColor = UIColor.primaryColor()
                 
-                if self.timer == nil && cardFormManager.showBankDeals(){
+                if cardFormManager.showBankDeals(){
                     let promocionesButton : UIBarButtonItem = UIBarButtonItem(title: "Ver promociones".localized, style: UIBarButtonItemStyle.plain, target: self, action: #selector(CardFormViewController.verPromociones))
                     promocionesButton.tintColor = UIColor.systemFontColor()
+                    promocionesButton.setTitleTextAttributes([NSFontAttributeName: Utils.getFont(size: 20)], for: .normal)
                     self.navigationItem.rightBarButtonItem = promocionesButton
                 }
                 
@@ -94,12 +95,11 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
         
     }
     
-    public init(paymentSettings : PaymentPreference?, amount:Double!, token: Token? = nil, cardInformation : CardInformation? = nil, paymentMethods : [PaymentMethod]? = nil,  timer : CountdownTimer? = nil, callback : @escaping ((_ paymentMethod: [PaymentMethod], _ cardToken: CardToken?) -> Void), callbackCancel : ((Void) -> Void)? = nil) {
+    public init(paymentSettings : PaymentPreference?, amount:Double!, token: Token? = nil, cardInformation : CardInformation? = nil, paymentMethods : [PaymentMethod]? = nil, callback : @escaping ((_ paymentMethod: [PaymentMethod], _ cardToken: CardToken?) -> Void), callbackCancel : ((Void) -> Void)? = nil) {
         super.init(nibName: "CardFormViewController", bundle: MercadoPago.getBundle())
         self.cardFormManager = CardViewModelManager(amount: amount, paymentMethods: paymentMethods, customerCard: cardInformation, token: token, paymentSettings: paymentSettings)
         self.callbackCancel = callbackCancel
         self.callback = callback
-        self.timer = timer
     }
     
     override public init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -124,6 +124,17 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     open override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
+        
+        if self.navigationController != nil {
+            if self.timer == nil && cardFormManager.showBankDeals(){
+                let promocionesButton : UIBarButtonItem = UIBarButtonItem(title: "Ver promociones".localized, style: UIBarButtonItemStyle.plain, target: self, action: #selector(CardFormViewController.verPromociones))
+                promocionesButton.tintColor = UIColor.systemFontColor()
+                promocionesButton.setTitleTextAttributes([NSFontAttributeName: Utils.getFont(size: 20)], for: .normal)
+                self.navigationItem.rightBarButtonItem = promocionesButton
+            }
+        }
+
+        
         self.showNavBar()
         
         textBox.placeholder = "Número de tarjeta".localized
@@ -156,13 +167,12 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
                 
 
                 self.cardFormManager.paymentMethods = paymentMethods
-                
-                self.updateCardSkin()
-                
-                
+                self.getPromos()
             }) { (error) -> Void in
                 // Mensaje de error correspondiente, ver que hacemos con el flujo
             }
+        } else {
+            self.getPromos()
         }
         
         
@@ -209,6 +219,18 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
         
     }
     
+    private func getPromos(){
+        MPServicesBuilder.getPromos({(promos : [Promo]?) -> Void in
+            self.cardFormManager.promos = promos
+            self.updateCardSkin()
+        }, failure: { (error: NSError) in
+            // Si no se pudieron obtener promociones se ignora tal caso
+            CardFormViewController.showBankDeals = false
+            self.updateCardSkin()
+        })
+
+    }
+    
     func getCardWidth() -> CGFloat {
         let widthTotal = UIScreen.main.bounds.size.width * 0.70
         if widthTotal < 512 {
@@ -246,7 +268,7 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     
     
     open func verPromociones(){
-        self.navigationController?.present(UINavigationController(rootViewController: MPStepBuilder.startPromosStep()), animated: true, completion: {})
+        self.navigationController?.present(UINavigationController(rootViewController: MPStepBuilder.startPromosStep(promos : self.cardFormManager.promos)), animated: true, completion: {})
     }
     
     
@@ -456,7 +478,7 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
         let buttonPrev = UIBarButtonItem(title: "Anterior".localized, style: .plain, target: self, action: #selector(CardFormViewController.leftArrowKeyTapped))
         
         
-        let font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 14) ?? UIFont.systemFont(ofSize: 14)
+        let font = UIFont(name:MercadoPagoContext.getDecorationPreference().getFontName(), size: 14) ?? UIFont.systemFont(ofSize: 14)
         buttonNext.setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
         buttonPrev.setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
         

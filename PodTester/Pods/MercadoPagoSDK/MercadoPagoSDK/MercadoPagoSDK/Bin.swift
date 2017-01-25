@@ -30,6 +30,23 @@ open class BinMask : NSObject {
         }
         return binMask
     }
+    
+    open func toJSON() -> [String:Any] {
+        let exclusionPattern : Any = String.isNullOrEmpty(self.exclusionPattern) ?  JSONHandler.null : self.exclusionPattern!
+        let installmentsPattern : Any = self.installmentsPattern == nil ?  JSONHandler.null : self.installmentsPattern
+        let pattern : Any = self.pattern == nil ? JSONHandler.null : self.pattern
+        
+        let obj:[String:Any] = [
+            "pattern": pattern,
+            "installmentsPattern" : installmentsPattern,
+            "exclusionPattern" : exclusionPattern
+            ]
+        return obj
+    }
+    
+    open func toJSONString() -> String {
+        return JSONHandler.jsonCoding(self.toJSON())
+    }
 }
 
 

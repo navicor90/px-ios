@@ -9,9 +9,12 @@
 import UIKit
 
 class InstructionsSubtitleTableViewCell: UITableViewCell {
+    @IBOutlet weak var title: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        title.font = Utils.getFont(size: title.font.pointSize)
+
     }    
 }

@@ -23,8 +23,8 @@ class InstallmentSelectionTableViewCell: UITableViewCell {
     
     func fillCell(_ payerCost : PayerCost) {
         let mpLightGrayColor = UIColor(netHex: 0x999999)
-        let totalAttributes: [String:AnyObject] = [NSFontAttributeName : UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 23) ?? UIFont.systemFont(ofSize: 23),NSForegroundColorAttributeName:mpLightGrayColor]
-        let noRateAttributes = [NSForegroundColorAttributeName : UIColor(red: 67, green: 176,blue: 0), NSFontAttributeName : UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 13) ?? UIFont.systemFont(ofSize: 13)]
+        let totalAttributes: [String:AnyObject] = [NSFontAttributeName : Utils.getFont(size: 23),NSForegroundColorAttributeName:mpLightGrayColor]
+        let noRateAttributes = [NSForegroundColorAttributeName : UIColor(red: 67, green: 176,blue: 0), NSFontAttributeName : Utils.getFont(size: 13)]
         
         let additionalText = NSMutableAttributedString(string : "")
         if payerCost.installmentRate > 0 && payerCost.installments > 1 {

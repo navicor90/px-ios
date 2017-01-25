@@ -16,6 +16,7 @@ class ConfirmEmailTableViewCell: UITableViewCell {
         // Initialization code
     }
     func fillCell(payment: Payment, instruction: Instruction?) -> Void {
+        label.font = Utils.getFont(size: label.font.pointSize)
         if let instruction = instruction?.secondaryInfo?[0] {
             label.text = instruction
         } else if payment.status == "approved"{

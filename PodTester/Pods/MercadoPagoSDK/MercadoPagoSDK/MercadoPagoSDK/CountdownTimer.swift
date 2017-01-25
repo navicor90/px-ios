@@ -9,23 +9,36 @@
 import UIKit
 
 open class CountdownTimer: NSObject {
-
-    var timer : Timer!
+    
+    private static let instance = CountdownTimer()
+    
+    var timer : Timer?
     var secondsLeft = 0
     var timeoutCallback : ((Void) -> Void?)!
     weak var delegate : TimerDelegate!
     
-    public init(_ seconds : Int, timeoutCallback : @escaping (Void) -> Void){
-        super.init()
+    open func setup(seconds : Int, timeoutCallback : @escaping (Void) -> Void) {
         self.secondsLeft = seconds
         self.timeoutCallback = timeoutCallback
         
+        // Timer already created in older purchase trial
+        if self.timer != nil {
+            self.timer!.invalidate()
+        }
         
         self.timer = Timer.scheduledTimer(timeInterval: 1,
-                                          target: self,
-                                          selector: #selector(self.updateTimer),
-                                          userInfo: nil,
-                                          repeats: true)
+                                                    target: self,
+                                                    selector: #selector(self.updateTimer),
+                                                    userInfo: nil,
+                                                    repeats: true)
+    }
+    
+    open static func getInstance() -> CountdownTimer {
+        return CountdownTimer.instance
+    }
+    
+    open func hasTimer() -> Bool {
+        return self.timer != nil
     }
     
     open func updateTimer(){
@@ -33,12 +46,12 @@ open class CountdownTimer: NSObject {
         //print("timer retain count \(CFGetRetainCount(self))")
         
         guard let delegate = self.delegate  else {
-            self.timer.invalidate()
+            self.timer!.invalidate()
             return
         }
         secondsLeft -= 1
         delegate.updateTimer()
-    
+        
         if secondsLeft == 0 {
             stopTimer()
             timeoutCallback()
@@ -46,14 +59,15 @@ open class CountdownTimer: NSObject {
     }
     
     open func stopTimer() {
-        self.timer.invalidate()
+        self.timer?.invalidate()
+        self.timer = nil
     }
     
     open func getCurrentTiming() -> String {
         var hoursStr = "", minutesStr = "", secondsStr = ""
         
         var minutes = secondsLeft / 60
-        if minutes > 60 {
+        if minutes >= 60 {
             let hours = minutes / 60
             if hours < 10 {
                 hoursStr = "0"
@@ -79,11 +93,11 @@ open class CountdownTimer: NSObject {
     deinit {
         //print("Limpie el timer")
     }
-
+    
 }
 
 @objc public protocol TimerDelegate {
-
+    
     @objc func updateTimer()
-
+    
 }

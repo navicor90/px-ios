@@ -19,8 +19,11 @@ class RejectedTableViewCell: CallbackCancelTableViewCell {
         // Initialization code
         button.layer.cornerRadius = 3
         self.title.text = "¿Qué puedo hacer?".localized
+        self.title.font = Utils.getFont(size: self.title.font.pointSize)
+        self.subtitile.font = Utils.getFont(size: self.subtitile.font.pointSize)
         self.button.addTarget(self, action: #selector(invokeCallback), for: .touchUpInside)
         self.button.setTitle("Pagar con otro medio".localized, for: .normal)
+        self.button.titleLabel?.font = Utils.getFont(size: 16)
     }
 
     func fillCell (payment: Payment){

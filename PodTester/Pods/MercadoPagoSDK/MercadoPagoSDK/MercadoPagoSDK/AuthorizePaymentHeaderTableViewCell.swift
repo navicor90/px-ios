@@ -46,7 +46,7 @@ class AuthorizePaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDele
         let screenSize: CGRect = UIScreen.main.bounds
         constraintSize.width = screenSize.width - 46
         
-        let attributesTitle = [NSFontAttributeName: UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 22) ?? UIFont.systemFont(ofSize: 22)]
+        let attributesTitle = [NSFontAttributeName: Utils.getFont(size: 22)]
         
         let title = String(getTitle(payment, paymentMethod: paymentMethod).mutableString)
         
@@ -54,7 +54,7 @@ class AuthorizePaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDele
         
         let stringSizeTitle = frameTitle.size
         
-        let attributesSubtitle = [NSFontAttributeName: UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 14) ?? UIFont.systemFont(ofSize: 14)]
+        let attributesSubtitle = [NSFontAttributeName: Utils.getFont(size: 14)]
         let subtitle = "El teléfono está al dorso de tu tarjeta".localized
         
         let frameSubtitle = (subtitle as NSString).boundingRect(with: constraintSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributesSubtitle, context: nil)

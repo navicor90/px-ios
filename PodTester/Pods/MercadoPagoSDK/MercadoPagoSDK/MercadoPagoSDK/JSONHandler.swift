@@ -136,7 +136,7 @@ extension NSDictionary {
 
         var anyDict = [String: Any]()
         
-        for (value, key) in self {
+        for (key, value) in self {
             anyDict[key as! String] = value
         }
         return anyDict

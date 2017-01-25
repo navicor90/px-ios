@@ -127,7 +127,7 @@ open class InstructionsViewController: MercadoPagoUIViewController, UITableViewD
         
 
         let exitButtonCell =  self.congratsTable.dequeueReusableCell(withIdentifier: "exitButtonCell") as! ExitButtonTableViewCell
-        let attributes: [String:AnyObject] = [NSFontAttributeName : UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 14) ?? UIFont.systemFont(ofSize: 14),NSForegroundColorAttributeName: UIColor.UIColorFromRGB(0x0066CC)]
+        let attributes: [String:AnyObject] = [NSFontAttributeName : Utils.getFont(size: 14),NSForegroundColorAttributeName: UIColor.UIColorFromRGB(0x0066CC)]
 
         let title = NSAttributedString(string: "Seguir comprando".localized, attributes: attributes)
         exitButtonCell.exitButton.setAttributedTitle(title, for: UIControlState())
@@ -230,7 +230,7 @@ open class InstructionsViewController: MercadoPagoUIViewController, UITableViewD
     }
     
     fileprivate func getInstructions(){
-        MPServicesBuilder.getInstructions(payment._id, paymentTypeId : self.paymentTypeId!.rawValue.lowercased(), success: { (instructionsInfo : InstructionsInfo) -> Void in
+        MPServicesBuilder.getInstructions(for: payment._id, paymentTypeId : self.paymentTypeId!.rawValue.lowercased(), success: { (instructionsInfo : InstructionsInfo) -> Void in
             self.currentInstruction = instructionsInfo.instructions[0]
             self.amountInfo = instructionsInfo.amountInfo
             self.congratsTable.delegate = self

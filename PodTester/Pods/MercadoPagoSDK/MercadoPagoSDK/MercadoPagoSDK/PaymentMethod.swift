@@ -18,6 +18,12 @@ open class PaymentMethod : NSObject  {
     open var settings : [Setting]!
     open var additionalInfoNeeded : [String]!
     open var accreditationTime : Int? // [ms]
+    open var status : String!
+    open var secureThumbnail : String!
+    open var thumbnail : String!
+    open var deferredCapture : String!
+    open var minAllowedAmount : Double = 0
+    open var maxAllowedAmount : Double!
     
     public override init(){
         super.init()
@@ -67,13 +73,41 @@ open class PaymentMethod : NSObject  {
         let id : Any = String.isNullOrEmpty(self._id) ?  JSONHandler.null : self._id!
         let name : Any = self.name == nil ?  JSONHandler.null : self.name
         let payment_type_id : Any = self.paymentTypeId == nil ? JSONHandler.null : self.paymentTypeId
+        let status : Any = self.status == nil ? JSONHandler.null : self.status
+        let secureThumbnail : Any = self.secureThumbnail == nil ? JSONHandler.null : self.secureThumbnail
+        let thumbnail : Any = self.thumbnail == nil ? JSONHandler.null : self.thumbnail
+        let deferredCapture : Any = self.deferredCapture == nil ? JSONHandler.null : self.deferredCapture
+        let maxAllowedAmount : Any = self.maxAllowedAmount == nil ? JSONHandler.null : self.maxAllowedAmount
+        let accreditationTime : Any = self.accreditationTime == nil ? JSONHandler.null : self.accreditationTime!
         
-        let obj:[String:Any] = [
+        var obj:[String:Any] = [
             "id": id,
             "name" : name,
             "payment_type_id" : payment_type_id,
-            ]
+            "status" : status,
+            "secure_thumbnail" : secureThumbnail,
+            "thumbnail" : thumbnail,
+            "deferred_capture" : deferredCapture,
+            "max_allowed_amount" : maxAllowedAmount,
+            "min_allowed_amount" : self.minAllowedAmount,
+            "accreditation_time" : accreditationTime
+        ]
+        
+       var additionalInfoJson = ""
+        for info in self.additionalInfoNeeded {
+            additionalInfoJson.append(info + ",")
+        }
+        obj["additional_info_needed"] = String(additionalInfoJson.characters.dropLast())
+      
+        var settingsJson = " "
+        for setting in self.settings {
+            settingsJson.append(setting.toJSONString() + ",")
+        }
+        obj["settings"] = String(settingsJson.characters.dropLast())
+
+        
         return obj
+
     }
     
     
@@ -85,7 +119,35 @@ open class PaymentMethod : NSObject  {
 		if json["payment_type_id"] != nil && !(json["payment_type_id"]! is NSNull) {
 			paymentMethod.paymentTypeId = json["payment_type_id"] as! String
 		}
+        
+        if json["status"] != nil && !(json["status"]! is NSNull) {
+            paymentMethod.status = json["status"] as! String
+        }
 		
+        if json["secure_thumbnail"] != nil && !(json["secure_thumbnail"]! is NSNull) {
+            paymentMethod.secureThumbnail = json["secure_thumbnail"] as! String
+        }
+        
+        if json["thumbnail"] != nil && !(json["thumbnail"]! is NSNull) {
+            paymentMethod.thumbnail = json["thumbnail"] as! String
+        }
+        
+        if json["deferred_capture"] != nil && !(json["deferred_capture"]! is NSNull) {
+            paymentMethod.deferredCapture = json["deferred_capture"] as! String
+        }
+        
+        if json["max_allowed_amount"] != nil && !(json["max_allowed_amount"]! is NSNull) {
+            paymentMethod.maxAllowedAmount = json["max_allowed_amount"] as! Double
+        }
+        
+        if json["max_allowed_amount"] != nil && !(json["max_allowed_amount"]! is NSNull) {
+            paymentMethod.maxAllowedAmount = json["max_allowed_amount"] as! Double
+        }
+        
+        if json["min_allowed_amount"] != nil && !(json["min_allowed_amount"]! is NSNull) {
+            paymentMethod.minAllowedAmount = json["min_allowed_amount"] as! Double
+        }
+        
         var settings : [Setting] = [Setting]()
         if let settingsArray = json["settings"] as? NSArray {
             for i in 0..<settingsArray.count {
@@ -95,6 +157,7 @@ open class PaymentMethod : NSObject  {
             }
         }
         paymentMethod.settings = settings
+        
         var additionalInfoNeeded : [String] = [String]()
         if let additionalInfoNeededArray = json["additional_info_needed"] as? NSArray {
             for i in 0..<additionalInfoNeededArray.count {

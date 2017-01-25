@@ -36,6 +36,8 @@ class CardViewModelManager: NSObject {
     var cvvEmpty: Bool = true
     var cardholderNameEmpty: Bool = true
     
+    var promos : [Promo]?
+    
     init(amount : Double, paymentMethods : [PaymentMethod]?, paymentMethod : [PaymentMethod]? = nil, customerCard : CardInformation? = nil, token : Token? = nil, paymentSettings : PaymentPreference?){
         self.amount = amount
         self.paymentMethods = paymentMethods
@@ -229,11 +231,8 @@ class CardViewModelManager: NSObject {
             return true
         }
     }
+    
     func showBankDeals() -> Bool{
-        if MercadoPagoContext.getSite() == MercadoPagoContext.Site.MLA.rawValue{
-            return CardFormViewController.showBankDeals
-        } else {
-            return false
-        }
+        return !Array.isNullOrEmpty(self.promos) && CardFormViewController.showBankDeals
     }
 }
