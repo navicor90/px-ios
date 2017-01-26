@@ -277,7 +277,7 @@
 		<key>image_name</key>
 		<string>mediosBBVAProvincial</string>
 	</dict>
-	<key>mercantil</key>
+	<key>mercantil_atm</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosMercantil</string>
