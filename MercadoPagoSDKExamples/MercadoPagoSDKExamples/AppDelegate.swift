@@ -30,14 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //PERU
         
             //test
-        //MercadoPagoContext.setPublicKey("TEST-962a648a-959f-457c-a4df-a6fbe3f10c82")
+        MercadoPagoContext.setPublicKey("TEST-962a648a-959f-457c-a4df-a6fbe3f10c82")
         
             //produ
         
         //MercadoPagoContext.setPublicKey("APP_USR-d16a4b81-58d3-4167-8067-e12dd16b549a")
         
             //produ backend
-        MercadoPagoContext.setPublicKey("APP_USR-b2a01cb3-2f31-4ee8-bd65-d0d939a727bd")
+        //MercadoPagoContext.setPublicKey("APP_USR-b2a01cb3-2f31-4ee8-bd65-d0d939a727bd")
         
         
         
