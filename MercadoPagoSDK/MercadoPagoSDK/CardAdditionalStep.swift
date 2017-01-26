@@ -35,7 +35,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         var upperFrame = UIScreen.main.bounds
         upperFrame.origin.y = -upperFrame.size.height;
         let upperView = UIView(frame: upperFrame)
-        upperView.backgroundColor = MercadoPagoContext.getPrimaryColor()
+        upperView.backgroundColor = UIColor.primaryColor()
         tableView.addSubview(upperView)
         
         self.showNavBar()
@@ -88,7 +88,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
         if self.navigationController != nil {
             self.navigationController!.interactivePopGestureRecognizer?.delegate = self
             self.navigationController?.navigationBar.tintColor = UIColor(red: 255, green: 255, blue: 255)
-            self.navigationController?.navigationBar.barTintColor = MercadoPagoContext.getPrimaryColor()
+            self.navigationController?.navigationBar.barTintColor = UIColor.primaryColor()
             self.navigationController?.navigationBar.removeBottomLine()
             self.navigationController?.navigationBar.isTranslucent = false
             
@@ -151,7 +151,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "titleNib", for: indexPath as IndexPath) as! PayerCostTitleTableViewCell
             titleCell.selectionStyle = .none
             titleCell.setTitle(string: self.getNavigationBarTitle())
-            titleCell.backgroundColor = MercadoPagoContext.getPrimaryColor()
+            titleCell.backgroundColor = UIColor.primaryColor()
             self.titleCell = titleCell
             
             return titleCell
@@ -161,7 +161,7 @@ open class CardAdditionalStep: MercadoPagoUIScrollViewController, UITableViewDel
             cardCell.selectionStyle = .none
             cardCell.loadCard()
             cardCell.updateCardSkin(token: self.viewModel.token, paymentMethod: self.viewModel.paymentMethod[0])
-            cardCell.backgroundColor = MercadoPagoContext.getPrimaryColor()
+            cardCell.backgroundColor = UIColor.primaryColor()
             
             return cardCell
             

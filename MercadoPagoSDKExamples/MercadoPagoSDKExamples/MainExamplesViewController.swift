@@ -19,13 +19,17 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     //PERU
     //let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
     
+        //con mail y permisos
+    //let prefID = "241958103-0ef22ce4-94ba-4ad0-a457-64569917360d"
+
+    
     
     
     //URUGUAY
     //let prefID = "241113255-a6f9f812-6b92-48d0-9bb5-6f7f9f03740e"
     
         //con id
-    //let prefID = "241113255-fb7b6a3e-472d-48ee-9715-4795e61b70d2"
+    let prefID = "241113255-fb7b6a3e-472d-48ee-9715-4795e61b70d2"
     
     
     
@@ -35,7 +39,7 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     //let prefID = "241110424-00be5088-2ad07-4e2d-bfc9-78f4bffbc3c7"
     
         // Amount = 10000
-    let prefID = "241110424-155891fe-607e-424c-b85e-fe05b67b4ad9"
+    //let prefID = "241110424-155891fe-607e-424c-b85e-fe05b67b4ad9"
     
     
     

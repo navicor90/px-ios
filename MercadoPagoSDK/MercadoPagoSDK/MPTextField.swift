@@ -21,7 +21,7 @@ open class MPTextField: UITextField {
     override init(frame: CGRect){
         super.init(frame: frame)
         if(self.font != nil) {
-            self.font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: (self.font?.pointSize)!)
+            self.font = Utils.getFont(size: self.font!.pointSize)
             
         }
     }
@@ -29,7 +29,7 @@ open class MPTextField: UITextField {
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         if(self.font != nil) {
-            self.font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: (self.font?.pointSize)!)
+            self.font = Utils.getFont(size: self.font!.pointSize)
             
         }
     }

@@ -57,7 +57,7 @@ class OfflinePaymentMethodCell: UITableViewCell {
     internal func fillCell(_ paymentMethodMethodSearchItem : PaymentMethodSearchItem, amount : Double, paymentMethod : PaymentMethod, currency : Currency) {
         
         let attributedAmount = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.black)
-        let attributedTitle = NSMutableAttributedString(string : "Pagáras ".localized)
+        let attributedTitle = NSMutableAttributedString(string : "Pagáras ".localized, attributes: [NSFontAttributeName: Utils.getFont(size: 20)])
         attributedTitle.append(attributedAmount)
         
         var currentTitle = ""
@@ -68,17 +68,21 @@ class OfflinePaymentMethodCell: UITableViewCell {
             currentTitle = "ryc_title_default".localized
         }
         
-        attributedTitle.append(NSAttributedString(string : currentTitle))
+        attributedTitle.append(NSAttributedString(string : currentTitle, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
         
         let complementaryTitle = "ryc_complementary_" + paymentMethodMethodSearchItem.idPaymentMethodSearchItem
         if complementaryTitle.existsLocalized() {
-            attributedTitle.append(NSAttributedString(string : complementaryTitle.localized))
+            attributedTitle.append(NSAttributedString(string : complementaryTitle.localized, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
         }
-        attributedTitle.append(NSAttributedString(string : paymentMethodMethodSearchItem._description))
+
+        attributedTitle.append(NSAttributedString(string : paymentMethodMethodSearchItem._description, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
         
         self.paymentMethodDescription.attributedText = attributedTitle
         
-        self.acreditationTimeLabel.attributedText = NSMutableAttributedString(string: paymentMethodMethodSearchItem.comment!)
+        self.acreditationTimeLabel.attributedText = NSMutableAttributedString(string: paymentMethodMethodSearchItem.comment!, attributes: [NSFontAttributeName: Utils.getFont(size: 12)])
+        
+        self.changePaymentButton.titleLabel?.font = Utils.getFont(size: 18)
+        self.changePaymentButton.setTitle("Cambiar pago".localized, for: .normal)
     }
     
     

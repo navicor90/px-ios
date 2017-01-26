@@ -126,7 +126,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         upperFrame.origin.y = -upperFrame.size.height + 10;
         upperFrame.size.width = UIScreen.main.bounds.width
         let upperView = UIView(frame: upperFrame)
-        upperView.backgroundColor = MercadoPagoContext.getPrimaryColor()
+        upperView.backgroundColor = UIColor.primaryColor()
         collectionSearch.addSubview(upperView)
         
         if self.title == nil || self.title!.isEmpty {
@@ -171,7 +171,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
             temporalView.backgroundColor?.withAlphaComponent(0)
             temporalView.isUserInteractionEnabled = false
             self.view.addSubview(temporalView)
-            self.loadingInstance = LoadingOverlay.shared.showOverlay(temporalView, backgroundColor: MercadoPagoContext.getPrimaryColor())
+            self.loadingInstance = LoadingOverlay.shared.showOverlay(temporalView, backgroundColor: UIColor.primaryColor())
             self.view.bringSubview(toFront: self.loadingInstance!)
         }
         

@@ -21,38 +21,45 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-	return [self initWithFrame:frame backgroundColor:[UIColor whiteColor] loadingText:nil];
+	return [self initWithFrame:frame backgroundColor:[UIColor whiteColor] loadingText:nil loadingColor:nil];
 }
 
 - (id)initWithBackgroundColor:(UIColor *)color
 {
-	return [self initWithBackgroundColor:color loadingText:nil];
+    return [self initWithBackgroundColor:color loadingText:nil];
 }
 
 - (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color
 {
-	return [self initWithFrame:frame backgroundColor:color loadingText:nil];
+    return [self initWithFrame:frame backgroundColor:color loadingText:nil loadingColor:nil];
+}
+- (id)initWithLoadingColor:(UIColor *)loadingColor
+{
+    CGRect frame = [[UIScreen mainScreen] applicationFrame];
+    return [self initWithFrame:frame backgroundColor:nil loadingText:nil loadingColor:loadingColor];
 }
 
 - (id)initWithBackgroundColor:(UIColor *)color loadingText:(NSString *)text
 {
 	CGRect frame = [[UIScreen mainScreen] applicationFrame];
-	return [self initWithFrame:frame backgroundColor:color loadingText:text];
+	return [self initWithFrame:frame backgroundColor:color loadingText:text loadingColor:nil];
 }
 
-- (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color loadingText:(NSString *)text
+- (id)initWithFrame:(CGRect)frame backgroundColor:(UIColor *)color loadingText:(NSString *)text loadingColor:(UIColor *)loadingColor
 {
 	self = [super initWithFrame:frame];
 
 	if (self) {
 		self.tintColor = [UIColor blackColor];
-		self.backgroundColor = color ? color : UIColorFromRGB(0xEBEBF0);
+		self.backgroundColor = color ? color : UIColorFromRGB(0xFFFFFF);
 		self.accessibilityLabel = @"Loading";
 		self.opaque = YES;
 		self.alpha = 1;
 		self.tag = kLoadingViewTag;
 
-		MLSpinnerConfig *config = [[MLSpinnerConfig alloc] initWithSize:MLSpinnerSizeBig primaryColor:UIColorFromRGB(0x009EE3) secondaryColor:UIColorFromRGB(0x009EE3)];
+
+        MLSpinnerConfig *config = [[MLSpinnerConfig alloc] initWithSize:MLSpinnerSizeBig primaryColor:loadingColor? loadingColor : UIColorFromRGB(0x009EE3) secondaryColor:loadingColor? loadingColor : UIColorFromRGB(0x009EE3)];
+
 
 		self.spinner = [[MLSpinner alloc] initWithConfig:config text:text];
 

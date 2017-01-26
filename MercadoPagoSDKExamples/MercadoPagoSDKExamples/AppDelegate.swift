@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
             didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//<<<<<<< Updated upstream
     
         //ARGENTINA
         //MercadoPagoContext.setPublicKey("TEST-971766e1-383e-420f-9b69-cecd4c63d071")
@@ -33,11 +32,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MercadoPagoContext.setPublicKey("TEST-962a648a-959f-457c-a4df-a6fbe3f10c82")
         
             //produ
-        
         //MercadoPagoContext.setPublicKey("APP_USR-d16a4b81-58d3-4167-8067-e12dd16b549a")
+
+        
+        
+            //test con permisos
+        //MercadoPagoContext.setPublicKey("TEST-540bb6d1-44d5-4607-92bf-3075023f53a0")
+        
+            //produ con permisos
+        //MercadoPagoContext.setPublicKey("APP_USR-9fc1aacb-3558-421e-a7cc-b9ddc9a8d48a")
+        
+        
+        
         
             //produ backend
         //MercadoPagoContext.setPublicKey("APP_USR-b2a01cb3-2f31-4ee8-bd65-d0d939a727bd")
+        
+        
+        
+        
+        
         
         
         
@@ -47,14 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MercadoPagoContext.setPublicKey("TEST-e7b54e3e-f1a7-4518-868d-4a3e6d8b0b30")
         
             //produ
-        //MercadoPagoContext.setPublicKey("APP_USR-83c6e8f7-3b0e-4290-96a1-c222560a891c")
+        MercadoPagoContext.setPublicKey("APP_USR-83c6e8f7-3b0e-4290-96a1-c222560a891c")
         
         
         
         //COLOMBIA
         
             //test
-        MercadoPagoContext.setPublicKey("TEST-d661b2f9-3241-421d-bd9e-7d1a42b27d1c")
+        //MercadoPagoContext.setPublicKey("TEST-d661b2f9-3241-421d-bd9e-7d1a42b27d1c")
         
             //produ
         //MercadoPagoContext.setPublicKey("APP_USR-399e7628-3d81-423f-a7cf-5ad8341eb06e")
@@ -68,6 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
             //produ
         //MercadoPagoContext.setPublicKey("APP_USR-a865216a-a035-4629-8ec4-b1e1908b8b0d")
+       // MercadoPagoContext.setPublicKey("APP_USR-8e3869a6-638f-45cd-b5b7-267c8e6f2b09")
+        
 
         
         
@@ -80,15 +96,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
         //MercadoPagoContext.setPayerAccessToken("")
-//=======
      
         
         //MercadoPagoContext.setPayerAccessToken("APP_USR-1094487241196549-081708-4bc39f94fd147e7ce839c230c93261cb__LA_LC__-145698489")
-//>>>>>>> Stashed changes
         
      //   MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
 
         MercadoPagoContext.setDisplayDefaultLoading(flag: false)
+        
+        MercadoPagoContext.setLanguage(language: MercadoPagoContext.languages.SPANISH)
         
 //        let tracker = TrackerExample()
 //        
@@ -102,10 +118,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //Pinto de rojo el color primerio
 
-//        MercadoPagoContext.setupPrimaryColor(UIColor.black, complementaryColor: UIColor.black)
 
-        MercadoPagoContext.setLightTextColor()
-        MercadoPagoContext.setSite(MercadoPagoContext.Site.MLA)
+        //MercadoPagoContext.setupPrimaryColor(UIColor.black, complementaryColor: UIColor.black)
+        let decorationPreference = DecorationPreference()
+        decorationPreference.setBaseColor(hexColor: "#CA254D")
+        
+        MercadoPagoContext.setDecorationPreference(decorationPreference: decorationPreference)
         
         CardFormViewController.showBankDeals = true
         

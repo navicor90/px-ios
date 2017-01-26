@@ -38,15 +38,18 @@ class PurchaseItemDetailTableViewCell: UITableViewCell {
             self.itemImage.clipsToBounds = true
         }
         
-        self.itemTitle.attributedText = NSAttributedString(string: item.title)
+        self.itemTitle.text = item.title
+        self.itemTitle.font = Utils.getFont(size: itemTitle.font.pointSize)
+        self.itemDescription.font =  Utils.getFont(size: itemDescription.font.pointSize)
         if item._description != nil && item._description!.characters.count > 0 {
-          self.itemDescription.attributedText = NSAttributedString(string: item._description!)
+            self.itemDescription.text = item._description!
         } else {
-            self.itemDescription.attributedText = NSAttributedString(string: "")
+            self.itemDescription.text = ""
         }
-        self.itemQuantity.attributedText = NSAttributedString(string: "Cantidad : ".localized + String(item.quantity))
+        self.itemQuantity.text = "Cantidad : ".localized + String(item.quantity)
+        self.itemQuantity.font = Utils.getFont(size: itemQuantity.font.pointSize)
         let unitPrice = Utils.getAttributedAmount(item.unitPrice, thousandSeparator: currency.thousandsSeparator, decimalSeparator: currency.decimalSeparator, currencySymbol: currency.symbol, color : UIColor.px_grayDark(), fontSize : 18, baselineOffset: 5)
-        let unitPriceTitle = NSMutableAttributedString(string: "Precio Unitario : ".localized)
+        let unitPriceTitle = NSMutableAttributedString(string: "Precio Unitario : ".localized,  attributes: [NSFontAttributeName: Utils.getFont(size: self.itemQuantity.font.pointSize)])
         unitPriceTitle.append(unitPrice)
         self.itemUnitPrice.attributedText = unitPriceTitle
     }

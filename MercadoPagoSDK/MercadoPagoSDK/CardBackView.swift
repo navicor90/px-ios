@@ -47,6 +47,7 @@ import UIKit
         
       //  cardCVV.layer.addSublayer(shapeLayer)
         cardCVV.numberOfLines = 0
+        cardCVV.font = UIFont.systemFont(ofSize: cardCVV.font.pointSize)
         
     }
     

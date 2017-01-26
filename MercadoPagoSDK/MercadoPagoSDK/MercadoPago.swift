@@ -325,12 +325,23 @@ import UIKit
     open class func getImageForPaymentMethod(withDescription : String) -> UIImage?{
         let path = MercadoPago.getBundle()!.path(forResource: "PaymentMethodSearch", ofType: "plist")
         let dictPM = NSDictionary(contentsOfFile: path!)
+        var description = withDescription
         
-        guard let itemSelected = dictPM?.value(forKey: withDescription) as? NSDictionary else {
+        if description == "credit_card" || description == "account_money" || description == "prepaid_card" || description == "debit_card" || description == "bank_transfer" || description == "ticket" || description == "cards" {
+            description = UIColor.primaryColor() == UIColor.px_blueMercadoPago() ? description+"Azul" : description
+        }
+        
+        guard let itemSelected = dictPM?.value(forKey: description) as? NSDictionary else {
             return nil
         }
         
-        return MercadoPago.getImage(itemSelected.object(forKey: "image_name") as! String?)
+        let image = MercadoPago.getImage(itemSelected.object(forKey: "image_name") as! String?)
+        
+        if description == "credit_card" || description == "account_money" || description == "prepaid_card" || description == "debit_card" || description == "bank_transfer" || description == "ticket" || description == "cards" {
+            return image?.imageWithOverlayTint(tintColor: UIColor.primaryColor())
+        } else {
+            return image
+        }
         
     }
     

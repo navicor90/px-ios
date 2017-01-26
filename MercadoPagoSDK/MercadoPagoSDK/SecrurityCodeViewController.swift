@@ -16,6 +16,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
     
     @IBOutlet weak var panelView: UIView!
     var viewModel : SecrurityCodeViewModel!
+    @IBOutlet weak var button: UIButton!
     var textMaskFormater : TextMaskFormater!
     var cardFront : CardFrontView!
     var cardBack : CardBackView!
@@ -28,10 +29,11 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
         super.viewDidLoad()
          self.hideNavBar()
         loadMPStyles()
+        self.button.setTitle("Continuar".localized,for: .normal)
         self.errorLabel.alpha = 0
         self.securityCodeTextField.placeholder = "security_code".localized
         self.errorLabel.text = "Revisa este dato".localized
-        self.view.backgroundColor = MercadoPagoContext.getPrimaryColor()
+        self.view.backgroundColor = UIColor.primaryColor()
         self.cardFront = CardFrontView.init(frame: viewModel.getCardBounds())
         self.cardBack = CardBackView.init(frame: viewModel.getCardBounds())
         if (viewModel.showFrontCard()){
@@ -75,6 +77,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         securityCodeTextField.becomeFirstResponder()
+        self.button.titleLabel?.font = Utils.getFont(size: 16)
         
        
     }
@@ -87,7 +90,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
         if self.navigationController != nil {
             self.navigationController!.interactivePopGestureRecognizer?.delegate = self
             self.navigationController?.navigationBar.tintColor = UIColor(red: 255, green: 255, blue: 255)
-            self.navigationController?.navigationBar.barTintColor = MercadoPagoContext.getPrimaryColor()
+            self.navigationController?.navigationBar.barTintColor = UIColor.primaryColor()
             self.navigationController?.navigationBar.removeBottomLine()
             self.navigationController?.navigationBar.isTranslucent = false
             

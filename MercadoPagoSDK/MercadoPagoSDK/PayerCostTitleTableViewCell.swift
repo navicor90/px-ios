@@ -11,15 +11,16 @@ import UIKit
 class PayerCostTitleTableViewCell: UITableViewCell, TitleCellScrollable {
     
     internal func updateTitleFontSize(toSize: CGFloat) {
-        self.title.font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: toSize) ?? UIFont.systemFont(ofSize: toSize)
+        self.title.font = Utils.getFont(size: toSize)
     }
 
     @IBOutlet weak var cell: UIView!
     @IBOutlet weak var title: UILabel!
     func setTitle(string: String!){
         title.text = string
+        title.font = Utils.getFont(size: title.font.pointSize)
         title.textColor = UIColor.systemFontColor()
-        cell.backgroundColor = MercadoPagoContext.getPrimaryColor()
+        cell.backgroundColor = UIColor.primaryColor()
     }
     override func awakeFromNib() {
         super.awakeFromNib()

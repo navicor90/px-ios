@@ -27,7 +27,8 @@ class PurchaseSimpleDetailTableViewCell: UITableViewCell {
     internal func fillCell(_ title : String, amount : Double, currency : Currency, payerCost : PayerCost? = nil, addSeparatorLine : Bool = true){
         
         //Deafult values for cells
-        self.titleLabel.attributedText = NSAttributedString(string: title)
+        self.titleLabel.text = title
+        self.titleLabel.font = Utils.getFont(size: titleLabel.font.pointSize)
         self.removeFromSuperview()
         if payerCost != nil {
             let purchaseAmount = getInstallmentsAmount(payerCost: payerCost!)

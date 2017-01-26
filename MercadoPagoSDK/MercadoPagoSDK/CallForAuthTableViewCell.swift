@@ -18,6 +18,8 @@ class CallForAuthTableViewCell: CallbackCancelTableViewCell {
         self.button.addTarget(self, action: #selector(invokeCallback), for: .touchUpInside)
         self.button.titleLabel?.numberOfLines = 0
         self.button.titleLabel?.textAlignment = NSTextAlignment.center
+        self.button.titleLabel?.font = Utils.getFont(size: 16)
+
         // Initialization code
     }
     func fillCell(paymentMehtod: PaymentMethod){
@@ -27,5 +29,7 @@ class CallForAuthTableViewCell: CallbackCancelTableViewCell {
         }
         title.text = "¿Qué puedo hacer?".localized
         subtitle.text = "El teléfono está al dorso de tu tarjeta.".localized
+        self.title.font = Utils.getFont(size: self.title.font.pointSize)
+        self.subtitle.font = Utils.getFont(size: self.subtitle.font.pointSize)
     }
 }

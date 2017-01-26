@@ -77,9 +77,12 @@ open class PaymentMethodSearchService: MercadoPagoService {
             ]
             groupsPayerBody = JSONHandler.jsonCoding(groupsPayerBodyJson) as AnyObject?
         }
-
         
-        self.request(uri: MP_SEARCH_PAYMENTS_URI, params: params, body: groupsPayerBody, method: "POST", cache: false , success: { (jsonResult) -> Void in
+        let headers = NSMutableDictionary()
+        headers.setValue(MercadoPagoContext.getLanguage() , forKey: "Accept-Language")
+       
+        
+        self.request(uri: MP_SEARCH_PAYMENTS_URI, params: params, body: groupsPayerBody, method: "POST", headers: headers, cache: false, success: { (jsonResult) -> Void in
             
             if let paymentSearchDic = jsonResult as? NSDictionary {
                 if paymentSearchDic["error"] != nil {

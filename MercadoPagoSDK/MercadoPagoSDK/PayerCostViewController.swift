@@ -77,7 +77,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
             
             var titleDict: NSDictionary = [:]
             //Navigation bar colors
-            if let font = UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 18) {
+            if let font = UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: 18) {
                 titleDict = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: font]
             }
             
@@ -136,7 +136,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.complementaryColor()
+        self.view.backgroundColor = UIColor.primaryColor()
         tableView.tableFooterView = UIView()
         cardFront = CardFrontView(frame: self.cardView.bounds)
         cardFront?.autoresizingMask = [.flexibleWidth, .flexibleHeight]

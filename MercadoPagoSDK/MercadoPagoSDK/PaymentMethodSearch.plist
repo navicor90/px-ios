@@ -7,30 +7,60 @@
 		<key>image_name</key>
 		<string>mediosIconoTarjeta</string>
 	</dict>
+	<key>prepaid_cardAzul</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosIconoTarjetaAzul</string>
+	</dict>
 	<key>debit_card</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosIconoTarjeta</string>
+	</dict>
+	<key>debit_cardAzul</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosIconoTarjetaAzul</string>
 	</dict>
 	<key>bank_transfer</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosIconoTrasnferencia</string>
 	</dict>
+	<key>bank_transferAzul</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosIconoTrasnferenciaAzul</string>
+	</dict>
 	<key>credit_card</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosIconoTarjeta</string>
+	</dict>
+	<key>credit_cardAzul</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosIconoTarjetaAzul</string>
 	</dict>
 	<key>cards</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosIconoTarjeta</string>
 	</dict>
+	<key>cardsAzul</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosIconoTarjetaAzul</string>
+	</dict>
 	<key>ticket</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosIconoEfectivo</string>
+	</dict>
+	<key>ticketAzul</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosIconoEfectivoAzul</string>
 	</dict>
 	<key>bapropagos</key>
 	<dict>
@@ -212,12 +242,12 @@
 		<key>image_name</key>
 		<string>mediosKasnet</string>
 	</dict>
-	<key>pagoefectivo_atm_banbif_ticket</key>
+	<key>pagoefectivo_atm_banbif_bank_transfer</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosBanbif</string>
 	</dict>
-	<key>pagoefectivo_atm</key>
+	<key>pagoefectivo_atm_pagoefectivo_atm</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosPagoEfectivo</string>
@@ -248,6 +278,11 @@
 		<string>mediosBBVAProvincial</string>
 	</dict>
 	<key>mercantil</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosMercantil</string>
+	</dict>
+	<key>mercantil_bank_transfer</key>
 	<dict>
 		<key>image_name</key>
 		<string>mediosMercantil</string>

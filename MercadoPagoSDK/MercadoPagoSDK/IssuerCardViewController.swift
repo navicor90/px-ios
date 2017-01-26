@@ -41,7 +41,7 @@ open class IssuerCardViewController: MercadoPagoUIViewController {
             
             
             //Navigation bar colors
-            let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 18) ?? UIFont.systemFont(ofSize: 18)]
+            let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: Utils.getFont(size: 18)]
             
             if self.navigationController != nil {
                 self.navigationController!.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]

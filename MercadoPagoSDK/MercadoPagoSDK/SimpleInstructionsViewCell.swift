@@ -43,7 +43,7 @@ class SimpleInstructionsViewCell: UITableViewCell, InstructionsFillmentDelegate 
         let screenSize: CGRect = UIScreen.main.bounds
         constraintSize.width = screenSize.width - 30
         
-        let attributes = [NSFontAttributeName: UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 22) ?? UIFont.systemFont(ofSize: 22)]
+        let attributes = [NSFontAttributeName: Utils.getFont(size: 22)]
         
         let frame = (instruction.references[0].getFullReferenceValue() as NSString).boundingRect(with: constraintSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)
         

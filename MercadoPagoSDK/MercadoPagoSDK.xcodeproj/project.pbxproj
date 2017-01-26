@@ -318,6 +318,8 @@
 		15EEE1D91D89D477004D3A19 /* CardViewModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EEE1D81D89D477004D3A19 /* CardViewModelManager.swift */; };
 		15FCA7901C84993B00D9E8CE /* PaymentMethodImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */; };
 		15FCA7911C84993B00D9E8CE /* PaymentMethodImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */; };
+		4B2823941E2E4536004C02E9 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2823931E2E4536004C02E9 /* UIImage+Additions.swift */; };
+		4B2823951E2E82B1004C02E9 /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2823931E2E4536004C02E9 /* UIImage+Additions.swift */; };
 		4B62AC281DD005B500D668DA /* InstructionBodyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B62AC261DD005B500D668DA /* InstructionBodyTableViewCell.swift */; };
 		4B62AC291DD005B500D668DA /* InstructionBodyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B62AC271DD005B500D668DA /* InstructionBodyTableViewCell.xib */; };
 		4B762E961DCF7DDE00694336 /* InstructionsSubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B762E941DCF7DDE00694336 /* InstructionsSubtitleTableViewCell.swift */; };
@@ -352,6 +354,10 @@
 		4BAE1D531DCBE9340000ED5C /* ConfirmEmailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BAE1D4F1DCBE9340000ED5C /* ConfirmEmailTableViewCell.xib */; };
 		4BAE1D541DCBE9340000ED5C /* CongratsRevampViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAE1D501DCBE9340000ED5C /* CongratsRevampViewController.swift */; };
 		4BAE1D551DCBE9340000ED5C /* CongratsRevampViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BAE1D511DCBE9340000ED5C /* CongratsRevampViewController.xib */; };
+		4BE51C201E2CFEC6004E5F7D /* DecorationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE51C1F1E2CFEC6004E5F7D /* DecorationPreference.swift */; };
+		4BFAC0FC1E2E8A0D005EB383 /* DecorationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE51C1F1E2CFEC6004E5F7D /* DecorationPreference.swift */; };
+		4BFAC0FE1E2E8A6C005EB383 /* DecorationPreferenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAC0FD1E2E8A6C005EB383 /* DecorationPreferenceTest.swift */; };
+		4BC4EA031E007ABB0066D6F9 /* PaymentMethod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4BC4EA021E007ABB0066D6F9 /* PaymentMethod.plist */; };
 		76062BC41C4D1EFD0067A14B /* PaymentMethodSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76062BC31C4D1EFD0067A14B /* PaymentMethodSearch.swift */; };
 		76062BC51C4D1EFD0067A14B /* PaymentMethodSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76062BC31C4D1EFD0067A14B /* PaymentMethodSearch.swift */; };
 		76062BC71C4D1F220067A14B /* PaymentMethodSearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76062BC61C4D1F220067A14B /* PaymentMethodSearchItem.swift */; };
@@ -858,6 +864,8 @@
 		15EEE1D81D89D477004D3A19 /* CardViewModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModelManager.swift; sourceTree = "<group>"; };
 		15FCA78E1C84993B00D9E8CE /* PaymentMethodImageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodImageViewCell.swift; sourceTree = "<group>"; };
 		15FCA78F1C84993B00D9E8CE /* PaymentMethodImageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodImageViewCell.xib; sourceTree = "<group>"; };
+		4B2823931E2E4536004C02E9 /* UIImage+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
+		4B241A991E01A7E00059640C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4B62AC261DD005B500D668DA /* InstructionBodyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionBodyTableViewCell.swift; sourceTree = "<group>"; };
 		4B62AC271DD005B500D668DA /* InstructionBodyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InstructionBodyTableViewCell.xib; sourceTree = "<group>"; };
 		4B762E941DCF7DDE00694336 /* InstructionsSubtitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsSubtitleTableViewCell.swift; sourceTree = "<group>"; };
@@ -892,6 +900,9 @@
 		4BAE1D4F1DCBE9340000ED5C /* ConfirmEmailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmEmailTableViewCell.xib; sourceTree = "<group>"; };
 		4BAE1D501DCBE9340000ED5C /* CongratsRevampViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CongratsRevampViewController.swift; sourceTree = "<group>"; };
 		4BAE1D511DCBE9340000ED5C /* CongratsRevampViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CongratsRevampViewController.xib; sourceTree = "<group>"; };
+		4BE51C1F1E2CFEC6004E5F7D /* DecorationPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecorationPreference.swift; sourceTree = "<group>"; };
+		4BFAC0FD1E2E8A6C005EB383 /* DecorationPreferenceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecorationPreferenceTest.swift; sourceTree = "<group>"; };
+		4BC4EA021E007ABB0066D6F9 /* PaymentMethod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PaymentMethod.plist; path = MercadoPagoSDK/PaymentMethod.plist; sourceTree = "<group>"; };
 		76062BC31C4D1EFD0067A14B /* PaymentMethodSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodSearch.swift; sourceTree = "<group>"; };
 		76062BC61C4D1F220067A14B /* PaymentMethodSearchItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodSearchItem.swift; sourceTree = "<group>"; };
 		76062BC91C4D1F450067A14B /* PaymentMethodSearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodSearchService.swift; sourceTree = "<group>"; };
@@ -1099,6 +1110,7 @@
 		0F9883001AD2A97A00F750F0 = {
 			isa = PBXGroup;
 			children = (
+
 				762B57381E008DEB00EF3EE4 /* PaymentMethod.plist */,
 				4BAA56071DB6861400501061 /* Images.xcassets */,
 				0F0749081AED5BAE003DD39D /* Localizable.strings */,
@@ -1192,6 +1204,7 @@
 				766012E11CEB963300897F9D /* MPSDKError.swift */,
 				4BAA56211DB6B13B00501061 /* CardInfo.swift */,
 				7619E9441DF1B5D300CEFAC1 /* PaymentOptionDrawable.swift */,
+				4BE51C1F1E2CFEC6004E5F7D /* DecorationPreference.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1244,6 +1257,7 @@
 				0F9883B91AD2AD1600F750F0 /* UIColor+Additions.swift */,
 				76445AD31CC6BDDD008EE68E /* CALayer+Additions.swift */,
 				CC8AA14F1DC5612300503910 /* UILabel+Additions.swift */,
+				4B2823931E2E4536004C02E9 /* UIImage+Additions.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -1937,6 +1951,7 @@
 				76EC47F91C862A030086FA53 /* SettingTest.swift */,
 				76EC47FB1C862A160086FA53 /* TokenTest.swift */,
 				76EC47FD1C862A600086FA53 /* TransactionDetailsTest.swift */,
+				4BFAC0FD1E2E8A6C005EB383 /* DecorationPreferenceTest.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2544,6 +2559,7 @@
 				0F9883851AD2AB6000F750F0 /* PayerCost.swift in Sources */,
 				76445AF31CCAC981008EE68E /* OfflinePaymentMethodWithDescriptionCell.swift in Sources */,
 				0FC4FC2D1B0FB32400CF7148 /* PromoEmptyTableViewCell.swift in Sources */,
+				4BE51C201E2CFEC6004E5F7D /* DecorationPreference.swift in Sources */,
 				15DF3F831D6347BF0051C798 /* TextMaskFormater.swift in Sources */,
 				76943ED91D51405E00358442 /* InstructionsInfo.swift in Sources */,
 				0F9884291AD2AE3100F750F0 /* NewCardViewController.swift in Sources */,
@@ -2571,6 +2587,7 @@
 				0F9883B51AD2AD0C00F750F0 /* Regex.swift in Sources */,
 				0F98837F1AD2AB6000F750F0 /* MerchantPayment.swift in Sources */,
 				0FC4FC3F1B0FB83700CF7148 /* PromosTyCViewController.swift in Sources */,
+				4B2823941E2E4536004C02E9 /* UIImage+Additions.swift in Sources */,
 				76B085141CE366D600C157BF /* ApprovedPaymentHeaderTableViewCell.swift in Sources */,
 				76445AEE1CCA7334008EE68E /* MockBuilder.swift in Sources */,
 				0FC4FC181B0FAA6400CF7148 /* Promo.swift in Sources */,
@@ -2668,6 +2685,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B2823951E2E82B1004C02E9 /* UIImage+Additions.swift in Sources */,
+				4BFAC0FC1E2E8A0D005EB383 /* DecorationPreference.swift in Sources */,
 				7652F43B1D78A2D4006022AF /* TextMaskFormater.swift in Sources */,
 				15904D5F1E0976D200B3B9FD /* MLSpinner.m in Sources */,
 				15904D5B1E09769700B3B9FD /* MPSDKLoadingView.m in Sources */,
@@ -2675,6 +2694,7 @@
 				0F98838C1AD2AB6000F750F0 /* PaymentMethodRow.swift in Sources */,
 				7622E3271DF5EEFE00490C4E /* PayerCostRowTableViewCell.swift in Sources */,
 				1565B1311CBFD7F100181998 /* GuessingFormTest.swift in Sources */,
+				4BFAC0FE1E2E8A6C005EB383 /* DecorationPreferenceTest.swift in Sources */,
 				76062BCB1C4D1F450067A14B /* PaymentMethodSearchService.swift in Sources */,
 				76CD120A1D6F308E0052350D /* AmountInfo.swift in Sources */,
 				767C9CD41E266BF000BB4662 /* ExtensionsTest.swift in Sources */,
@@ -2951,6 +2971,7 @@
 				0F07490A1AED5BBB003DD39D /* es */,
 				0F07490B1AED5BC0003DD39D /* es-MX */,
 				0F07490C1AED5BD3003DD39D /* es-CO */,
+				4B241A991E01A7E00059640C /* en */,
 			);
 			name = Localizable.strings;
 			path = MercadoPagoSDK;

@@ -37,7 +37,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     override func loadMPStyles(){
         var titleDict : NSDictionary = [:]
         if self.navigationController != nil {
-            if let font = UIFont(name: MercadoPago.DEFAULT_FONT_NAME, size: 18){
+            if let font = UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: 18){
                 titleDict = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: font]
             }
             if self.navigationController != nil {
@@ -45,7 +45,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
                 self.navigationItem.hidesBackButton = true
                 self.navigationController!.interactivePopGestureRecognizer?.delegate = self
                 self.navigationController?.navigationBar.tintColor = UIColor.px_white()
-                self.navigationController?.navigationBar.barTintColor =  UIColor.primaryColor()
+                self.navigationController?.navigationBar.barTintColor = UIColor.primaryColor()
                 self.navigationController?.navigationBar.removeBottomLine()
                 self.navigationController?.navigationBar.isTranslucent = false
                 displayBackButton()
@@ -66,7 +66,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         let doneButton = UIBarButtonItem(title: "OK".localized, style: .plain, target: self, action: #selector(IdentificationViewController.donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         
-        if let font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 14) {
+        if let font = UIFont(name:MercadoPagoContext.getDecorationPreference().getFontName(), size: 14) {
             doneButton.setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
           }
 
@@ -119,7 +119,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         self.tipoDeDocumentoLabel.text =  "DOCUMENTO DEL TITULAR DE LA TARJETA".localized
         self.numberTextField.placeholder = "Número".localized
         self.textField.placeholder = "Tipo".localized
-        self.view.backgroundColor = UIColor.complementaryColor()
+        self.view.backgroundColor = UIColor.primaryColor()
         numberTextField.autocorrectionType = UITextAutocorrectionType.no
         numberTextField.keyboardType = UIKeyboardType.numberPad
         numberTextField.addTarget(self, action: #selector(IdentificationViewController.editingChanged(_:)), for: UIControlEvents.editingChanged)
@@ -198,7 +198,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         let buttonNext = UIBarButtonItem(title: "Continuar".localized, style: .done, target: self, action: #selector(CardFormViewController.rightArrowKeyTapped))
         let buttonPrev = UIBarButtonItem(title: "Anterior".localized, style: .plain, target: self, action: #selector(CardFormViewController.leftArrowKeyTapped))
         
-        let font = UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 14) ?? UIFont.systemFont(ofSize: 14)
+        let font = Utils.getFont(size: 14)
         buttonNext.setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
         buttonPrev.setTitleTextAttributes([NSFontAttributeName: font], for: .normal)
         
@@ -301,6 +301,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         }
         
         //PERU
+        else if (self.identificationType!.name == "C.E"){
+            self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: true)
+        }
         else if (self.identificationType!.name == "RUC"){
             self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: true)
         }
