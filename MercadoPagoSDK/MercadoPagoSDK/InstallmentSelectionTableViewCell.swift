@@ -40,7 +40,7 @@ class InstallmentSelectionTableViewCell: UITableViewCell {
             }
         }
         
-        self.installmentsDescription.attributedText =  Utils.getTransactionInstallmentsDescription(payerCost.installments.description, installmentAmount: payerCost.installmentAmount, additionalString: additionalText)
+        self.installmentsDescription.attributedText =  Utils.getTransactionInstallmentsDescription(payerCost.installments.description,currency: MercadoPagoContext.getCurrency(), installmentAmount: payerCost.installmentAmount, additionalString: additionalText)
         
     }
 }

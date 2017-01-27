@@ -21,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
             didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        //SET SITE
+        MercadoPagoContext.setSite(MercadoPagoContext.Site.MPE)
+        
+        
     
         //ARGENTINA
         //MercadoPagoContext.setPublicKey("TEST-971766e1-383e-420f-9b69-cecd4c63d071")
