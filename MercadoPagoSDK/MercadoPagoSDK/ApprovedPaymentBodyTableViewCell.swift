@@ -74,7 +74,7 @@ class ApprovedPaymentBodyTableViewCell: CallbackCancelTableViewCell, CongratsFil
         }
         
         if payment.transactionDetails != nil && payment.transactionDetails.installmentAmount > 0 {
-            self.amountDescription.attributedText = Utils.getTransactionInstallmentsDescription(String(payment.installments), installmentAmount: payment.transactionDetails.installmentAmount, additionalString: additionalString)
+            self.amountDescription.attributedText = Utils.getTransactionInstallmentsDescription(String(payment.installments),currency: MercadoPagoContext.getCurrency(), installmentAmount: payment.transactionDetails.installmentAmount, additionalString: additionalString)
         } else {
             self.amountDescription.isHidden = true
         }

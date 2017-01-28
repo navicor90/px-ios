@@ -73,15 +73,27 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
         return  "iOS"
     }
     open func sdkVersion() -> String!{
-        return "2.2.7"
+        return "2.2.9"
     }
  
     static let siteIdsSettings : [String : NSDictionary] = [
+        //Argentina
         "MLA" : ["language" : "es", "currency" : "ARS","termsconditions" : "https://www.mercadopago.com.ar/ayuda/terminos-y-condiciones_299"],
+        //Brasil
         "MLB" : ["language" : "pt", "currency" : "BRL","termsconditions" : "https://www.mercadopago.com.br/ajuda/termos-e-condicoes_300"],
+        //Chile
         "MLC" : ["language" : "es", "currency" : "CLP","termsconditions" : "https://www.mercadopago.com.co/ayuda/terminos-y-condiciones_299"],
-        "MLM" : ["language" : "es-MX", "currency" : "MXN","termsconditions" : "https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones_715"]
-     ]
+        //Mexico
+        "MLM" : ["language" : "es-MX", "currency" : "MXN","termsconditions" : "https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones_715"],
+        //Peru
+        "MPE" : ["language" : "es", "currency" : "PEN","termsconditions" : "https://www.mercadopago.com.pe/ayuda/terminos-y-condiciones_715"],
+        //Uruguay
+        "MLU" : ["language" : "es", "currency" : "UYU","termsconditions" : "https://www.mercadopago.com.uy/ayuda/terminos-y-condiciones_715"],
+        //Colombia
+        "MCO" : ["language" : "es", "currency" : "COP","termsconditions" : "https://www.mercadopago.com.co/ayuda/terminos-y-condiciones_715"],
+        //Venezuela
+        "MLV" : ["language" : "es", "currency" : "VEF","termsconditions" : "https://www.mercadopago.com.ve/ayuda/terminos-y-condiciones_715"]
+    ]
 
     public enum Site : String {
         case MLA = "MLA"
@@ -94,17 +106,37 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
         case MCO = "MCO"
     }
     
-    public enum languages : String {
-        case SPANISH = "es"
-        case SPANISH_MEXICO = "es-MX"
-        case SPANISH_COLOMBIA = "es-CO"
-        case SPANISH_URUGUAY = "es-UY"
-        case SPANISH_PERU = "es-PE"
-        case SPANISH_VENEZUELA = "es-VE"
-        case PORTUGUESE = "pt"
+
+    
+    @objc public enum Languages : Int {
+        case _SPANISH
+        case _SPANISH_MEXICO
+        /*
+        case _SPANISH_COLOMBIA
+        case _SPANISH_URUGUAY
+        case _SPANISH_PERU
+        case _SPANISH_VENEZUELA
+ */
+        case _PORTUGUESE
+        case _ENGLISH
+        
+        func langPrefix() -> String {
+            switch self {
+            case ._SPANISH : return "es"
+            case ._SPANISH_MEXICO : return "es-MX"
+                /*
+            case ._SPANISH_COLOMBIA : return "es-CO"
+            case ._SPANISH_URUGUAY : return "es-UY"
+            case ._SPANISH_PERU : return "es-PE"
+            case ._SPANISH_VENEZUELA : return "es-VE"
+                 */
+            case ._PORTUGUESE : return "pt"
+            case ._ENGLISH : return "en"
+            }
+        }
+        
+        
     }
-    
-    
     
     open func siteId() -> String! {
         return site.rawValue
@@ -143,8 +175,8 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
     open static func getTrackListener() -> MPTrackListener? {
         return sharedInstance.trackListener
     }
-    open static func setLanguage(language: languages) -> Void {
-        sharedInstance.language = language.rawValue
+    open static func setLanguage(language: Languages) -> Void {
+        sharedInstance.language = language.langPrefix()
     }
     open static func getLanguage() -> String {
         return sharedInstance.language

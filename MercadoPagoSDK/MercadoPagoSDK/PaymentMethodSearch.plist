@@ -152,6 +152,11 @@
 		<key>image_name</key>
 		<string>mediosCordobesa</string>
 	</dict>
+	<key>account_moneyAzul</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosIconoDineroEnCuentaAzul</string>
+	</dict>
 	<key>cmr</key>
 	<dict>
 		<key>image_name</key>

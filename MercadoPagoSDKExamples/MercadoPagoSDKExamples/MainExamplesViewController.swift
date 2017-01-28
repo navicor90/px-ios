@@ -21,7 +21,13 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     
         //con mail y permisos
     let prefID = "241958103-0ef22ce4-94ba-4ad0-a457-64569917360d"
-
+   
+        //con MULTIPLES ITEMS
+    //let prefID="241958103-0e3ed5e5-389d-49ac-b1f7-c436f926bdbb"
+    
+    
+        //con Items negativos
+    //let prefID="241958103-41bc9d76-6082-47ed-92dc-b39509ef6fed"
     
     
     

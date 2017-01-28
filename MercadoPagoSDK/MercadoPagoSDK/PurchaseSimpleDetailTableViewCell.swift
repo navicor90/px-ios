@@ -43,7 +43,7 @@ class PurchaseSimpleDetailTableViewCell: UITableViewCell {
     }
     
     private func getInstallmentsAmount(payerCost : PayerCost) -> NSAttributedString {
-        return Utils.getTransactionInstallmentsDescription(payerCost.installments.description, installmentAmount: payerCost.installmentAmount, color: UIColor.px_grayBaseText(), fontSize : 24, baselineOffset : 8)
+        return Utils.getTransactionInstallmentsDescription(payerCost.installments.description,currency: MercadoPagoContext.getCurrency(), installmentAmount: payerCost.installmentAmount, color: UIColor.px_grayBaseText(), fontSize : 24, baselineOffset : 8)
         
     }
     
