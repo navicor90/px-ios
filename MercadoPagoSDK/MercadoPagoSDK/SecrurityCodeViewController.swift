@@ -10,13 +10,13 @@ import UIKit
 
 open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextFieldDelegate{
     
-    @IBOutlet weak var button: UIButton!
     var securityCodeLabel: UILabel!
     @IBOutlet weak var securityCodeTextField: HoshiTextField!
     @IBOutlet weak var errorLabel: UILabel!
     
     @IBOutlet weak var panelView: UIView!
     var viewModel : SecrurityCodeViewModel!
+    @IBOutlet weak var button: UIButton!
     var textMaskFormater : TextMaskFormater!
     var cardFront : CardFrontView!
     var cardBack : CardBackView!
@@ -29,6 +29,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
         super.viewDidLoad()
          self.hideNavBar()
         loadMPStyles()
+        self.button.setTitle("Continuar".localized,for: .normal)
         self.errorLabel.alpha = 0
         self.securityCodeTextField.placeholder = "security_code".localized
         self.errorLabel.text = "Revisa este dato".localized

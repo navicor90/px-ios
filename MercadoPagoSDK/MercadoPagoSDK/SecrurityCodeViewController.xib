@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecrurityCodeViewController" customModule="MercadoPagoSDK" customModuleProvider="target">
             <connections>
-                <outlet property="button" destination="eRB-5n-7JU" id="jdx-oc-eTS"/>
+                <outlet property="button" destination="eRB-5n-7JU" id="cMD-Ug-6XA"/>
                 <outlet property="errorLabel" destination="h3x-Y7-b4M" id="ucc-T7-Pcr"/>
                 <outlet property="panelView" destination="yob-kR-dQh" id="kZV-OM-lKE"/>
                 <outlet property="securityCodeTextField" destination="CLV-K5-LXP" id="s6C-CM-zBJ"/>

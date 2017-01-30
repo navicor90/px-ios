@@ -39,9 +39,14 @@ class DecorationPreferenceTest: BaseTest {
         decoration.setMercadoPagoBaseColor()
         XCTAssertEqual(decoration.getBaseColor(), UIColor.px_blueMercadoPago())
     }
+    func testSetBaseColorHexa(){
+        let decoration = DecorationPreference()
+        decoration.setBaseColor(hexColor: "#B34C42")
+        XCTAssertEqual(decoration.getBaseColor(), UIColor.errorCellColor())
+    }
     func testSetMercadoPagoFont(){
         let decoration = DecorationPreference()
-        decoration.setFontWithName(fontName: "sarasa")
+        decoration.setCustomFontWithName(fontName: "sarasa")
         decoration.setMercadoPagoFont()
         XCTAssertEqual(decoration.getFontName(), ".SFUIDisplay-Regular")
     }
@@ -49,7 +54,7 @@ class DecorationPreferenceTest: BaseTest {
     func testSetFontName(){
         let decoration = DecorationPreference()
         XCTAssertEqual(decoration.getFontName(), ".SFUIDisplay-Regular")
-        decoration.setFontWithName(fontName: "Comic")
+        decoration.setCustomFontWithName(fontName: "Comic")
         XCTAssertEqual(decoration.getFontName(), "Comic")
     }
     

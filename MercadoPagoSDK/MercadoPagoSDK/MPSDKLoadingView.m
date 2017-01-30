@@ -57,7 +57,9 @@
 		self.alpha = 1;
 		self.tag = kLoadingViewTag;
 
+
         MLSpinnerConfig *config = [[MLSpinnerConfig alloc] initWithSize:MLSpinnerSizeBig primaryColor:loadingColor? loadingColor : UIColorFromRGB(0x009EE3) secondaryColor:loadingColor? loadingColor : UIColorFromRGB(0x009EE3)];
+
 
 		self.spinner = [[MLSpinner alloc] initWithConfig:config text:text];
 

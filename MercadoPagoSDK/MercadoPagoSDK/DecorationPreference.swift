@@ -9,12 +9,20 @@
 import Foundation
 
 open class DecorationPreference : NSObject{
-    var baseColor: UIColor = UIColor.px_blueMercadoPago()
+    var baseColor: UIColor
     var textColor: UIColor = UIColor.white
-    var fontName: String = ".SFUIDisplay-Regular"
+    var fontName: String
     
+    public init(baseColor: UIColor = UIColor.px_blueMercadoPago(), fontName: String = ".SFUIDisplay-Regular"){
+        self.baseColor = baseColor
+        self.fontName = fontName
+    }
+
     public func setBaseColor(color: UIColor){
         baseColor = color
+    }
+    public func setBaseColor(hexColor: String){
+        baseColor = UIColor.fromHex(hexColor)
     }
     public func enableDarkFont(){
         textColor = UIColor.black
@@ -22,7 +30,7 @@ open class DecorationPreference : NSObject{
     public func enableLightFont(){
         textColor = UIColor.white
     }
-    public func setFontWithName(fontName: String){
+    public func setCustomFontWithName(fontName: String){
         self.fontName = fontName
     }
     public func setMercadoPagoBaseColor(){

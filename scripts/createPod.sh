@@ -2,7 +2,7 @@
 
 if [ $# -eq 0 ]
   then
-    echo "Need tag version! Ex: 2.2.1."
+    echo "Need tag version! Ex: 2.2.9."
     echo "TIP : Specify branch with second argument (by default the branch is master)"
     exit 0
 fi

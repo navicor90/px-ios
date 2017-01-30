@@ -20,6 +20,14 @@ extension UIColor {
         )
     }
     
+    class public func fromHex(_ hexValue: String) -> UIColor {
+        var hexInt: UInt32 = 0
+        let scanner: Scanner = Scanner(string: hexValue)
+        scanner.charactersToBeSkipped = CharacterSet(charactersIn: "#")
+        scanner.scanHexInt32(&hexInt)
+        return UIColorFromRGB(UInt(hexInt))
+    }
+    
     convenience init(red: Int, green: Int, blue: Int) {
         assert(red >= 0 && red <= 255, "Invalid red component")
         assert(green >= 0 && green <= 255, "Invalid green component")
