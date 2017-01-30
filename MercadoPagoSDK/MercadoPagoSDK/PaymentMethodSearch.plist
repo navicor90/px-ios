@@ -337,5 +337,10 @@
 		<key>image_name</key>
 		<string>mediosViabaloto</string>
 	</dict>
+	<key>maestro</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosMaestro</string>
+	</dict>
 </dict>
 </plist>

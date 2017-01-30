@@ -62,7 +62,7 @@ import UIKit
     static let MP_PROD_ENV = "/v1"
     static let API_VERSION = "1.3.X"
 
-    static let MP_ENVIROMENT = MP_PROD_ENV  + "/checkout"
+    static let MP_ENVIROMENT = MP_TEST_ENV  + "/checkout"
     
     static let MP_OP_ENVIROMENT = "/v1"
     

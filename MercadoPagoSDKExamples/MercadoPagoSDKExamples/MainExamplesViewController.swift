@@ -12,7 +12,7 @@ import MercadoPagoSDK
 class MainExamplesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //ARGENTINA
-    //let prefID = "241325285-6ac8e517-3030-48f7-b9de-91089d74255d"
+    let prefID = "241325285-6ac8e517-3030-48f7-b9de-91089d74255d"
     
     
     
@@ -20,7 +20,7 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     //let prefID = "240954703-79f46a7f-5f56-4f48-9640-8592d2cd1d84"
     
         //con mail y permisos
-    let prefID = "241958103-0ef22ce4-94ba-4ad0-a457-64569917360d"
+    //let prefID = "241958103-0ef22ce4-94ba-4ad0-a457-64569917360d"
    
         //con MULTIPLES ITEMS
     //let prefID="241958103-0e3ed5e5-389d-49ac-b1f7-c436f926bdbb"

@@ -22,12 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //SET SITE
-        MercadoPagoContext.setSite(MercadoPagoContext.Site.MPE)
+       // MercadoPagoContext.setSite(MercadoPagoContext.Site.MPE)
         
         
     
         //ARGENTINA
-        //MercadoPagoContext.setPublicKey("TEST-971766e1-383e-420f-9b69-cecd4c63d071")
+        MercadoPagoContext.setPublicKey("TEST-971766e1-383e-420f-9b69-cecd4c63d071")
         
         
         //PERU
@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MercadoPagoContext.setPublicKey("TEST-540bb6d1-44d5-4607-92bf-3075023f53a0")
         
             //produ con permisos
-        MercadoPagoContext.setPublicKey("APP_USR-9fc1aacb-3558-421e-a7cc-b9ddc9a8d48a")
+        //MercadoPagoContext.setPublicKey("APP_USR-9fc1aacb-3558-421e-a7cc-b9ddc9a8d48a")
         
         
         
