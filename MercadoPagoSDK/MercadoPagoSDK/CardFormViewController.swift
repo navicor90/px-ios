@@ -309,7 +309,7 @@ open class CardFormViewController: MercadoPagoUIViewController, UITextFieldDeleg
         return cvv
     }
     fileprivate func formatExpirationDate(_ expirationDate: String) -> String {
-        if expirationDate.characters.count == 0  {
+        if expirationDate.characters.count == 0 {
             expirationLabelEmpty = true
             return "MM/AA".localized
         }
