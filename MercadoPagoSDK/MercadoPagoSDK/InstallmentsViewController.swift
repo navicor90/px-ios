@@ -30,10 +30,10 @@ open class InstallmentsViewController: MercadoPagoUIViewController, UITableViewD
 
     init(payerCosts: [PayerCost]? = nil, paymentPreference: PaymentPreference? = nil, amount: Double, issuer: Issuer?, paymentMethodId: String?, callback: @escaping (_ payerCost: PayerCost?) -> Void) {
         super.init(nibName: "InstallmentsViewController", bundle: bundle)
-        if((payerCosts) != nil) {
+        if (payerCosts) != nil {
              self.payerCosts = payerCosts
         }
-        if (paymentPreference != nil) {
+        if paymentPreference != nil {
             self.maxInstallments = paymentPreference?.maxAcceptedInstallments
         }
         self.paymentPreference = paymentPreference
@@ -93,10 +93,10 @@ open class InstallmentsViewController: MercadoPagoUIViewController, UITableViewD
     }
 
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(self.payerCosts == nil) {
+        if self.payerCosts == nil {
             return 0
         } else {
-            if (installment != nil) {
+            if installment != nil {
                 return installment!.numberOfPayerCostToShow(maxInstallments)
             } else {
                 return (self.payerCosts?.count)!

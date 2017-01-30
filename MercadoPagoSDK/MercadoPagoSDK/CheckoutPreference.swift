@@ -29,16 +29,16 @@ open class CheckoutPreference: NSObject {
 
     open func validate() -> String? {
 
-        if(items == nil) {
+        if items == nil {
             return "No hay items".localized
         }
-        if(items?.count == 0) {
+        if items?.count == 0 {
             return "No hay items".localized
         }
         //VALIDAR CADA ITEM
         let currencyIdAllItems = items![0].currencyId
         for (_, value) in items!.enumerated() {
-            if(value.currencyId != currencyIdAllItems) {
+            if value.currencyId != currencyIdAllItems {
                  return "Los items tienen diferente moneda".localized
             }
         }
@@ -94,13 +94,13 @@ open class CheckoutPreference: NSObject {
 
     open func loadingImageWithCallback(_ callback: ((Void) -> Void)? = nil) -> Bool {
 
-        if (choImage != nil) {
+        if choImage != nil {
             return false
         }
         DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
             self.choImage = ViewUtils.loadImageFromUrl(self.getPictureUrl())
             DispatchQueue.main.async(execute: {
-                if (callback != nil) {
+                if callback != nil {
                     callback!()
                 }
             })
@@ -137,9 +137,9 @@ open class CheckoutPreference: NSObject {
 
     open func getInstallments() -> Int {
         if self.paymentPreference != nil {
-            if (self.paymentPreference!.maxAcceptedInstallments > 0) {
+            if self.paymentPreference!.maxAcceptedInstallments > 0 {
                 return self.paymentPreference!.maxAcceptedInstallments
-            } else if (self.paymentPreference!.defaultInstallments > 0) {
+            } else if self.paymentPreference!.defaultInstallments > 0 {
                 return self.paymentPreference!.defaultInstallments
             }
         }
@@ -157,35 +157,35 @@ open class CheckoutPreference: NSObject {
     }
 
     open func getExcludedPaymentTypesIds() -> Set<String>? {
-        if (self.paymentPreference != nil && self.paymentPreference!.excludedPaymentTypeIds != nil) {
+        if self.paymentPreference != nil && self.paymentPreference!.excludedPaymentTypeIds != nil {
             return self.paymentPreference!.excludedPaymentTypeIds
         }
         return nil
     }
 
     open func getDefaultInstallments() -> Int {
-        if (self.paymentPreference != nil && self.paymentPreference!.defaultInstallments > 0) {
+        if self.paymentPreference != nil && self.paymentPreference!.defaultInstallments > 0 {
             return self.paymentPreference!.defaultInstallments
         }
         return 0
     }
 
     open func getMaxAcceptedInstallments() -> Int {
-        if (self.paymentPreference != nil && self.paymentPreference!.maxAcceptedInstallments > 0) {
+        if self.paymentPreference != nil && self.paymentPreference!.maxAcceptedInstallments > 0 {
             return self.paymentPreference!.maxAcceptedInstallments
         }
         return 0
     }
 
     open func getExcludedPaymentMethodsIds() -> Set<String>? {
-        if (self.paymentPreference != nil && self.paymentPreference!.excludedPaymentMethodIds != nil) {
+        if self.paymentPreference != nil && self.paymentPreference!.excludedPaymentMethodIds != nil {
             return self.paymentPreference!.excludedPaymentMethodIds
         }
         return nil
     }
 
     open func getDefaultPaymentMethodId() -> String? {
-        if (self.paymentPreference != nil && self.paymentPreference!.defaultPaymentMethodId != nil && self.paymentPreference!.defaultPaymentMethodId!.isNotEmpty) {
+        if self.paymentPreference != nil && self.paymentPreference!.defaultPaymentMethodId != nil && self.paymentPreference!.defaultPaymentMethodId!.isNotEmpty {
             return self.paymentPreference!.defaultPaymentMethodId
         }
         return nil

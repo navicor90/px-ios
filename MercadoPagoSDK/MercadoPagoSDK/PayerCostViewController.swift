@@ -38,11 +38,11 @@ open class PayerCostViewController: MercadoPagoUIViewController {
         self.token = token!
         self.callback = callback
         self.callbackCancel = callbackCancel
-        if (paymentPreference != nil) {
+        if paymentPreference != nil {
             self.maxInstallments = paymentPreference?.maxAcceptedInstallments
         }
 
-        if(installment != nil) {
+        if installment != nil {
             self.payerCosts = installment!.payerCosts
             self.installments = [installment!]
         }
@@ -96,7 +96,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
 
     open func updateCardSkin() {
 
-        if(self.paymentMethod != nil) {
+        if self.paymentMethod != nil {
 
             self.cardFront?.cardLogo.image =  MercadoPago.getImageFor(self.paymentMethod!)
             self.cardView.backgroundColor = MercadoPago.getColorFor(self.paymentMethod!)
@@ -111,7 +111,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
             if self.token?.cardHolder != nil {
                 cardFront?.cardName.text = self.token!.cardHolder!.name
             }
-            if ((self.token!.getExpirationDateFormated() as String).characters.count > 0 ) {
+            if (self.token!.getExpirationDateFormated() as String).characters.count > 0 {
                 cardFront?.cardExpirationDate.text = self.token!.getExpirationDateFormated() as String
             }
 
@@ -139,7 +139,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cardView.addSubview(cardFront!)
-        if(self.payerCosts == nil) {
+        if self.payerCosts == nil {
             self.getInstallments()
         } else {
             self.tableView.reloadData()
@@ -163,7 +163,7 @@ open class PayerCostViewController: MercadoPagoUIViewController {
 
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        if(self.payerCosts == nil) {
+        if self.payerCosts == nil {
             return 0
         } else {
             return installments![0].numberOfPayerCostToShow(maxInstallments)

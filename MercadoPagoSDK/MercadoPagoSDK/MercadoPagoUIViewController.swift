@@ -135,7 +135,7 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
     }
 
     internal func invokeCallbackCancel() {
-        if(self.callbackCancel != nil) {
+        if self.callbackCancel != nil {
             self.callbackCancel!()
         }
 
@@ -224,14 +224,14 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
             // }
         }
         for subview in view.subviews {
-            if (hideKeyboard(subview)) {
+            if hideKeyboard(subview) {
                 return true
             }
         }
         return false
     }
     internal func showKeyboard() {
-        if (fistResponder != nil) {
+        if fistResponder != nil {
             fistResponder?.becomeFirstResponder()
         }
         fistResponder = nil
@@ -245,7 +245,7 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
     open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
         //En caso de que el vc no sea root
-        if(navigationController != nil && navigationController!.viewControllers.count > 1 && navigationController!.viewControllers[0] != self) {
+        if navigationController != nil && navigationController!.viewControllers.count > 1 && navigationController!.viewControllers[0] != self {
                 return true
         }
         return false

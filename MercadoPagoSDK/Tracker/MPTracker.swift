@@ -79,14 +79,14 @@ open class MPTracker {
     }
 
     open class func trackEvent(_ mpDelegate: MPTrackerDelegate!, screen: String! = "NO_SCREEN", action: String!, result: String?) {
-        if (!initialized) {
+        if !initialized {
             self.initialize(mpDelegate)
         }
     //    GATracker.sharedInstance.trackEvent(flavorText() + "/" + screen, action:action , label:result)
     }
 
     open class func trackPaymentEvent(_ token: String!, mpDelegate: MPTrackerDelegate!, paymentInformer: MPPaymentTrackInformer, flavor: Flavor!, screen: String! = "NO_SCREEN", action: String!, result: String?) {
-        if (!initialized) {
+        if !initialized {
             self.initialize(mpDelegate)
         }
     //    GATracker.sharedInstance.trackPaymentEvent(flavorText() + "/" + screen, action: action, label: result, paymentInformer: paymentInformer)
@@ -94,7 +94,7 @@ open class MPTracker {
     }
 
     open class func trackPaymentOffEvent(_ paymentId: String!, mpDelegate: MPTrackerDelegate) {
-        if (!initialized) {
+        if !initialized {
             self.initialize(mpDelegate)
         }
         MPTracker.trackEvent(mpDelegate, action: "", result: "")
@@ -109,7 +109,7 @@ open class MPTracker {
     }
 
     open class func trackScreenName(_ mpDelegate: MPTrackerDelegate!, screenName: String!) {
-        if (!initialized) {
+        if !initialized {
             self.initialize(mpDelegate)
         }
    //     GATracker.sharedInstance.trackScreen(flavorText() + "/" + screenName)
@@ -123,7 +123,7 @@ open class MPTracker {
 
     fileprivate class func flavorText() -> String {
 
-        if (MPTracker.flavor != nil) {
+        if MPTracker.flavor != nil {
             return "F" + (MPTracker.flavor?.rawValue)!
         } else {
             return ""

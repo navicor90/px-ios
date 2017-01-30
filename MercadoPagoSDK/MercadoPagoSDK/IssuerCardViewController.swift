@@ -83,7 +83,7 @@ open class IssuerCardViewController: MercadoPagoUIViewController {
         self.navigationItem.leftBarButtonItem!.action = #selector(invokeCallbackCancel)
 
         self.showLoading()
-        if(issuerList == nil) {
+        if issuerList == nil {
             MPServicesBuilder.getIssuers(self.paymentMethod!, bin: self.cardToken!.getBin(), success: { (issuers) -> Void in
                 self.issuerList = issuers
                 self.tableView.reloadData()
@@ -113,7 +113,7 @@ open class IssuerCardViewController: MercadoPagoUIViewController {
 
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        if(self.issuerList == nil) {
+        if self.issuerList == nil {
             return 0
         } else {
             return (issuerList?.count)!

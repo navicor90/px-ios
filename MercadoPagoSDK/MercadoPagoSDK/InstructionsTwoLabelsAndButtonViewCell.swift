@@ -60,7 +60,7 @@ class InstructionsTwoLabelsAndButtonViewCell: UITableViewCell, InstructionsFillm
 
              MPCellValidator.fillInstructionReference(instruction.references[0], label: self.referenceLabelFirst, referenceValueLabel: self.referenceValueFirst)
 
-            if (instruction.references.count > 1) {
+            if instruction.references.count > 1 {
                 MPCellValidator.fillInstructionReference(instruction.references[1], label: self.referenceLabelSecond, referenceValueLabel: self.referenceValueSecond)
             }
         }

@@ -111,7 +111,7 @@ open class MPPaymentFactory {
 
         if !String.isNullOrEmpty(customerId) {
             return CustomerPayment(email: email, preferenceId: preferenceId, publicKey: publicKey, paymentMethodId: paymentMethodId, installments: installments, issuerId : issuerId, tokenId : tokenId, customerId: customerId!)
-        } else if (isBlacklabelPayment) {
+        } else if isBlacklabelPayment {
             return BlacklabelPayment(email: email, preferenceId: preferenceId, publicKey: publicKey, paymentMethodId: paymentMethodId, installments: installments, issuerId : issuerId, tokenId : tokenId)
         }
 

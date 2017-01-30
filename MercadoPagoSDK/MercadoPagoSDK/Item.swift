@@ -27,10 +27,10 @@ open class Item: NSObject {
 
     open func validate() -> Bool {
 
-        if(quantity <= 0) {
+        if quantity <= 0 {
             return false
         }
-        if(unitPrice <= 0) {
+        if unitPrice <= 0 {
             return false
         }
         //VALIDAR CADA ITEM

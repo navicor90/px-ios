@@ -35,7 +35,7 @@ open class MercadoPagoUIScrollViewController: MercadoPagoUIViewController {
 
         }
 
-        if (scrollView.contentOffset.y > -scrollPositionToShowNavBar() ) {
+        if scrollView.contentOffset.y > -scrollPositionToShowNavBar() {
             showNavBar()
         } else {
             hideNavBar()

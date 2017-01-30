@@ -160,7 +160,7 @@ open class VaultViewController: MercadoPagoUIViewController, UITableViewDataSour
 
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.selectedCard == nil && self.selectedCardToken == nil {
-            if (self.selectedPaymentMethod != nil && self.selectedPaymentMethod!.isCard()) {
+            if self.selectedPaymentMethod != nil && self.selectedPaymentMethod!.isCard() {
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
             }
             return 1
@@ -205,7 +205,7 @@ open class VaultViewController: MercadoPagoUIViewController, UITableViewDataSour
     }
 
     open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if ((indexPath as NSIndexPath).row == 2) {
+        if (indexPath as NSIndexPath).row == 2 {
             return self.securityCodeCell != nil ? self.securityCodeCell.getHeight() : 143
         }
         return 65

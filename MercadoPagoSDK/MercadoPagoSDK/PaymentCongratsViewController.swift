@@ -110,7 +110,7 @@ open class PaymentCongratsViewController: MercadoPagoUIViewController, MPPayment
                 let bodyCell = self.congratsContentTable.dequeueReusableCell(withIdentifier: body!) as! CongratsFillmentDelegate
                 let callback = self.congratsCallback()
                  let cell = bodyCell.fillCell(self.payment, paymentMethod : self.paymentMethod, callback: callback)
-                if (body == "authorizePaymentBody") {
+                if body == "authorizePaymentBody" {
                     (cell as! AuthorizePaymentBodyTableViewCell).authCallback = {
                             let status = MPStepBuilder.CongratsState.call_FOR_AUTH
                         MPTracker.trackEvent(MercadoPagoContext.sharedInstance, screen: self.getScreenName(), action: "RECOVER_TOKEN", result: nil) //completar cvv

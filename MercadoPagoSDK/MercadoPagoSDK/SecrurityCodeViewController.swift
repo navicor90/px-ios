@@ -138,7 +138,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
     }
     open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-        if (((textField.text?.characters.count)! + string.characters.count) > viewModel.secCodeLenght()) {
+        if ((textField.text?.characters.count)! + string.characters.count) > viewModel.secCodeLenght() {
             return false
         }
         return true
@@ -161,11 +161,11 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
     }
 
     func completeCvvLabel() {
-        if (self.ccvLabelEmpty) {
+        if self.ccvLabelEmpty {
             securityCodeLabel!.text = ""
         }
 
-        while (addCvvDot() != false) {
+        while addCvvDot() != false {
 
         }
         securityCodeLabel.textColor = UIColor.black

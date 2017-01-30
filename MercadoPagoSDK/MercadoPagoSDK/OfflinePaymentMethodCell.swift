@@ -60,7 +60,7 @@ class OfflinePaymentMethodCell: UITableViewCell {
 
         var currentTitle = ""
         let titleI18N = "ryc_title_" + paymentMethodMethodSearchItem.idPaymentMethodSearchItem
-        if (titleI18N.existsLocalized()) {
+        if titleI18N.existsLocalized() {
             currentTitle = titleI18N.localized
         } else {
             currentTitle = "ryc_title_default".localized

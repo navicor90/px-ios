@@ -84,7 +84,7 @@ open class MPFlowBuilder: NSObject {
                                   callback: @escaping (_ paymentMethod: PaymentMethod, _ token: Token?, _ issuer: Issuer?, _ payerCost: PayerCost?) -> Void, callbackCancel: ((Void) -> Void)? = nil) -> UINavigationController {
         MercadoPagoContext.initFlavor2()
 
-        if (cardInformation == nil) {
+        if cardInformation == nil {
             return startDefaultCardFlow(paymentPreference, amount: amount, cardInformation: cardInformation, paymentMethods: paymentMethods, token: token, callback: callback, callbackCancel: callbackCancel)
         } else {
             return startCustomerCardFlow(paymentPreference, amount: amount, cardInformation: cardInformation, callback: callback, callbackCancel: callbackCancel)
@@ -100,7 +100,7 @@ open class MPFlowBuilder: NSObject {
         var ccf: CardFormViewController = CardFormViewController()
 
         var currentCallbackCancel: ((Void) -> Void)
-        if (callbackCancel == nil) {
+        if callbackCancel == nil {
             currentCallbackCancel = { cardVC?.dismiss(animated: true, completion: { () -> Void in })}
         } else {
             currentCallbackCancel = callbackCancel!
@@ -110,7 +110,7 @@ open class MPFlowBuilder: NSObject {
 
             MPServicesBuilder.getInstallments(token!.firstSixDigit, amount: amount, issuer: issuer, paymentMethodId: paymentMethod._id, success: { (installments) -> Void in
                 let payerCostSelected = paymentPreference?.autoSelectPayerCost(installments![0].payerCosts)
-                if(payerCostSelected == nil) { // Si tiene una sola opcion de cuotas
+                if payerCostSelected == nil { // Si tiene una sola opcion de cuotas
 
                     if installments![0].payerCosts.count>1 {
                         let pcvc = MPStepBuilder.startPayerCostForm(paymentMethod, issuer: issuer, token: token!, amount:amount, paymentPreference: paymentPreference, installment:installments![0], callback: { (payerCost) -> Void in

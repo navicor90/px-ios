@@ -238,7 +238,7 @@ class Utils {
         var paymentTypeSelected = ""
 
         let paymentMethod = paymentMethods.filter({ (paymentMethod: PaymentMethod) -> Bool in
-            if (paymentMethodId.startsWith(paymentMethod._id)) {
+            if paymentMethodId.startsWith(paymentMethod._id) {
                 let paymentTypeIdRange = paymentMethodId.range(of: paymentMethod._id)
                 // Override paymentTypeId if neccesary
                 if paymentTypeIdRange != nil {
@@ -263,7 +263,7 @@ class Utils {
     internal static func getExpirationYearFromLabelText(_ mmyy: String) -> Int {
         let stringMMYY = mmyy.replacingOccurrences(of: "/", with: "")
         let validInt = Int(stringMMYY)
-        if(validInt == nil || stringMMYY.characters.count < 4) {
+        if validInt == nil || stringMMYY.characters.count < 4 {
             return 0
         }
         let floatMMYY = Float( validInt! / 100 )
@@ -276,12 +276,12 @@ class Utils {
     internal static func getExpirationMonthFromLabelText(_ mmyy: String) -> Int {
         let stringMMYY = mmyy.replacingOccurrences(of: "/", with: "")
         let validInt = Int(stringMMYY)
-        if(validInt == nil) {
+        if validInt == nil {
             return 0
         }
         let floatMMYY = Float( validInt! / 100 )
         let mm: Int = Int(floor(floatMMYY))
-        if (mm >= 1 && mm <= 12) {
+        if mm >= 1 && mm <= 12 {
             return mm
         }
         return 0

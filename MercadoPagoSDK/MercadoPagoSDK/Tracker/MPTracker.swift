@@ -76,7 +76,7 @@ open class MPTracker: NSObject {
     }
 
     open class func trackEvent(_ mpDelegate: MPTrackerDelegate!, screen: String! = "NO_SCREEN", action: String!, result: String?) {
-        if (!initialized) {
+        if !initialized {
             self.initialize(mpDelegate)
         }
         if let listener = MercadoPagoContext.getTrackListener() {
@@ -86,7 +86,7 @@ open class MPTracker: NSObject {
     }
 
     open class func trackPaymentEvent(_ token: String!, mpDelegate: MPTrackerDelegate!, paymentInformer: MPPaymentTrackInformer, flavor: Flavor!, screen: String! = "NO_SCREEN", action: String!, result: String?) {
-        if (!initialized) {
+        if !initialized {
             self.initialize(mpDelegate)
         }
         if let listener = MercadoPagoContext.getTrackListener() {
@@ -97,7 +97,7 @@ open class MPTracker: NSObject {
     }
 
     open class func trackPaymentOffEvent(_ paymentId: String!, mpDelegate: MPTrackerDelegate) {
-        if (!initialized) {
+        if !initialized {
             self.initialize(mpDelegate)
         }
         MPTracker.trackEvent(mpDelegate, action: "", result: "")
@@ -112,7 +112,7 @@ open class MPTracker: NSObject {
     }
 
     open class func trackScreenName(_ mpDelegate: MPTrackerDelegate!, screenName: String!) {
-        if (!initialized) {
+        if !initialized {
             self.initialize(mpDelegate)
         }
         if let listener = MercadoPagoContext.getTrackListener() {

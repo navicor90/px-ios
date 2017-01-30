@@ -350,7 +350,7 @@ import UIKit
     }
 
     open class func getImageFor(_ paymentMethod: PaymentMethod, forCell: Bool? = false) -> UIImage? {
-        if (forCell == true) {
+        if forCell == true {
             return MercadoPago.getImage(paymentMethod._id.lowercased())
         } else {
             return MercadoPago.getImage("icoTc_"+paymentMethod._id.lowercased())
@@ -457,7 +457,7 @@ import UIKit
 
     internal class func openURL(_ url: String) {
         let currentURL = URL(string: url)
-        if (currentURL != nil && UIApplication.shared.canOpenURL(currentURL!)) {
+        if currentURL != nil && UIApplication.shared.canOpenURL(currentURL!) {
             UIApplication.shared.openURL(currentURL!)
         }
     }

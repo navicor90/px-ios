@@ -199,11 +199,11 @@ open class PaymentMethod: NSObject {
     }
 
     open func secCodeMandatory() -> Bool {
-        if (self.settings.count == 0) {
+        if self.settings.count == 0 {
             return false // Si no tiene settings el codigo no es mandatorio
         }
         let filterList = self.settings.filter({ return $0.securityCode.mode == self.settings[0].securityCode.mode })
-        if (filterList.count == self.settings.count) {
+        if filterList.count == self.settings.count {
             return self.settings[0].securityCode.mode == "mandatory"
         } else {
             return true // si para alguna de sus settings es mandatorio entonces el codigo es mandatorio
@@ -211,22 +211,22 @@ open class PaymentMethod: NSObject {
     }
 
     open func secCodeLenght() -> Int {
-        if (self.settings != nil && self.settings.count == 0 || self.settings == nil) {
+        if self.settings != nil && self.settings.count == 0 || self.settings == nil {
             return 3 //Si no tiene settings la longitud es cero
         }
         let filterList = self.settings.filter({ return $0.securityCode.length == self.settings[0].securityCode.length })
-        if (filterList.count == self.settings.count) {
+        if filterList.count == self.settings.count {
             return self.settings[0].securityCode.length
         } else {
             return 0 //si la longitud de sus codigos, en sus settings no es siempre la misma entonces responde 0
         }
     }
     open func cardNumberLenght() -> Int {
-        if (self.settings.count == 0) {
+        if self.settings.count == 0 {
             return 0 //Si no tiene settings la longitud es cero
         }
         let filterList = self.settings.filter({ return $0.cardNumber.length == self.settings[0].cardNumber.length })
-        if (filterList.count == self.settings.count) {
+        if filterList.count == self.settings.count {
             return self.settings[0].cardNumber.length
         } else {
             return 0 //si la longitud de sus numberos, en sus settings no es siempre la misma entonces responde 0
@@ -234,11 +234,11 @@ open class PaymentMethod: NSObject {
     }
 
     open func secCodeInBack() -> Bool {
-        if (self.settings == nil || self.settings.count == 0) {
+        if self.settings == nil || self.settings.count == 0 {
             return true //si no tiene settings, por defecto el codigo de seguridad ira atras
         }
         let filterList = self.settings.filter({ return $0.securityCode.cardLocation == self.settings[0].securityCode.cardLocation })
-        if (filterList.count == self.settings.count) {
+        if filterList.count == self.settings.count {
             return self.settings[0].securityCode.cardLocation == "back"
         } else {
             return true //si sus settings no coinciden el codigo ira atras por default
@@ -258,30 +258,30 @@ open class PaymentMethod: NSObject {
 
     open func conformsPaymentPreferences(_ paymentPreference: PaymentPreference?) -> Bool {
 
-        if(paymentPreference == nil) {
+        if paymentPreference == nil {
             return true
         }
-        if(paymentPreference!.defaultPaymentTypeId != nil) {
-            if (paymentPreference!.defaultPaymentTypeId != self.paymentTypeId) {
+        if paymentPreference!.defaultPaymentTypeId != nil {
+            if paymentPreference!.defaultPaymentTypeId != self.paymentTypeId {
                 return false
             }
         }
-        if (paymentPreference!.defaultPaymentMethodId != nil) {
-            if (self._id != paymentPreference!.defaultPaymentMethodId) {
+        if paymentPreference!.defaultPaymentMethodId != nil {
+            if self._id != paymentPreference!.defaultPaymentMethodId {
                 return false
             }
         }
-        if((paymentPreference?.excludedPaymentTypeIds) != nil) {
+        if (paymentPreference?.excludedPaymentTypeIds) != nil {
             for (_, value) in (paymentPreference?.excludedPaymentTypeIds!.enumerated())! {
-                if (value == self.paymentTypeId) {
+                if value == self.paymentTypeId {
                     return false
                 }
             }
         }
 
-        if((paymentPreference?.excludedPaymentMethodIds) != nil) {
+        if (paymentPreference?.excludedPaymentMethodIds) != nil {
             for (_, value) in (paymentPreference?.excludedPaymentMethodIds!.enumerated())! {
-                if (value == self._id) {
+                if value == self._id {
                     return false
                 }
             }

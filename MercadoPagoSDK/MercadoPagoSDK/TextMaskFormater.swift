@@ -9,14 +9,14 @@
 import UIKit
 
 open class TextMaskFormater: NSObject {
-
+    
     var mask: String!
     open var characterSpace: Character! = "X"
     open var emptyMaskElement: Character! = "•"
     var completeEmptySpaces: Bool = true
     var leftToRight: Bool = true
     var unmask : (( _ textToUnmask: String) -> String)?
-
+    
     public init(mask: String!, completeEmptySpaces: Bool = true, leftToRight: Bool = true) {
         super.init()
         self.mask = mask
@@ -24,19 +24,19 @@ open class TextMaskFormater: NSObject {
         self.leftToRight = leftToRight
     }
     open func textMasked(_ text: String!, remasked: Bool = false) -> String! {
-
-        if (remasked) {
+        
+        if remasked {
             return textMasked(textUnmasked(text))
         }
-        if (text.characters.count == 0) {
+        if text.characters.count == 0 {
             return self.emptyTextMasked()
         }
         return self.maskText(text)
     }
-
+    
     open func textUnmasked(_ text: String!) -> String! {
-
-        if (unmask != nil) {
+        
+        if unmask != nil {
             return unmask!(text)
         } else {
             let charset: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -48,64 +48,64 @@ open class TextMaskFormater: NSObject {
             }
             return ints
         }
-
+        
     }
     fileprivate func emptyTextMasked() -> String! {
-        if(completeEmptySpaces) {
+        if completeEmptySpaces {
             return (mask?.replacingOccurrences(of: String(characterSpace), with: String(emptyMaskElement)))!
         } else {
             return ""
         }
-
+        
     }
-
+    
     fileprivate func replaceEmpySpot(_ text: String!) -> String! {
         return (text.replacingOccurrences(of: String(characterSpace), with: String(emptyMaskElement)))
     }
-
+    
     fileprivate func maskText(_ text: String!) -> String! {
         let maskArray = Array(mask.characters)
         var textToMask = text
-        if ((!leftToRight)&&(completeEmptySpaces)) {
+        if (!leftToRight)&&(completeEmptySpaces) {
             textToMask = completeWithEmptySpaces(text)
         }
         let textArray = Array(textToMask!.characters)
         var resultString: String = ""
         var charText: Character! = textArray[0]
         var charMask: Character!
-        if(!self.completeEmptySpaces && (textToMask?.characters.count == 0)) {
+        if !self.completeEmptySpaces && (textToMask?.characters.count == 0) {
             return ""
         }
-
+        
         var indexMask = 0
         var indexText = 0
-        while ((indexMask < maskArray.count) && (self.completeEmptySpaces || (textArray.count>indexText))) {
-
-             charMask = maskArray[indexMask]
-
-            if (textArray.count>indexText) {
+        while (indexMask < maskArray.count) && (self.completeEmptySpaces || (textArray.count>indexText)) {
+            
+            charMask = maskArray[indexMask]
+            
+            if textArray.count>indexText {
                 charText = textArray[indexText]
             } else {
                 charText = nil
             }
-
-            if (charText == nil) {
+            
+            if charText == nil {
                 resultString.append(String(charMask))
                 indexMask += 1
-            } else if( String(charMask) != String(characterSpace) ) {
+            } else if  String(charMask) != String(characterSpace)  {
                 resultString.append(String(charMask))
                 indexMask += 1
             } else {
-                 resultString.append(String(charText))
+                resultString.append(String(charText))
                 indexMask += 1
                 indexText += 1
             }
         }
-
+        
         return self.replaceEmpySpot(resultString)
-
+        
     }
-
+    
     fileprivate func completeWithEmptySpaces(_ text: String) -> String {
         let charset: Set<Character> = [characterSpace]
         var xs: String = ""
@@ -116,23 +116,23 @@ open class TextMaskFormater: NSObject {
         }
         var max = xs.characters.count - text.characters.count
         let x: Character = characterSpace
-        if (max < 0) {
-           max = 0
+        if max < 0 {
+            max = 0
         }
         return (String(repeating: String(x), count: max) + text)
-
+        
     }
-
+    
     fileprivate func stringByChoose(_ maskCharacter: Character, textCharacter: Character!) -> String {
-        if (textCharacter == nil) {
+        if textCharacter == nil {
             return String(maskCharacter)
         }
-        if(String(maskCharacter) != String(characterSpace) ) {
+        if String(maskCharacter) != String(characterSpace) {
             return String(maskCharacter) + String(textCharacter)
         }
         return String(textCharacter)
     }
-
+    
 }
 
 struct Number {
@@ -144,9 +144,9 @@ struct Number {
     }()
 }
 /*
-extension Integer {
-    var stringFormatedWithSepator: String {
-        return Number.formatterWithSepator.string(from: NSNumber(hashValue)) ?? ""
-    }
-}
-*/
+ extension Integer {
+ var stringFormatedWithSepator: String {
+ return Number.formatterWithSepator.string(from: NSNumber(hashValue)) ?? ""
+ }
+ }
+ */

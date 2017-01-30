@@ -153,7 +153,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == 0 || section == 1) {
+        if section == 0 || section == 1 {
             return 1
         } else {
             return self.viewModel.numberOfPayerCost()
@@ -162,7 +162,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if (indexPath.section == 0) {
+        if indexPath.section == 0 {
 
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "titleNib", for: indexPath as IndexPath) as! PayerCostTitleTableViewCell
             titleCell.selectionStyle = .none
@@ -172,7 +172,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
 
             return titleCell
 
-        } else if (indexPath.section == 1) {
+        } else if indexPath.section == 1 {
             let cardCell = tableView.dequeueReusableCell(withIdentifier: "cardNib", for: indexPath as IndexPath) as! PayerCostCardTableViewCell
             cardCell.selectionStyle = .none
             cardCell.loadCard()
@@ -209,7 +209,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        if (indexPath.section == 2) {
+        if indexPath.section == 2 {
             self.showLoading()
             if self.viewModel.hasIssuer() {
                 let payerCost: PayerCost = self.viewModel.payerCosts![(indexPath as NSIndexPath).row]
@@ -320,7 +320,7 @@ open class CardAdditionalStepViewModel: NSObject {
         }
     }
     func hasIssuer() -> Bool {
-        if (self.cardInformation != nil) {
+        if self.cardInformation != nil {
             return !self.cardInformation!.isIssuerRequired()
         }
         return (issuer != nil || (token != nil && !token!.isIssuerRequired()))

@@ -12,15 +12,14 @@ disabled_rules:
   - large_tuple
   - variable_name
   - operator_whitespace
-    # - function_body_length
-    # - todo
-    # - force_cast
-    # - implicit_getter
-    # - function_parameter_count
-    # - legacy_constructor
-    # - operator_whitespace
-    # - file_length
-    # - type_name
+  - function_body_length
+  - todo
+  - force_cast
+  - implicit_getter
+  - function_parameter_count
+  - legacy_constructor
+  - file_length
+  - type_name
 
 
 

@@ -77,10 +77,10 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
 
     open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-        if (string.characters.count < 1) {
+        if string.characters.count < 1 {
             return true
         }
-        if(textField.text?.characters.count == identificationType!.maxLength) {
+        if textField.text?.characters.count == identificationType!.maxLength {
             return false
         }
         return true
@@ -145,7 +145,7 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
    open
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if(self.identificationTypes == nil) {
+        if self.identificationTypes == nil {
             return 0
         }
 
@@ -209,7 +209,7 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
 
         let cardToken = CardToken(cardNumber: "", expirationMonth: 10, expirationYear: 10, securityCode: "", cardholderName: "", docType: (self.identificationType?.type)!, docNumber:  indentificationMask.textUnmasked(numberTextField.text))
 
-        if ((cardToken.validateIdentificationNumber(self.identificationType)) == nil) {
+        if (cardToken.validateIdentificationNumber(self.identificationType)) == nil {
             self.numberTextField.resignFirstResponder()
             self.callback!(idnt)
             self.showLoading()
@@ -275,9 +275,9 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
     }
 
     fileprivate func remask() {
-        if (self.identificationType!.name == "CPF") {
+        if self.identificationType!.name == "CPF" {
             self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX-XX", completeEmptySpaces: true, leftToRight: true)
-        } else if (self.identificationType!.name == "CNPJ") {
+        } else if self.identificationType!.name == "CNPJ" {
             self.indentificationMask = TextMaskFormater(mask: "XX.XXX.XXX/XXXX-XX", completeEmptySpaces: true, leftToRight: true)
         } else {
             self.indentificationMask = defaultMask

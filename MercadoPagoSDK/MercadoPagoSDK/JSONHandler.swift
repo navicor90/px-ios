@@ -72,7 +72,7 @@ class JSONHandler: NSObject {
         guard let _ = anyobject, let string = (anyobject! as AnyObject).description else {
             return defaultReturn
         }
-        if ( string != "<null>" ) {
+        if string != "<null>" {
             return string
         } else {
             return defaultReturn

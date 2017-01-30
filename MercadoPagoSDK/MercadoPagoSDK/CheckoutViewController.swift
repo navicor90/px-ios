@@ -41,7 +41,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         self.callback = callback
         self.callbackCancel = {
                 self.dismiss(animated: true, completion: {
-                    if(callbackCancel != nil) {
+                    if callbackCancel != nil {
                             callbackCancel!()
                   }
                 })
@@ -89,11 +89,11 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
             if self.viewModel.paymentMethod != nil {
                 self.hideLoading()
                 self.checkoutTable.reloadData()
-                if (recover) {
+                if recover {
                     recover = false
                     self.startRecoverCard()
                 }
-                if (auth) {
+                if auth {
                     auth = false
                     self.startAuthCard(self.token!)
                 }
@@ -280,7 +280,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
 
         self.viewModel.paymentMethod = paymentMethod
         self.token = token
-        if (issuer != nil) {
+        if issuer != nil {
             self.issuer = issuer
         }
 
@@ -498,7 +498,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     }
 
     override func getNavigationBarTitle() -> String {
-        if (self.checkoutTable.contentOffset.y == CheckoutViewController.kNavBarOffset || self.checkoutTable.contentOffset.y == CheckoutViewController.kNavBarOffset) {
+        if self.checkoutTable.contentOffset.y == CheckoutViewController.kNavBarOffset || self.checkoutTable.contentOffset.y == CheckoutViewController.kNavBarOffset {
             return ""
         }
         return "Confirma tu compra".localized

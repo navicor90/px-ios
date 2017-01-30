@@ -68,7 +68,7 @@ open class MPStepBuilder: NSObject {
     open class func startPaymentResultStep(_ payment: Payment, paymentMethod: PaymentMethod,
                                            callback : @escaping (_ payment: Payment, _ status: CongratsState) -> Void) -> MercadoPagoUIViewController {
         MercadoPagoContext.initFlavor2()
-        if (!paymentMethod.isOnlinePaymentMethod()) {
+        if !paymentMethod.isOnlinePaymentMethod() {
             return self.startInstructionsStep(payment, paymentTypeId: paymentMethod.paymentTypeId, callback: callback)
         } else {
             return self.startPaymentCongratsStep(payment, paymentMethod: paymentMethod, callback : callback)
@@ -129,7 +129,7 @@ open class MPStepBuilder: NSObject {
 
         ccf = CardFormViewController(paymentSettings : paymentSettings, amount: amount, token: token, cardInformation: cardInformation, paymentMethods : paymentMethods, callback : { (paymentMethod, cardToken) -> Void in
 
-            if (token != nil) { // flujo token recuperable C4A
+            if token != nil { // flujo token recuperable C4A
                 MPServicesBuilder.cloneToken(token!, securityCode:(cardToken?.securityCode)!, success: { (token) in
                     callback(paymentMethod[0], token, nil)
                     }, failure: { (_) in
@@ -138,7 +138,7 @@ open class MPStepBuilder: NSObject {
                 return
             }
 
-            if(paymentMethod[0].isIdentificationRequired()) {
+            if paymentMethod[0].isIdentificationRequired() {
                 let identificationForm = MPStepBuilder.startIdentificationForm({ (identification) -> Void in
                     cardToken?.cardholder?.identification = identification
 
@@ -232,7 +232,7 @@ open class MPStepBuilder: NSObject {
         if !cardToken.isCustomerPaymentMethod() {
             MPServicesBuilder.getIssuers(paymentMethod, bin: cardToken.getBin(), success: { (issuers) -> Void in
 
-                    if(issuers.count > 1) {
+                    if issuers.count > 1 {
                         let issuerForm = MPStepBuilder.startIssuerForm(paymentMethod, cardToken: cardToken, issuerList: issuers, callback: { (issuer) -> Void in
                             if let nav = ccf.navigationController {
 
@@ -296,7 +296,7 @@ open class MPStepBuilder: NSObject {
                 })
                 errorVC.callbackCancel = {
                     ccf.hideLoading()
-                    if ( callbackCancel != nil ) {
+                    if callbackCancel != nil {
                         callbackCancel!()
                     }
                 }

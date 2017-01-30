@@ -296,7 +296,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
             } else {
                 let paymentSearchItemSelected = self.viewModel.getPaymentMethodOption(row: indexPath.row) as! PaymentMethodSearchItem
                 collectionView.deselectItem(at: indexPath, animated: true)
-                if (paymentSearchItemSelected.children.count > 0) {
+                if paymentSearchItemSelected.children.count > 0 {
                     let paymentVault = PaymentVaultViewController(amount: self.viewModel.amount, paymentPreference: self.viewModel.paymentPreference, paymentMethodSearchItem: paymentSearchItemSelected.children, paymentMethods : self.viewModel.paymentMethods, title:paymentSearchItemSelected.childrenHeader, callback: { (paymentMethod: PaymentMethod, token: Token?, issuer: Issuer?, payerCost: PayerCost?) -> Void in
                         self.viewModel.callback!(paymentMethod, token, issuer, payerCost)
                     })
@@ -314,11 +314,11 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
     public func collectionView(_ collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
 
-        if (loadingGroups) {
+        if loadingGroups {
             return 0
         }
 
-        if (section == 0) {
+        if section == 0 {
             return 1
         }
 
@@ -465,7 +465,7 @@ class PaymentVaultViewModel: NSObject {
     }
 
     func getCustomerPaymentMethodsToDisplayCount() -> Int {
-        if (self.customerCards != nil && self.customerCards?.count > 0) {
+        if self.customerCards != nil && self.customerCards?.count > 0 {
             return (self.customerCards!.count <= PaymentVaultViewController.maxCustomerPaymentMethods ? self.customerCards!.count : PaymentVaultViewController.maxCustomerPaymentMethods)
         }
         return 0
@@ -474,7 +474,7 @@ class PaymentVaultViewModel: NSObject {
 
     func getPaymentMethodOption(row: Int) -> PaymentOptionDrawable {
 
-        if (self.getCustomerPaymentMethodsToDisplayCount() > row) {
+        if self.getCustomerPaymentMethodsToDisplayCount() > row {
             return self.customerCards![row]
         }
         let indexInPaymentMethods = Array.isNullOrEmpty(self.customerCards) ? row : (row - self.getCustomerPaymentMethodsToDisplayCount())
@@ -507,7 +507,7 @@ class PaymentVaultViewModel: NSObject {
     }
 
     func isCustomerPaymentMethodOptionSelected(_ row: Int) -> Bool {
-        if (Array.isNullOrEmpty(self.customerCards)) {
+        if Array.isNullOrEmpty(self.customerCards) {
             return false
         }
         return (row < self.getCustomerPaymentMethodsToDisplayCount())
@@ -592,7 +592,7 @@ class PaymentVaultViewModel: NSObject {
             MPServicesBuilder.getInstallments(customerCardSelected.getFirstSixDigits(), amount: amount, issuer: customerCardSelected.getIssuer(), paymentMethodId: customerCardSelected.getPaymentMethodId(), success: { (installments) in
                 self.controller?.hideLoading()
                 let payerCostSelected = self.paymentPreference?.autoSelectPayerCost(installments![0].payerCosts)
-                if(payerCostSelected == nil) {
+                if payerCostSelected == nil {
                     let cardFlow = MPFlowBuilder.startCardFlow(amount: self.amount, cardInformation : customerCardSelected, callback: { (paymentMethod, token, issuer, payerCost) in
                         self.callback!(paymentMethod, token, issuer, payerCost)
                         }, callbackCancel: {

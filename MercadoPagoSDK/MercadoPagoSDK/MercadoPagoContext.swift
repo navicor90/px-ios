@@ -60,7 +60,7 @@ open class MercadoPagoContext: NSObject, MPTrackerDelegate {
     }
 
     public func flavor() -> Flavor! {
-        if (initialFlavor == nil) {
+        if initialFlavor == nil {
         return Flavor.Flavor_3
     } else {
                 return initialFlavor
@@ -200,10 +200,10 @@ open class MercadoPagoContext: NSObject, MPTrackerDelegate {
 
     open static func setupPrimaryColor(_ color: UIColor, complementaryColor: UIColor? = nil) {
         MercadoPagoContext.primaryColor = color
-        if (complementaryColor != nil) {
+        if complementaryColor != nil {
             MercadoPagoContext.setupComplementaryColor(complementaryColor!)
         } else {
-            if (color == UIColor.mpDefaultColor()) {
+            if color == UIColor.mpDefaultColor() {
                 MercadoPagoContext.setupComplementaryColor(UIColor.px_blueMercadoPago())
             } else {
                 MercadoPagoContext.setupComplementaryColor(color.lighter())
@@ -256,19 +256,19 @@ open class MercadoPagoContext: NSObject, MPTrackerDelegate {
     }
 
     public class func initFlavor1() {
-        if (MercadoPagoContext.sharedInstance.initialFlavor != nil) {
+        if MercadoPagoContext.sharedInstance.initialFlavor != nil {
             return
         }
         MercadoPagoContext.sharedInstance.initialFlavor = Flavor.Flavor_1
     }
     public class func initFlavor2() {
-        if (MercadoPagoContext.sharedInstance.initialFlavor != nil) {
+        if MercadoPagoContext.sharedInstance.initialFlavor != nil {
             return
         }
         MercadoPagoContext.sharedInstance.initialFlavor = Flavor.Flavor_2
     }
     public class func initFlavor3() {
-        if (MercadoPagoContext.sharedInstance.initialFlavor != nil) {
+        if MercadoPagoContext.sharedInstance.initialFlavor != nil {
             return
         }
         MercadoPagoContext.sharedInstance.initialFlavor = Flavor.Flavor_3
@@ -379,7 +379,7 @@ open class MercadoPagoContext: NSObject, MPTrackerDelegate {
     }
 
     open class func keyType() -> String {
-        if(MercadoPagoContext.isAuthenticatedUser()) {
+        if MercadoPagoContext.isAuthenticatedUser() {
             return MercadoPagoContext.PRIVATE_KEY
         } else {
             return MercadoPagoContext.PUBLIC_KEY
@@ -390,7 +390,7 @@ open class MercadoPagoContext: NSObject, MPTrackerDelegate {
         if forcingPublic {
             return MercadoPagoContext.publicKey()
         }
-        if(MercadoPagoContext.isAuthenticatedUser()) {
+        if MercadoPagoContext.isAuthenticatedUser() {
             return MercadoPagoContext.payerAccessToken()
         } else {
             return MercadoPagoContext.publicKey()
