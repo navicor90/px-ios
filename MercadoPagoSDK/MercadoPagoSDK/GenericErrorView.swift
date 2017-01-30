@@ -32,7 +32,7 @@ open class GenericErrorView: UIView {
         self.backgroundImageView.layer.masksToBounds = false
         self.addSubview(self.backgroundImageView)
 
-        self.errorLabel = MPLabel(frame: CGRect(x: kLabelXOffset, y: 0, width: self.frame.size.width - 2*kLabelXOffset, height: self.frame.size.height))
+        self.errorLabel = MPLabel(frame: CGRect(x: kLabelXOffset, y: 0, width: self.frame.size.width - 2 * kLabelXOffset, height: self.frame.size.height))
         self.errorLabel.numberOfLines = 0
         self.errorLabel.textColor = UIColor.errorCellColor()
         self.errorLabel.font = UIFont(name: "HelveticaNeue-Light", size: 13)
@@ -53,16 +53,16 @@ open class GenericErrorView: UIView {
 
         let newSize: CGSize = textRect.size
 
-        var viewHeight: CGFloat = newSize.height + 2*kErrorOffset
+        var viewHeight: CGFloat = newSize.height + 2 * kErrorOffset
         if viewHeight < self.minimumHeight {
             viewHeight = self.minimumHeight
         } else {
-            viewHeight = self.minimumHeight + 2*kErrorOffset
+            viewHeight = self.minimumHeight + 2 * kErrorOffset
         }
 
         self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.size.width, height: viewHeight)
         self.errorLabel.text = errorMessage
-        self.errorLabel.frame = CGRect(x: self.errorLabel.frame.origin.x, y: (self.frame.size.height - newSize.height)/2, width: self.errorLabel.frame.size.width, height: newSize.height)
+        self.errorLabel.frame = CGRect(x: self.errorLabel.frame.origin.x, y: (self.frame.size.height - newSize.height) / 2, width: self.errorLabel.frame.size.width, height: newSize.height)
     }
 
 }

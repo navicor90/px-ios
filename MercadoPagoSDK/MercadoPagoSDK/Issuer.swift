@@ -34,7 +34,7 @@ open class Issuer: NSObject {
         let name : Any = self.name == nil ? JSONHandler.null : self.name!
         let obj: [String:Any] = [
             "id": id,
-            "name": name,
+            "name": name
             ]
         return obj
     }

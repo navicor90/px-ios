@@ -65,7 +65,7 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
 
         if let font = UIFont(name:MercadoPagoContext.getDecorationPreference().getFontName(), size: 14) {
             doneButton.setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
-          }
+        }
 
         toolBar.setItems([spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -92,10 +92,10 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
     }
 
     open func editingChanged(_ textField: UITextField) {
-          hideErrorMessage()
+        hideErrorMessage()
 
-         numberDocLabel.text = indentificationMask.textMasked(editTextMask.textUnmasked(textField.text))
-         textField.text = editTextMask.textMasked(textField.text, remasked: true)
+        numberDocLabel.text = indentificationMask.textMasked(editTextMask.textUnmasked(textField.text))
+        textField.text = editTextMask.textMasked(textField.text, remasked: true)
 
     }
 
@@ -142,7 +142,7 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
     open func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-   open
+    open
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if self.identificationTypes == nil {
@@ -157,11 +157,11 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
     }
 
     open func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        identificationType =  self.identificationTypes![row]
-    //    typeButton.setTitle( self.identificationTypes![row].name, forState: .Normal)
+        identificationType = self.identificationTypes![row]
+        //    typeButton.setTitle( self.identificationTypes![row].name, forState: .Normal)
         textField.text = self.identificationTypes![row].name
         typePicker.isHidden = true
-       self.remask()
+        self.remask()
     }
 
     @IBAction func setType(_ sender: AnyObject) {
@@ -176,7 +176,7 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
 
     func setupInputAccessoryView() {
 
-        let frame =  CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44)
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44)
         let toolbar = UIToolbar(frame: frame)
 
         toolbar.barStyle = UIBarStyle.default
@@ -220,7 +220,7 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
 
     }
 
-     var errorLabel: MPLabel?
+    var errorLabel: MPLabel?
     func showErrorMessage(_ errorMessage: String) {
         errorLabel = MPLabel(frame: toolbar!.frame)
         self.errorLabel!.backgroundColor = UIColor(netHex: 0xEEEEEE)
@@ -258,19 +258,19 @@ open class IdentificationViewController: MercadoPagoUIViewController, UITextFiel
             self.doneNext?.isEnabled = true
             self.identificationTypes = identificationTypes
             self.typePicker.reloadAllComponents()
-            self.identificationType =  self.identificationTypes![0]
+            self.identificationType = self.identificationTypes![0]
             self.textField.text = self.identificationTypes![0].name
             self.numberTextField.becomeFirstResponder()
             self.remask()
-            }, failure : { (error) -> Void in
-                self.requestFailure(error, callback: {
-                    self.dismiss(animated: true, completion: {})
-                    self.getIdentificationTypes()
-                    }, callbackCancel: {
-                        if self.callbackCancel != nil {
-                            self.callbackCancel!()
-                        }
-                    })
+        }, failure : { (error) -> Void in
+            self.requestFailure(error, callback: {
+                self.dismiss(animated: true, completion: {})
+                self.getIdentificationTypes()
+            }, callbackCancel: {
+                if self.callbackCancel != nil {
+                    self.callbackCancel!()
+                }
+            })
         })
     }
 

@@ -28,7 +28,7 @@ class SimpleInstructionWithButtonViewCell: UITableViewCell, InstructionsFillment
 
     func fillCell(_ instruction: Instruction) -> UITableViewCell {
         if instruction.info != nil && instruction.info.count > 0 {
-            self.title.text  = instruction.info[0]
+            self.title.text = instruction.info[0]
         }
 
         if instruction.references != nil && instruction.references.count > 0 {

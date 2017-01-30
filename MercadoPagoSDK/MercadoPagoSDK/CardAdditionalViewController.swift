@@ -231,10 +231,10 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
             if index.section == 1 {
                 if let card = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? PayerCostCardTableViewCell {
                     if tableView.contentOffset.y > 0 {
-                        if 44/tableView.contentOffset.y < 0.265 && !scrollingDown {
+                        if 44 / tableView.contentOffset.y < 0.265 && !scrollingDown {
                             card.fadeCard()
                         } else {
-                            card.cardView.alpha = 44/tableView.contentOffset.y
+                            card.cardView.alpha = 44 / tableView.contentOffset.y
                         }
                     }
                 }
@@ -326,14 +326,14 @@ open class CardAdditionalStepViewModel: NSObject {
         return (issuer != nil || (token != nil && !token!.isIssuerRequired()))
     }
     func hasPaymentMethod() -> Bool {
-        if (paymentMethods.count)>1 {
+        if (paymentMethods.count) > 1 {
             return false
         } else {
             return true
         }
     }
     func getCardCellHeight() -> CGFloat {
-        return UIScreen.main.bounds.width*0.50
+        return UIScreen.main.bounds.width * 0.50
     }
     func gerRowCellHeight() -> CGFloat {
         if hasIssuer() {

@@ -164,7 +164,7 @@ open class NewCardViewController: MercadoPagoUIViewController, UITableViewDataSo
 		if object != nil {
 			let index = getIndexForObject(object!)
 			if index >= 1 {
-				focusAndScrollForIndex(index-1)
+				focusAndScrollForIndex(index - 1)
 			}
 		}
 	}
@@ -173,7 +173,7 @@ open class NewCardViewController: MercadoPagoUIViewController, UITableViewDataSo
 		if object != nil {
 			let index = getIndexForObject(object!)
 			if index < self.inputsCells.count - 1 {
-				focusAndScrollForIndex(index+1)
+				focusAndScrollForIndex(index + 1)
 			}
 		}
 	}

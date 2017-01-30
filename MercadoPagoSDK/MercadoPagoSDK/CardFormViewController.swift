@@ -183,7 +183,7 @@ open class CardFormViewController: MercadoPagoUIViewController, UITextFieldDeleg
 
         let cardHeight = getCardHeight()
         let cardWidht = getCardWidth()
-        let xMargin = (UIScreen.main.bounds.size.width  - cardWidht) / 2
+        let xMargin = (UIScreen.main.bounds.size.width - cardWidht) / 2
         let yMargin = (UIScreen.main.bounds.size.height - 384 - cardHeight ) / 2
 
         let rectBackground = CGRect(x: xMargin, y: yMargin, width: cardWidht, height: cardHeight)
@@ -445,7 +445,7 @@ open class CardFormViewController: MercadoPagoUIViewController, UITextFieldDeleg
     }
 
     func setupInputAccessoryView() {
-        let frame =  CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44)
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44)
         let toolbar = UIToolbar(frame: frame)
 
         toolbar.barStyle = UIBarStyle.default
@@ -587,10 +587,10 @@ open class CardFormViewController: MercadoPagoUIViewController, UITextFieldDeleg
     func clearCardSkin() {
 
         UIView.animate(withDuration: 0.7, animations: { () -> Void in
-            self.cardFront?.cardLogo.alpha =  0
+            self.cardFront?.cardLogo.alpha = 0
             self.cardView.backgroundColor = UIColor(netHex: 0xEEEEEE)
             })
-        self.cardFront?.cardLogo.image =  nil
+        self.cardFront?.cardLogo.image = nil
         let textMaskFormaterAux = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX")
         let textEditMaskFormaterAux = TextMaskFormater(mask: "XXXX XXXX XXXX XXXX", completeEmptySpaces :false)
 
@@ -613,11 +613,11 @@ open class CardFormViewController: MercadoPagoUIViewController, UITextFieldDeleg
             self.clearCardSkin()
             return
         }
-        if textEditMaskFormater.textUnmasked(textBox.text).characters.count>=6 || cardFormManager.customerCard != nil || cardFormManager.cardToken != nil {
+        if textEditMaskFormater.textUnmasked(textBox.text).characters.count >= 6 || cardFormManager.customerCard != nil || cardFormManager.cardToken != nil {
             let pmMatched = self.cardFormManager.matchedPaymentMethod(self.cardNumberLabel!.text!)
             cardFormManager.guessedPMS = pmMatched
-            if cardFormManager.getGuessedPM()  != nil {
-                self.cardFront?.cardLogo.image =  MercadoPago.getImageFor(self.cardFormManager.getGuessedPM()!)
+            if cardFormManager.getGuessedPM() != nil {
+                self.cardFront?.cardLogo.image = MercadoPago.getImageFor(self.cardFormManager.getGuessedPM()!)
                 UIView.animate(withDuration: 0.7, animations: { () -> Void in
                     self.cardView.backgroundColor = MercadoPago.getColorFor(self.cardFormManager.getGuessedPM()!)
                     self.cardFront?.cardLogo.alpha = 1
@@ -644,7 +644,7 @@ open class CardFormViewController: MercadoPagoUIViewController, UITextFieldDeleg
 
         }
         if self.cvvLabel == nil || self.cvvLabel!.text!.characters.count == 0 {
-            if (cardFormManager.guessedPMS != nil)&&(!(cardFormManager.getGuessedPM()?.secCodeInBack())!) {
+            if (cardFormManager.guessedPMS != nil) && (!(cardFormManager.getGuessedPM()?.secCodeInBack())!) {
                 cvvLabel = cardFront?.cardCVV
                 cardBack?.cardCVV.text = ""
                 cardFront?.cardCVV.alpha = 1
@@ -669,7 +669,7 @@ open class CardFormViewController: MercadoPagoUIViewController, UITextFieldDeleg
 
         cvvLabel?.textColor = MPLabel.defaultColorText
         cardNumberLabel?.alpha = 0.7
-        nameLabel?.alpha =  0.7
+        nameLabel?.alpha = 0.7
         expirationDateLabel?.alpha = 0.7
         cvvLabel?.alpha = 0.7
     }

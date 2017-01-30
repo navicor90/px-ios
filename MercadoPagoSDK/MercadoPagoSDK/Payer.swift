@@ -22,10 +22,10 @@ open class Payer: NSObject {
 	open class func fromJSON(_ json: NSDictionary) -> Payer {
 		let payer: Payer = Payer()
 		if let _id = JSONHandler.attemptParseToString(json["id"]) {
-			payer._id  = _id
+			payer._id = _id
 		}
 		if let email = JSONHandler.attemptParseToString(json["email"]) {
-			payer.email  = email
+			payer.email = email
 		}
 
 		if let identificationDic = json["identification"] as? NSDictionary {

@@ -35,7 +35,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
         self.view.backgroundColor = UIColor.primaryColor()
         self.cardFront = CardFrontView.init(frame: viewModel.getCardBounds())
         self.cardBack = CardBackView.init(frame: viewModel.getCardBounds())
-        if (viewModel.showFrontCard()) {
+        if viewModel.showFrontCard() {
             self.view.addSubview(cardFront)
             self.securityCodeLabel = cardFront.cardCVV
         } else {
@@ -108,19 +108,19 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
     func updateCardSkin(cardInformation: CardInformationForm?, paymentMethod: PaymentMethod?) {
         if viewModel.showFrontCard() {
             if let paymentMethod = paymentMethod {
-                self.cardFront.cardLogo.image =  MercadoPago.getImageFor(paymentMethod)
+                self.cardFront.cardLogo.image = MercadoPago.getImageFor(paymentMethod)
                 self.cardFront.backgroundColor = MercadoPago.getColorFor(paymentMethod)
                 self.cardFront.cardLogo.alpha = 1
                 let fontColor = MercadoPago.getFontColorFor(paymentMethod)!
                 if let token = cardInformation {
                     self.textMaskFormater = TextMaskFormater(mask: paymentMethod.getLabelMask(), completeEmptySpaces: true, leftToRight: false)
-                    cardFront.cardNumber.text =  self.textMaskFormater.textMasked(token.getCardLastForDigits())
+                    cardFront.cardNumber.text = self.textMaskFormater.textMasked(token.getCardLastForDigits())
                 }
                 cardFront.cardName.text = ""
                 cardFront.cardExpirationDate.text = ""
                 cardFront.cardNumber.alpha = 0.8
                 cardFront.cardCVV.alpha = 0.8
-                cardFront.cardNumber.textColor =  fontColor
+                cardFront.cardNumber.textColor = fontColor
                 cardFront.layer.cornerRadius = 11
             }
 
@@ -129,7 +129,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
                 self.cardBack.backgroundColor = MercadoPago.getColorFor(paymentMethod)
                 let fontColor = MercadoPago.getFontColorFor(paymentMethod)!
                 cardBack.cardCVV.alpha = 0.8
-                cardBack.cardCVV.textColor =  fontColor
+                cardBack.cardCVV.textColor = fontColor
                 cardBack.layer.cornerRadius = 11
             }
 
@@ -148,7 +148,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
         hideErrorMessage()
         securityCodeLabel.text = textField.text
         self.ccvLabelEmpty = (textField.text != nil && textField.text!.characters.count == 0)
-        securityCodeLabel.textColor  = UIColor.black
+        securityCodeLabel.textColor = UIColor.black
         completeCvvLabel()
 
     }
@@ -228,7 +228,7 @@ open class SecrurityCodeViewModel: NSObject {
                 self.callback(token)
                 }, failure: { (_) in
                     self.vc.hideLoading()
-                    let mpError =  MPSDKError(message: "Hubo un error".localized, messageDetail: "", retry: false)
+                    let mpError = MPSDKError(message: "Hubo un error".localized, messageDetail: "", retry: false)
                     self.vc.displayFailure(mpError)
             })
         }
@@ -245,15 +245,15 @@ open class SecrurityCodeViewModel: NSObject {
             self.callback(token)
             }, failure: { (_) in
                 self.vc.hideLoading()
-                 let mpError =  MPSDKError(message: "Hubo un error".localized, messageDetail: "", retry: false)
+                 let mpError = MPSDKError(message: "Hubo un error".localized, messageDetail: "", retry: false)
                 self.vc.displayFailure(mpError)
            })
 
     }
 
     func getCardHeight() -> CGFloat {
-        return getCardWidth()/12*7
-        return (UIScreen.main.bounds.height*0.27 )
+        return getCardWidth() / 12 * 7
+        return (UIScreen.main.bounds.height * 0.27 )
     }
 
     func getCardWidth() -> CGFloat {
@@ -261,12 +261,12 @@ open class SecrurityCodeViewModel: NSObject {
         return (UIScreen.main.bounds.width - 100)
     }
     func getCardX() -> CGFloat {
-        return ((UIScreen.main.bounds.width - getCardWidth())/2)
+        return ((UIScreen.main.bounds.width - getCardWidth()) / 2)
     }
 
     func getCardY() -> CGFloat {
         let y = (UIScreen.main.bounds.height - getCardHeight() - 375) / 2
-        return y>10 ? y : 10
+        return y > 10 ? y : 10
     }
 
     func getCardBounds() -> CGRect {

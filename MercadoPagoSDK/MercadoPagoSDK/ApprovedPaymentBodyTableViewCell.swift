@@ -53,7 +53,7 @@ class ApprovedPaymentBodyTableViewCell: CallbackCancelTableViewCell, CongratsFil
         let additionalString = NSMutableAttributedString(string: " ")
 
         if payment.feesDetails != nil && payment.feesDetails.count > 0 {
-            let financingFee = payment.feesDetails.filter({ return $0.isFinancingFeeType()})
+            let financingFee = payment.feesDetails.filter({ return $0.isFinancingFeeType() })
             if financingFee.count > 0 {
                 let currency = MercadoPagoContext.getCurrency()
                 if payment.transactionDetails != nil && payment.transactionDetails.totalPaidAmount > 0 && payment.installments > 0 {

@@ -83,14 +83,14 @@ open class MercadoPagoContext: NSObject, MPTrackerDelegate {
      ]
 
     public enum Site: String {
-        case MLA = "MLA"
-        case MLB = "MLB"
-        case MLM = "MLM"
-        case MLV = "MLV"
-        case MLU = "MLU"
-        case MPE = "MPE"
-        case MLC = "MLC"
-        case MCO = "MCO"
+        case MLA
+        case MLB
+        case MLM
+        case MLV
+        case MLU
+        case MPE
+        case MLC
+        case MCO
     }
 
     @objc public enum Languages: Int {

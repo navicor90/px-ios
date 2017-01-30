@@ -62,7 +62,7 @@ import UIKit
     static let MP_ALPHA_API_BASE_URL: String =  "http://api.mp.internal.ml.com"
     static let MP_API_BASE_URL_PROD: String =  "https://api.mercadopago.com"
 
-    static let MP_API_BASE_URL: String =  MP_API_BASE_URL_PROD
+    static let MP_API_BASE_URL: String = MP_API_BASE_URL_PROD
 
     static let MP_CUSTOMER_URI = "/customers?preference_id="
     static let MP_PAYMENTS_URI = MP_ENVIROMENT + "/payments"
@@ -257,7 +257,7 @@ import UIKit
         let bundle = getBundle()
 
         if (UIDevice.current.systemVersion as NSString).compare("8.0", options: NSString.CompareOptions.numeric) == ComparisonResult.orderedAscending {
-            var nameArr = name!.characters.split {$0 == "."}.map(String.init)
+            var nameArr = name!.characters.split { $0 == "." }.map(String.init)
             let imageExtension: String = nameArr[1]
             let filePath = bundle?.path(forResource: name, ofType: imageExtension)
             if filePath != nil {

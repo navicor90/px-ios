@@ -34,7 +34,7 @@ open class MerchantPayment: NSObject {
     open func toJSONString() -> String {
 
         let card_issuer_id : Any = (issuer == nil || self.issuer?._id == 0) ? JSONHandler.null : (self.issuer?._id)!
-        let card_token : Any =  self.cardTokenId == nil ? JSONHandler.null : self.cardTokenId!
+        let card_token : Any = self.cardTokenId == nil ? JSONHandler.null : self.cardTokenId!
         let campaign_id : Any = self.campaignId == 0 ? JSONHandler.null : String(self.campaignId)
         let installments : Any = self.installments == 0 ? JSONHandler.null : self.installments
         let merchant_access_token : Any = self.merchantAccessToken == nil ? JSONHandler.null : self.merchantAccessToken!

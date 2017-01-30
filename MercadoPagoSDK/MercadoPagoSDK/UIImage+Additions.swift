@@ -11,13 +11,13 @@ extension UIImage {
     func imageGreyScale() -> UIImage {
         let imageRect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
         let greyContext = CGContext(
-            data: nil, width: Int(self.size.width*self.scale), height: Int(self.size.height*self.scale),
+            data: nil, width: Int(self.size.width * self.scale), height: Int(self.size.height * self.scale),
             bitsPerComponent: 8, bytesPerRow: 0,
             space: CGColorSpaceCreateDeviceGray(),
             bitmapInfo: CGBitmapInfo.init(rawValue: CGImageAlphaInfo.none.rawValue).rawValue
 
         )
-        let alphaContext = CGContext(data: nil, width: Int(self.size.width*self.scale), height: Int(self.size.height*self.scale), bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceGray(), bitmapInfo: CGImageAlphaInfo.none.rawValue
+        let alphaContext = CGContext(data: nil, width: Int(self.size.width * self.scale), height: Int(self.size.height * self.scale), bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceGray(), bitmapInfo: CGImageAlphaInfo.none.rawValue
         )
 
         greyContext!.scaleBy(x: self.scale, y: self.scale)

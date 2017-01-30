@@ -46,7 +46,7 @@ class InstructionsFooterWithSecondaryInfoViewCell: UITableViewCell, Instructions
     }
 
     func fillCell(_ instruction: Instruction) -> UITableViewCell {
-        if instruction.secondaryInfo !=  nil && instruction.secondaryInfo!.count > 0 {
+        if instruction.secondaryInfo != nil && instruction.secondaryInfo!.count > 0 {
 
             self.secondaryInfoTitle.text = instruction.secondaryInfo![0]
 

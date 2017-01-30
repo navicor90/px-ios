@@ -42,7 +42,7 @@ class RejectedPaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDeleg
 
         var subtitle = (payment.statusDetail + "_subtitle_" + paymentMethod.paymentTypeId)
         if !subtitle.existsLocalized() {
-            subtitle =  ("Algún dato de tu %1$s es incorrecto.".localized as NSString).replacingOccurrences(of: "%1$s", with: paymentMethod.name)
+            subtitle = ("Algún dato de tu %1$s es incorrecto.".localized as NSString).replacingOccurrences(of: "%1$s", with: paymentMethod.name)
         }
 
         if let paymentMethodName = paymentMethod.name {

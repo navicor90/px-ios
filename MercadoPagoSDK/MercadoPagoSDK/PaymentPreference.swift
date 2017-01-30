@@ -90,7 +90,7 @@ open class PaymentPreference: NSObject {
     open func addSettings(_ defaultPaymentTypeId: String? = nil, excludedPaymentMethodsIds: Set<String>? = nil, excludedPaymentTypesIds: Set<String>? = nil, defaultPaymentMethodId: String? = nil, maxAcceptedInstallment: Int? = nil, defaultInstallments: Int? = nil) -> PaymentPreference {
 
         if excludedPaymentMethodsIds != nil {
-           self.excludedPaymentMethodIds =  excludedPaymentMethodsIds
+           self.excludedPaymentMethodIds = excludedPaymentMethodsIds
         }
 
         if excludedPaymentTypesIds != nil {
@@ -159,13 +159,13 @@ open class PaymentPreference: NSObject {
 
     open func toJSONString() -> String {
         let default_installments : Any = self.defaultInstallments == 0 ? JSONHandler.null : (self.defaultInstallments)
-        let default_payment_method_id : Any =  self.defaultPaymentMethodId == nil ? JSONHandler.null : (self.defaultPaymentMethodId)!
-        let installments : Any =  self.maxAcceptedInstallments == 0 ? JSONHandler.null : (self.maxAcceptedInstallments)
+        let default_payment_method_id : Any = self.defaultPaymentMethodId == nil ? JSONHandler.null : (self.defaultPaymentMethodId)!
+        let installments : Any = self.maxAcceptedInstallments == 0 ? JSONHandler.null : (self.maxAcceptedInstallments)
         var obj: [String:Any] = [
 
             "default_installments": default_installments,
             "default_payment_method_id": default_payment_method_id,
-            "installments": installments,
+            "installments": installments
         ]
 
         var excludedPaymentMethodIdsJson = [NSDictionary]()

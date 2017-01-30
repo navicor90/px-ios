@@ -66,7 +66,7 @@ open class TextMaskFormater: NSObject {
     fileprivate func maskText(_ text: String!) -> String! {
         let maskArray = Array(mask.characters)
         var textToMask = text
-        if (!leftToRight)&&(completeEmptySpaces) {
+        if (!leftToRight) && (completeEmptySpaces) {
             textToMask = completeWithEmptySpaces(text)
         }
         let textArray = Array(textToMask!.characters)
@@ -83,7 +83,7 @@ open class TextMaskFormater: NSObject {
 
             charMask = maskArray[indexMask]
 
-            if textArray.count>indexText {
+            if textArray.count > indexText {
                 charText = textArray[indexText]
             } else {
                 charText = nil

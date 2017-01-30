@@ -19,7 +19,7 @@ open class PayerCost: NSObject {
     open var totalAmount: Double = 0
 
     public init (installments: Int = 0, installmentRate: Double = 0, labels: [String] = [],
-        minAllowedAmount: Double = 0, maxAllowedAmount: Double = 0, recommendedMessage: String! = nil, installmentAmount: Double = 0, totalAmount: Double = 0) {
+                 minAllowedAmount: Double = 0, maxAllowedAmount: Double = 0, recommendedMessage: String! = nil, installmentAmount: Double = 0, totalAmount: Double = 0) {
 
         self.installments = installments
         self.installmentRate = installmentRate
@@ -69,7 +69,7 @@ open class PayerCost: NSObject {
             "maxAllowedAmount": self.installmentRate,
             "recommendedMessage": self.recommendedMessage,
             "installmentAmount": self.installmentAmount,
-            "totalAmount": self.totalAmount,
+            "totalAmount": self.totalAmount
             ]
         return obj
     }

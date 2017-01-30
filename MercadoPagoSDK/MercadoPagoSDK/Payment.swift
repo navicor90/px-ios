@@ -205,7 +205,7 @@ open class Payment: NSObject {
         }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        var dateArr = string.characters.split {$0 == "T"}.map(String.init)
+        var dateArr = string.characters.split { $0 == "T" }.map(String.init)
         return dateFormatter.date(from: dateArr[0])
     }
 

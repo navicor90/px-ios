@@ -78,10 +78,10 @@ open class PaymentMethodsViewController: MercadoPagoUIViewController, UITableVie
                     if self.paymentPreference != nil {
                         var currenPaymentMethods = paymentMethods
                         if self.paymentPreference?.excludedPaymentTypeIds != nil && self.paymentPreference?.excludedPaymentTypeIds?.count > 0 {
-                            currenPaymentMethods = currenPaymentMethods?.filter({return !(self.paymentPreference?.excludedPaymentTypeIds!.contains($0.paymentTypeId))!})
+                            currenPaymentMethods = currenPaymentMethods?.filter({ return !(self.paymentPreference?.excludedPaymentTypeIds!.contains($0.paymentTypeId))! })
                         }
                         if self.paymentPreference?.excludedPaymentMethodIds != nil && self.paymentPreference?.excludedPaymentMethodIds?.count > 0 {
-                            currenPaymentMethods = currenPaymentMethods?.filter({return !(self.paymentPreference?.excludedPaymentMethodIds?.contains($0._id))!})
+                            currenPaymentMethods = currenPaymentMethods?.filter({ return !(self.paymentPreference?.excludedPaymentMethodIds?.contains($0._id))! })
                         }
                         self.items = currenPaymentMethods
                     } else {

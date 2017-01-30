@@ -29,7 +29,7 @@ open class CardToken: NSObject, CardInformationForm {
     }
 
     public init (cardNumber: String?, expirationMonth: Int, expirationYear: Int,
-        securityCode: String?, cardholderName: String, docType: String, docNumber: String) {
+                 securityCode: String?, cardholderName: String, docType: String, docNumber: String) {
             super.init()
             self.cardholder = Cardholder()
             self.cardholder?.name = cardholderName
@@ -54,7 +54,7 @@ open class CardToken: NSObject, CardInformationForm {
     }
 
     open func validate(_ includeSecurityCode: Bool) -> Bool {
-        var result: Bool = validateCardNumber() == nil  && validateExpiryDate() == nil && validateIdentification() == nil && validateCardholderName() == nil
+        var result: Bool = validateCardNumber() == nil && validateExpiryDate() == nil && validateIdentification() == nil && validateCardholderName() == nil
         if includeSecurityCode {
             result = result && validateSecurityCode() == nil
         }
@@ -291,7 +291,9 @@ open class CardToken: NSObject, CardInformationForm {
         var sum = 0
         let reversedCharacters = cardNumber.characters.reversed().map { String($0) }
         for (idx, element) in reversedCharacters.enumerated() {
-            guard let digit = Int(element) else { return false }
+            guard let digit = Int(element) else {
+                return false
+            }
             switch ((idx % 2 == 1), digit) {
             case (true, 9): sum += 9
             case (true, 0...8): sum += (digit * 2) % 9
@@ -303,7 +305,7 @@ open class CardToken: NSObject, CardInformationForm {
     }
 
     open func getBin() -> String? {
-        let range =  cardNumber!.startIndex ..< cardNumber!.characters.index(cardNumber!.characters.startIndex, offsetBy: 6)
+        let range = cardNumber!.startIndex ..< cardNumber!.characters.index(cardNumber!.characters.startIndex, offsetBy: 6)
         let bin: String? = cardNumber!.characters.count >= 6 ? cardNumber!.substring(with: range) : nil
         return bin
     }

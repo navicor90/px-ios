@@ -2,24 +2,66 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
   - MercadoPagoSDKTests
   - Pods
 force_cast: warning # implicitly
-type_body_length: 600
+force_unwrapping: error
 
 
-line_length: 500
-cyclomatic_complexity: 50
+file_length:
+  warning: 900
+  error: 1200
+type_name:
+  min_length: 4 # only warning
+  max_length: # warning and error
+    warning: 40
+    error: 50
+  excluded: iPhone # excluded via string
+variable_name:
+  max_length:
+    warning: 55
+    error: 60
+  excluded:
+    - url
+type_body_length:
+   warning: 300
+   error: 900
+function_body_length:
+   warning: 50
+   error: 100
+cyclomatic_complexity:
+   warning: 10
+   error: 15
+
+function_parameter_count:
+  warning: 8
+  error: 10
+
+opt_in_rules:
+
+  - closure_spacing
+  - redundant_nil_coalescing
+  - nimble_operator
+  - operator_usage_whitespace
+  - closure_end_indentation
+  - object_literal
+  - prohibited_super_call
+  - empty_parameters
+  - conditional_returns_on_newline
+
+  # - empty_count
+  # - private_outlet
+  # - explicit_init
+  # - overridden_super_call
+
 
 disabled_rules:
   - large_tuple
-  - variable_name
+  - line_length
+  - cyclomatic_complexity
   - operator_whitespace
-  - function_body_length
   - todo
   - force_cast
   - implicit_getter
-  - function_parameter_count
   - legacy_constructor
-  - file_length
-  - type_name
+  - variable_name
 
 
 

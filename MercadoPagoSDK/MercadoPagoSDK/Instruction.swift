@@ -30,7 +30,7 @@ open class Instruction: NSObject {
         }
 
         if json["references"] != nil && !(json["references"]! is NSNull) {
-            instruction.references = (json["references"] as! Array).map({InstructionReference.fromJSON($0)})
+            instruction.references = (json["references"] as! Array).map({ InstructionReference.fromJSON($0) })
         }
 
         if json["info"] != nil && !(json["info"]! is NSNull) {
@@ -58,7 +58,7 @@ open class Instruction: NSObject {
         }
 
         if json["actions"] != nil && !(json["actions"]! is NSNull) {
-            instruction.actions = (json["actions"] as! Array).map({InstructionAction.fromJSON($0)})
+            instruction.actions = (json["actions"] as! Array).map({ InstructionAction.fromJSON($0) })
         }
 
         return instruction

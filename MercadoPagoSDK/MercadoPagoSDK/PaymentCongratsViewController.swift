@@ -102,7 +102,7 @@ open class PaymentCongratsViewController: MercadoPagoUIViewController, MPPayment
 
         if (indexPath as NSIndexPath).section == 0 {
             let header = congratsLayout[self.layoutTemplate]!["header"] as! String
-            let headerCell =  self.congratsContentTable.dequeueReusableCell(withIdentifier: header) as! CongratsFillmentDelegate
+            let headerCell = self.congratsContentTable.dequeueReusableCell(withIdentifier: header) as! CongratsFillmentDelegate
             return headerCell.fillCell(self.payment, paymentMethod : self.paymentMethod, callback: nil)
         } else if (indexPath as NSIndexPath).section == 1 {
             let body = congratsLayout[self.layoutTemplate]!["body"] as? String

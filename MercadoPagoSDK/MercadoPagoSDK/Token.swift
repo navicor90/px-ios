@@ -9,45 +9,45 @@
 import Foundation
 
 open class Token: NSObject, CardInformationForm {
-	open var _id: String!
-	open var publicKey: String!
-	open var cardId: String!
-	open var luhnValidation: String!
-	open var status: String!
-	open var usedDate: String!
-	open var cardNumberLength: Int = 0
-	open var creationDate: Date!
-	open var lastFourDigits: String!
+    open var _id: String!
+    open var publicKey: String!
+    open var cardId: String!
+    open var luhnValidation: String!
+    open var status: String!
+    open var usedDate: String!
+    open var cardNumberLength: Int = 0
+    open var creationDate: Date!
+    open var lastFourDigits: String!
     open var firstSixDigit: String!
-	open var securityCodeLength: Int = 0
-	open var expirationMonth: Int = 0
-	open var expirationYear: Int = 0
-	open var lastModifiedDate: Date!
-	open var dueDate: Date!
+    open var securityCodeLength: Int = 0
+    open var expirationMonth: Int = 0
+    open var expirationYear: Int = 0
+    open var lastModifiedDate: Date!
+    open var dueDate: Date!
 
     open var cardHolder: Cardholder?
 
-	public init (_id: String, publicKey: String, cardId: String!, luhnValidation: String!, status: String!,
-        usedDate: String!, cardNumberLength: Int, creationDate: Date!, lastFourDigits: String!, firstSixDigit: String!,
-		securityCodeLength: Int, expirationMonth: Int, expirationYear: Int, lastModifiedDate: Date!,
-        dueDate: Date?, cardHolder: Cardholder?) {
-			self._id = _id
-			self.publicKey = publicKey
-			self.cardId = cardId
-			self.luhnValidation = luhnValidation
-			self.status = status
-			self.usedDate = usedDate
-			self.cardNumberLength = cardNumberLength
-			self.creationDate = creationDate
-			self.lastFourDigits = lastFourDigits
-            self.firstSixDigit = firstSixDigit
-			self.securityCodeLength = securityCodeLength
-			self.expirationMonth = expirationMonth
-			self.expirationYear = expirationYear
-			self.lastModifiedDate = lastModifiedDate
-			self.dueDate = dueDate
-            self.cardHolder = cardHolder
-	}
+    public init (_id: String, publicKey: String, cardId: String!,
+                 luhnValidation: String!, status: String!, usedDate: String!, cardNumberLength: Int, creationDate: Date!, lastFourDigits: String!, firstSixDigit: String!, securityCodeLength: Int, expirationMonth: Int,
+                 expirationYear: Int, lastModifiedDate: Date!, dueDate: Date?, cardHolder: Cardholder?) {
+
+        self._id = _id
+        self.publicKey = publicKey
+        self.cardId = cardId
+        self.luhnValidation = luhnValidation
+        self.status = status
+        self.usedDate = usedDate
+        self.cardNumberLength = cardNumberLength
+        self.creationDate = creationDate
+        self.lastFourDigits = lastFourDigits
+        self.firstSixDigit = firstSixDigit
+        self.securityCodeLength = securityCodeLength
+        self.expirationMonth = expirationMonth
+        self.expirationYear = expirationYear
+        self.lastModifiedDate = lastModifiedDate
+        self.dueDate = dueDate
+        self.cardHolder = cardHolder
+    }
 
     open func getBin() -> String? {
         var bin: String? = nil
@@ -59,36 +59,36 @@ open class Token: NSObject, CardInformationForm {
         return bin
     }
 
-	open class func fromJSON(_ json: NSDictionary) -> Token {
+    open class func fromJSON(_ json: NSDictionary) -> Token {
         let literalJson = json
         let _id = JSONHandler.attemptParseToString(literalJson["id"])
         let publicKey = JSONHandler.attemptParseToString(literalJson["public_key"])
-		let cardId =  JSONHandler.attemptParseToString(literalJson["card_id"])
-		let status = JSONHandler.attemptParseToString(literalJson["status"])
-		let luhn = JSONHandler.attemptParseToString(literalJson["luhn_validation"], defaultReturn: "")
-		let usedDate = JSONHandler.attemptParseToString(literalJson["date_used"], defaultReturn: "")
-		let cardNumberLength = JSONHandler.attemptParseToInt(literalJson["date_used"], defaultReturn: 0)
+        let cardId = JSONHandler.attemptParseToString(literalJson["card_id"])
+        let status = JSONHandler.attemptParseToString(literalJson["status"])
+        let luhn = JSONHandler.attemptParseToString(literalJson["luhn_validation"], defaultReturn: "")
+        let usedDate = JSONHandler.attemptParseToString(literalJson["date_used"], defaultReturn: "")
+        let cardNumberLength = JSONHandler.attemptParseToInt(literalJson["date_used"], defaultReturn: 0)
 
-		let lastFourDigits = JSONHandler.attemptParseToString(literalJson["last_four_digits"], defaultReturn: "")
+        let lastFourDigits = JSONHandler.attemptParseToString(literalJson["last_four_digits"], defaultReturn: "")
         let firstSixDigits = JSONHandler.attemptParseToString(literalJson["first_six_digits"], defaultReturn: "")
-		let securityCodeLength = JSONHandler.attemptParseToInt(literalJson["security_code_length"], defaultReturn: 0)
+        let securityCodeLength = JSONHandler.attemptParseToInt(literalJson["security_code_length"], defaultReturn: 0)
         let expMonth = JSONHandler.attemptParseToInt(literalJson["expiration_month"], defaultReturn: 0)
-		let expYear = JSONHandler.attemptParseToInt(literalJson["expiration_year"], defaultReturn: 0)
+        let expYear = JSONHandler.attemptParseToInt(literalJson["expiration_year"], defaultReturn: 0)
 
         var cardHolder: Cardholder? = nil
         if let dic = json["cardholder"] as? NSDictionary {
             cardHolder = Cardholder.fromJSON(dic)
         }
 
-		let lastModifiedDate = json.isKeyValid("date_last_updated") ? Utils.getDateFromString(json["date_last_updated"] as? String) : Date()
-		let dueDate = json.isKeyValid("date_due") ? Utils.getDateFromString(json["date_due"] as? String) : Date()
+        let lastModifiedDate = json.isKeyValid("date_last_updated") ? Utils.getDateFromString(json["date_last_updated"] as? String) : Date()
+        let dueDate = json.isKeyValid("date_due") ? Utils.getDateFromString(json["date_due"] as? String) : Date()
         let creationDate = json.isKeyValid("date_created") ? Utils.getDateFromString(json["date_created"] as? String) : Date()
 
-		return Token(_id: _id!, publicKey: publicKey!, cardId: cardId, luhnValidation: luhn, status: status,
-			usedDate: usedDate, cardNumberLength: cardNumberLength!, creationDate: creationDate, lastFourDigits : lastFourDigits, firstSixDigit : firstSixDigits,
-			securityCodeLength: securityCodeLength!, expirationMonth: expMonth!, expirationYear: expYear!, lastModifiedDate: lastModifiedDate,
-            dueDate: dueDate, cardHolder: cardHolder)
-	}
+        return Token(_id: _id!, publicKey: publicKey!, cardId: cardId, luhnValidation: luhn, status: status,
+                     usedDate: usedDate, cardNumberLength: cardNumberLength!, creationDate: creationDate, lastFourDigits : lastFourDigits, firstSixDigit : firstSixDigits,
+                     securityCodeLength: securityCodeLength!, expirationMonth: expMonth!, expirationYear: expYear!, lastModifiedDate: lastModifiedDate,
+                     dueDate: dueDate, cardHolder: cardHolder)
+    }
 
     open func toJSONString() -> String {
         return JSONHandler.jsonCoding(toJSON())
@@ -97,9 +97,9 @@ open class Token: NSObject, CardInformationForm {
     open func toJSON() -> [String:Any] {
         let _id : Any = self._id == nil ? JSONHandler.null : self._id!
         let cardId : Any = self.cardId == nil ? JSONHandler.null : self.cardId!
-        let luhn : Any =  self.luhnValidation == nil ? JSONHandler.null : self.luhnValidation!
+        let luhn : Any = self.luhnValidation == nil ? JSONHandler.null : self.luhnValidation!
         let lastFour : Any = self.lastFourDigits == nil ? JSONHandler.null : self.lastFourDigits
-        let firstSix : Any =  self.firstSixDigit == nil ? JSONHandler.null : self.firstSixDigit
+        let firstSix : Any = self.firstSixDigit == nil ? JSONHandler.null : self.firstSixDigit
 
         let obj: [String:Any] = [
             "id": _id,
@@ -128,11 +128,11 @@ open class Token: NSObject, CardInformationForm {
 
         var masknumber: String = ""
 
-        for _ in 0...cardNumberLength-4 {
-           masknumber += "X"
+        for _ in 0...cardNumberLength - 4 {
+            masknumber += "X"
         }
 
-           masknumber += lastFourDigits
+        masknumber += lastFourDigits
         return masknumber
 
     }
@@ -156,30 +156,30 @@ open class Token: NSObject, CardInformationForm {
 }
 
 extension NSDictionary {
-	public func isKeyValid(_ dictKey: String) -> Bool {
-		let dictValue: Any? = self[dictKey]
-		return (dictValue == nil || dictValue is NSNull) ? false : true
-	}
+    public func isKeyValid(_ dictKey: String) -> Bool {
+        let dictValue: Any? = self[dictKey]
+        return (dictValue == nil || dictValue is NSNull) ? false : true
+    }
 }
 
 public func ==(obj1: Token, obj2: Token) -> Bool {
 
     let areEqual =
-    obj1._id == obj2._id &&
-    obj1.publicKey == obj2.publicKey &&
-    obj1.cardId == obj2.cardId &&
-    obj1.luhnValidation == obj2.luhnValidation &&
-    obj1.status == obj2.status &&
-    obj1.usedDate == obj2.usedDate &&
-   // obj1.cardNumberLength == obj2.cardNumberLength &&
-  //  obj1.creationDate == obj2.creationDate &&
-    obj1.firstSixDigit == obj2.firstSixDigit &&
-    obj1.lastFourDigits == obj2.lastFourDigits &&
-    obj1.securityCodeLength == obj2.securityCodeLength &&
-    obj1.expirationMonth == obj2.expirationMonth &&
-    obj1.expirationYear == obj2.expirationYear &&
-    obj1.lastModifiedDate == obj2.lastModifiedDate// &&
-  //  obj1.dueDate == obj2.dueDate
+        obj1._id == obj2._id &&
+            obj1.publicKey == obj2.publicKey &&
+            obj1.cardId == obj2.cardId &&
+            obj1.luhnValidation == obj2.luhnValidation &&
+            obj1.status == obj2.status &&
+            obj1.usedDate == obj2.usedDate &&
+            // obj1.cardNumberLength == obj2.cardNumberLength &&
+            //  obj1.creationDate == obj2.creationDate &&
+            obj1.firstSixDigit == obj2.firstSixDigit &&
+            obj1.lastFourDigits == obj2.lastFourDigits &&
+            obj1.securityCodeLength == obj2.securityCodeLength &&
+            obj1.expirationMonth == obj2.expirationMonth &&
+            obj1.expirationYear == obj2.expirationYear &&
+            obj1.lastModifiedDate == obj2.lastModifiedDate// &&
+    //  obj1.dueDate == obj2.dueDate
 
     return areEqual
 }

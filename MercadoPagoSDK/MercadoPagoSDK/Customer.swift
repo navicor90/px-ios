@@ -61,13 +61,13 @@ open class Customer: NSObject {
     }
 
     open func toJSONString() -> String {
-        let defaultCard : Any =  self.defaultCard != nil ? JSONHandler.null : self.defaultCard!
-        let _description : Any =   self._description == nil ? JSONHandler.null : self._description!
-        let dateCreated : Any =  self.dateCreated == nil ? JSONHandler.null : self.dateCreated!
-        let email : Any =  self.email == nil ? JSONHandler.null : self.email!
-        let firstName : Any =   self.firstName == nil ? JSONHandler.null : self.firstName!
-        let lastName : Any =   self.lastName == nil ? JSONHandler.null : self.lastName!
-        let _id : Any =   self._id == nil ? JSONHandler.null : self._id!
+        let defaultCard : Any = self.defaultCard != nil ? JSONHandler.null : self.defaultCard!
+        let _description : Any = self._description == nil ? JSONHandler.null : self._description!
+        let dateCreated : Any = self.dateCreated == nil ? JSONHandler.null : self.dateCreated!
+        let email : Any = self.email == nil ? JSONHandler.null : self.email!
+        let firstName : Any = self.firstName == nil ? JSONHandler.null : self.firstName!
+        let lastName : Any = self.lastName == nil ? JSONHandler.null : self.lastName!
+        let _id : Any = self._id == nil ? JSONHandler.null : self._id!
 
         let obj: [String:Any] = [
             "defaultCard": defaultCard,

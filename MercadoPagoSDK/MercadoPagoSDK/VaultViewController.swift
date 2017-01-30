@@ -48,7 +48,7 @@ open class VaultViewController: MercadoPagoUIViewController, UITableViewDataSour
         super.init(nibName: "VaultViewController", bundle: bundle)
 
         self.merchantBaseUrl = MercadoPagoContext.baseURL()
-        self.getCustomerUri =  MercadoPagoContext.customerURI()
+        self.getCustomerUri = MercadoPagoContext.customerURI()
         self.merchantAccessToken = MercadoPagoContext.merchantAccessToken()
         self.publicKey = MercadoPagoContext.publicKey()
 

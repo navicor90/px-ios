@@ -31,7 +31,7 @@ class PayerCostRowTableViewCell: UITableViewCell {
         let installmentLabel = NSMutableAttributedString(string: installmentNumber, attributes: atribute)
 
         installmentLabel.append(totalAmount)
-        installmentDescription.attributedText =  installmentLabel
+        installmentDescription.attributedText = installmentLabel
     }
 
     func addSeparatorLineToTop(width: Double, y: Float) {

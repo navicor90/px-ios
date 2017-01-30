@@ -56,7 +56,7 @@ open class CardViewModelManager: NSObject {
         if self.customerCard != nil {
             lenght = (self.customerCard?.getCardSecurityCode().length)!
         } else {
-            if (getGuessedPM()?.settings == nil)||(getGuessedPM()?.settings.count == 0) {
+            if (getGuessedPM()?.settings == nil) || (getGuessedPM()?.settings.count == 0) {
                 lenght = 3 // Default
             } else {
                 lenght = (getGuessedPM()?.settings[0].securityCode.length)!

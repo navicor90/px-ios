@@ -89,14 +89,14 @@ open class MPCardNumberTableViewCell: ErrorTableViewCell, UITextFieldDelegate {
 		if textField.text != nil {
 			var txtAfterUpdate: NSString = textField.text! as NSString
 			txtAfterUpdate = txtAfterUpdate.replacingCharacters(in: range, with: string) as NSString
-			if txtAfterUpdate.length <= maxLength+spaces {
+			if txtAfterUpdate.length <= maxLength + spaces {
 				if txtAfterUpdate.length > 4 {
 					let cardNumber: NSString = txtAfterUpdate.replacingOccurrences(of: " ", with:"") as NSString
 					if maxLength == 16 {
 						// 4 4 4 4
 						let mutableString: NSMutableString = NSMutableString(capacity: maxLength + spaces)
-						for i in 0...(cardNumber.length-1) {
-							if i > 0 && i%4 == 0 {
+						for i in 0...(cardNumber.length - 1) {
+							if i > 0 && i % 4 == 0 {
 								mutableString.appendFormat(" %C", cardNumber.character(at: i))
 							} else {
 								mutableString.appendFormat("%C", cardNumber.character(at: i))
@@ -107,7 +107,7 @@ open class MPCardNumberTableViewCell: ErrorTableViewCell, UITextFieldDelegate {
 					} else if maxLength == 15 {
 						// 4 6 5
 						let mutableString: NSMutableString = NSMutableString(capacity: maxLength + spaces)
-						for i in 0...(cardNumber.length-1) {
+						for i in 0...(cardNumber.length - 1) {
 							if i == 4 || i == 10 {
 								mutableString.appendFormat(" %C", cardNumber.character(at: i))
 							} else {

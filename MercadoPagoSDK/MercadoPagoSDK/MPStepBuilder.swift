@@ -77,7 +77,7 @@ open class MPStepBuilder: NSObject {
     }
 
     open class func startPaymentCongratsStep(_ payment: Payment, paymentMethod: PaymentMethod,
-                         callback : @escaping (_ payment: Payment, _ status: CongratsState) -> Void) -> CongratsRevampViewController {
+                                             callback : @escaping (_ payment: Payment, _ status: CongratsState) -> Void) -> CongratsRevampViewController {
 
       MercadoPagoContext.initFlavor2()
         return CongratsRevampViewController(payment: payment, paymentMethod : paymentMethod, callback : callback)
@@ -92,8 +92,8 @@ open class MPStepBuilder: NSObject {
         })
     }
 
-    open class func startPromosStep(promos: [Promo]? = nil,
-        _ callback: ((Void) -> (Void))? = nil) -> PromoViewController {
+    open class func startPromosStep(promos: [Promo]? = nil, callback: ((Void) -> (Void))? = nil) ->
+                                    PromoViewController {
         MercadoPagoContext.initFlavor2()
         return PromoViewController(promos : promos, callback : callback)
     }
@@ -185,9 +185,10 @@ open class MPStepBuilder: NSObject {
         return CardAdditionalViewController(paymentMethods: [paymentMethod], issuer: issuer, token: token, amount: amount, paymentPreference: paymentPreference, installment: installment, callback: call)
     }
 
-    public class func startPayerCostForm(cardInformation: CardInformation, amount: Double, paymentPreference: PaymentPreference? = nil, installment: Installment? = nil,
-                                       callback : @escaping ((_ payerCost: NSObject?) -> Void),
-                                       callbackCancel: ((Void) -> Void)? = nil) -> CardAdditionalViewController {
+    public class func startPayerCostForm(cardInformation: CardInformation, amount: Double,
+                                         paymentPreference: PaymentPreference? = nil, installment: Installment? = nil,
+                                         callback : @escaping ((_ payerCost: NSObject?) -> Void),
+                                         callbackCancel: ((Void) -> Void)? = nil) -> CardAdditionalViewController {
 
         MercadoPagoContext.initFlavor2()
         return CardAdditionalViewController(cardInformation: cardInformation, amount: amount, paymentPreference: paymentPreference, installment: installment, callback: callback)
@@ -284,8 +285,7 @@ open class MPStepBuilder: NSObject {
                     ccf.navigationController?.present(errorVC, animated: true, completion: {})
             })
         } else {
-            MPServicesBuilder.createNewCardToken(cardToken, success: {
-                (token) -> Void in
+            MPServicesBuilder.createNewCardToken(cardToken, success: { (token) -> Void in
                 callback(paymentMethod, token!, issuer!)
 
                 //ccf.hideLoading()

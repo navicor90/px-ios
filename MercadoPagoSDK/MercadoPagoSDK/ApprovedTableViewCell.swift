@@ -36,7 +36,7 @@ class ApprovedTableViewCell: UITableViewCell {
         let totalAmount = Utils.getAttributedAmount(payment.transactionDetails.installmentAmount, thousandSeparator: String(currency.thousandsSeparator), decimalSeparator: String(currency.decimalSeparator), currencySymbol: String(currency.symbol), color:UIColor.black, fontSize: 24, centsFontSize: 11, baselineOffset:11)
         let installmentLabel = NSMutableAttributedString(string: installmentNumber, attributes: [NSFontAttributeName: Utils.getFont(size: 24)])
         installmentLabel.append(totalAmount)
-        installments.attributedText =  installmentLabel
+        installments.attributedText = installmentLabel
 
         if payment.installments != 1 {
             if payment.transactionDetails.totalPaidAmount != payment.transactionAmount {

@@ -40,11 +40,11 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         self.viewModel = CheckoutViewModel()
         self.callback = callback
         self.callbackCancel = {
-                self.dismiss(animated: true, completion: {
-                    if callbackCancel != nil {
-                            callbackCancel!()
-                  }
-                })
+            self.dismiss(animated: true, completion: {
+                if callbackCancel != nil {
+                    callbackCancel!()
+                }
+            })
         }
     }
 
@@ -128,17 +128,17 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
 
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-            case 0:
-                return 1
-            case 1:
-                // numberOfRowsInMainSection() + confirmPaymentButton
-                return self.viewModel.numberOfRowsInMainSection() + 1
-            case 2:
-                return self.viewModel.preference!.items!.count
-            case 3:
-                return 4
-            default:
-                return 0
+        case 0:
+            return 1
+        case 1:
+            // numberOfRowsInMainSection() + confirmPaymentButton
+            return self.viewModel.numberOfRowsInMainSection() + 1
+        case 2:
+            return self.viewModel.preference!.items!.count
+        case 3:
+            return 4
+        default:
+            return 0
         }
     }
 
@@ -166,7 +166,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
                 return self.getConfirmPaymentButtonCell(indexPath: indexPath)
             }
         } else if indexPath.section == 2 {
-                return self.getPurchaseItemDetailCell(indexPath: indexPath)
+            return self.getPurchaseItemDetailCell(indexPath: indexPath)
         } else if indexPath.section == 3 {
             switch indexPath.row {
             case 0:
@@ -197,10 +197,10 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
                 self.viewModel.paymentMethodSearch = paymentMethodSearch
 
                 self.startPaymentVault()
-                }, failure: { (error) in
-                    self.requestFailure(error, callback: {}, callbackCancel: {
-                            self.navigationController!.dismiss(animated: true, completion: {
-                            })})
+            }, failure: { (error) in
+                self.requestFailure(error, callback: {}, callbackCancel: {
+                    self.navigationController!.dismiss(animated: true, completion: {
+                    })})
             })
         } else {
             self.startPaymentVault(animated)
@@ -224,7 +224,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
             }
         } else {
             callbackCancel = { () -> Void in
-               self.navigationController!.popViewController(animated: true)
+                self.navigationController!.popViewController(animated: true)
             }
         }
 
@@ -234,14 +234,14 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     }
 
     internal func startRecoverCard() {
-         MPServicesBuilder.getPaymentMethods({ (_) in
-        let cardFlow = MPFlowBuilder.startCardFlow(amount: (self.viewModel.preference?.getAmount())!, cardInformation : nil, callback: { (paymentMethod, token, issuer, payerCost) in
-             self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : true)
+        MPServicesBuilder.getPaymentMethods({ (_) in
+            let cardFlow = MPFlowBuilder.startCardFlow(amount: (self.viewModel.preference?.getAmount())!, cardInformation : nil, callback: { (paymentMethod, token, issuer, payerCost) in
+                self.paymentVaultCallback(paymentMethod, token : token, issuer : issuer, payerCost : payerCost, animated : true)
             }, callbackCancel: {
                 self.navigationController!.popToViewController(self, animated: true)
-        })
-        self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
-         }) { (_) in
+            })
+            self.navigationController?.pushViewController(cardFlow.viewControllers[0], animated: true)
+        }) { (_) in
 
         }
 
@@ -293,12 +293,12 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
 
             MPTracker.trackPaymentOffEvent(String(payment._id), mpDelegate: MercadoPagoContext.sharedInstance)
 
-           self.displayPaymentResult(payment)
-           }, failure : { (error) -> Void in
-                self.requestFailure(error, callback: {
-                    self.navigationController?.dismiss(animated: true, completion: {})
-                    self.confirmPayment()
-                })
+            self.displayPaymentResult(payment)
+        }, failure : { (error) -> Void in
+            self.requestFailure(error, callback: {
+                self.navigationController?.dismiss(animated: true, completion: {})
+                self.confirmPayment()
+            })
         })
 
     }
@@ -306,16 +306,16 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     internal func confirmPaymentOn() {
         MercadoPago.createMPPayment(self.viewModel.preference!.payer.email, preferenceId: self.viewModel.preference!._id, paymentMethod: self.viewModel.paymentMethod!, token : self.token, installments: self.viewModel.payerCost!.installments, issuer: self.issuer, customerId : CheckoutViewModel.CUSTOMER_ID, success: { (payment) -> Void in
 
-                self.clearMercadoPagoStyle()
-                self.navigationController!.popViewController(animated: true)
+            self.clearMercadoPagoStyle()
+            self.navigationController!.popViewController(animated: true)
 
-                self.displayPaymentResult(payment)
+            self.displayPaymentResult(payment)
 
-            }, failure : { (error) -> Void in
-                self.requestFailure(error, callback: {
-                    self.navigationController?.dismiss(animated: true, completion: {})
-                    self.confirmPayment()
-                })
+        }, failure : { (error) -> Void in
+            self.requestFailure(error, callback: {
+                self.navigationController?.dismiss(animated: true, completion: {})
+                self.confirmPayment()
+            })
         })
     }
 
@@ -347,22 +347,22 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
 
     fileprivate func loadPreference() {
         MPServicesBuilder.getPreference(self.preferenceId, success: { (preference) in
-                if let error = preference.validate() {
-                    // Invalid preference - cannot continue
-                    let mpError =  MPSDKError(message: "Hubo un error".localized, messageDetail: error.localized, retry: false)
-                    self.displayFailure(mpError)
-                } else {
-                    self.viewModel.preference = preference
-                    self.checkoutTable.reloadData()
-                    self.loadGroupsAndStartPaymentVault(false)
-                }
-            }, failure: { (error) in
-                // Error in service - retry
-                self.requestFailure(error, callback: {
-                    self.loadPreference()
-                    }, callbackCancel: {
-                    self.navigationController!.dismiss(animated: true, completion: {})
-                })
+            if let error = preference.validate() {
+                // Invalid preference - cannot continue
+                let mpError = MPSDKError(message: "Hubo un error".localized, messageDetail: error.localized, retry: false)
+                self.displayFailure(mpError)
+            } else {
+                self.viewModel.preference = preference
+                self.checkoutTable.reloadData()
+                self.loadGroupsAndStartPaymentVault(false)
+            }
+        }, failure: { (error) in
+            // Error in service - retry
+            self.requestFailure(error, callback: {
+                self.loadPreference()
+            }, callbackCancel: {
+                self.navigationController!.dismiss(animated: true, completion: {})
+            })
         })
     }
 
@@ -372,7 +372,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
             self.navigationController?.popViewController(animated: true)
             self.checkoutTable.reloadData()
         })
-        pcf.callbackCancel = { self.navigationController?.popViewController(animated: true)}
+        pcf.callbackCancel = { self.navigationController?.popViewController(animated: true) }
         self.navigationController?.pushViewController(pcf, animated: true)
     }
 
@@ -572,11 +572,11 @@ open class CheckoutViewModel {
         }
 
         if self.discountIncluded {
-            numberOfRows +=  1
+            numberOfRows += 1
         }
 
         if self.shippingIncluded {
-            numberOfRows +=  1
+            numberOfRows += 1
         }
 
         // Total
@@ -604,7 +604,7 @@ open class CheckoutViewModel {
                 return ConfirmPaymentTableViewCell.ROW_HEIGHT
             }
         } else if indexPath.section == 2 {
-                return PurchaseItemDetailTableViewCell.getCellHeight(item: self.preference!.items![indexPath.row])
+            return PurchaseItemDetailTableViewCell.getCellHeight(item: self.preference!.items![indexPath.row])
         } else if indexPath.section == 3 {
             switch indexPath.row {
             case 0:

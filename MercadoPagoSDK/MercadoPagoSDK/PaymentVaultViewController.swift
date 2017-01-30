@@ -312,7 +312,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
     }
 
     public func collectionView(_ collectionView: UICollectionView,
-                                 numberOfItemsInSection section: Int) -> Int {
+                               numberOfItemsInSection section: Int) -> Int {
 
         if loadingGroups {
             return 0
@@ -327,7 +327,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
     }
 
     public func collectionView(_ collectionView: UICollectionView,
-                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+                               cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchCollectionCell",
 
                                                       for: indexPath) as! PaymentSearchCollectionViewCell
@@ -356,8 +356,8 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
     }
 
     public func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+                               layout collectionViewLayout: UICollectionViewLayout,
+                               sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let paddingSpace = CGFloat(32.0)
         let availableWidth = view.frame.width - paddingSpace
@@ -387,8 +387,8 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         } else {
             section = row / 2
         }
-        let index1 = (section  * 2)
-        let index2 = (section  * 2) + 1
+        let index1 = (section * 2)
+        let index2 = (section * 2) + 1
 
         if index1 + 1 > numberOfCells {
             return 0
@@ -411,8 +411,8 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
     }
 
     public func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
+                               layout collectionViewLayout: UICollectionViewLayout,
+                               insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == 0 {
            return UIEdgeInsetsMake(8, 8, 0, 8)
         } else {
@@ -421,8 +421,8 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
     }
 
     public func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+                               layout collectionViewLayout: UICollectionViewLayout,
+                               minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
 

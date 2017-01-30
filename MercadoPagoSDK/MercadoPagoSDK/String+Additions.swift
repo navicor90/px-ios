@@ -44,7 +44,7 @@ extension String {
             return true
         }
         let startIndex = self.range(of: prefix)
-        if startIndex == nil  || self.startIndex != startIndex?.lowerBound {
+        if startIndex == nil || self.startIndex != startIndex?.lowerBound {
             return false
         }
         return true
@@ -64,7 +64,7 @@ extension String {
         return trimmedString
     }
 
-    public func indexAt(_ theInt: Int)->String.Index {
+    public func indexAt(_ theInt: Int) -> String.Index {
 
         return self.characters.index(self.characters.startIndex, offsetBy: theInt)
     }

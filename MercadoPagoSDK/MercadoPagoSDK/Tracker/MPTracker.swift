@@ -127,7 +127,7 @@ open class MPTracker: NSObject {
 
     fileprivate class func flavorText() -> String {
 
-        if (MPTracker.flavor != nil) {
+        if MPTracker.flavor != nil {
             return "F" + (MPTracker.flavor?.rawValue)!
         } else {
             return ""

@@ -41,7 +41,7 @@ open class MPExpirationDateTableViewCell: ErrorTableViewCell, UITextFieldDelegat
         }
 
 		if self.expirationDateTextField.text != nil {
-			var monthStr: String = self.expirationDateTextField.text!.characters.split {$0 == "/"}.map(String.init)[0] as String
+			var monthStr: String = self.expirationDateTextField.text!.characters.split { $0 == "/" }.map(String.init)[0] as String
 			monthStr = monthStr.trimmingCharacters(in: CharacterSet.whitespaces) as String
 			return monthStr.numberValue as! Int
 		}
@@ -54,7 +54,7 @@ open class MPExpirationDateTableViewCell: ErrorTableViewCell, UITextFieldDelegat
         }
 
 		if self.expirationDateTextField.text != nil {
-			var yearStr: String = self.expirationDateTextField.text!.characters.split {$0 == "/"}.map(String.init)[1] as String
+			var yearStr: String = self.expirationDateTextField.text!.characters.split { $0 == "/" }.map(String.init)[1] as String
 			yearStr = yearStr.trimmingCharacters(in: CharacterSet.whitespaces) as String
 			return yearStr.numberValue as! Int
 		}
@@ -79,11 +79,11 @@ open class MPExpirationDateTableViewCell: ErrorTableViewCell, UITextFieldDelegat
 				var date: NSString = txtAfterUpdate.replacingOccurrences(of: " ", with:"") as NSString
 				date = date.replacingOccurrences(of: "/", with:"") as NSString
 				if date.length >= 1 && date.length <= 4 {
-					for i in 0...(date.length-1) {
+					for i in 0...(date.length - 1) {
 						if i == 2 {
 							str += " / "
 						}
-						str +=  String(format: "%C", date.character(at: i))
+						str += String(format: "%C", date.character(at: i))
 					}
 				}
 				self.expirationDateTextField.text = str
