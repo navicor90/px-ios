@@ -81,9 +81,9 @@ open class MPExpirationDateTableViewCell: ErrorTableViewCell, UITextFieldDelegat
 				if date.length >= 1 && date.length <= 4 {
 					for i in 0...(date.length-1) {
 						if i == 2 {
-							str = str + " / "
+							str += " / "
 						}
-						str = str + String(format: "%C", date.character(at: i))
+						str +=  String(format: "%C", date.character(at: i))
 					}
 				}
 				self.expirationDateTextField.text = str

@@ -28,7 +28,7 @@ class ApprovedPaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDeleg
     }
 
     func fillCell(_ payment: Payment, paymentMethod: PaymentMethod, callback: ((Void) -> Void)?) -> UITableViewCell {
-        if (payment.payer != nil && payment.payer!.email != nil && payment.payer!.email.isNotEmpty) {
+        if payment.payer != nil && payment.payer!.email != nil && payment.payer!.email.isNotEmpty {
             self.subtitle.text = payment.payer!.email
         } else {
             self.subtitle.text = ""

@@ -120,7 +120,7 @@ open class CheckoutPreference: NSObject {
 
         var itemsJson = ""
         for item in items! {
-            itemsJson = itemsJson + item.toJSONString()
+            itemsJson += item.toJSONString()
         }
         obj["items"] = itemsJson
 
@@ -130,7 +130,7 @@ open class CheckoutPreference: NSObject {
     open func getAmount() -> Double {
         var amount = 0.0
         for item in self.items! {
-            amount = amount + (Double(item.quantity) * item.unitPrice)
+            amount += (Double(item.quantity) * item.unitPrice)
         }
         return amount
     }

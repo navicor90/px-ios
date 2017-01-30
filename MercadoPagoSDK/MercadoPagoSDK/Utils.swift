@@ -139,7 +139,7 @@ class Utils {
             var missingZeros = 2 - cents.characters.count
             while missingZeros > 0 {
                 cents.append("0")
-                missingZeros = missingZeros - 1
+                missingZeros -=  1
             }
         } else if cents.characters.count > 2 {
             let index1 = cents.index(cents.startIndex, offsetBy: 2)

@@ -568,19 +568,19 @@ open class CheckoutViewModel {
         // Productos
         var numberOfRows = 1
         if self.isPaymentMethodSelectedCard() {
-            numberOfRows = numberOfRows +  1
+            numberOfRows += 1
         }
 
         if self.discountIncluded {
-            numberOfRows = numberOfRows + 1
+            numberOfRows +=  1
         }
 
         if self.shippingIncluded {
-            numberOfRows = numberOfRows + 1
+            numberOfRows +=  1
         }
 
         // Total
-        numberOfRows = numberOfRows + 1
+        numberOfRows += 1
         return numberOfRows
 
     }

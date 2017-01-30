@@ -46,27 +46,27 @@ open class PaymentMethodSearchService: MercadoPagoService {
 
         if newExcludedPaymentTypesIds != nil && newExcludedPaymentTypesIds?.count > 0 {
             let excludedPaymentTypesParams = newExcludedPaymentTypesIds!.map({$0}).joined(separator: ",")
-            params = params + "&excluded_payment_types=" + String(excludedPaymentTypesParams).trimSpaces()
+            params += "&excluded_payment_types=" + String(excludedPaymentTypesParams).trimSpaces()
         }
 
         if excludedPaymentMethodIds != nil && excludedPaymentMethodIds!.count > 0 {
             let excludedPaymentMethodsParams = excludedPaymentMethodIds!.joined(separator: ",")
-            params = params + "&excluded_payment_methods=" + excludedPaymentMethodsParams.trimSpaces()
+            params += "&excluded_payment_methods=" + excludedPaymentMethodsParams.trimSpaces()
         }
 
         if let defaultPaymenMethodId = defaultPaymenMethodId {
-            params = params + "&default_payment_method=" + defaultPaymenMethodId.trimSpaces()
+            params += "&default_payment_method=" + defaultPaymenMethodId.trimSpaces()
         }
 
         if customerEmail != nil && customerEmail!.characters.count > 0 {
-            params = params + "&email=" + customerEmail!
+            params += "&email=" + customerEmail!
         }
 
         if customerId != nil && customerId!.characters.count > 0 {
-            params = params + "&customer_id=" + customerId!
+            params += "&customer_id=" + customerId!
         }
 
-        params = params + "&api_version=" + MercadoPago.API_VERSION
+        params += "&api_version=" + MercadoPago.API_VERSION
 
         var groupsPayerBody: AnyObject? = nil
         if !String.isNullOrEmpty(MercadoPagoContext.payerAccessToken()) {

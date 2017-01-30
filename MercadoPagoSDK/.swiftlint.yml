@@ -8,18 +8,22 @@ type_body_length: 600
 line_length: 500
 cyclomatic_complexity: 50
 
-
 disabled_rules:
-    - variable_name
-    - function_body_length
-    - todo
-    - force_cast
-    - implicit_getter
-    - function_parameter_count
-    - legacy_constructor
-    - operator_whitespace
-    - file_length
-    - type_name
+  - large_tuple
+  - variable_name
+  - operator_whitespace
+    # - function_body_length
+    # - todo
+    # - force_cast
+    # - implicit_getter
+    # - function_parameter_count
+    # - legacy_constructor
+    # - operator_whitespace
+    # - file_length
+    # - type_name
+
+
+
 # disabled_rules:
 #     - trailing_newline
 #     - opening_brace

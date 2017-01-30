@@ -129,10 +129,10 @@ open class Token: NSObject, CardInformationForm {
         var masknumber: String = ""
 
         for _ in 0...cardNumberLength-4 {
-           masknumber = masknumber + "X"
+           masknumber += "X"
         }
 
-           masknumber = masknumber + lastFourDigits
+           masknumber += lastFourDigits
         return masknumber
 
     }

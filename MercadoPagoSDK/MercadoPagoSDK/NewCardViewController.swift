@@ -130,7 +130,7 @@ open class NewCardViewController: MercadoPagoUIViewController, UITableViewDataSo
 					}
 				}
 			}
-			i = i + 1
+			i += 1
 		}
 		return -1
 	}
@@ -156,7 +156,7 @@ open class NewCardViewController: MercadoPagoUIViewController, UITableViewDataSo
 
 				}
 			}
-			i = i + 1
+			i += 1
 		}
 	}
 
@@ -191,7 +191,7 @@ open class NewCardViewController: MercadoPagoUIViewController, UITableViewDataSo
 							scrollToRow(indexPath)
 						}
 					}
-					i = i + 1
+					i += 1
 				}
 			}
 		}

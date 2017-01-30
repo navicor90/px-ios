@@ -36,14 +36,14 @@ open class PaymentService: MercadoPagoService {
     open func getInstallments(_ method: String = "GET", uri: String = MercadoPago.MP_OP_ENVIROMENT + "/payment_methods/installments", public_key: String, bin: String?, amount: Double, issuer_id: NSNumber?, payment_method_id: String, success: @escaping ([Installment]) -> Void, failure: @escaping ((_ error: NSError) -> Void)) {
         var params: String = "public_key=" + public_key
         if(bin != nil) {
-                    params = params + "&bin=" + bin!
+                    params += "&bin=" + bin!
         }
 
-            params = params + "&amount=" + String(format:"%.2f", amount)
+            params += "&amount=" + String(format:"%.2f", amount)
         if issuer_id != nil {
-            params = params + "&issuer.id=" + String(describing: issuer_id!)
+            params += "&issuer.id=" + String(describing: issuer_id!)
         }
-        params = params + "&payment_method_id=" + payment_method_id
+        params += "&payment_method_id=" + payment_method_id
         self.request( uri: uri, params:params, body: nil, method: method, success: {(jsonResult: AnyObject?) -> Void in
 
             if let errorDic = jsonResult as? NSDictionary {
