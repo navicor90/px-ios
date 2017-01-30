@@ -8,38 +8,37 @@
 
 import UIKit
 
-open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITableViewDelegate,UITableViewDataSource {
-    
+open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITableViewDelegate, UITableViewDataSource {
+
     @IBOutlet weak var tableView: UITableView!
-    
-    var bundle : Bundle? = MercadoPago.getBundle()
-    let viewModel : CardAdditionalStepViewModel!
-    
-    
-     override open var screenName : String { get{
+
+    var bundle: Bundle? = MercadoPago.getBundle()
+    let viewModel: CardAdditionalStepViewModel!
+
+     override open var screenName: String { get {
         if viewModel.hasIssuer() {
             return "PAYER_COST"
-        } else if viewModel.hasPaymentMethod(){
+        } else if viewModel.hasPaymentMethod() {
             return "ISSUER"
         } else {
             return "CARD_TYPE"
         }
         } }
-    
+
     override open func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         loadMPStyles()
-        
+
         var upperFrame = UIScreen.main.bounds
-        upperFrame.origin.y = -upperFrame.size.height;
+        upperFrame.origin.y = -upperFrame.size.height
         let upperView = UIView(frame: upperFrame)
         upperView.backgroundColor = UIColor.primaryColor()
         tableView.addSubview(upperView)
-        
+
         self.showNavBar()
-        
+
         let titleNib = UINib(nibName: "PayerCostTitleTableViewCell", bundle: self.bundle)
         self.tableView.register(titleNib, forCellReuseIdentifier: "titleNib")
         let cardNib = UINib(nibName: "PayerCostCardTableViewCell", bundle: self.bundle)
@@ -50,28 +49,28 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
         self.tableView.register(rowIssuerNib, forCellReuseIdentifier: "rowIssuerNib")
         let cardTypeNib = UINib(nibName: "CardTypeTableViewCell", bundle: self.bundle)
         self.tableView.register(cardTypeNib, forCellReuseIdentifier: "cardTypeNib")
-        
+
     }
-    
+
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         self.hideNavBar()
 
     }
-    
+
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.title = ""
         self.showLoading()
-        
+
         if !self.viewModel.hasIssuer() {
             self.getIssuers()
-        } else if self.viewModel.hasPaymentMethod(){
+        } else if self.viewModel.hasPaymentMethod() {
             if self.viewModel.installment == nil {
                 self.getInstallments()
             } else {
@@ -83,59 +82,58 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
         self.titleCellHeight = 44
 
     }
-    
-    override func loadMPStyles(){
+
+    override func loadMPStyles() {
         if self.navigationController != nil {
             self.navigationController!.interactivePopGestureRecognizer?.delegate = self
             self.navigationController?.navigationBar.tintColor = UIColor(red: 255, green: 255, blue: 255)
             self.navigationController?.navigationBar.barTintColor = UIColor.primaryColor()
             self.navigationController?.navigationBar.removeBottomLine()
             self.navigationController?.navigationBar.isTranslucent = false
-            
+
             displayBackButton()
         }
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    public init(viewModel : CardAdditionalStepViewModel, collectPayerCostCallback: @escaping ((_ payerCost: PayerCost?)->Void) ) {
+
+    public init(viewModel: CardAdditionalStepViewModel, collectPayerCostCallback: @escaping ((_ payerCost: PayerCost?) -> Void) ) {
         self.viewModel = viewModel
         self.viewModel.callbackPayerCost = collectPayerCostCallback
         super.init(nibName: "CardAdditionalViewController", bundle: self.bundle)
     }
-    
-    public init(viewModel : CardAdditionalStepViewModel, collectPaymentMethodCallback: @escaping ((_ paymentMethod: PaymentMethod?)->Void) ) {
+
+    public init(viewModel: CardAdditionalStepViewModel, collectPaymentMethodCallback: @escaping ((_ paymentMethod: PaymentMethod?) -> Void) ) {
         self.viewModel = viewModel
         self.viewModel.callbackPaymentMethod = collectPaymentMethodCallback
         super.init(nibName: "CardAdditionalViewController", bundle: self.bundle)
     }
-    
-    public init(viewModel : CardAdditionalStepViewModel,  collectIssuerCallback: @escaping ((_ issuer: Issuer?)->Void) ) {
+
+    public init(viewModel: CardAdditionalStepViewModel, collectIssuerCallback: @escaping ((_ issuer: Issuer?) -> Void) ) {
         self.viewModel = viewModel
         self.viewModel.callbackIssuer = collectIssuerCallback
         super.init(nibName: "CardAdditionalViewController", bundle: self.bundle)
     }
-    
-    public init(cardInformation : CardInformation, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, callback: ((_ payerCost: NSObject?)->Void)? ){
+
+    public init(cardInformation: CardInformation, amount: Double?, paymentPreference: PaymentPreference?, installment: Installment?, callback: ((_ payerCost: NSObject?) -> Void)? ) {
         self.viewModel = CardAdditionalStepViewModel(paymentMethods: [cardInformation.getPaymentMethod()], issuer: cardInformation.getIssuer(), token: cardInformation, amount: amount, paymentPreference: paymentPreference, installment:installment, callback: callback)
         self.viewModel.cardInformation = cardInformation
-        
+
         super.init(nibName: "CardAdditionalViewController", bundle: self.bundle)
     }
-    
-    public init(paymentMethods : [PaymentMethod] ,issuer : Issuer?, token : CardInformationForm?, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, callback: ((_ payerCost: NSObject?)->Void)? ){
-        
+
+    public init(paymentMethods: [PaymentMethod], issuer: Issuer?, token: CardInformationForm?, amount: Double?, paymentPreference: PaymentPreference?, installment: Installment?, callback: ((_ payerCost: NSObject?) -> Void)? ) {
+
         self.viewModel = CardAdditionalStepViewModel(paymentMethods: paymentMethods, issuer: issuer, token: token, amount: amount, paymentPreference: paymentPreference, installment:installment, callback: callback)
-        
+
         super.init(nibName: "CardAdditionalViewController", bundle: self.bundle)
-        
+
     }
-    
+
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+
         switch indexPath.section {
         case 0:
             return self.titleCellHeight
@@ -143,65 +141,64 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
             return self.viewModel.getCardCellHeight()
         case 2:
             return self.viewModel.gerRowCellHeight()
-            
+
         default:
             return 60
         }
-        
+
     }
-    
+
     public func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-    
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == 0 || section == 1){
+        if (section == 0 || section == 1) {
             return 1
         } else {
             return self.viewModel.numberOfPayerCost()
         }
     }
-    
-    
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if (indexPath.section == 0){
-            
+
+        if (indexPath.section == 0) {
+
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "titleNib", for: indexPath as IndexPath) as! PayerCostTitleTableViewCell
             titleCell.selectionStyle = .none
             titleCell.setTitle(string: self.getNavigationBarTitle())
             titleCell.backgroundColor = UIColor.primaryColor()
             self.titleCell = titleCell
-            
+
             return titleCell
-            
-        } else if (indexPath.section == 1){
+
+        } else if (indexPath.section == 1) {
             let cardCell = tableView.dequeueReusableCell(withIdentifier: "cardNib", for: indexPath as IndexPath) as! PayerCostCardTableViewCell
             cardCell.selectionStyle = .none
             cardCell.loadCard()
             cardCell.updateCardSkin(token: self.viewModel.token, paymentMethod: self.viewModel.paymentMethods[0])
             cardCell.backgroundColor = UIColor.primaryColor()
-            
+
             return cardCell
-            
+
         } else {
-            if self.viewModel.hasIssuer(){
-                let payerCost : PayerCost = self.viewModel.payerCosts![indexPath.row]
+            if self.viewModel.hasIssuer() {
+                let payerCost: PayerCost = self.viewModel.payerCosts![indexPath.row]
                 let installmentCell = tableView.dequeueReusableCell(withIdentifier: "rowInstallmentNib", for: indexPath as IndexPath) as! PayerCostRowTableViewCell
                 installmentCell.fillCell(payerCost: payerCost)
                 installmentCell.selectionStyle = .none
                 installmentCell.addSeparatorLineToTop(width: Double(installmentCell.contentView.frame.width), y:Float(installmentCell.contentView.bounds.maxY))
-                
+
                 return installmentCell
-            } else  if self.viewModel.hasPaymentMethod(){
-                let issuer : Issuer = self.viewModel.issuersList![indexPath.row]
+            } else  if self.viewModel.hasPaymentMethod() {
+                let issuer: Issuer = self.viewModel.issuersList![indexPath.row]
                 let issuerCell = tableView.dequeueReusableCell(withIdentifier: "rowIssuerNib", for: indexPath as IndexPath) as! IssuerRowTableViewCell
                 issuerCell.fillCell(issuer: issuer, bundle: self.bundle!)
                 issuerCell.selectionStyle = .none
                 issuerCell.addSeparatorLineToTop(width: Double(issuerCell.contentView.frame.width), y:Float(issuerCell.contentView.bounds.maxY))
-                
+
                 return issuerCell
-            } else{
+            } else {
                 let cardType = tableView.dequeueReusableCell(withIdentifier: "cardTypeNib", for: indexPath as IndexPath) as! CardTypeTableViewCell
                 cardType.setPaymentMethod(paymentMethod: self.viewModel.paymentMethods[indexPath.row])
                 cardType.addSeparatorLineToTop(width: Double(cardType.contentView.frame.width), y:Float(cardType.contentView.bounds.maxY))
@@ -209,44 +206,44 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
             }
         }
     }
-    
+
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if (indexPath.section == 2){
+
+        if (indexPath.section == 2) {
             self.showLoading()
-            if self.viewModel.hasIssuer(){
-                let payerCost : PayerCost = self.viewModel.payerCosts![(indexPath as NSIndexPath).row]
+            if self.viewModel.hasIssuer() {
+                let payerCost: PayerCost = self.viewModel.payerCosts![(indexPath as NSIndexPath).row]
                 self.viewModel.callbackPayerCost!(payerCost)
-            } else if self.viewModel.hasPaymentMethod(){
-                let issuer : Issuer = self.viewModel.issuersList![(indexPath as NSIndexPath).row]
+            } else if self.viewModel.hasPaymentMethod() {
+                let issuer: Issuer = self.viewModel.issuersList![(indexPath as NSIndexPath).row]
                 self.viewModel.callbackIssuer!(issuer)
             } else {
-                let paymentMethod : PaymentMethod = self.viewModel.paymentMethods[(indexPath as NSIndexPath).row]
+                let paymentMethod: PaymentMethod = self.viewModel.paymentMethods[(indexPath as NSIndexPath).row]
                 self.viewModel.callbackPaymentMethod!(paymentMethod)
             }
         }
     }
-    
-    public func scrollViewDidScroll(_ scrollView: UIScrollView){
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.didScrollInTable(scrollView)
         let visibleIndexPaths = tableView.indexPathsForVisibleRows!
         for index in visibleIndexPaths {
-            if index.section == 1  {
-                if let card = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? PayerCostCardTableViewCell{
-                    if tableView.contentOffset.y > 0{
-                        if 44/tableView.contentOffset.y < 0.265 && !scrollingDown{
+            if index.section == 1 {
+                if let card = tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? PayerCostCardTableViewCell {
+                    if tableView.contentOffset.y > 0 {
+                        if 44/tableView.contentOffset.y < 0.265 && !scrollingDown {
                             card.fadeCard()
-                        } else{
-                            card.cardView.alpha = 44/tableView.contentOffset.y;
+                        } else {
+                            card.cardView.alpha = 44/tableView.contentOffset.y
                         }
                     }
                 }
             }
         }
-        
+
     }
-    
-    fileprivate func getInstallments(){
+
+    fileprivate func getInstallments() {
         let bin = self.viewModel.token?.getCardBin() ?? ""
         MPServicesBuilder.getInstallments(bin, amount: self.viewModel.amount, issuer: self.viewModel.issuer, paymentMethodId: self.viewModel.paymentMethods[0]._id, success: { (installments) -> Void in
             self.viewModel.installment = installments?[0]
@@ -257,7 +254,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
             self.requestFailure(error)
         }
     }
-    fileprivate func getIssuers(){
+    fileprivate func getIssuers() {
         MPServicesBuilder.getIssuers(self.viewModel.paymentMethods[0], bin: self.viewModel.token?.getCardBin(), success: { (issuers) -> Void in
             self.viewModel.issuersList = issuers
             self.tableView.reloadData()
@@ -266,35 +263,35 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
             self.requestFailure(error)
         }
     }
-    
+
     override func getNavigationBarTitle() -> String {
         return self.viewModel.getTitle()
     }
-    
+
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.hideLoading()
     }
-    
+
 }
-open class CardAdditionalStepViewModel : NSObject {
-    
-    var payerCosts : [PayerCost]?
-    var installment : Installment?
-    var paymentMethods : [PaymentMethod]
-    var token : CardInformationForm?
+open class CardAdditionalStepViewModel: NSObject {
+
+    var payerCosts: [PayerCost]?
+    var installment: Installment?
+    var paymentMethods: [PaymentMethod]
+    var token: CardInformationForm?
     var issuer: Issuer?
     var amount: Double!
     var paymentPreference: PaymentPreference?
-    var issuersList:[Issuer]?
-    var cardInformation : CardInformation?
+    var issuersList: [Issuer]?
+    var cardInformation: CardInformation?
     var callback : ((_ result: NSObject?) -> Void)?
-    
+
     var callbackIssuer : ((_ issuer: Issuer?) -> Void)?
     var callbackPayerCost : ((_ payerCost: PayerCost?) -> Void)?
     var callbackPaymentMethod : ((_ paymentMethod: PaymentMethod?) -> Void)?
-    
-    init(paymentMethods : [PaymentMethod] ,issuer : Issuer?, token : CardInformationForm?, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, callback: ((_ payerCost: NSObject?)->Void)? ){
+
+    init(paymentMethods: [PaymentMethod], issuer: Issuer?, token: CardInformationForm?, amount: Double?, paymentPreference: PaymentPreference?, installment: Installment?, callback: ((_ payerCost: NSObject?) -> Void)? ) {
         self.paymentMethods = paymentMethods
         self.payerCosts = installment?.payerCosts
         self.installment = installment
@@ -304,32 +301,32 @@ open class CardAdditionalStepViewModel : NSObject {
         self.paymentPreference = paymentPreference
         self.callback = callback
     }
-    func numberOfPayerCost() -> Int{
-        if hasIssuer(){
+    func numberOfPayerCost() -> Int {
+        if hasIssuer() {
             return (self.installment?.numberOfPayerCostToShow(self.paymentPreference?.maxAcceptedInstallments)) ?? 0
-        }else if hasPaymentMethod(){
+        } else if hasPaymentMethod() {
             return (issuersList?.count) ?? 0
         } else {
             return paymentMethods.count
         }
     }
-    func getTitle() -> String{
+    func getTitle() -> String {
         if hasIssuer() {
             return "¿En cuántas cuotas?".localized
-        } else if hasPaymentMethod(){
+        } else if hasPaymentMethod() {
             return "¿Quién emitió tu tarjeta?".localized
         } else {
             return "¿Qué tipo de tarjeta es?".localized
         }
     }
-    func hasIssuer()-> Bool{
+    func hasIssuer() -> Bool {
         if (self.cardInformation != nil) {
             return !self.cardInformation!.isIssuerRequired()
         }
         return (issuer != nil || (token != nil && !token!.isIssuerRequired()))
     }
-    func hasPaymentMethod()->Bool{
-        if (paymentMethods.count)>1{
+    func hasPaymentMethod() -> Bool {
+        if (paymentMethods.count)>1 {
             return false
         } else {
             return true

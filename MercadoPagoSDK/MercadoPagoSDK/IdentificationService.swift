@@ -7,9 +7,9 @@
 //
 
 import Foundation
-open class IdentificationService : MercadoPagoService {
-    open func getIdentificationTypes(_ method: String = "GET", uri : String = "/identification_types", public_key : String?, success: @escaping (_ jsonResult: AnyObject?) -> Void, failure: ((_ error: NSError) -> Void)?) {
-        var params : String? = nil
+open class IdentificationService: MercadoPagoService {
+    open func getIdentificationTypes(_ method: String = "GET", uri: String = "/identification_types", public_key: String?, success: @escaping (_ jsonResult: AnyObject?) -> Void, failure: ((_ error: NSError) -> Void)?) {
+        var params: String? = nil
         if public_key != nil {
             params = "public_key=" + public_key!
         }

@@ -10,9 +10,8 @@ import UIKit
 
 class PendingPaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDelegate {
 
-    
     @IBOutlet weak var subtitle: MPLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -25,8 +24,8 @@ class PendingPaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDelega
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    func fillCell(_ payment: Payment, paymentMethod : PaymentMethod, callback : ((Void) -> Void)?) -> UITableViewCell {
+
+    func fillCell(_ payment: Payment, paymentMethod: PaymentMethod, callback: ((Void) -> Void)?) -> UITableViewCell {
         if payment.statusDetail == nil || payment.statusDetail.isEmpty {
             self.subtitle.text = ""
         } else if payment.statusDetail == "pending_contingency" {
@@ -36,9 +35,9 @@ class PendingPaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDelega
         }
         return self
     }
-    
+
     func getCellHeight(_ payment: Payment, paymentMethod: PaymentMethod) -> CGFloat {
         return 212
     }
-    
+
 }

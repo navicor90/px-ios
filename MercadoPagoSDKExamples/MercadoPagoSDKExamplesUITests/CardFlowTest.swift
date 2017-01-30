@@ -9,10 +9,9 @@
 import XCTest
 
 class CardFlowTest: MercadoPagoUITest {
-    
-   
+
     func testCardForm() {
- 
+
         testApproved(diners())
     }
  /*
@@ -28,25 +27,24 @@ class CardFlowTest: MercadoPagoUITest {
     }
     
     */
-    func testApproved(_ card:TestCard){
+    func testApproved(_ card: TestCard) {
         self.testCard(card, user: approvedUser())
     }
-    
-    func testCard(_ card : TestCard , user : TestUser){
+
+    func testCard(_ card: TestCard, user: TestUser) {
         let tablesQuery = CardFlowTest.application.tables
         tablesQuery.cells.element(boundBy: 1).tap()
         tablesQuery.cells.element(boundBy: 1).tap()
         CardFormActions.testCard(card, user: user)
-        
+
     }
-    
-    
-    func backToMenu(){
-        
+
+    func backToMenu() {
+
         let cMoQuieresPagarNavigationBar = XCUIApplication().navigationBars[""]
         cMoQuieresPagarNavigationBar.children(matching: .button).element(boundBy: 1).tap()
         cMoQuieresPagarNavigationBar.children(matching: .button).element(boundBy: 0).tap()
-        
+
     }
-    
+
 }

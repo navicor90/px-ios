@@ -11,7 +11,7 @@ import UIKit
 class InstallmentSelectionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var installmentsDescription: MPLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,12 +20,12 @@ class InstallmentSelectionTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    func fillCell(_ payerCost : PayerCost) {
+
+    func fillCell(_ payerCost: PayerCost) {
         let mpLightGrayColor = UIColor(netHex: 0x999999)
-        let totalAttributes: [String:AnyObject] = [NSFontAttributeName : Utils.getFont(size: 23),NSForegroundColorAttributeName:mpLightGrayColor]
-        let noRateAttributes = [NSForegroundColorAttributeName : UIColor(red: 67, green: 176,blue: 0), NSFontAttributeName : Utils.getFont(size: 13)]
-        
+        let totalAttributes: [String:AnyObject] = [NSFontAttributeName: Utils.getFont(size: 23), NSForegroundColorAttributeName: mpLightGrayColor]
+        let noRateAttributes = [NSForegroundColorAttributeName: UIColor(red: 67, green: 176, blue: 0), NSFontAttributeName: Utils.getFont(size: 13)]
+
         let additionalText = NSMutableAttributedString(string : "")
         if payerCost.installmentRate > 0 && payerCost.installments > 1 {
             let totalAmountStr = NSMutableAttributedString(string:" ( ", attributes: totalAttributes)
@@ -39,8 +39,8 @@ class InstallmentSelectionTableViewCell: UITableViewCell {
                 additionalText.append(NSAttributedString(string: " Sin interés".localized, attributes: noRateAttributes))
             }
         }
-        
+
         self.installmentsDescription.attributedText =  Utils.getTransactionInstallmentsDescription(payerCost.installments.description, installmentAmount: payerCost.installmentAmount, additionalString: additionalText)
-        
+
     }
 }

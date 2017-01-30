@@ -9,32 +9,32 @@
 import Foundation
 import UIKit
 
-open class Customer : NSObject {
-    open var address : Address?
-    open var cards : [Card]?
-    open var defaultCard : NSNumber?
-    open var _description : String?
-    open var dateCreated : Date?
-    open var dateLastUpdated : Date?
-    open var email : String?
-    open var firstName : String?
-    open var _id : String?
-    open var identification : Identification?
-    open var lastName : String?
-    open var liveMode : Bool?
-    open var metadata : NSDictionary?
-    open var phone : Phone?
-    open var registrationDate : Date?
-    
-    open class func fromJSON(_ json : NSDictionary) -> Customer {
-        let customer : Customer = Customer()
+open class Customer: NSObject {
+    open var address: Address?
+    open var cards: [Card]?
+    open var defaultCard: NSNumber?
+    open var _description: String?
+    open var dateCreated: Date?
+    open var dateLastUpdated: Date?
+    open var email: String?
+    open var firstName: String?
+    open var _id: String?
+    open var identification: Identification?
+    open var lastName: String?
+    open var liveMode: Bool?
+    open var metadata: NSDictionary?
+    open var phone: Phone?
+    open var registrationDate: Date?
+
+    open class func fromJSON(_ json: NSDictionary) -> Customer {
+        let customer: Customer = Customer()
         customer._id = json["id"] as! String!
         customer.liveMode = json["live_mode"] as? Bool!
         customer.email = json["email"] as? String!
         customer.firstName = json["first_name"] as? String!
         customer.lastName = json["last_name"] as? String!
         customer._description = json["description"] as? String!
-        
+
         if let identificationDic = json["identification"] as? NSDictionary {
             customer.identification = Identification.fromJSON(identificationDic)
         }
@@ -48,7 +48,7 @@ open class Customer : NSObject {
         customer.dateCreated = Utils.getDateFromString(json["date_created"] as? String)
         customer.dateLastUpdated = Utils.getDateFromString(json["date_last_updated"] as? String)
         customer.registrationDate = Utils.getDateFromString(json["date_registered"] as? String)
-        var cards : [Card] = [Card]()
+        var cards: [Card] = [Card]()
         if let cardsArray = json["cards"] as? NSArray {
             for i in 0..<cardsArray.count {
                 if let cardDic = cardsArray[i] as? NSDictionary {
@@ -59,7 +59,7 @@ open class Customer : NSObject {
         customer.cards = cards
         return customer
     }
-    
+
     open func toJSONString() -> String {
         let defaultCard : Any =  self.defaultCard != nil ? JSONHandler.null : self.defaultCard!
         let _description : Any =   self._description == nil ? JSONHandler.null : self._description!
@@ -68,25 +68,22 @@ open class Customer : NSObject {
         let firstName : Any =   self.firstName == nil ? JSONHandler.null : self.firstName!
         let lastName : Any =   self.lastName == nil ? JSONHandler.null : self.lastName!
         let _id : Any =   self._id == nil ? JSONHandler.null : self._id!
-        
-        let obj:[String:Any] = [
+
+        let obj: [String:Any] = [
             "defaultCard": defaultCard,
-            "_description" : _description,
-            "dateCreated" : dateCreated,
-            "email" : email,
-            "firstName" : firstName,
-            "lastName" : lastName,
-            "_id" : _id
+            "_description": _description,
+            "dateCreated": dateCreated,
+            "email": email,
+            "firstName": firstName,
+            "lastName": lastName,
+            "_id": _id
             ]
         return JSONHandler.jsonCoding(obj)
     }
 }
 
-
-
-
 public func ==(obj1: Customer, obj2: Customer) -> Bool {
-    
+
     let areEqual =
         obj1.address! == obj2.address! &&
         obj1.cards! == obj2.cards! &&
@@ -105,6 +102,3 @@ public func ==(obj1: Customer, obj2: Customer) -> Bool {
         obj1.registrationDate == obj2.registrationDate
     return areEqual
 }
-
-
-

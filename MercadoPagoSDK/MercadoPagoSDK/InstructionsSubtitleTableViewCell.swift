@@ -16,5 +16,5 @@ class InstructionsSubtitleTableViewCell: UITableViewCell {
         // Initialization code
         title.font = Utils.getFont(size: title.font.pointSize)
 
-    }    
+    }
 }

@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class PaymentMethodRow : NSObject {
-    public var label : String?
-    public var card : Card?
-    public var icon : String?
-    
+public class PaymentMethodRow: NSObject {
+    public var label: String?
+    public var card: Card?
+    public var icon: String?
+
 }

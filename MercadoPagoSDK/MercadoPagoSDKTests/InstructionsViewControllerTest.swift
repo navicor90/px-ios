@@ -9,8 +9,8 @@
 import XCTest
 
 class InstructionsViewControllerTest: BaseTest {
-    
-    var instructionsViewController : InstructionsViewController?
+
+    var instructionsViewController: InstructionsViewController?
 
     override func setUp() {
         super.setUp()
@@ -21,12 +21,12 @@ class InstructionsViewControllerTest: BaseTest {
         })
         self.simulateViewDidLoadFor(self.instructionsViewController!)*/
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
   /*  func testInstructionsScreens(){
          MercadoPagoUIViewController.loadFont(MercadoPago.DEFAULT_FONT_NAME)
         
@@ -100,5 +100,5 @@ class InstructionsViewControllerTest: BaseTest {
         self.waitForExpectationsWithTimeout(10.0, handler: nil)*/
     }
     */
-   
+
 }

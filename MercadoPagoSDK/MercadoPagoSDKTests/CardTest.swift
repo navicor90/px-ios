@@ -8,15 +8,12 @@
 
 import XCTest
 
-
 class CardTest: BaseTest {
 
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Card")!
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Card")!
         let cardFromJSON = Card.fromJSON(json)
         XCTAssertEqual(cardFromJSON, cardFromJSON)
     }
-    
-    
+
 }

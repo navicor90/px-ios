@@ -11,7 +11,7 @@ import UIKit
 class InstructionsFooterWithTertiaryInfoViewCell: UITableViewCell, InstructionsFillmentDelegate {
 
     @IBOutlet weak var clockIcon: UIImageView!
-    
+
     @IBOutlet weak var secondaryInfoTitle: MPLabel!
     @IBOutlet weak var secondaryInfoSubtitle: MPLabel!
     @IBOutlet weak var secondayInfoComment: MPLabel!
@@ -28,15 +28,15 @@ class InstructionsFooterWithTertiaryInfoViewCell: UITableViewCell, InstructionsF
 
         // Configure the view for the selected state
     }
-    
+
     func fillCell(_ instruction: Instruction) -> UITableViewCell {
         if instruction.secondaryInfo != nil && instruction.secondaryInfo!.count > 0 {
             self.secondaryInfoTitle.text = instruction.secondaryInfo![0]
         }
-        
+
         if instruction.tertiaryInfo != nil && instruction.tertiaryInfo!.count > 0 {
             self.secondaryInfoSubtitle.text = instruction.tertiaryInfo![0]
-            
+
             if instruction.tertiaryInfo!.count > 1 {
                 self.secondayInfoComment.text = instruction.tertiaryInfo![1]
             } else {
@@ -47,8 +47,8 @@ class InstructionsFooterWithTertiaryInfoViewCell: UITableViewCell, InstructionsF
         self.acreditationMessage.text = instruction.accreditationMessage
         return self
     }
-    
-    func getCellHeight(_ instruction : Instruction, forFontSize: CGFloat) -> CGFloat {
+
+    func getCellHeight(_ instruction: Instruction, forFontSize: CGFloat) -> CGFloat {
         return 180
     }
 }

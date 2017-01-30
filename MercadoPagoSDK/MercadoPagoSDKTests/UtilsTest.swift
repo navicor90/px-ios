@@ -10,56 +10,51 @@ import XCTest
 
 class UtilsTest: BaseTest {
 
-  
-
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
     /** 
      *
      * getDateFromString
      * 
      **/
-    func testDateFromStringRegularInput(){
-    
+    func testDateFromStringRegularInput() {
+
         var dateExample = "2015-03-14"
-        
+
         var dateComponents = DateComponents()
         dateComponents.year = 2015
         dateComponents.month = 3
         dateComponents.day = 14
-        
+
         let expectedDate = NSCalendar.current.date(from: dateComponents)
         var date = Utils.getDateFromString(dateExample)
         XCTAssertEqual(expectedDate, date)
-        
-        
+
         dateExample = "2015/03/14"
         date = Utils.getDateFromString(dateExample)
         XCTAssertEqual(expectedDate, date)
 
-        
     }
-    
-    func testDateFromStringInvalidInput(){
-        
-        
+
+    func testDateFromStringInvalidInput() {
+
         //Invalid values
         var dateExample = "2015-22-22"
         var date = Utils.getDateFromString(dateExample)
         XCTAssertNil(date)
-        
+
         dateExample = "2222222222-12222-2015"
         date = Utils.getDateFromString(dateExample)
         XCTAssertNil(date)
-        
+
         dateExample = "2222-12-2015"
         date = Utils.getDateFromString(dateExample)
         XCTAssertNil(date)
@@ -67,68 +62,68 @@ class UtilsTest: BaseTest {
         dateExample = "Esto es un test"
         date = Utils.getDateFromString(dateExample)
         XCTAssertNil(date)
-        
+
         date = Utils.getDateFromString(nil)
         XCTAssertNil(date)
     }
-    
+
     /**
      *
      * getStringFromDate
      *
      **/
-    
-    func testgGetStringFromDate(){
-        
+
+    func testgGetStringFromDate() {
+
         var dateComponents = DateComponents()
         dateComponents.year = 2022
         dateComponents.month = 6
         dateComponents.day = 11
-        
+
         var date = NSCalendar.current.date(from: dateComponents)
         var resultDate = Utils.getStringFromDate(date)
-        
+
         XCTAssertEqual("2022-06-11", resultDate)
-        
+
         dateComponents.year = 2022
         dateComponents.month = 12
         dateComponents.day = 1
-        
+
         date = NSCalendar.current.date(from: dateComponents)
         resultDate = Utils.getStringFromDate(date)
-        
+
         XCTAssertEqual("2022-12-01", resultDate)
-        
+
     }
-    
-    func testgGetStringFromDateInvalidInput(){
+
+    func testgGetStringFromDateInvalidInput() {
         let resultDate = Utils.getStringFromDate(nil)
         XCTAssertNil(resultDate)
     }
-    
+
     /**
      *
      * getExpirationMonthFromLabelText
      *
      **/
-    func testGetExpirationMonthFromLabelText(){
-        
+    func testGetExpirationMonthFromLabelText() {
+
         var text = "09/07"
         var result = Utils.getExpirationMonthFromLabelText(text)
         XCTAssertEqual(9, result)
-        
+
         text = "12/70"
         result = Utils.getExpirationMonthFromLabelText(text)
         XCTAssertEqual(12, result)
-        
+
         text = "99/1231231231231"
         result = Utils.getExpirationMonthFromLabelText(text)
         XCTAssertEqual(0, result)
-        
+
         text = "999999999999/98"
         result = Utils.getExpirationMonthFromLabelText(text)
         XCTAssertEqual(0, result)
-        
+
         text = "This is garbage data"
         result = Utils.getExpirationMonthFromLabelText(text)
         XCTAssertEqual(0, result)
@@ -139,53 +134,52 @@ class UtilsTest: BaseTest {
      * getExpirationYearFromLabelText
      *
      **/
-    func testGetExpirationYearFromLabelText(){
-        
+    func testGetExpirationYearFromLabelText() {
+
         var text = "09/07"
         var result = Utils.getExpirationYearFromLabelText(text)
         XCTAssertEqual(7, result)
-        
+
         text = "09/70"
         result = Utils.getExpirationYearFromLabelText(text)
         XCTAssertEqual(70, result)
-        
+
         //text = "09/1231231231231"
         //result = Utils.getExpirationYearFromLabelText(text)
         //XCTAssertEqual(0, result)
-        
+
         text = "09/98"
         result = Utils.getExpirationYearFromLabelText(text)
         XCTAssertEqual(98, result)
-        
+
         text = "This is a pretty ugly test"
         result = Utils.getExpirationYearFromLabelText(text)
         XCTAssertEqual(0, result)
     }
-    
+
     /**
      *
      * findPaymentMethod
      *
      **/
     func testGetFindPaymentMethodInMLA() {
-        
+
         let visaPM = MockBuilder.buildPaymentMethod("visa", name: "visa", paymentTypeId: "credit_card")
         let redlink = MockBuilder.buildPaymentMethod("redlink", name: "RedLink", paymentTypeId: "atm")
         let rapipago = MockBuilder.buildPaymentMethod("rapipago", name: "rapipago", paymentTypeId: "ticket")
         let pagofacil = MockBuilder.buildPaymentMethod("pagofacil", name: "pagofacil", paymentTypeId: "pagofacil")
         let mlaPaymentMethods = [visaPM, redlink, rapipago, pagofacil]
-        
-        
+
         ////let invalidOutput = Utils.findPaymentMethod(mlaPaymentMethods, paymentMethodId: "fruta")
         //XCTAssertNil(invalidOutput)
-        
+
         let visaOutput = Utils.findPaymentMethod(mlaPaymentMethods, paymentMethodId: "visa")
         XCTAssertEqual(visaPM, visaOutput)
-        
+
     }
-    
+
     func testGetFindPaymentMethodInMLM() {
-        
+
         let bancomer = MockBuilder.buildPaymentMethod("bancomer", name: "bancomer", paymentTypeId: "atm")
         let banamex = MockBuilder.buildPaymentMethod("banamex", name: "banamex", paymentTypeId: "atm")
         let oxxo = MockBuilder.buildPaymentMethod("oxxo", name: "oxxo", paymentTypeId: "ticket")
@@ -194,41 +188,39 @@ class UtilsTest: BaseTest {
         let debvisa = MockBuilder.buildPaymentMethod("debvisa", name: "visa", paymentTypeId: "debit_card")
         let accountMoney = MockBuilder.buildPaymentMethod("account_money", name: "account_money", paymentTypeId: "account_money")
         let mlmPaymentMethods = [bancomer, banamex, oxxo, serfin, visa, debvisa, accountMoney]
-        
-        
+
         let bancomerAtmOutput = Utils.findPaymentMethod(mlmPaymentMethods, paymentMethodId: "bancomer_atm")
         XCTAssertEqual(bancomer, bancomerAtmOutput)
         XCTAssertEqual("atm", bancomerAtmOutput.paymentTypeId)
-        
+
         let bancomer7evelenAtmOutput = Utils.findPaymentMethod(mlmPaymentMethods, paymentMethodId: "bancomer_7eleven")
         XCTAssertEqual(bancomer, bancomer7evelenAtmOutput)
         XCTAssertEqual("7eleven", bancomerAtmOutput.paymentTypeId)
-        
+
         let bancomerBankTransferOutput = Utils.findPaymentMethod(mlmPaymentMethods, paymentMethodId: "bancomer_bank_transfer")
         XCTAssertEqual(bancomer, bancomerBankTransferOutput)
         XCTAssertEqual("bank_transfer", bancomerAtmOutput.paymentTypeId)
-        
+
         let accountMoneyOutput = Utils.findPaymentMethod(mlmPaymentMethods, paymentMethodId: "account_money")
         XCTAssertEqual(accountMoney, accountMoneyOutput)
         XCTAssertEqual("account_money", accountMoneyOutput.paymentTypeId)
-        
+
         let oxxoOutput = Utils.findPaymentMethod(mlmPaymentMethods, paymentMethodId: "oxxo")
         XCTAssertEqual(oxxo, oxxoOutput)
         XCTAssertEqual("ticket", oxxoOutput.paymentTypeId)
-        
+
         let debvisaOutput = Utils.findPaymentMethod(mlmPaymentMethods, paymentMethodId: "debvisa")
         XCTAssertEqual(debvisa, debvisaOutput)
         XCTAssertEqual("debit_card", debvisa.paymentTypeId)
-        
-        
+
         //XCTAssertThrowsError(Utils.findPaymentMethod(mlmPaymentMethods, paymentMethodId: "thisisnotavalidinput"), x"", file: (Error) -> Void)
-        
+
         //XCTAssertNil(invalidOutput)
-        
+
        // let emptyOutput = Utils.findPaymentMethod(mlmPaymentMethods, paymentMethodId: "")
        // XCTAssertNil(emptyOutput)
     }
-    
+
     /**
      *
      * getAmountDigits
@@ -237,53 +229,52 @@ class UtilsTest: BaseTest {
     func testGetAmountDigits() {
         var output = Utils.getAmountDigits("122.00", decimalSeparator: ".")
         XCTAssertEqual("122", output)
-        
+
         output = Utils.getAmountDigits("00", decimalSeparator: ".")
         XCTAssertEqual("00", output)
-        
+
         output = Utils.getAmountDigits("122.00", decimalSeparator: ",")
         XCTAssertEqual("122.00", output)
-        
+
         output = Utils.getAmountDigits("7,57", decimalSeparator: ",")
         XCTAssertEqual("7", output)
-        
+
         output = Utils.getAmountDigits("122342342322.99999", decimalSeparator: ".")
         XCTAssertEqual("122342342322", output)
-        
+
         output = Utils.getAmountDigits("1221231435435345435435345345.3456789", decimalSeparator: ".")
         XCTAssertEqual("1221231435435345435435345345", output)
-        
+
         output = Utils.getAmountDigits("ThisIsNotAValidString", decimalSeparator: ".")
         XCTAssertEqual("", output)
-        
+
         output = Utils.getAmountDigits("12.000", decimalSeparator: "thisIsNotAValidSeparator")
         XCTAssertEqual("12.000", output)
-        
+
         output = Utils.getAmountDigits("NothingHere", decimalSeparator: "isValidAtAll")
         XCTAssertEqual("", output)
-    
+
     }
-    
+
     /**
      *
      * getCentsFormatted
      *
      **/
-    func testGetCentsFormatted(){
+    func testGetCentsFormatted() {
         var centsFormatted = Utils.getCentsFormatted("100.2", decimalSeparator: ".")
         XCTAssertEqual("20", centsFormatted)
-        
+
         centsFormatted = Utils.getCentsFormatted("25", decimalSeparator: ".")
         XCTAssertEqual("00", centsFormatted)
-        
+
         centsFormatted = Utils.getCentsFormatted("45.06", decimalSeparator: ".")
         XCTAssertEqual("06", centsFormatted)
-        
+
         centsFormatted = Utils.getCentsFormatted("4.693458", decimalSeparator: ".")
         XCTAssertEqual("69", centsFormatted)
     }
-    
-    
+
     /**
      *
      * getAmountFormatted
@@ -292,71 +283,66 @@ class UtilsTest: BaseTest {
      func testGetAmountFormatted() {
         var amountFormatted = Utils.getAmountFormatted(MockBuilder.TEN, thousandSeparator: ",", decimalSeparator: ".")
         XCTAssertEqual(amountFormatted, "10")
-     
+
         amountFormatted = Utils.getAmountFormatted(MockBuilder.HUNDRED, thousandSeparator: ",", decimalSeparator: ".")
         XCTAssertEqual(amountFormatted, "100")
-     
+
         amountFormatted = Utils.getAmountFormatted(MockBuilder.THOUSAND, thousandSeparator: ",", decimalSeparator: ".")
         XCTAssertEqual(amountFormatted, "1,000")
-     
+
         amountFormatted = Utils.getAmountFormatted(MockBuilder.TEN_THOUSAND, thousandSeparator: ",", decimalSeparator: ".")
         XCTAssertEqual(amountFormatted, "10,000")
-     
+
         amountFormatted = Utils.getAmountFormatted(MockBuilder.MILLON, thousandSeparator: ",", decimalSeparator: ".")
         XCTAssertEqual(amountFormatted, "1,000,000")
-     
+
         amountFormatted = Utils.getAmountFormatted(MockBuilder.OVER_MILLON, thousandSeparator: ",", decimalSeparator: ".")
         XCTAssertEqual(amountFormatted, "10,000,000,000")
-     
+
         amountFormatted = Utils.getAmountFormatted(MockBuilder.MILLIONS, thousandSeparator: ",", decimalSeparator: ".")
         XCTAssertEqual(amountFormatted, "10,000,000,000,000,000")
      }
-    
+
     /**
      *
      * findPaymentMethodSearchItemInGroups
      *
      **/
-    func testFindPaymentMethodSearchItemInGroups(){
+    func testFindPaymentMethodSearchItemInGroups() {
         let paymentMethodSearch = PaymentMethodSearch()
-        
+
         let paymentMethodSearchitemRoot = MockBuilder.buildPaymentMethodSearchItem("id1")
         let paymentMethodSearchitemRootFirst = MockBuilder.buildPaymentMethodSearchItem("id1_1")
         let paymentMethodSearchitemRootSecond = MockBuilder.buildPaymentMethodSearchItem("id1_2")
-        
+
         paymentMethodSearchitemRoot.children = [paymentMethodSearchitemRootFirst, paymentMethodSearchitemRootSecond]
-        
+
         let paymentMethodSearchitemSecondRoot = MockBuilder.buildPaymentMethodSearchItem("id2")
         let paymentMethodSearchitemSecondRootFirst = MockBuilder.buildPaymentMethodSearchItem("id2_1")
         let paymentMethodSearchitemecondRootSecond = MockBuilder.buildPaymentMethodSearchItem("id2_2")
-        
+
         paymentMethodSearchitemSecondRoot.children = [paymentMethodSearchitemSecondRootFirst, paymentMethodSearchitemecondRootSecond]
-        
+
         paymentMethodSearch.groups = [paymentMethodSearchitemRoot, paymentMethodSearchitemSecondRoot]
-        
+
         let rootFirst = Utils.findPaymentMethodSearchItemInGroups(paymentMethodSearch, paymentMethodId: "id1_1", paymentTypeId: nil)
-        
+
         XCTAssertNotNil(rootFirst)
         XCTAssertEqual(paymentMethodSearchitemRootFirst.idPaymentMethodSearchItem, rootFirst!.idPaymentMethodSearchItem)
-        
+
         let secondRoot = Utils.findPaymentMethodSearchItemInGroups(paymentMethodSearch, paymentMethodId: "id2", paymentTypeId: nil)
         XCTAssertNotNil(secondRoot)
         XCTAssertEqual(paymentMethodSearchitemSecondRoot.idPaymentMethodSearchItem, secondRoot!.idPaymentMethodSearchItem)
-        
+
         let invalidData = Utils.findPaymentMethodSearchItemInGroups(PaymentMethodSearch(), paymentMethodId: "id2", paymentTypeId: nil)
         XCTAssertNil(invalidData)
-        
-        
+
     }
-    
-    
-    func testGetAttributedAmount(){
-        
+
+    func testGetAttributedAmount() {
+
         let arsCurrency = CurrenciesUtil.getCurrencyFor("ARS")
         let attributedAmount = Utils.getAttributedAmount(1.00, currency: arsCurrency!)
     }
-    
-  
-    
-    
+
 }

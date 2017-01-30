@@ -9,9 +9,9 @@
 import XCTest
 
 class RefundTest: BaseTest {
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Refund")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Refund")!
         let refundTypeFromJSON = Refund.fromJSON(json)
         XCTAssertEqual(refundTypeFromJSON, refundTypeFromJSON)
     }

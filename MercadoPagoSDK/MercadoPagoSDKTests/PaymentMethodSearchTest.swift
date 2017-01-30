@@ -9,7 +9,5 @@
 import XCTest
 
 class PaymentMethodSearchTest: BaseTest {
-    
 
-    
 }

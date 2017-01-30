@@ -10,12 +10,11 @@ import UIKit
 
 class SimpleInstructionWithButtonViewCell: UITableViewCell, InstructionsFillmentDelegate {
 
-    
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var referenceLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var referenceValue: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.button.layer.borderWidth = 1.0
@@ -26,13 +25,13 @@ class SimpleInstructionWithButtonViewCell: UITableViewCell, InstructionsFillment
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    func fillCell(instruction : Instruction) -> UITableViewCell {
+
+    func fillCell(instruction: Instruction) -> UITableViewCell {
         self.title.text  = instruction.info[0]
         self.referenceLabel.text = instruction.references[0].label.uppercaseString
         self.referenceValue.text = instruction.references[0].getFullReferenceValue()
-       
+
         return self
     }
-    
+
 }

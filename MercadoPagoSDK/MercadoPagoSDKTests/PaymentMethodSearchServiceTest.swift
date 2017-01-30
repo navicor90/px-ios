@@ -9,13 +9,12 @@
 import XCTest
 
 class PaymentMethodSearchServiceTest: BaseTest {
-    
+
     override func setUp() {
         super.setUp()
         MercadoPagoContext.setPublicKey(MockBuilder.MLA_PK)
     }
-    
-    
+
     func testMPServicePaymentMethodSearch() {
      /*   let expectation = expectationWithDescription("paymentMethodSearchService")
         MPServicesBuilder.searchPaymentMethods(nil, excludedPaymentMethods: nil, success: { (PaymentMethodSearch) -> Void in
@@ -24,7 +23,7 @@ class PaymentMethodSearchServiceTest: BaseTest {
         }
         waitForExpectationsWithTimeout(10.0, handler: nil)*/
     }
-    
+
     func testMPServicePaymentMethodSearchWithExcludedPaymentTypes() {
     /*     let expectation = expectationWithDescription("paymentMethodSearchService")
        MPServicesBuilder.searchPaymentMethods(MockBuilder.getMockPaymentTypeIds(), excludedPaymentMethods: nil, success: { (PaymentMethodSearch) -> Void in
@@ -33,6 +32,5 @@ class PaymentMethodSearchServiceTest: BaseTest {
         }
         waitForExpectationsWithTimeout(10.0, handler: nil)*/
     }
-    
-       
+
 }

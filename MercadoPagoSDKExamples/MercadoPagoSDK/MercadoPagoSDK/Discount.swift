@@ -8,16 +8,16 @@
 
 import Foundation
 
-public class Discount : NSObject {
-    public var amountOff : NSNumber = 0
-    public var couponAmount : NSNumber = 0
-    public var currencyId : String!
-    public var _id : Int = 0
-    public var name : String!
-    public var percentOff : NSNumber = 0
-    
-    public class func fromJSON(json : NSDictionary) -> Discount {
-        let discount : Discount = Discount()
+public class Discount: NSObject {
+    public var amountOff: NSNumber = 0
+    public var couponAmount: NSNumber = 0
+    public var currencyId: String!
+    public var _id: Int = 0
+    public var name: String!
+    public var percentOff: NSNumber = 0
+
+    public class func fromJSON(json: NSDictionary) -> Discount {
+        let discount: Discount = Discount()
 		if json["amount_off"] != nil && !(json["amount_off"]! is NSNull) {
 			discount.amountOff = NSNumber(longLong: (json["amount_off"] as? NSString)!.longLongValue)
 		}

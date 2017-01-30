@@ -9,23 +9,23 @@
 import Foundation
 import UIKit
 
-open class InstallmentTableViewCell : UITableViewCell {
-    @IBOutlet fileprivate weak var installmentsLabel : MPLabel!
-    
+open class InstallmentTableViewCell: UITableViewCell {
+    @IBOutlet fileprivate weak var installmentsLabel: MPLabel!
+
     override public init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-    
+
     override open func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    open func fillWithPayerCost(_ payerCost : PayerCost, amount: Double) {
+
+    open func fillWithPayerCost(_ payerCost: PayerCost, amount: Double) {
         installmentsLabel.text = payerCost.recommendedMessage
     }
 }

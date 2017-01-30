@@ -12,7 +12,7 @@ class SimpleInstructionsViewCell: UITableViewCell, InstructionsFillmentDelegate 
 
     @IBOutlet weak var infoTitle: UILabel!
     @IBOutlet weak var referenceValue: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,11 +23,11 @@ class SimpleInstructionsViewCell: UITableViewCell, InstructionsFillmentDelegate 
 
         // Configure the view for the selected state
     }
-    
-    func fillCell(instruction : Instruction) -> UITableViewCell {
+
+    func fillCell(instruction: Instruction) -> UITableViewCell {
         self.infoTitle.text = instruction.info[0]
         self.referenceValue.text = instruction.references[0].getFullReferenceValue()
         return self
     }
-    
+
 }

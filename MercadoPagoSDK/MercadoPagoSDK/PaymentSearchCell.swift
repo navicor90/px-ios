@@ -9,14 +9,13 @@
 import UIKit
 
 class PaymentSearchCell: UITableViewCell {
-    
+
     static let ROW_HEIGHT = CGFloat(52)
-    
+
     @IBOutlet weak var paymentTitle: MPLabel!
-    
+
     @IBOutlet weak var paymentIcon: UIImageView!
 
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -24,17 +23,17 @@ class PaymentSearchCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override func
         awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    func fillRowWithPayment(_ paymentSearchItem : PaymentMethodSearchItem, iconImage: UIImage, tintColor : Bool){
+
+    func fillRowWithPayment(_ paymentSearchItem: PaymentMethodSearchItem, iconImage: UIImage, tintColor: Bool) {
         self.paymentTitle.text = paymentSearchItem._description
         if tintColor {
             let tintedImage = iconImage.withRenderingMode(UIImageRenderingMode.alwaysTemplate)

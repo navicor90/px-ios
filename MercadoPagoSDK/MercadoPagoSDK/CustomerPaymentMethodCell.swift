@@ -11,10 +11,10 @@ import UIKit
 class CustomerPaymentMethodCell: UITableViewCell {
 
     static let ROW_HEIGHT = CGFloat(52)
-    
+
     @IBOutlet weak var paymentIcon: UIImageView!
     @IBOutlet weak var paymentMethodTitle: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -22,9 +22,9 @@ class CustomerPaymentMethodCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     //TODO : fixMe
-    func fillRowWithCustomerPayment(_ card : CardInformation){
+    func fillRowWithCustomerPayment(_ card: CardInformation) {
         self.paymentIcon.image = MercadoPago.getImage(card.getPaymentMethodId())
         self.paymentMethodTitle.text = card.getCardDescription()
     }

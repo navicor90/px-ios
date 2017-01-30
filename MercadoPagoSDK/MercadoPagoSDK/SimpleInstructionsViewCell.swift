@@ -12,7 +12,7 @@ class SimpleInstructionsViewCell: UITableViewCell, InstructionsFillmentDelegate 
 
     @IBOutlet weak var infoTitle: MPLabel!
     @IBOutlet weak var referenceValue: MPLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,32 +23,32 @@ class SimpleInstructionsViewCell: UITableViewCell, InstructionsFillmentDelegate 
 
         // Configure the view for the selected state
     }
-    
-    func fillCell(_ instruction : Instruction) -> UITableViewCell {
-        
+
+    func fillCell(_ instruction: Instruction) -> UITableViewCell {
+
         if instruction.info != nil && instruction.info.count > 0 {
             self.infoTitle.text = instruction.info[0]
         }
-        
+
         if instruction.references != nil && instruction.references.count > 0 {
             self.referenceValue.text = instruction.references[0].getFullReferenceValue()
         }
-        
+
         return self
     }
-    
-    func getCellHeight(_ instruction : Instruction, forFontSize: CGFloat) -> CGFloat {
-        
+
+    func getCellHeight(_ instruction: Instruction, forFontSize: CGFloat) -> CGFloat {
+
         var constraintSize = CGSize()
         let screenSize: CGRect = UIScreen.main.bounds
         constraintSize.width = screenSize.width - 30
-        
+
         let attributes = [NSFontAttributeName: Utils.getFont(size: 22)]
-        
+
         let frame = (instruction.references[0].getFullReferenceValue() as NSString).boundingRect(with: constraintSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributes, context: nil)
-        
+
         let stringSize = frame.size
         return 85 + stringSize.height
     }
-    
+
 }

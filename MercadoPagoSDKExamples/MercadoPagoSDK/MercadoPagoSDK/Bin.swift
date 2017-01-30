@@ -8,17 +8,17 @@
 
 import Foundation
 
-public class Bin : Serializable {
-    public var exclusionPattern : String!
-    public var installmentsPattern : String!
-    public var pattern : String!
-    
+public class Bin: Serializable {
+    public var exclusionPattern: String!
+    public var installmentsPattern: String!
+    public var pattern: String!
+
     public override init() {
             super.init()
     }
-    
-    public class func fromJSON(json : NSDictionary) -> Bin {
-        let bin : Bin = Bin()
+
+    public class func fromJSON(json: NSDictionary) -> Bin {
+        let bin: Bin = Bin()
         bin.exclusionPattern = JSON(json["exclusion_pattern"]!).asString
         bin.installmentsPattern = JSON(json["installments_pattern"]!).asString
         bin.pattern = JSON(json["pattern"]!).asString

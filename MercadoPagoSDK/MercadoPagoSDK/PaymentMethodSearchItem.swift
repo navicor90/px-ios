@@ -8,38 +8,38 @@
 
 import UIKit
 
-open class PaymentMethodSearchItem : Equatable, PaymentOptionDrawable {
-    
-    open var idPaymentMethodSearchItem : String!
-    open var type : PaymentMethodSearchItemType!
-    open var _description : String!
-    open var comment : String?
-    open var childrenHeader : String?
-    open var children : [PaymentMethodSearchItem] = []
-    open var showIcon : Bool = false
-    
-    open class func fromJSON(_ json : NSDictionary) -> PaymentMethodSearchItem {
+open class PaymentMethodSearchItem: Equatable, PaymentOptionDrawable {
+
+    open var idPaymentMethodSearchItem: String!
+    open var type: PaymentMethodSearchItemType!
+    open var _description: String!
+    open var comment: String?
+    open var childrenHeader: String?
+    open var children: [PaymentMethodSearchItem] = []
+    open var showIcon: Bool = false
+
+    open class func fromJSON(_ json: NSDictionary) -> PaymentMethodSearchItem {
         let pmSearchItem = PaymentMethodSearchItem()
-        
-        if let _id = JSONHandler.attemptParseToString(json["id"]){
+
+        if let _id = JSONHandler.attemptParseToString(json["id"]) {
             pmSearchItem.idPaymentMethodSearchItem = _id
         }
-        if let type = JSONHandler.attemptParseToString(json["type"]){
+        if let type = JSONHandler.attemptParseToString(json["type"]) {
             pmSearchItem.type = PaymentMethodSearchItemType(rawValue:type)
         }
-        if let description = JSONHandler.attemptParseToString(json["description"]){
+        if let description = JSONHandler.attemptParseToString(json["description"]) {
             pmSearchItem._description = description
         }
-        if let comment = JSONHandler.attemptParseToString(json["comment"]){
+        if let comment = JSONHandler.attemptParseToString(json["comment"]) {
             pmSearchItem.comment = comment
         }
-        if let showIcon = JSONHandler.attemptParseToBool(json["show_icon"]){
+        if let showIcon = JSONHandler.attemptParseToBool(json["show_icon"]) {
             pmSearchItem.showIcon = showIcon
         }
-        if let childrenHeader = JSONHandler.attemptParseToString(json["children_header"]){
+        if let childrenHeader = JSONHandler.attemptParseToString(json["children_header"]) {
             pmSearchItem.childrenHeader = childrenHeader
         }
-        
+
         var children = [PaymentMethodSearchItem]()
         if let childrenJson = json["children"] as? NSArray {
             for i in 0..<childrenJson.count {
@@ -49,44 +49,44 @@ open class PaymentMethodSearchItem : Equatable, PaymentOptionDrawable {
             }
             pmSearchItem.children = children
         }
-        
+
         return pmSearchItem
     }
-    
+
     open func isOfflinePayment() -> Bool {
         return PaymentTypeId.offlinePayments().contains(self.idPaymentMethodSearchItem)
     }
-    
+
     open func isBitcoin() -> Bool {
         return self.idPaymentMethodSearchItem.lowercased() == "bitcoin"
     }
-    
+
     open func isPaymentMethod() -> Bool {
         return self.type == PaymentMethodSearchItemType.PAYMENT_METHOD
     }
-    
+
     open func isPaymentType() -> Bool {
         return self.type == PaymentMethodSearchItemType.PAYMENT_TYPE
     }
-    
+
     /*
      * PaymentOptionDrawable implementation
      */
-    
+
     public func getTitle() -> String {
         return self._description
     }
-    
+
     public func getSubtitle() -> String? {
         return self.comment
     }
-    
-    public func getImageDescription() -> String{
+
+    public func getImageDescription() -> String {
         return self.idPaymentMethodSearchItem
     }
 }
 
-public enum PaymentMethodSearchItemType : String {
+public enum PaymentMethodSearchItemType: String {
     case GROUP = "group"
     case PAYMENT_TYPE = "payment_type"
     case PAYMENT_METHOD = "payment_method"

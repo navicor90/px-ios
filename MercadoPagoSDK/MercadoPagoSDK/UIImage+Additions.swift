@@ -15,23 +15,23 @@ extension UIImage {
             bitsPerComponent: 8, bytesPerRow: 0,
             space: CGColorSpaceCreateDeviceGray(),
             bitmapInfo: CGBitmapInfo.init(rawValue: CGImageAlphaInfo.none.rawValue).rawValue
-            
+
         )
         let alphaContext = CGContext(data: nil, width: Int(self.size.width*self.scale), height: Int(self.size.height*self.scale), bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceGray(), bitmapInfo: CGImageAlphaInfo.none.rawValue
         )
-        
+
         greyContext!.scaleBy(x: self.scale, y: self.scale)
         alphaContext!.scaleBy(x: self.scale, y: self.scale)
-        
+
         greyContext?.draw(self.cgImage!, in: imageRect)
         alphaContext?.draw(self.cgImage!, in: imageRect)
-        
+
         let greyImage = greyContext!.makeImage()
         let maskImage = alphaContext!.makeImage()
         let combinedImage = greyImage!.masking(maskImage!)
         return UIImage(cgImage: combinedImage!)
     }
-    
+
     func imageWithOverlayTint(tintColor: UIColor) -> UIImage {
         if tintColor == UIColor.px_blueMercadoPago() {
             return self
@@ -41,7 +41,7 @@ extension UIImage {
             self.draw(in: bounds)
             tintColor.setFill()
             UIRectFillUsingBlendMode(bounds, CGBlendMode.darken)
-            
+
             self.draw(in: bounds, blendMode: CGBlendMode.destinationIn, alpha: 1.0)
             let tintedImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()

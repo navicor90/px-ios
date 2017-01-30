@@ -9,10 +9,9 @@
 import XCTest
 
 class PaymentTest: BaseTest {
-    
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Payment")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Payment")!
         let paymentFromJSON = Payment.fromJSON(json)
         XCTAssertEqual(paymentFromJSON._id, "123123124235")
         XCTAssertEqual(paymentFromJSON.currencyId, "currency_id")
@@ -26,5 +25,5 @@ class PaymentTest: BaseTest {
         XCTAssertEqual(paymentFromJSON.status, "status")
         XCTAssertEqual(paymentFromJSON.statusDetail, "status_detail")
     }
-    
+
 }

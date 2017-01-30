@@ -7,7 +7,7 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -18,7 +18,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func <= <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l <= r
@@ -27,7 +27,7 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -36,92 +36,88 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 open class PaymentPreference: NSObject {
-    
-    open var excludedPaymentMethodIds : Set<String>?
-    open var excludedPaymentTypeIds : Set<String>?
-    open var defaultPaymentMethodId : String?
-    open var maxAcceptedInstallments : Int = 0
-    open var defaultInstallments : Int = 0
-    open var defaultPaymentTypeId : String?
-    
+
+    open var excludedPaymentMethodIds: Set<String>?
+    open var excludedPaymentTypeIds: Set<String>?
+    open var defaultPaymentMethodId: String?
+    open var maxAcceptedInstallments: Int = 0
+    open var defaultInstallments: Int = 0
+    open var defaultPaymentTypeId: String?
+
     //installments = sea mayor a cero y que el defaults_istallment sea mayor a 0
     // excluded_payment_method < payment_methods
     //excluded_payment_types < payment_types
-    
-    public override init(){
+
+    public override init() {
         super.init()
     }
-    
-    
-    open func autoSelectPayerCost(_ payerCostList:[PayerCost])-> PayerCost?
-    {
-        if (payerCostList.count == 0){
+
+    open func autoSelectPayerCost(_ payerCostList: [PayerCost]) -> PayerCost? {
+        if (payerCostList.count == 0) {
             return nil
         }
-        if (payerCostList.count == 1){
+        if (payerCostList.count == 1) {
             return payerCostList.first
         }
-        
-            for payercost in payerCostList{
-                if (payercost.installments == defaultInstallments){
+
+            for payercost in payerCostList {
+                if (payercost.installments == defaultInstallments) {
                     return payercost
                 }
             }
-        
+
         if ((payerCostList.first?.installments <= maxAcceptedInstallments)
-            && (payerCostList[1].installments > maxAcceptedInstallments)){
+            && (payerCostList[1].installments > maxAcceptedInstallments)) {
                 return payerCostList.first
-        }else{
+        } else {
             return nil
         }
 
     }
 
-    open func validate() -> Bool{
-        if (maxAcceptedInstallments <= 0){
+    open func validate() -> Bool {
+        if (maxAcceptedInstallments <= 0) {
             return false
         }
-        if (PaymentType.allPaymentIDs.count <= excludedPaymentTypeIds?.count){
+        if (PaymentType.allPaymentIDs.count <= excludedPaymentTypeIds?.count) {
             return false
         }
 
         return true
     }
-    
-    
-    open func addSettings(_ defaultPaymentTypeId: String? = nil ,excludedPaymentMethodsIds : Set<String>? = nil, excludedPaymentTypesIds: Set<String>? = nil, defaultPaymentMethodId: String? = nil, maxAcceptedInstallment : Int? = nil, defaultInstallments : Int? = nil) -> PaymentPreference {
-        
-        if(excludedPaymentMethodsIds != nil){
+
+    open func addSettings(_ defaultPaymentTypeId: String? = nil, excludedPaymentMethodsIds: Set<String>? = nil, excludedPaymentTypesIds: Set<String>? = nil, defaultPaymentMethodId: String? = nil, maxAcceptedInstallment: Int? = nil, defaultInstallments: Int? = nil) -> PaymentPreference {
+
+        if(excludedPaymentMethodsIds != nil) {
            self.excludedPaymentMethodIds =  excludedPaymentMethodsIds
         }
-        
-        if(excludedPaymentTypesIds != nil){
+
+        if(excludedPaymentTypesIds != nil) {
             self.excludedPaymentTypeIds = excludedPaymentTypesIds
         }
-        
-        if(defaultPaymentMethodId != nil){
+
+        if(defaultPaymentMethodId != nil) {
              self.defaultPaymentMethodId = defaultPaymentMethodId
         }
-      
-        if(maxAcceptedInstallment != nil){
+
+        if(maxAcceptedInstallment != nil) {
             self.maxAcceptedInstallments = maxAcceptedInstallment!
         }
-        
-        if(defaultInstallments != nil){
+
+        if(defaultInstallments != nil) {
             self.defaultInstallments = defaultInstallments!
         }
-       
-        if(defaultPaymentTypeId != nil){
+
+        if(defaultPaymentTypeId != nil) {
              self.defaultPaymentTypeId = defaultPaymentTypeId
         }
         return self
     }
-    
-    open class func fromJSON(_ json : NSDictionary) -> PaymentPreference {
+
+    open class func fromJSON(_ json: NSDictionary) -> PaymentPreference {
         let preferencePaymentMethods = PaymentPreference()
-        
+
         var excludedPaymentMethods = Set<String>()
         if let pmArray = json["excluded_payment_methods"] as? NSArray {
             for i in 0..<pmArray.count {
@@ -134,7 +130,7 @@ open class PaymentPreference: NSObject {
             }
             preferencePaymentMethods.excludedPaymentMethodIds = excludedPaymentMethods
         }
-        
+
         var excludedPaymentTypesIds = Set<String>()
         if let ptArray = json["excluded_payment_types"] as? NSArray {
             for i in 0..<ptArray.count {
@@ -147,31 +143,31 @@ open class PaymentPreference: NSObject {
             }
             preferencePaymentMethods.excludedPaymentTypeIds = Set<String>(excludedPaymentTypesIds)
         }
-        
-        if let defaultPaymentMethodId = JSONHandler.attemptParseToString(json["default_payment_method_id"]){
+
+        if let defaultPaymentMethodId = JSONHandler.attemptParseToString(json["default_payment_method_id"]) {
             preferencePaymentMethods.defaultPaymentMethodId = defaultPaymentMethodId
         }
-        if let maxAcceptedInstallments = JSONHandler.attemptParseToInt(json["installments"]){
+        if let maxAcceptedInstallments = JSONHandler.attemptParseToInt(json["installments"]) {
             preferencePaymentMethods.maxAcceptedInstallments = maxAcceptedInstallments
         }
-        if let defaultInstallments = JSONHandler.attemptParseToInt(json["default_installments"]){
+        if let defaultInstallments = JSONHandler.attemptParseToInt(json["default_installments"]) {
             preferencePaymentMethods.defaultInstallments = defaultInstallments
         }
-        
+
         return preferencePaymentMethods
     }
-    
+
     open func toJSONString() -> String {
         let default_installments : Any = self.defaultInstallments == 0 ? JSONHandler.null : (self.defaultInstallments)
         let default_payment_method_id : Any =  self.defaultPaymentMethodId == nil ? JSONHandler.null : (self.defaultPaymentMethodId)!
         let installments : Any =  self.maxAcceptedInstallments == 0 ? JSONHandler.null : (self.maxAcceptedInstallments)
-        var obj:[String:Any] = [
-            
+        var obj: [String:Any] = [
+
             "default_installments": default_installments,
             "default_payment_method_id": default_payment_method_id,
             "installments": installments,
         ]
-        
+
         var excludedPaymentMethodIdsJson = [NSDictionary]()
         if excludedPaymentMethodIds != nil && excludedPaymentMethodIds?.count > 0 {
             for pmId in excludedPaymentMethodIds! {
@@ -181,8 +177,7 @@ open class PaymentPreference: NSObject {
             }
         }
         obj["excluded_payment_methods"] = excludedPaymentMethodIdsJson
-        
-        
+
         var excludedPaymentTypeIdsJson = [NSDictionary]()
         if excludedPaymentTypeIds != nil && excludedPaymentTypeIds?.count > 0 {
             for ptId in excludedPaymentTypeIds! {
@@ -192,23 +187,20 @@ open class PaymentPreference: NSObject {
             }
         }
         obj["excluded_payment_types"] = excludedPaymentTypeIdsJson
-        
-        
+
         return JSONHandler.jsonCoding(obj)
     }
 
 }
 
 public func ==(obj1: PaymentPreference, obj2: PaymentPreference) -> Bool {
-    
+
     let areEqual =
     obj1.excludedPaymentMethodIds! == obj2.excludedPaymentMethodIds! &&
     obj1.excludedPaymentTypeIds == obj2.excludedPaymentTypeIds &&
     obj1.defaultPaymentMethodId == obj2.defaultPaymentMethodId &&
     obj1.maxAcceptedInstallments == obj2.maxAcceptedInstallments &&
     obj1.defaultInstallments == obj2.defaultInstallments
-    
+
     return areEqual
 }
-
-

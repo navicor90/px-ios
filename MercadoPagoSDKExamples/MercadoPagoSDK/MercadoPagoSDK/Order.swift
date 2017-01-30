@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class Order : NSObject {
-    public var _id : Int = 0
-    public var type : String!
-    
-    public class func fromJSON(json : NSDictionary) -> Order {
-        let order : Order = Order()
+public class Order: NSObject {
+    public var _id: Int = 0
+    public var type: String!
+
+    public class func fromJSON(json: NSDictionary) -> Order {
+        let order: Order = Order()
 		if json["id"] != nil && !(json["id"]! is NSNull) {
 			order._id = (json["id"] as? Int)!
 		}

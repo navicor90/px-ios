@@ -7,7 +7,7 @@
 //
 
 import UIKit
-    
+
 class PayerCostTableViewCell: UITableViewCell {
 
     @IBOutlet weak var payerCostDetail: UILabel!
@@ -21,5 +21,5 @@ class PayerCostTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MessageUI
 
-enum UIDeviceFamily : Int {
+enum UIDeviceFamily: Int {
 	case uiDeviceFamilyiPhone = 0, uiDeviceFamilyiPod, uiDeviceFamilyiPad, uiDeviceFamilyAppleTV, uiDeviceFamilyUnknown
 }
 

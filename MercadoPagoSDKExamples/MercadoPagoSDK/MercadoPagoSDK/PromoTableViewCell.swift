@@ -13,19 +13,19 @@ public class PromoTableViewCell: UITableViewCell {
 	@IBOutlet weak public var issuerImageView: UIImageView!
 	@IBOutlet weak public var sharesSubtitle: UILabel!
 	@IBOutlet weak public var paymentMethodsSubtitle: UILabel!
-	
+
 	override public init(style: UITableViewCellStyle, reuseIdentifier: String!) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 	}
-	
+
 	override public func awakeFromNib() {
 		super.awakeFromNib()
 	}
-	
+
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
-	
+
 	public func setPromoInfo(promo: Promo!) {
 		let placeholderImage = "empty_tc"
 		if promo != nil && promo!.issuer != nil && promo!.issuer!._id != nil {
@@ -33,7 +33,7 @@ public class PromoTableViewCell: UITableViewCell {
 			let request: NSURLRequest = NSURLRequest(URL: imgURL)
 			NSURLConnection.sendAsynchronousRequest(
 				request, queue: NSOperationQueue.mainQueue(),
-				completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+				completionHandler: {(_, data: NSData?, error: NSError?) -> Void in
 					if error == nil {
 						self.issuerImageView.image = UIImage(data: data!)
 					} else {
@@ -43,7 +43,7 @@ public class PromoTableViewCell: UITableViewCell {
 		}
 
 		self.sharesSubtitle.text = promo.recommendedMessage
-		
+
 		if promo!.paymentMethods != nil && promo!.paymentMethods!.count > 0 {
 			if promo!.paymentMethods!.count == 1 {
 				self.paymentMethodsSubtitle.text = promo!.paymentMethods[0].name

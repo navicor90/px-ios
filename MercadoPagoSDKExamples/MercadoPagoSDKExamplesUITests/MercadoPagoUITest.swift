@@ -9,45 +9,42 @@
 import XCTest
 
 open class MercadoPagoUITest: XCTestCase {
-    
-    
-    var arguments : [String] = ["UITestingEnabled"]
+
+    var arguments: [String] = ["UITestingEnabled"]
     static var sharedApplication =  XCUIApplication()
     static var initializedApplication = false
-    static var application : XCUIApplication =  MercadoPagoUITest.sharedApplication
-    var cardsTestArray : [TestCard]?
-    
+    static var application: XCUIApplication =  MercadoPagoUITest.sharedApplication
+    var cardsTestArray: [TestCard]?
+
     //DEMO
-    var cardsForDemo : [TestCard]?
-    var rejected : [TestCard]?
+    var cardsForDemo: [TestCard]?
+    var rejected: [TestCard]?
     override open func setUp() {
         super.setUp()
-        cardsTestArray = [visaGaliciaII(),amexI(),amexII(),amexIII(),amexIV(),amexMacro(),visaNaranja(),tarshop(),tarshopWithoutCVV(),amexPatagonia(),visaPatagonia(),visaHipotecario(),naranja(),naranjaMaster(),cencosud(),master(),argencard(),cargencardII(),cabal(),visaGoldSantander(),nativa(),masterPatagonia(),visaPatagoniaII(),masterItau(),diners(),masterII(),visaNacion(),masterNacion(),visaIndustrial(),masterIndustrial(),visaProvincia(),masterProvincia(),masterCencosud(),cordial(),cordialII(),cordialIII(),cmr(),cordobesa(),visaGalicia(),visaNaranjaII(),visaGaliciaGold()]
-        
-        cardsForDemo = [cabal(),naranja(),tarshopWithoutCVV(),diners(),cordial()]
+        cardsTestArray = [visaGaliciaII(), amexI(), amexII(), amexIII(), amexIV(), amexMacro(), visaNaranja(), tarshop(), tarshopWithoutCVV(), amexPatagonia(), visaPatagonia(), visaHipotecario(), naranja(), naranjaMaster(), cencosud(), master(), argencard(), cargencardII(), cabal(), visaGoldSantander(), nativa(), masterPatagonia(), visaPatagoniaII(), masterItau(), diners(), masterII(), visaNacion(), masterNacion(), visaIndustrial(), masterIndustrial(), visaProvincia(), masterProvincia(), masterCencosud(), cordial(), cordialII(), cordialIII(), cmr(), cordobesa(), visaGalicia(), visaNaranjaII(), visaGaliciaGold()]
+
+        cardsForDemo = [cabal(), naranja(), tarshopWithoutCVV(), diners(), cordial()]
         rejected = [mercadopago()]
         continueAfterFailure = false
-        if(!MercadoPagoUITest.initializedApplication){
+        if(!MercadoPagoUITest.initializedApplication) {
             MercadoPagoUITest.initializedApplication = true
             MercadoPagoUITest.sharedApplication.launchArguments = arguments
             MercadoPagoUITest.sharedApplication.launch()
         }
-  
+
     }
 
-   
-    internal func randomTestCard() -> TestCard{
+    internal func randomTestCard() -> TestCard {
         let randomIndex = Int(arc4random_uniform(UInt32(cardsTestArray!.count)))
-        
+
         return cardsTestArray![randomIndex]
     }
-    
+
     override open func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    
+
     func approvedUser() -> TestUser {
         let user = TestUser()
         user.name = "APRO"
@@ -55,9 +52,7 @@ open class MercadoPagoUITest: XCTestCase {
         user.identification.type = "DNI"
         return user
     }
-    
-    
-     
+
      func visaGalicia() -> TestCard {
      let card = TestCard()
      card.name = "Visa Galicia"
@@ -65,7 +60,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-    
+
      func visaGaliciaII() -> TestCard {
      let card = TestCard()
      card.name = "Visa Galicia II"
@@ -73,7 +68,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
+
      func visaGaliciaGold() -> TestCard {
      let card = TestCard()
      card.name = "Visa Galicia Gold"
@@ -81,59 +76,47 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-    
-     
-     
-     func amexI() -> TestCard{
+
+     func amexI() -> TestCard {
      let card = TestCard()
      card.name = "Amex I"
      card.number = "371180303257522"
      card.cvv = "1234"
      return card
      }
-     
-     
-     
-     func amexII() -> TestCard{
+
+     func amexII() -> TestCard {
      let card = TestCard()
      card.name = "Amex II"
      card.number = "378318374262624"
      card.cvv = "1234"
      return card
      }
-     
-     
-     
-     func amexIII() -> TestCard{
+
+     func amexIII() -> TestCard {
      let card = TestCard()
      card.name = "Amex III"
      card.number = "370284003380856"
      card.cvv = "1234"
      return card
      }
-     
-     
-     
-     func amexIV() -> TestCard{
+
+     func amexIV() -> TestCard {
      let card = TestCard()
      card.name = "Amex IV"
      card.number = "376637784717865"
      card.cvv = "1234"
      return card
      }
-     
-     
-     
-     func amexMacro() -> TestCard{
+
+     func amexMacro() -> TestCard {
      let card = TestCard()
      card.name = "Amex (macro)"
      card.number = "371594625346344"
      card.cvv = "1234"
      return card
      }
-     
-     
-     
+
      func visaNaranja() -> TestCard {
      let card = TestCard()
      card.name = "Naranja Visa"
@@ -141,8 +124,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func visaNaranjaII() -> TestCard {
      let card = TestCard()
      card.name = "Naranja Visa II"
@@ -150,9 +132,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
-     
+
      func tarshop() -> TestCard {
      let card = TestCard()
      card.name = "Tarshop 16 digitos"
@@ -160,17 +140,14 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
-     
+
      func tarshopWithoutCVV() -> TestCard {
      let card = TestCard()
      card.name = "Tarshop 13 digitos (without CVV)"
      card.number = "2799519076121"
      return card
      }
-     
-     
+
      func amexPatagonia() -> TestCard {
      let card = TestCard()
      card.name = "Amex Patagonia"
@@ -178,8 +155,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "1234"
      return card
      }
-     
-     
+
      func visaPatagonia() -> TestCard {
      let card = TestCard()
      card.name = "Visa Patagonia"
@@ -187,8 +163,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func visaHipotecario() -> TestCard {
      let card = TestCard()
      card.name = "Visa Hipotecario"
@@ -196,8 +171,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func naranja() -> TestCard {
      let card = TestCard()
      card.name = "Naranja"
@@ -205,8 +179,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func naranjaMaster() -> TestCard {
      let card = TestCard()
      card.name = "Naranja Master"
@@ -214,8 +187,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func cencosud() -> TestCard {
      let card = TestCard()
      card.name = "Cencosud"
@@ -223,8 +195,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func master() -> TestCard {
      let card = TestCard()
      card.name = "Master"
@@ -232,8 +203,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func argencard() -> TestCard {
      let card = TestCard()
      card.name = "Argencard"
@@ -241,8 +211,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func cargencardII() -> TestCard {
      let card = TestCard()
      card.name = "Argencard II"
@@ -250,8 +219,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func cabal() -> TestCard {
      let card = TestCard()
      card.name = "Cabal"
@@ -259,8 +227,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func visaGoldSantander() -> TestCard {
      let card = TestCard()
      card.name = "Visa Gold Santander"
@@ -268,8 +235,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func nativa() -> TestCard {
      let card = TestCard()
      card.name = "Nativa"
@@ -277,8 +243,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func masterPatagonia() -> TestCard {
      let card = TestCard()
      card.name = "Master Patagonia"
@@ -286,8 +251,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func visaPatagoniaII() -> TestCard {
      let card = TestCard()
      card.name = "Visa Patagonia II"
@@ -295,8 +259,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func masterItau() -> TestCard {
      let card = TestCard()
      card.name = "Master Itau"
@@ -304,8 +267,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func diners() -> TestCard {
      let card = TestCard()
      card.name = "Diners"
@@ -313,8 +275,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func masterII() -> TestCard {
      let card = TestCard()
      card.name = "Master II"
@@ -322,8 +283,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func visaNacion() -> TestCard {
      let card = TestCard()
      card.name = "Nacion Visa"
@@ -331,8 +291,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func masterNacion() -> TestCard {
      let card = TestCard()
      card.name = "Nacion Master"
@@ -340,8 +299,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func visaIndustrial() -> TestCard {
      let card = TestCard()
      card.name = "Industrial Visa"
@@ -349,8 +307,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func masterIndustrial() -> TestCard {
      let card = TestCard()
      card.name = "Industrial Master"
@@ -358,8 +315,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func visaProvincia() -> TestCard {
      let card = TestCard()
      card.name = "Provincia Visa"
@@ -367,8 +323,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func masterProvincia() -> TestCard {
      let card = TestCard()
      card.name = "Provincia Master"
@@ -376,8 +331,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func masterCencosud() -> TestCard {
      let card = TestCard()
      card.name = "Cencosud  Master"
@@ -385,8 +339,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func cordial() -> TestCard {
      let card = TestCard()
      card.name = "Cordial"
@@ -394,8 +347,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func cordialII() -> TestCard {
      let card = TestCard()
      card.name = "Cordial II"
@@ -403,8 +355,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func cordialIII() -> TestCard {
      let card = TestCard()
      card.name = "Cordial III"
@@ -412,8 +363,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func cmr() -> TestCard {
      let card = TestCard()
      card.name = "CMR"
@@ -421,8 +371,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
+
      func cordobesa() -> TestCard {
      let card = TestCard()
      card.name = "Cordobesa"
@@ -430,7 +379,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
+
      func mercadopago() -> TestCard {
      let card = TestCard()
      card.name = "Tarjeta Mercado Pago"
@@ -438,10 +387,7 @@ open class MercadoPagoUITest: XCTestCase {
      card.cvv = "123"
      return card
      }
-     
-     
-     
- 
+
      /*
      coming soon
      func visa() -> TestCard {
@@ -452,28 +398,27 @@ open class MercadoPagoUITest: XCTestCase {
      return card
      }
      */
-    
+
 }
 
-class TestCard : NSObject {
-    
-    var name : String = ""
-    var number : String = ""
-    var cvv : String? = nil
-    var expirationDate : String = "1122"
-    
+class TestCard: NSObject {
+
+    var name: String = ""
+    var number: String = ""
+    var cvv: String?
+    var expirationDate: String = "1122"
+
 }
 
-class TestUser : NSObject {
-    
-    var name : String = ""
-    var identification : TestIdentification = TestIdentification()
-    
+class TestUser: NSObject {
+
+    var name: String = ""
+    var identification: TestIdentification = TestIdentification()
+
 }
 
-class TestIdentification : NSObject {
-    
-    var type : String = ""
-    var number : String = ""
-}
+class TestIdentification: NSObject {
 
+    var type: String = ""
+    var number: String = ""
+}

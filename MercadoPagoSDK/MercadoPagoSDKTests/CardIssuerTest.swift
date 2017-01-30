@@ -9,13 +9,12 @@
 import XCTest
 
 class CardIssuerTest: BaseTest {
-    
-    func testInit(){
+
+    func testInit() {
         let cardIssuer = CardIssuer(_id: "id", name: "name", labels: ["label1", "label2"])
         XCTAssertEqual(cardIssuer._id, "id")
         XCTAssertEqual(cardIssuer.name, "name")
         XCTAssertEqual(cardIssuer.labels, ["label1", "label2"])
     }
-    
-    
+
 }

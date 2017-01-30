@@ -9,5 +9,5 @@
 import Foundation
 
 class MockPaymentVaultViewController: PaymentVaultViewController {
-    
+
 }

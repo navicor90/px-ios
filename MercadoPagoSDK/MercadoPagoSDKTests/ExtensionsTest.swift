@@ -11,11 +11,11 @@ import XCTest
 
 class ExtensionsTest: BaseTest {
 
-    func testParseToLiteral(){
-        let params : NSDictionary = ["key1" : "value1", "key2": "value2", "key3": "value3"]
-        
+    func testParseToLiteral() {
+        let params: NSDictionary = ["key1": "value1", "key2": "value2", "key3": "value3"]
+
         let result = params.parseToLiteral()
-        
+
         XCTAssertEqual(3, result.count)
         XCTAssertNotNil(result["key1"])
         XCTAssertNotNil(result["key2"])

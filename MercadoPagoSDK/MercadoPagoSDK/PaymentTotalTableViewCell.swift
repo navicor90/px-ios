@@ -12,7 +12,7 @@ open class PaymentTotalTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblTotal: MPLabel!
     @IBOutlet weak var lblTitle: MPLabel!
-	
+
 	override public init(style: UITableViewCellStyle, reuseIdentifier: String!) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 	}
@@ -20,7 +20,7 @@ open class PaymentTotalTableViewCell: UITableViewCell {
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
-	
+
     override open func awakeFromNib() {
         super.awakeFromNib()
 		self.lblTotal.text = "Total".localized
@@ -31,5 +31,5 @@ open class PaymentTotalTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

@@ -9,14 +9,14 @@
 import UIKit
 
 class PayerCostTitleTableViewCell: UITableViewCell, TitleCellScrollable {
-    
+
     internal func updateTitleFontSize(toSize: CGFloat) {
         self.title.font = Utils.getFont(size: toSize)
     }
 
     @IBOutlet weak var cell: UIView!
     @IBOutlet weak var title: UILabel!
-    func setTitle(string: String!){
+    func setTitle(string: String!) {
         title.text = string
         title.font = Utils.getFont(size: title.font.pointSize)
         title.textColor = UIColor.systemFontColor()
@@ -32,5 +32,5 @@ class PayerCostTitleTableViewCell: UITableViewCell, TitleCellScrollable {
 
         // Configure the view for the selected state
     }
-    
+
 }

@@ -8,20 +8,19 @@
 
 import Foundation
 
-open class Address : Equatable {
-    open var streetName : String?
-    open var streetNumber : NSNumber?
-    open var zipCode : String?
-    
+open class Address: Equatable {
+    open var streetName: String?
+    open var streetNumber: NSNumber?
+    open var zipCode: String?
 
-    public init (streetName: String? = nil, streetNumber: NSNumber? = nil, zipCode : String? = nil) {
+    public init (streetName: String? = nil, streetNumber: NSNumber? = nil, zipCode: String? = nil) {
         self.streetName = streetName
         self.streetNumber = streetNumber
         self.zipCode = zipCode
     }
-    
-    open class func fromJSON(_ json : NSDictionary) -> Address {
-        let address : Address = Address()
+
+    open class func fromJSON(_ json: NSDictionary) -> Address {
+        let address: Address = Address()
         if let streetName = JSONHandler.attemptParseToString(json["street_name"]) {
             address.streetName = streetName
         }
@@ -36,11 +35,11 @@ open class Address : Equatable {
 }
 
 public func ==(obj1: Address, obj2: Address) -> Bool {
-    
+
     let areEqual =
         obj1.streetName == obj2.streetName &&
         obj1.streetNumber == obj2.streetNumber &&
         obj1.zipCode == obj2.zipCode
-   
+
     return areEqual
 }

@@ -8,17 +8,17 @@
 
 import Foundation
 
-public class CardNumber : Serializable {
-    public var length : Int = 0
-    public var validation : String!
-    
-    public class func fromJSON(json : NSDictionary) -> CardNumber {
-        let cardNumber : CardNumber = CardNumber()
+public class CardNumber: Serializable {
+    public var length: Int = 0
+    public var validation: String!
+
+    public class func fromJSON(json: NSDictionary) -> CardNumber {
+        let cardNumber: CardNumber = CardNumber()
         cardNumber.validation = JSON(json["validation"]!).asString
 		if json["length"] != nil && !(json["length"]! is NSNull) {
 			cardNumber.length = JSON(json["length"]!).asInt!
 		}
         return cardNumber
     }
-    
+
 }

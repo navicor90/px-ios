@@ -9,9 +9,9 @@
 import XCTest
 
 class InstructionTest: BaseTest {
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Instruction")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Instruction")!
         let instructionFromJSON = Instruction.fromJSON(json)
         XCTAssertEqual(instructionFromJSON, instructionFromJSON)
     }

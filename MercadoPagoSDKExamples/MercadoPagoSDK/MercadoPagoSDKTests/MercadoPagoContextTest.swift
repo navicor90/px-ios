@@ -9,24 +9,24 @@
 import XCTest
 
 class MercadoPagoContextTest: BaseTest {
-    
+
     override func setUp() {
         super.setUp()
     }
-    
+
     override func tearDown() {
         super.tearDown()
     }
-    
+
     func testKeyType() {
-        
+
         XCTAssertTrue(MercadoPagoContext.privateKey().isEmpty)
         MercadoPagoContext.setPublicKey("public")
-        XCTAssertEqual(MercadoPagoContext.keyType(),MercadoPagoContext.PUBLIC_KEY)
-        
+        XCTAssertEqual(MercadoPagoContext.keyType(), MercadoPagoContext.PUBLIC_KEY)
+
         MercadoPagoContext.setPrivateKey("private")
-        XCTAssertEqual(MercadoPagoContext.keyType(),MercadoPagoContext.PRIVATE_KEY)
-        
+        XCTAssertEqual(MercadoPagoContext.keyType(), MercadoPagoContext.PRIVATE_KEY)
+
         MercadoPagoContext.setPublicKey("public 2")
-        XCTAssertEqual(MercadoPagoContext.keyType(),MercadoPagoContext.PRIVATE_KEY)
+        XCTAssertEqual(MercadoPagoContext.keyType(), MercadoPagoContext.PRIVATE_KEY)
     }}

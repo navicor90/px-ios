@@ -9,7 +9,7 @@
 import XCTest
 
 class MercadoPagoUIViewControllerTest: BaseTest {
-    
+
     let viewController = MercadoPagoUIViewController()
 
 /*    override func setUp() {

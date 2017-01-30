@@ -12,9 +12,9 @@ class DefaultInstructionsFooterViewCell: UITableViewCell, InstructionsFillmentDe
 
     @IBOutlet weak var clockIcon: UIImageView!
     @IBOutlet weak var secondaryInfoTitle: UILabel!
-    
+
     @IBOutlet weak var acreditationMessage: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         let tintedImage = self.clockIcon.image?.imageWithRenderingMode(.AlwaysTemplate)
@@ -27,11 +27,11 @@ class DefaultInstructionsFooterViewCell: UITableViewCell, InstructionsFillmentDe
 
         // Configure the view for the selected state
     }
-    
+
     func fillCell(instruction: Instruction) -> UITableViewCell {
         self.secondaryInfoTitle.text = instruction.secondaryInfo![0]
         self.acreditationMessage.text = instruction.accreditationMessage
         return self
     }
-    
+
 }

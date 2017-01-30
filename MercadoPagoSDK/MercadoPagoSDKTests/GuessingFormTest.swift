@@ -10,7 +10,6 @@ import XCTest
 
 class GuessingFormTest: BaseTest {
 
-    
   /*   var cardFormViewController : CardFormViewController?
     
     

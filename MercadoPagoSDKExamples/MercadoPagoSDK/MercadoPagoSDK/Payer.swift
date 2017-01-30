@@ -8,26 +8,26 @@
 
 import Foundation
 
-public class Payer : NSObject {
-    public var email : String!
-    public var _id : NSNumber = 0
-    public var identification : Identification!
-    public var type : String!
-    
-    init(_id : NSNumber, email: String, type : String, identification: Identification){
+public class Payer: NSObject {
+    public var email: String!
+    public var _id: NSNumber = 0
+    public var identification: Identification!
+    public var type: String!
+
+    init(_id: NSNumber, email: String, type: String, identification: Identification) {
         super.init()
         self._id = _id
         self.email = email
         self.type = type
         self.identification = identification
     }
-    
-    public override init(){
+
+    public override init() {
         super.init()
     }
-    
-    public class func fromJSON(json : NSDictionary) -> Payer {
-        let payer : Payer = Payer()
+
+    public class func fromJSON(json: NSDictionary) -> Payer {
+        let payer: Payer = Payer()
         if json["id"] != nil && !(json["id"]! is NSNull) {
             payer._id = NSNumber(longLong: (json["id"] as? NSString)!.longLongValue)
         }
@@ -38,5 +38,5 @@ public class Payer : NSObject {
         }
         return payer
     }
-    
+
 }

@@ -20,14 +20,14 @@ open class MPTextView: UITextView {
 
     override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-   
+
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
             }
-    
-    func addCharactersSpacing(_ spacing:CGFloat) {
+
+    func addCharactersSpacing(_ spacing: CGFloat) {
         let attributedString = NSMutableAttributedString()
         if self.attributedText != nil {
             attributedString.append(self.attributedText!)
@@ -35,9 +35,9 @@ open class MPTextView: UITextView {
         attributedString.addAttribute(NSKernAttributeName, value: spacing, range: NSMakeRange(0, self.attributedText!.length))
         self.attributedText = attributedString
     }
-    
-    func addLineSpacing(_ lineSpacing : Float){
-        
+
+    func addLineSpacing(_ lineSpacing: Float) {
+
         let attributedString = NSMutableAttributedString()
         if self.attributedText != nil {
             attributedString.append(self.attributedText!)
@@ -47,6 +47,6 @@ open class MPTextView: UITextView {
         paragraphStyle.alignment = .center
         attributedString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
         self.attributedText = attributedString
-        
+
     }
 }

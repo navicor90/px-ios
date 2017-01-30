@@ -11,6 +11,5 @@ import XCTest
 class MPTestActions: NSObject {
 
     static var application = MercadoPagoUITest.sharedApplication
-    
 
 }

@@ -14,10 +14,10 @@ class InstructionsTwoLabelsAndButtonViewCell: UITableViewCell, InstructionsFillm
     @IBOutlet weak var infoTitle: UILabel!
     @IBOutlet weak var referenceLabelFirst: UILabel!
     @IBOutlet weak var referenceValueFirst: UILabel!
-    
+
     @IBOutlet weak var referenceLabelSecond: UILabel!
     @IBOutlet weak var referenceValueSecond: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.button.layer.borderWidth = 1.0
@@ -30,12 +30,12 @@ class InstructionsTwoLabelsAndButtonViewCell: UITableViewCell, InstructionsFillm
 
         // Configure the view for the selected state
     }
-    
+
     func fillCell(instruction: Instruction) -> UITableViewCell {
         self.infoTitle.text = instruction.info[0]
         self.referenceLabelFirst.text = instruction.references[0].label
         self.referenceValueFirst.text = instruction.references[0].getFullReferenceValue()
-        
+
         if (instruction.references.count > 1) {
             self.referenceLabelSecond.text = instruction.references[1].label
             self.referenceValueSecond.text = instruction.references[1].getFullReferenceValue()
@@ -43,8 +43,8 @@ class InstructionsTwoLabelsAndButtonViewCell: UITableViewCell, InstructionsFillm
             self.referenceLabelSecond.text = ""
             self.referenceValueSecond.text = ""
         }
-        
+
         return self
     }
-    
+
 }

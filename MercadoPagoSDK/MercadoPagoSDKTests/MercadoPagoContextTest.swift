@@ -9,11 +9,11 @@
 import XCTest
 
 class MercadoPagoContextTest: BaseTest {
-    
+
     override func setUp() {
         super.setUp()
     }
-    
+
     /*override func tearDown() {
         super.tearDown()
         MercadoPagoContext.setCustomerURI("")

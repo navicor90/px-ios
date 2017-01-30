@@ -11,9 +11,9 @@ import UIKit
 class PaymentMethodImageViewCell: UITableViewCell {
 
     static let ROW_HEIGHT = CGFloat(66)
-    
+
     @IBOutlet weak var paymentMethodImage: UIImageView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.addSubview(ViewUtils.getTableCellSeparatorLineView(0, y: 0, width: self.frame.width, height: 1))
@@ -22,5 +22,5 @@ class PaymentMethodImageViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
 }

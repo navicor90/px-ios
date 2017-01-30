@@ -9,23 +9,23 @@
 import UIKit
 
 public class IssuerTableViewCell: UITableViewCell {
-    @IBOutlet private weak var issuerLabel : UILabel!
-    
+    @IBOutlet private weak var issuerLabel: UILabel!
+
     override public init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-    
+
     override public func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
- 
-    public func fillWithIssuer(issuer : Issuer) {
+
+    public func fillWithIssuer(issuer: Issuer) {
         issuerLabel.text = issuer.name == "default" ? "Otro banco".localized : issuer.name
     }
-    
+
 }

@@ -11,9 +11,9 @@ import UIKit
 class PaymentTitleAndCommentViewCell: UITableViewCell {
 
     @IBOutlet weak var paymentTitle: UILabel!
-    
+
     @IBOutlet weak var paymentComment: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,10 +24,10 @@ class PaymentTitleAndCommentViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    func fillRowWith(paymentTitle : String, paymentComment : String) {
+
+    func fillRowWith(paymentTitle: String, paymentComment: String) {
         self.paymentTitle.text = paymentTitle
         self.paymentComment.text = paymentComment
     }
-    
+
 }

@@ -1,4 +1,4 @@
- //
+//
 //  GATracker.swift
 //  MPTracker
 //

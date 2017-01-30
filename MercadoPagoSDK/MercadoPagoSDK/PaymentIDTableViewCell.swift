@@ -12,11 +12,11 @@ open class PaymentIDTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lblID: MPLabel!
     @IBOutlet weak var lblTitle: MPLabel!
-	
+
 	override public init(style: UITableViewCellStyle, reuseIdentifier: String!) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 	}
-	
+
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
@@ -31,5 +31,5 @@ open class PaymentIDTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

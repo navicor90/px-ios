@@ -8,17 +8,17 @@
 
 import Foundation
 
-public class Refund : NSObject {
-    public var amount : Double = 0
-    public var dateCreated : NSDate!
-    public var _id : Int = 0
-    public var metadata : NSObject!
-    public var paymentId : Int = 0
-    public var source : String!
-    public var uniqueSequenceNumber : String!
-    
-    public class func fromJSON(json : NSDictionary) -> Refund {
-        let refund : Refund = Refund()
+public class Refund: NSObject {
+    public var amount: Double = 0
+    public var dateCreated: NSDate!
+    public var _id: Int = 0
+    public var metadata: NSObject!
+    public var paymentId: Int = 0
+    public var source: String!
+    public var uniqueSequenceNumber: String!
+
+    public class func fromJSON(json: NSDictionary) -> Refund {
+        let refund: Refund = Refund()
 		if json["id"] != nil && !(json["id"]! is NSNull) {
 			refund._id = (json["id"] as? Int)!
 		}
@@ -33,5 +33,5 @@ public class Refund : NSObject {
         refund.dateCreated = Utils.getDateFromString(json["date_created"] as? String)
         return refund
     }
-    
+
 }

@@ -9,25 +9,25 @@
 import Foundation
 import UIKit
 
-public class Customer : NSObject {
-    public var address : Address?
-    public var cards : [Card]?
-    public var defaultCard : NSNumber?
-    public var _description : String?
-    public var dateCreated : NSDate?
-    public var dateLastUpdated : NSDate?
-    public var email : String?
-    public var firstName : String?
-    public var _id : String?
-    public var identification : Identification?
-    public var lastName : String?
-    public var liveMode : Bool?
-    public var metadata : NSDictionary?
-    public var phone : Phone?
-    public var registrationDate : NSDate?
-    
-    public class func fromJSON(json : NSDictionary) -> Customer {
-        let customer : Customer = Customer()
+public class Customer: NSObject {
+    public var address: Address?
+    public var cards: [Card]?
+    public var defaultCard: NSNumber?
+    public var _description: String?
+    public var dateCreated: NSDate?
+    public var dateLastUpdated: NSDate?
+    public var email: String?
+    public var firstName: String?
+    public var _id: String?
+    public var identification: Identification?
+    public var lastName: String?
+    public var liveMode: Bool?
+    public var metadata: NSDictionary?
+    public var phone: Phone?
+    public var registrationDate: NSDate?
+
+    public class func fromJSON(json: NSDictionary) -> Customer {
+        let customer: Customer = Customer()
         customer._id = json["id"] as! String!
         customer.liveMode = json["live_mode"] as? Bool!
         customer.email = json["email"] as? String!
@@ -50,7 +50,7 @@ public class Customer : NSObject {
         customer.dateCreated = Utils.getDateFromString(json["date_created"] as? String)
         customer.dateLastUpdated = Utils.getDateFromString(json["date_last_updated"] as? String)
         customer.registrationDate = Utils.getDateFromString(json["date_registered"] as? String)
-        var cards : [Card] = [Card]()
+        var cards: [Card] = [Card]()
         if let cardsArray = json["cards"] as? NSArray {
             for i in 0..<cardsArray.count {
                 if let cardDic = cardsArray[i] as? NSDictionary {

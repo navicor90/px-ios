@@ -9,21 +9,20 @@
 import UIKit
 
 class PaymentSearchRowTableViewCell: UITableViewCell {
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         // Configure the view for the selected state
     }
-    
-    func fillRowWithPayment(paymentSearchItem : PaymentMethodSearchItem){
+
+    func fillRowWithPayment(paymentSearchItem: PaymentMethodSearchItem) {
         self.paymentTitle.text = paymentSearchItem.description
         self.paymentIcon.image = MercadoPago.getImage(paymentSearchItem.iconName)
-        
+
     }
 }

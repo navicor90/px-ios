@@ -8,17 +8,17 @@
 
 import Foundation
 
-public class TransactionDetails : NSObject {
-    public var couponAmount : Double = 0
-    public var externalResourceUrl : String!
-    public var financialInstitution : String!
-    public var installmentAmount : Double = 0
-    public var netReceivedAmount : Double = 0
-    public var overpaidAmount : Double = 0
-    public var totalPaidAmount : Double = 0
-    
-    public class func fromJSON(json : NSDictionary) -> TransactionDetails {
-        let transactionDetails : TransactionDetails = TransactionDetails()
+public class TransactionDetails: NSObject {
+    public var couponAmount: Double = 0
+    public var externalResourceUrl: String!
+    public var financialInstitution: String!
+    public var installmentAmount: Double = 0
+    public var netReceivedAmount: Double = 0
+    public var overpaidAmount: Double = 0
+    public var totalPaidAmount: Double = 0
+
+    public class func fromJSON(json: NSDictionary) -> TransactionDetails {
+        let transactionDetails: TransactionDetails = TransactionDetails()
         if json["coupon_amount"] != nil && !(json["coupon_amount"]! is NSNull) {
             transactionDetails.couponAmount = JSON(json["coupon_amount"]!).asDouble!
         }

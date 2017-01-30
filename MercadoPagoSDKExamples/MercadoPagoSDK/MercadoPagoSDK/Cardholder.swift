@@ -8,25 +8,25 @@
 
 import Foundation
 
-public class Cardholder : NSObject {
-    public var name : String?
-    public var identification : Identification?
-    
+public class Cardholder: NSObject {
+    public var name: String?
+    public var identification: Identification?
+
     public override init () {
                 super.init()
     }
-    
-    public class func fromJSON(json : NSDictionary) -> Cardholder {
-        let cardholder : Cardholder = Cardholder()
+
+    public class func fromJSON(json: NSDictionary) -> Cardholder {
+        let cardholder: Cardholder = Cardholder()
         cardholder.name = JSON(json["name"]!).asString
         cardholder.identification = Identification.fromJSON(json["identification"]! as! NSDictionary)
         return cardholder
     }
-    
+
     public func toJSONString() -> String {
-        let obj:[String:AnyObject] = [
+        let obj: [String:AnyObject] = [
             "name": String.isNullOrEmpty(self.name) ? JSON.null : self.name!,
-            "identification" : self.identification == nil ? JSON.null : JSON.parse(self.identification!.toJSONString()).mutableCopyOfTheObject()
+            "identification": self.identification == nil ? JSON.null : JSON.parse(self.identification!.toJSONString()).mutableCopyOfTheObject()
         ]
         return JSON(obj).toString()
     }

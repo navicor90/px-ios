@@ -9,15 +9,15 @@
 import XCTest
 
 class PaymentMethodTest: BaseTest {
-    
-    func testIsIssuerRequired(){
-        
+
+    func testIsIssuerRequired() {
+
     }
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("PaymentMethod")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("PaymentMethod")!
         let paymentMethodFromJSON = PaymentMethod.fromJSON(json)
-        
+
         XCTAssertEqual(paymentMethodFromJSON._id, "visa")
         XCTAssertEqual(paymentMethodFromJSON.name, "Visa")
         XCTAssertEqual(paymentMethodFromJSON.paymentTypeId, "credit_card")
@@ -28,10 +28,10 @@ class PaymentMethodTest: BaseTest {
         XCTAssertEqual(paymentMethodFromJSON.minAllowedAmount, 0)
         XCTAssertEqual(paymentMethodFromJSON.maxAllowedAmount, 250000)
         XCTAssertEqual(paymentMethodFromJSON.accreditationTime, 2880)
-        
+
     }
 
-    func testToJSON(){
+    func testToJSON() {
         let paymentMethod = MockBuilder.buildPaymentMethod("paymentMethodId", name: "name")
         paymentMethod.status = "active"
         paymentMethod.secureThumbnail = "secureThumbnail"
@@ -40,11 +40,11 @@ class PaymentMethodTest: BaseTest {
         paymentMethod.minAllowedAmount = 100
         paymentMethod.maxAllowedAmount = 20000
         paymentMethod.accreditationTime = 10
-        
+
         let paymentMethodJson = paymentMethod.toJSON()
-        
+
         XCTAssertNotNil(paymentMethod.toJSONString())
-        
+
         XCTAssertEqual(paymentMethodJson["id"] as! String, "paymentMethodId")
         XCTAssertEqual(paymentMethodJson["name"] as! String, "name")
         XCTAssertEqual(paymentMethodJson["payment_type_id"] as! String, "credit_card")
@@ -55,8 +55,7 @@ class PaymentMethodTest: BaseTest {
         XCTAssertEqual(paymentMethodJson["min_allowed_amount"] as! Double, 100)
         XCTAssertEqual(paymentMethodJson["max_allowed_amount"] as! Double, 20000)
         XCTAssertEqual(paymentMethodJson["accreditation_time"] as! Int, 10)
-        
-    }
-    
-}
 
+    }
+
+}

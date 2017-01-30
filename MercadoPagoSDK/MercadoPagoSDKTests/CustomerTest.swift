@@ -9,11 +9,11 @@
 import XCTest
 
 class CustomerTest: BaseTest {
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Customer")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Customer")!
         let customerFromJSON = Customer.fromJSON(json)
         XCTAssertEqual(customerFromJSON, customerFromJSON)
     }
-    
+
 }

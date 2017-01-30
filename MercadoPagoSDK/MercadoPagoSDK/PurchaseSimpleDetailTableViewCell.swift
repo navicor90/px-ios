@@ -12,10 +12,10 @@ class PurchaseSimpleDetailTableViewCell: UITableViewCell {
 
     static let ROW_HEIGHT = CGFloat(58)
     static let SEPARATOR_LINE_HEIGHT = PurchaseSimpleDetailTableViewCell.ROW_HEIGHT - 1
-    
+
     @IBOutlet weak var titleLabel: MPLabel!
     @IBOutlet weak var unitPrice: MPLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -23,9 +23,9 @@ class PurchaseSimpleDetailTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    internal func fillCell(_ title : String, amount : Double, currency : Currency, payerCost : PayerCost? = nil, addSeparatorLine : Bool = true){
-        
+
+    internal func fillCell(_ title: String, amount: Double, currency: Currency, payerCost: PayerCost? = nil, addSeparatorLine: Bool = true) {
+
         //Deafult values for cells
         self.titleLabel.text = title
         self.titleLabel.font = Utils.getFont(size: titleLabel.font.pointSize)
@@ -41,10 +41,10 @@ class PurchaseSimpleDetailTableViewCell: UITableViewCell {
             self.addSubview(separatorLine)
         }
     }
-    
-    private func getInstallmentsAmount(payerCost : PayerCost) -> NSAttributedString {
+
+    private func getInstallmentsAmount(payerCost: PayerCost) -> NSAttributedString {
         return Utils.getTransactionInstallmentsDescription(payerCost.installments.description, installmentAmount: payerCost.installmentAmount, color: UIColor.px_grayBaseText(), fontSize : 24, baselineOffset : 8)
-        
+
     }
-    
+
 }

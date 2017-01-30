@@ -10,22 +10,22 @@ import UIKit
 
 open class MPSDKError: NSObject {
 
-    open var message : String = ""
-    open var messageDetail : String = ""
-    open var retry : Bool?
-    
-    public override init(){
+    open var message: String = ""
+    open var messageDetail: String = ""
+    open var retry: Bool?
+
+    public override init() {
         super.init()
     }
-    
-    public init(message : String, messageDetail : String, retry : Bool!){
+
+    public init(message: String, messageDetail: String, retry: Bool!) {
         super.init()
         self.message = message
         self.messageDetail = messageDetail
         self.retry = retry
     }
-    
-    open class func convertFrom(_ error : Error) -> MPSDKError {
+
+    open class func convertFrom(_ error: Error) -> MPSDKError {
         let mpError = MPSDKError()
         let currentError = error as NSError
         if currentError.userInfo.count > 0 {
@@ -37,5 +37,5 @@ open class MPSDKError: NSObject {
         mpError.retry = (currentError.code == MercadoPago.ERROR_API_CODE || currentError.code == NSURLErrorCannotDecodeContentData || currentError.code == NSURLErrorNotConnectedToInternet || currentError.code == NSURLErrorTimedOut)
         return mpError
     }
-    
+
 }

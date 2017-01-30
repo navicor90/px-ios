@@ -10,11 +10,10 @@ import UIKit
 
 class InstructionsFooterWithSecondaryInfoViewCell: UITableViewCell, InstructionsFillmentDelegate {
 
-    
     @IBOutlet weak var secondaryInfoTitle: UILabel!
     @IBOutlet weak var clockIcon: UIImageView!
     @IBOutlet weak var secondaryInfoSubtitle: UILabel!
- 
+
     @IBOutlet weak var acreditationMessage: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,12 +25,12 @@ class InstructionsFooterWithSecondaryInfoViewCell: UITableViewCell, Instructions
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     func fillCell(instruction: Instruction) -> UITableViewCell {
         self.secondaryInfoTitle.text = instruction.secondaryInfo![0]
         self.secondaryInfoSubtitle.text = instruction.secondaryInfo![1]
         self.acreditationMessage.text = instruction.accreditationMessage
         return self
     }
-    
+
 }

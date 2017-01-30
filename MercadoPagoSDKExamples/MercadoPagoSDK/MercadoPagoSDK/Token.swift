@@ -8,22 +8,22 @@
 
 import Foundation
 
-public class Token : NSObject {
-	public var _id : String!
-	public var publicKey : String!
-	public var cardId : String!
-	public var luhnValidation : String!
-	public var status : String!
-	public var usedDate : String!
-	public var cardNumberLength : Int = 0
-	public var creationDate : NSDate!
-	public var truncCardNumber : String!
-	public var securityCodeLength : Int = 0
-	public var expirationMonth : Int = 0
-	public var expirationYear : Int = 0
-	public var lastModifiedDate : NSDate!
-	public var dueDate : NSDate!
-	
+public class Token: NSObject {
+	public var _id: String!
+	public var publicKey: String!
+	public var cardId: String!
+	public var luhnValidation: String!
+	public var status: String!
+	public var usedDate: String!
+	public var cardNumberLength: Int = 0
+	public var creationDate: NSDate!
+	public var truncCardNumber: String!
+	public var securityCodeLength: Int = 0
+	public var expirationMonth: Int = 0
+	public var expirationYear: Int = 0
+	public var lastModifiedDate: NSDate!
+	public var dueDate: NSDate!
+
 	public init (_id: String, publicKey: String, cardId: String!, luhnValidation: String!, status: String!,
 		usedDate: String!, cardNumberLength: Int, creationDate: NSDate!, truncCardNumber: String!,
 		securityCodeLength: Int, expirationMonth: Int, expirationYear: Int, lastModifiedDate: NSDate!,
@@ -44,8 +44,8 @@ public class Token : NSObject {
 			self.lastModifiedDate = lastModifiedDate
 			self.dueDate = dueDate
 	}
-	
-	public class func fromJSON(json : NSDictionary) -> Token {
+
+	public class func fromJSON(json: NSDictionary) -> Token {
 		let id = JSON(json["id"]!).asString!
 		let publicKey = JSON(json["public_key"]!).asString!
 		let cardId = JSON(json["card_id"]!).asString
@@ -60,7 +60,7 @@ public class Token : NSObject {
 		let expYear = json.isKeyValid("expiration_year") ? JSON(json["expiration_year"]!).asInt! : 0
 		let lastModifiedDate = json.isKeyValid("date_last_updated") ? Utils.getDateFromString(json["date_last_updated"] as? String) : NSDate()
 		let dueDate = json.isKeyValid("date_due") ? Utils.getDateFromString(json["date_due"] as? String) : NSDate()
-		
+
 		return Token(_id: id, publicKey: publicKey, cardId: cardId, luhnValidation: luhn, status: status,
 			usedDate: usedDate, cardNumberLength: cardNumberLength, creationDate: creationDate, truncCardNumber: truncCardNumber,
 			securityCodeLength: securityCodeLength, expirationMonth: expMonth, expirationYear: expYear, lastModifiedDate: lastModifiedDate,
@@ -69,7 +69,7 @@ public class Token : NSObject {
 }
 
 extension NSDictionary {
-	public func isKeyValid(dictKey : String) -> Bool {
+	public func isKeyValid(dictKey: String) -> Bool {
 		let dictValue: AnyObject? = self[dictKey]
 		return (dictValue == nil || dictValue is NSNull) ? false : true
 	}

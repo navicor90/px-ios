@@ -8,18 +8,18 @@
 
 import Foundation
 
-public class PayerCost : NSObject {
-    public var installments : Int = 0
-    public var installmentRate : Double = 0
-    public var labels : [String]!
-    public var minAllowedAmount : Double = 0
-    public var maxAllowedAmount : Double = 0
-    public var recommendedMessage : String!
-    public var installmentAmount : Double = 0
-    public var totalAmount : Double = 0
-    
-    public init (installments : Int, installmentRate : Double, labels : [String],
-        minAllowedAmount : Double, maxAllowedAmount : Double, recommendedMessage: String!, installmentAmount: Double, totalAmount: Double) {
+public class PayerCost: NSObject {
+    public var installments: Int = 0
+    public var installmentRate: Double = 0
+    public var labels: [String]!
+    public var minAllowedAmount: Double = 0
+    public var maxAllowedAmount: Double = 0
+    public var recommendedMessage: String!
+    public var installmentAmount: Double = 0
+    public var totalAmount: Double = 0
+
+    public init (installments: Int, installmentRate: Double, labels: [String],
+        minAllowedAmount: Double, maxAllowedAmount: Double, recommendedMessage: String!, installmentAmount: Double, totalAmount: Double) {
             super.init()
             self.installments = installments
         self.installmentRate = installmentRate
@@ -30,13 +30,13 @@ public class PayerCost : NSObject {
         self.installmentAmount = installmentAmount
         self.totalAmount = totalAmount
     }
-    
+
     public override init() {
         super.init()
     }
-    
-    public class func fromJSON(json : NSDictionary) -> PayerCost {
-        let payerCost : PayerCost = PayerCost()
+
+    public class func fromJSON(json: NSDictionary) -> PayerCost {
+        let payerCost: PayerCost = PayerCost()
 		if json["installments"] != nil && !(json["installments"]! is NSNull) {
 			payerCost.installments = JSON(json["installments"]!).asInt!
 		}

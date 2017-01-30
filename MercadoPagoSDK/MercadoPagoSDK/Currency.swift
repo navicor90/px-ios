@@ -8,19 +8,19 @@
 
 import Foundation
 
-open class Currency : NSObject {
-    
-    open var _id : String!
-    open var _description : String!
-    open var symbol : String!
-    open var decimalPlaces : Int = 0
-    open var decimalSeparator : String!
-    open var thousandsSeparator : String!
-    
+open class Currency: NSObject {
+
+    open var _id: String!
+    open var _description: String!
+    open var symbol: String!
+    open var decimalPlaces: Int = 0
+    open var decimalSeparator: String!
+    open var thousandsSeparator: String!
+
     public override init() {
         super.init()
     }
-    
+
     public init(_id: String, description: String, symbol: String, decimalPlaces: Int, decimalSeparator: String, thousandSeparator: String) {
         super.init()
         self._id = _id
@@ -30,11 +30,11 @@ open class Currency : NSObject {
         self.decimalSeparator = decimalSeparator
         self.thousandsSeparator = thousandSeparator
     }
-    
+
     open func getCurrencySymbolOrDefault() -> String {
         return self.symbol ?? "$"
     }
-    
+
     /***
      *
      Default values are ARS values
@@ -43,7 +43,7 @@ open class Currency : NSObject {
     open func getThousandsSeparatorOrDefault() -> String {
         return self.thousandsSeparator ?? ","
     }
-    
+
     open func getDecimalSeparatorOrDefault() -> String {
         return self.decimalSeparator ?? ","
     }

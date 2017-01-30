@@ -9,24 +9,24 @@
 import XCTest
 
 class SettingTest: BaseTest {
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Setting")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Setting")!
         let settingCodeFromJSON = Setting.fromJSON(json)
-        
+
         XCTAssertNotNil(settingCodeFromJSON.binMask)
         XCTAssertNotNil(settingCodeFromJSON.securityCode)
         XCTAssertNotNil(settingCodeFromJSON.cardNumber)
 
     }
-    
-    func testToJSON(){
+
+    func testToJSON() {
         let setting = MockBuilder.buildSetting()
         let settingJSON = setting.toJSON()
-        
+
         XCTAssertNotNil(settingJSON["bin"])
         XCTAssertNotNil(settingJSON["card_number"])
         XCTAssertNotNil(settingJSON["security_code"])
-        
+
     }
 }

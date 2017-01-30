@@ -10,9 +10,8 @@ import UIKit
 
 class PaymentTitleViewCell: UITableViewCell {
 
-
     @IBOutlet weak var paymentTitle: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,5 +20,5 @@ class PaymentTitleViewCell: UITableViewCell {
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
 }

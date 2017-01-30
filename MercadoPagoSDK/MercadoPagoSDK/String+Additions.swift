@@ -9,11 +9,11 @@
 import Foundation
 
 extension String {
-	
+
     static let NON_BREAKING_LINE_SPACE = "\u{00a0}"
-    
+
 	var localized: String {
-		var bundle : Bundle? = MercadoPago.getBundle()
+		var bundle: Bundle? = MercadoPago.getBundle()
 		if bundle == nil {
 			bundle = Bundle.main
 		}
@@ -21,17 +21,16 @@ extension String {
         return languageBundle!.localizedString(forKey: self, value : "", table : nil)
 
 	}
-	
+
     public func existsLocalized() -> Bool {
         let localizedString = self.localized
         return localizedString != self
     }
-    
-    static public func isNullOrEmpty(_ value: String?) -> Bool
-    {
+
+    static public func isNullOrEmpty(_ value: String?) -> Bool {
         return value == nil || value!.isEmpty
     }
-    
+
     static public func isDigitsOnly(_ a: String) -> Bool {
 		if Regex.init("^[0-9]*$").test(a) {
 			return true
@@ -39,8 +38,8 @@ extension String {
 			return false
 		}
     }
-    
-    public func startsWith(_ prefix : String) -> Bool {
+
+    public func startsWith(_ prefix: String) -> Bool {
         if prefix == self {
             return true
         }
@@ -50,32 +49,30 @@ extension String {
         }
         return true
     }
-    
+
     subscript (i: Int) -> String {
-        
+
         if self.characters.count > i {
             return String(self[self.characters.index(self.startIndex, offsetBy: i)])
         }
-        
+
         return ""
     }
-    
-    
+
     public func lastCharacters(number: Int) -> String {
-        let trimmedString: String = (self as NSString).substring(from: max(self.characters.count - number,0))
+        let trimmedString: String = (self as NSString).substring(from: max(self.characters.count - number, 0))
         return trimmedString
     }
-    
-    public func indexAt(_ theInt:Int)->String.Index {
-        
+
+    public func indexAt(_ theInt: Int)->String.Index {
+
         return self.characters.index(self.characters.startIndex, offsetBy: theInt)
     }
-    
-    public func trimSpaces()-> String {
-        
+
+    public func trimSpaces() -> String {
+
         var stringTrimmed = self.replacingOccurrences(of: " ", with: "")
         stringTrimmed = stringTrimmed.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         return stringTrimmed
     }
 }
-

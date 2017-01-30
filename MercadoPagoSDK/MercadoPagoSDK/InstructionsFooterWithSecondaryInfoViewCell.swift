@@ -7,7 +7,7 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -18,7 +18,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -27,14 +27,12 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 class InstructionsFooterWithSecondaryInfoViewCell: UITableViewCell, InstructionsFillmentDelegate {
 
-    
     @IBOutlet weak var secondaryInfoTitle: MPLabel!
     @IBOutlet weak var clockIcon: UIImageView!
     @IBOutlet weak var secondaryInfoSubtitle: MPLabel!
- 
+
     @IBOutlet weak var acreditationMessage: MPLabel!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,24 +44,24 @@ class InstructionsFooterWithSecondaryInfoViewCell: UITableViewCell, Instructions
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     func fillCell(_ instruction: Instruction) -> UITableViewCell {
         if instruction.secondaryInfo !=  nil && instruction.secondaryInfo!.count > 0 {
-            
+
             self.secondaryInfoTitle.text = instruction.secondaryInfo![0]
-            
+
             if instruction.secondaryInfo?.count > 1 {
                 self.secondaryInfoSubtitle.text = instruction.secondaryInfo![1]
             }
         }
-        
+
         self.acreditationMessage.text = instruction.accreditationMessage
         return self
-        
+
     }
-    
-    func getCellHeight(_ instruction : Instruction, forFontSize: CGFloat) -> CGFloat {
+
+    func getCellHeight(_ instruction: Instruction, forFontSize: CGFloat) -> CGFloat {
         return 120
     }
-    
+
 }

@@ -21,7 +21,7 @@ public class CongratsPaymentMethodTableViewCell: UITableViewCell {
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
-	
+
 	override public func awakeFromNib() {
         super.awakeFromNib()
 		self.lblTitle.text = "Medio de pago".localized
@@ -32,5 +32,5 @@ public class CongratsPaymentMethodTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

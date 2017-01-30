@@ -9,88 +9,86 @@
 import Foundation
 import UIKit
 
-public class VaultViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+public class VaultViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
     // ViewController parameters
     var publicKey: String?
     var merchantBaseUrl: String?
     var getCustomerUri: String?
     var merchantAccessToken: String?
-    var amount : Double = 0
-    var bundle : NSBundle? = MercadoPago.getBundle()
-    
+    var amount: Double = 0
+    var bundle: NSBundle? = MercadoPago.getBundle()
+
     public var callback : ((paymentMethod: PaymentMethod, tokenId: String?, issuer: Issuer?, installments: Int) -> Void)?
-    
+
     // Input controls
-    @IBOutlet weak private var tableview : UITableView!
-    @IBOutlet weak private var emptyPaymentMethodCell : MPPaymentMethodEmptyTableViewCell!
-    @IBOutlet weak private var paymentMethodCell : MPPaymentMethodTableViewCell!
-    @IBOutlet weak private var installmentsCell : MPInstallmentsTableViewCell!
-    @IBOutlet weak private var securityCodeCell : MPSecurityCodeTableViewCell!
-    public var loadingView : UILoadingView!
-    
+    @IBOutlet weak private var tableview: UITableView!
+    @IBOutlet weak private var emptyPaymentMethodCell: MPPaymentMethodEmptyTableViewCell!
+    @IBOutlet weak private var paymentMethodCell: MPPaymentMethodTableViewCell!
+    @IBOutlet weak private var installmentsCell: MPInstallmentsTableViewCell!
+    @IBOutlet weak private var securityCodeCell: MPSecurityCodeTableViewCell!
+    public var loadingView: UILoadingView!
+
     // Current values
-    public var selectedCard : Card? = nil
-    public var selectedPayerCost : PayerCost? = nil
-    public var selectedCardToken : CardToken? = nil
-    public var selectedPaymentMethod : PaymentMethod? = nil
-    public var selectedIssuer : Issuer? = nil
-    public var cards : [Card]?
-    public var payerCosts : [PayerCost]?
-    
-    public var securityCodeRequired : Bool = true
-    public var securityCodeLength : Int = 0
-    public var bin : String?
-    
-    public var supportedPaymentTypes : Set<PaymentTypeId>?
-    
+    public var selectedCard: Card?
+    public var selectedPayerCost: PayerCost?
+    public var selectedCardToken: CardToken?
+    public var selectedPaymentMethod: PaymentMethod?
+    public var selectedIssuer: Issuer?
+    public var cards: [Card]?
+    public var payerCosts: [PayerCost]?
+
+    public var securityCodeRequired: Bool = true
+    public var securityCodeLength: Int = 0
+    public var bin: String?
+
+    public var supportedPaymentTypes: Set<PaymentTypeId>?
+
     init(amount: Double, supportedPaymentTypes: Set<PaymentTypeId>?, callback: (paymentMethod: PaymentMethod, tokenId: String?, issuer: Issuer?, installments: Int) -> Void) {
-            
+
         super.init(nibName: "VaultViewController", bundle: bundle)
-            
+
         self.merchantBaseUrl = MercadoPagoContext.baseURL()
         self.getCustomerUri =  MercadoPagoContext.customerURI()
         self.merchantAccessToken = MercadoPagoContext.merchantAccessToken()
         self.publicKey = MercadoPagoContext.publicKey()
-            
+
         self.amount = amount
         self.supportedPaymentTypes = supportedPaymentTypes
         self.callback = callback
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        let tableSelection : NSIndexPath? = self.tableview.indexPathForSelectedRow
+        let tableSelection: NSIndexPath? = self.tableview.indexPathForSelectedRow
         if tableSelection != nil {
             self.tableview.deselectRowAtIndexPath(tableSelection!, animated: false)
         }
     }
-    
+
     override public func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = "Pagar".localized
-        
+
         self.loadingView = UILoadingView(frame: MercadoPago.screenBoundsFixedToPortraitOrientation(), text: "Cargando...".localized)
-        
+
         declareAndInitCells()
-        
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.Plain, target: self, action: "submitForm")
         self.navigationItem.rightBarButtonItem?.enabled = false
-        
+
         self.tableview.delegate = self
         self.tableview.dataSource = self
-        
+
         if self.merchantBaseUrl != nil && self.getCustomerUri != nil {
-            
+
             self.view.addSubview(self.loadingView)
 
-
-            
             MerchantServer.getCustomer(self.merchantBaseUrl!, success: { (customer: Customer) -> Void in
                 self.cards = customer.cards
                 self.loadingView.removeFromSuperview()
@@ -98,77 +96,76 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
                 }, failure: { (error: NSError?) -> Void in
                     MercadoPago.showAlertViewWithError(error, nav: self.navigationController)
             })
-            
+
         } else {
             self.tableview.reloadData()
         }
-        
+
     }
-    
+
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "willShowKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "willHideKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
     }
-    
+
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
+
     func willHideKeyboard(notification: NSNotification) {
         // resize content insets.
-        let contentInsets = UIEdgeInsetsMake(64, 0.0, 0.0, 0)
+        let contentInsets = UIEdgeInsets(top: 64, left: 0.0, bottom: 0.0, right: 0)
         self.tableview.contentInset = contentInsets
         self.tableview.scrollIndicatorInsets = contentInsets
         self.scrollToRow(NSIndexPath(forRow: 0, inSection: 0))
     }
-    
+
     func willShowKeyboard(notification: NSNotification) {
-        let s:NSValue? = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)
-        let keyboardBounds :CGRect = s!.CGRectValue()
-        
+        let s: NSValue? = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)
+        let keyboardBounds: CGRect = s!.CGRectValue()
+
         // resize content insets.
         let contentInsets = UIEdgeInsetsMake(64, 0.0, keyboardBounds.size.height, 0)
         self.tableview.contentInset = contentInsets
         self.tableview.scrollIndicatorInsets = contentInsets
-        
+
         let securityIndexPath = self.tableview.indexPathForCell(self.securityCodeCell)
         if securityIndexPath != nil {
             self.scrollToRow(securityIndexPath!)
         }
     }
-    
+
     public func scrollToRow(indexPath: NSIndexPath) {
         self.tableview.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
     }
-    
+
     public func declareAndInitCells() {
         let paymentMethodNib = UINib(nibName: "MPPaymentMethodTableViewCell", bundle: self.bundle)
         self.tableview.registerNib(paymentMethodNib, forCellReuseIdentifier: "paymentMethodCell")
         self.paymentMethodCell = self.tableview.dequeueReusableCellWithIdentifier("paymentMethodCell") as! MPPaymentMethodTableViewCell
-        
+
         let emptyPaymentMethodNib = UINib(nibName: "MPPaymentMethodEmptyTableViewCell", bundle: self.bundle)
         self.tableview.registerNib(emptyPaymentMethodNib, forCellReuseIdentifier: "emptyPaymentMethodCell")
         self.emptyPaymentMethodCell = self.tableview.dequeueReusableCellWithIdentifier("emptyPaymentMethodCell") as! MPPaymentMethodEmptyTableViewCell
-        
+
         let securityCodeNib = UINib(nibName: "MPSecurityCodeTableViewCell", bundle: self.bundle)
         self.tableview.registerNib(securityCodeNib, forCellReuseIdentifier: "securityCodeCell")
         self.securityCodeCell = self.tableview.dequeueReusableCellWithIdentifier("securityCodeCell")as! MPSecurityCodeTableViewCell
-        
+
         let installmentsNib = UINib(nibName: "MPInstallmentsTableViewCell", bundle: self.bundle)
         self.tableview.registerNib(installmentsNib, forCellReuseIdentifier: "installmentsCell")
         self.installmentsCell = self.tableview.dequeueReusableCellWithIdentifier("installmentsCell") as! MPInstallmentsTableViewCell
     }
-    
+
     public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.selectedCard == nil && self.selectedCardToken == nil {
             if (self.selectedPaymentMethod != nil && !self.selectedPaymentMethod!.paymentTypeId.isCard()) {
                 self.navigationItem.rightBarButtonItem?.enabled = true
             }
             return 1
-        }
-        else if self.selectedPayerCost == nil {
+        } else if self.selectedPayerCost == nil {
             return 2
         } else if !securityCodeRequired {
             self.navigationItem.rightBarButtonItem?.enabled = true
@@ -177,7 +174,7 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
         self.navigationItem.rightBarButtonItem?.enabled = true
         return 3
     }
-    
+
     public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             if self.selectedCard == nil && self.selectedPaymentMethod == nil {
@@ -187,8 +184,7 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
                 self.paymentMethodCell = self.tableview.dequeueReusableCellWithIdentifier("paymentMethodCell") as! MPPaymentMethodTableViewCell
                 if !self.selectedPaymentMethod!.paymentTypeId!.isCard() {
                     self.paymentMethodCell.fillWithPaymentMethod(self.selectedPaymentMethod!)
-                }
-                else if self.selectedCardToken != nil {
+                } else if self.selectedCardToken != nil {
                     self.paymentMethodCell.fillWithCardTokenAndPaymentMethod(self.selectedCardToken, paymentMethod: self.selectedPaymentMethod!)
                 } else {
                     self.paymentMethodCell.fillWithCard(self.selectedCard)
@@ -207,18 +203,18 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
         }
         return UITableViewCell()
     }
-    
+
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if (indexPath.row == 2) {
             return self.securityCodeCell != nil ? self.securityCodeCell.getHeight() : 143
         }
         return 65
     }
-    
+
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
             let paymentMethodsViewController = getPaymentMethodsViewController()
-            
+
             if self.cards != nil && self.cards!.count > 0 {
                 let customerPaymentMethodsViewController = MPStepBuilder.startCustomerCardsStep(self.cards!, callback: { (selectedCard) -> Void in
                         if selectedCard != nil {
@@ -246,7 +242,7 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
             }))
         }
     }
-    
+
     public func showViewController(vc: UIViewController) {
         if #available(iOS 8.0, *) {
             self.showViewController(vc, sender: self)
@@ -254,10 +250,10 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
+
     public func loadPayerCosts() {
         self.view.addSubview(self.loadingView)
-        let mercadoPago : MercadoPago = MercadoPago(publicKey: self.publicKey!)
+        let mercadoPago: MercadoPago = MercadoPago(publicKey: self.publicKey!)
         mercadoPago.getInstallments(self.bin!, amount: self.amount, issuerId: self.selectedIssuer?._id, paymentTypeId: self.selectedPaymentMethod!.paymentTypeId!.rawValue, success: {(installments: [Installment]?) -> Void in
             if installments != nil {
                 self.payerCosts = installments![0].payerCosts
@@ -269,13 +265,13 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
                 self.navigationController?.popToRootViewControllerAnimated(true)
         })
     }
-    
+
     public func submitForm() {
-        
+
         self.securityCodeCell.securityCodeTextField.resignFirstResponder()
-        
-        let mercadoPago : MercadoPago = MercadoPago(publicKey: self.publicKey!)
-        
+
+        let mercadoPago: MercadoPago = MercadoPago(publicKey: self.publicKey!)
+
         var canContinue = true
         if self.securityCodeRequired {
             let securityCode = self.securityCodeCell.getSecurityCode()
@@ -287,17 +283,17 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
                 canContinue = false
             }
         }
-        
+
         if !canContinue {
             self.tableview.reloadData()
         } else {
             // Create token
             if selectedCard != nil {
-                
+
                 let securityCode = self.securityCodeRequired ? securityCodeCell.securityCodeTextField.text : nil
-                
-                let savedCardToken : SavedCardToken = SavedCardToken(card: selectedCard!, securityCode: securityCode, securityCodeRequired: self.securityCodeRequired)
-                
+
+                let savedCardToken: SavedCardToken = SavedCardToken(card: selectedCard!, securityCode: securityCode, securityCodeRequired: self.securityCodeRequired)
+
                 if savedCardToken.validate() {
                     // Send card id to get token id
                     self.view.addSubview(self.loadingView)
@@ -306,9 +302,9 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
                         if token != nil {
                             tokenId = token!._id
                         }
-                        
+
                         let installments = self.selectedPayerCost == nil ? 0 : self.selectedPayerCost!.installments
-                        
+
                         self.callback!(paymentMethod: self.selectedPaymentMethod!, tokenId: tokenId, issuer: self.selectedIssuer, installments: installments)
                         }, failure: { (error: NSError?) -> Void in
                             MercadoPago.showAlertViewWithError(error, nav: self.navigationController)
@@ -325,9 +321,9 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
                     if token != nil {
                         tokenId = token!._id
                     }
-                    
+
                     let installments = self.selectedPayerCost == nil ? 0 : self.selectedPayerCost!.installments
-                    
+
                     self.callback!(paymentMethod: self.selectedPaymentMethod!, tokenId: tokenId, issuer: self.selectedIssuer, installments: installments)
                     }, failure: { (error: NSError?) -> Void in
                         MercadoPago.showAlertViewWithError(error, nav: self.navigationController)
@@ -335,9 +331,9 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-    
+
     func getPaymentMethodsViewController() -> PaymentMethodsViewController {
-       return MPStepBuilder.startPaymentMethodsStep(self.supportedPaymentTypes!, callback: { (paymentMethod : PaymentMethod) -> Void in
+       return MPStepBuilder.startPaymentMethodsStep(self.supportedPaymentTypes!, callback: { (paymentMethod: PaymentMethod) -> Void in
             self.selectedPaymentMethod = paymentMethod
             if paymentMethod.paymentTypeId.isCard() {
                 self.selectedCard = nil
@@ -345,14 +341,14 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
                     self.securityCodeLength = paymentMethod.settings![0].securityCode!.length
                     self.securityCodeRequired = self.securityCodeLength != 0
                 }
-        
+
                 let newCardViewController = MPStepBuilder.startNewCardStep(self.selectedPaymentMethod!, requireSecurityCode: self.securityCodeRequired, callback: { (cardToken: CardToken) -> Void in
                     self.selectedCardToken = cardToken
                     self.bin = self.selectedCardToken?.getBin()
                     self.loadPayerCosts()
                     self.navigationController!.popToViewController(self, animated: true)
                 })
-        
+
                 if self.selectedPaymentMethod!.isIssuerRequired() {
                     let issuerViewController = MPStepBuilder.startIssuersStep(self.selectedPaymentMethod!,
                         callback: { (issuer: Issuer) -> Void in
@@ -369,5 +365,5 @@ public class VaultViewController : UIViewController, UITableViewDataSource, UITa
             }
         })
     }
-    
+
 }

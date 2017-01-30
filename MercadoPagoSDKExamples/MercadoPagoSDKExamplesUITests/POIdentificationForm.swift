@@ -8,31 +8,30 @@
 
 import Foundation
 
-class POIdentificationForm: MPPageObject{
-    
+class POIdentificationForm: MPPageObject {
+
     let continuarButton = application.navigationBars.buttons["Continuar"]
     let anteriorButton = application.navigationBars.buttons["Anterior"]
     //Identification Form
     let identificationNumberField = application.textFields["Número"]
 
-    
     /* Continuar & Anterior */
-    func pressContinue(){
+    func pressContinue() {
         continuarButton.tap()
     }
-    func pressAnterior() -> POGuessingForm{
+    func pressAnterior() -> POGuessingForm {
         anteriorButton.tap()
         return POGuessingForm()
     }
-    
-    func completeNumber(_ number : String){
+
+    func completeNumber(_ number: String) {
         identificationNumberField.typeText(number)
     }
-    func clearNumber(){
+    func clearNumber() {
         identificationNumberField.typeText("")
     }
-    
-    func completeNumberAndContinue(_ number : String){
+
+    func completeNumberAndContinue(_ number: String) {
         completeNumber(number)
         pressContinue()
     }

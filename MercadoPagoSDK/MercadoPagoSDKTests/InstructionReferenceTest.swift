@@ -9,18 +9,17 @@
 import XCTest
 
 class InstructionReferenceTest: BaseTest {
-    
 
     func testGetFullReferenceValue() {
         let instructionReference = InstructionReference()
         instructionReference.separator = ""
-        instructionReference.value = ["1","2","3"]
+        instructionReference.value = ["1", "2", "3"]
         var result = instructionReference.getFullReferenceValue()
         XCTAssertEqual(result, "123")
-        
+
         instructionReference.separator = "-"
         result = instructionReference.getFullReferenceValue()
         XCTAssertEqual(result, "1-2-3")
-        
+
     }
 }

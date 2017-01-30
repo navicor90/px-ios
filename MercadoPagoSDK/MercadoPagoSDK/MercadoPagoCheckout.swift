@@ -10,22 +10,19 @@ import UIKit
 
 open class MercadoPagoCheckout: NSObject {
 
-    var viewModel : MercadoPagoCheckoutViewModel
-    var navigationController : UINavigationController!
-    
-    
-   public init(/* parameters */navigationController : UINavigationController) {
+    var viewModel: MercadoPagoCheckoutViewModel
+    var navigationController: UINavigationController!
+
+   public init(/* parameters */navigationController: UINavigationController) {
         viewModel = MercadoPagoCheckoutViewModel()
         self.navigationController = navigationController
     }
-    
-    public func start(){
+
+    public func start() {
         executeNextStep()
     }
 
-
-    
-    func executeNextStep(optionSelected: String? = nil){
+    func executeNextStep(optionSelected: String? = nil) {
         switch self.viewModel.nextStep() {
         case CheckoutStep.CARD_FORM:
             self.collectCard()
@@ -39,38 +36,38 @@ open class MercadoPagoCheckout: NSObject {
              self.collectCard()
         }
     }
-    
-    func collectCard(){
-        
+
+    func collectCard() {
+
         let cardFormStep = CardFormViewController(cardFormManager: self.viewModel.cardFormManager(), callback: { (paymentMethods, cardToken) in
             self.viewModel.updateCheckoutModel(paymentMethods: paymentMethods, cardToken:cardToken)
             self.executeNextStep()
         })
         self.navigationController.pushViewController(cardFormStep, animated: true)
     }
-    
-    func collectCreditDebit(){
+
+    func collectCreditDebit() {
         let crediDebitStep = CardAdditionalViewController(viewModel: self.viewModel.debitCreditViewModel(), collectPaymentMethodCallback: { (paymentMethod) in
             self.viewModel.updateCheckoutModel(paymentMethod: paymentMethod)
             self.executeNextStep()
         })
         self.navigationController.pushViewController(crediDebitStep, animated: true)
     }
-    
-    func collectIssuer(){
+
+    func collectIssuer() {
         let issuerStep = CardAdditionalViewController(viewModel: self.viewModel.issuerViewModel(), collectIssuerCallback: { (issuer) in
             self.viewModel.updateCheckoutModel(issuer: issuer)
             self.executeNextStep()
         })
         self.navigationController.pushViewController(issuerStep, animated: true)
     }
-    
-    func collectPayerCost(){
+
+    func collectPayerCost() {
         let payerCostStep = CardAdditionalViewController(viewModel: self.viewModel.payerCostViewModel(), collectPayerCostCallback: { (payerCost) in
             self.viewModel.updateCheckoutModel(payerCost: payerCost)
             self.executeNextStep()
         })
         self.navigationController.pushViewController(payerCostStep, animated: true)
     }
-    
+
 }

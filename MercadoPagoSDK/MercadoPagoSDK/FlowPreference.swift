@@ -8,78 +8,78 @@
 
 import Foundation
 
-open class FlowPreference : NSObject{
+open class FlowPreference: NSObject {
     var showReviewAndConfirmScreen = true
     var showPaymentResultScreen = true
     var showPaymentApprovedScreen = true
     var showPaymentRejectedScreen = true
     var showPaymentPendingScreen = true
     var showPaymentSearchScreen = true
-    
-    public func disableReviewAndConfirmScreen(){
+
+    public func disableReviewAndConfirmScreen() {
         showReviewAndConfirmScreen = false
     }
-    
-    public func disablePaymentResultScreen(){
+
+    public func disablePaymentResultScreen() {
         showPaymentResultScreen = false
     }
-    
-    public func disablePaymentApprovedScreen(){
+
+    public func disablePaymentApprovedScreen() {
         showPaymentApprovedScreen = false
     }
-    
-    public func disablePaymentRejectedScreen(){
+
+    public func disablePaymentRejectedScreen() {
         showPaymentRejectedScreen = false
     }
-    
-    public func disablePaymentPendingScreen(){
+
+    public func disablePaymentPendingScreen() {
         showPaymentPendingScreen = false
     }
-    
+
     /*public func setCongratsDisplayTime(){
     
      }*/
 
-    public func enableReviewAndConfirmScreen(){
+    public func enableReviewAndConfirmScreen() {
         showReviewAndConfirmScreen = true
     }
-    
-    public func enablePaymentResultScreen(){
+
+    public func enablePaymentResultScreen() {
         showPaymentResultScreen = true
     }
-    
-    public func enablePaymentApprovedScreen(){
+
+    public func enablePaymentApprovedScreen() {
         showPaymentApprovedScreen = true
     }
-    
-    public func enablePaymentRejectedScreen(){
+
+    public func enablePaymentRejectedScreen() {
         showPaymentRejectedScreen = true
     }
-    
-    public func enablePaymentPendingScreen(){
+
+    public func enablePaymentPendingScreen() {
         showPaymentPendingScreen = true
     }
-    
-    public func isReviewAndConfirmScreenEnable() -> Bool{
+
+    public func isReviewAndConfirmScreenEnable() -> Bool {
         return showReviewAndConfirmScreen
     }
-    
-    public func isPaymentResultScreenEnable() -> Bool{
+
+    public func isPaymentResultScreenEnable() -> Bool {
         return showPaymentResultScreen
     }
-    
-    public func isPaymentApprovedScreenEnable() -> Bool{
+
+    public func isPaymentApprovedScreenEnable() -> Bool {
         return showPaymentApprovedScreen
     }
-    
-    public func isPaymentRejectedScreenEnable() -> Bool{
+
+    public func isPaymentRejectedScreenEnable() -> Bool {
         return showPaymentRejectedScreen
     }
-    
-    public func isPaymentPendingScreenEnable() -> Bool{
+
+    public func isPaymentPendingScreenEnable() -> Bool {
         return showPaymentPendingScreen
     }
-    public func isPaymentSearchScreenEnable() -> Bool{
+    public func isPaymentSearchScreenEnable() -> Bool {
         return showPaymentSearchScreen
     }
 }

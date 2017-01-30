@@ -9,7 +9,7 @@
 import Foundation
 
 class MockPaymentVaultViewController: PaymentVaultViewController {
-    
+
   /*  var mpStylesLoaded = false
     var mpStylesCleared = false
     var optionSelected = false
@@ -32,7 +32,6 @@ class MockPaymentVaultViewController: PaymentVaultViewController {
 */
 }
 
-class MockPaymentViewModel : PaymentVaultViewModel {
-    
-    
+class MockPaymentViewModel: PaymentVaultViewModel {
+
 }

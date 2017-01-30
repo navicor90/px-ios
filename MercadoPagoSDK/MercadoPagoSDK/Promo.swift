@@ -8,39 +8,38 @@
 
 import Foundation
 
-open class Promo : NSObject {
-	
-	open var promoId : String!
-	open var issuer : Issuer!
-	open var recommendedMessage : String!
-	open var paymentMethods : [PaymentMethod]!
-	open var legals : String!
-	open var url : String?
-	
-	open class func fromJSON(_ json : NSDictionary) -> Promo {
-		
-		let promo : Promo = Promo()
+open class Promo: NSObject {
+
+	open var promoId: String!
+	open var issuer: Issuer!
+	open var recommendedMessage: String!
+	open var paymentMethods: [PaymentMethod]!
+	open var legals: String!
+	open var url: String?
+
+	open class func fromJSON(_ json: NSDictionary) -> Promo {
+
+		let promo: Promo = Promo()
 		promo.promoId = json["id"] as? String
-		
-        
+
 		if let issuerDic = json["issuer"] as? NSDictionary {
 			promo.issuer = Issuer.fromJSON(issuerDic)
 		}
 
-        if let recommendedMessage = JSONHandler.attemptParseToString(json["recommended_message"]){
+        if let recommendedMessage = JSONHandler.attemptParseToString(json["recommended_message"]) {
             promo.recommendedMessage = recommendedMessage
         }
-        if let recommendedMessage = JSONHandler.attemptParseToString(json["recommended_message"]){
+        if let recommendedMessage = JSONHandler.attemptParseToString(json["recommended_message"]) {
             promo.recommendedMessage = recommendedMessage
         }
-		
+
 		if let picDic = json["picture"] as? NSDictionary {
-            if let url = JSONHandler.attemptParseToString(picDic["url"]){
+            if let url = JSONHandler.attemptParseToString(picDic["url"]) {
                 promo.url = url
             }
 		}
-		
-		var paymentMethods : [PaymentMethod] = [PaymentMethod]()
+
+		var paymentMethods: [PaymentMethod] = [PaymentMethod]()
 		if let pmArray = json["payment_methods"] as? NSArray {
 			for i in 0..<pmArray.count {
 				if let pmDic = pmArray[i] as? NSDictionary {
@@ -48,30 +47,30 @@ open class Promo : NSObject {
 				}
 			}
 		}
-		
+
 		promo.paymentMethods = paymentMethods
-		
+
 		promo.legals = json["legals"] as? String
-		
+
 		return promo
 	}
-    
+
     open func toJSONString() -> String {
         return JSONHandler.jsonCoding(toJSON())
     }
-	
+
     open func toJSON() -> [String:Any] {
         let issuer : Any = (self.issuer == nil) ? JSONHandler.null : self.issuer.toJSON()
         let url : Any = (self.url != nil) ? self.url! : ""
-        
-        var obj : [String:Any] = [
+
+        var obj: [String:Any] = [
             "promoId": self.promoId ,
-            "issuer" : issuer,
-            "recommendedMessage" : self.recommendedMessage ?? "",
-            "legals" : self.legals ?? "",
-            "url" : url
+            "issuer": issuer,
+            "recommendedMessage": self.recommendedMessage ?? "",
+            "legals": self.legals ?? "",
+            "url": url
         ]
-        
+
         var arrayPMs = ""
         if !Array.isNullOrEmpty(self.paymentMethods) {
             for pm in self.paymentMethods {
@@ -79,7 +78,7 @@ open class Promo : NSObject {
             }
             obj["payment_methods"] = String(arrayPMs.characters.dropLast())
         }
-        
+
         return obj
     }
 	open class func getDateFromString(_ string: String!) -> Date! {
@@ -93,7 +92,6 @@ open class Promo : NSObject {
 	}
 }
 
-
 public func ==(obj1: Promo, obj2: Promo) -> Bool {
     let areEqual =
     obj1.promoId == obj2.promoId &&
@@ -102,6 +100,6 @@ public func ==(obj1: Promo, obj2: Promo) -> Bool {
     obj1.paymentMethods == obj2.paymentMethods &&
   //  obj1.legals == obj2.legals &&
     obj1.url == obj2.url
-    
+
     return areEqual
 }

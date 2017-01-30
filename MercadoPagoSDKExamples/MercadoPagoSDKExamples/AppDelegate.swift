@@ -16,59 +16,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var nav: UINavigationController?
 
-
-    
     func application(_ application: UIApplication,
             didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-    
+
         MercadoPagoContext.setPublicKey("APP_USR-8e3869a6-638f-45cd-b5b7-267c8e6f2b09")
-        
+
         //MercadoPagoContext.setPublicKey("TEST-ad365c37-8012-4014-84f5-6c895b3f8e0a")
         //MercadoPagoContext.setPublicKey("APP_USR-5bd14fdd-3807-446f-babd-095788d5ed4d")
 
         //MercadoPagoContext.setPayerAccessToken("APP_USR-6105282339975037-110310-7994b404127b8d755adff11a60052b01__LC_LA__-233395668")
-        
+
      //   MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
 
         MercadoPagoContext.setDisplayDefaultLoading(flag: false)
-        
+
         MercadoPagoContext.setLanguage(language: MercadoPagoContext.Languages._PORTUGUESE)
-        
+
 //        let tracker = TrackerExample()
 //        
 //        MercadoPagoContext.setTrack(listener: tracker)
         MercadoPagoContext.setBaseURL("https://private-0c3e9-testingcustomer.apiary-mock.com")
         MercadoPagoContext.setCustomerURI("/get_customer")
 
-        
-
         //MercadoPagoContext.setAccountMoneyAvailable(accountMoneyAvailable: true)
 
         //Pinto de rojo el color primerio
-
 
         //MercadoPagoContext.setupPrimaryColor(UIColor.black, complementaryColor: UIColor.black)
         let decorationPreference = DecorationPreference()
         decorationPreference.setBaseColor(hexColor: "#CA254D")
         MercadoPagoContext.setDecorationPreference(decorationPreference: decorationPreference)
 
-        
         CardFormViewController.showBankDeals = true
-        
-        
+
         // Initialize window
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.px_white()
-        
+
         self.nav = UINavigationController()
 
-        
         let exmaplesViewController = MainExamplesViewController()
-        
+
         // Put vaultController at the top of navigator.
         self.nav!.pushViewController(exmaplesViewController, animated: false)
-        
+
         self.window?.rootViewController = self.nav
 
         self.window?.makeKeyAndVisible()
@@ -104,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.mercadopago.MercadoPagoSDKExamples" in the application's documents Application Support directory.
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return urls[urls.count-1] 
+        return urls[urls.count-1]
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -121,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
 		do {
-			var aux : AnyObject? = try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
+			var aux: AnyObject? = try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
 			if aux == nil {
 				coordinator = nil
 				// Report any error we got.
@@ -137,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			}
 
 		} catch {
-			
+
 		}
         return coordinator
     }()
@@ -166,7 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 					abort()
 				}
 			} catch {
-				
+
 			}
         }
     }
@@ -181,4 +172,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        print("***** Trackeado Evento en \(screenName) accion \(action) y result \(result)")
 //    }
 //}
-

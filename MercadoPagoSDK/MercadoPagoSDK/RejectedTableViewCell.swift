@@ -9,7 +9,7 @@
 import UIKit
 
 class RejectedTableViewCell: CallbackCancelTableViewCell {
-    
+
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var subtitile: UILabel!
     @IBOutlet weak var button: UIButton!
@@ -26,22 +26,22 @@ class RejectedTableViewCell: CallbackCancelTableViewCell {
         self.button.titleLabel?.font = Utils.getFont(size: 16)
     }
 
-    func fillCell (payment: Payment){
-        
+    func fillCell (payment: Payment) {
+
         if payment.status == "rejected"{
-            
+
             if payment.statusDetail == "cc_rejected_call_for_authorize"{
                 let title = (payment.statusDetail + "_title")
                 self.title.text = title.localized
                 self.subtitile.text = ""
             } else {
                 var title = (payment.statusDetail + "_subtitle_" + payment.paymentTypeId)
-                
+
                 if !title.existsLocalized() {
                     title = ""
                 }
                 self.subtitile.text = title.localized
-                if payment.statusDetail.contains("cc_rejected_bad_filled"){
+                if payment.statusDetail.contains("cc_rejected_bad_filled") {
                     status = MPStepBuilder.CongratsState.cancel_RECOVER
                     self.button.setTitle("Ingresalo nuevamente".localized, for: UIControlState.normal)
                 }

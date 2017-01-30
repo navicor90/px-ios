@@ -11,7 +11,7 @@ import Foundation
 open class Regex {
     let internalExpression: NSRegularExpression?
     let pattern: String
-    
+
     public init(_ pattern: String) {
         self.pattern = pattern
 		do {
@@ -20,7 +20,7 @@ open class Regex {
 			self.internalExpression = nil
 		}
     }
-    
+
     open func test(_ input: String) -> Bool {
 		if self.internalExpression != nil {
 			let matches = self.internalExpression!.matches(in: input, options: [], range:NSMakeRange(0, input.characters.count))

@@ -9,11 +9,9 @@
 import XCTest
 
 class PhoneTest: BaseTest {
-    
-    
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Phone")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Phone")!
         let phoneTypeFromJSON = Phone.fromJSON(json)
         XCTAssertEqual(phoneTypeFromJSON, phoneTypeFromJSON)
     }

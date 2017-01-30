@@ -9,21 +9,20 @@
 import XCTest
 
 class PromoTest: BaseTest {
-    
- 
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Promo")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Promo")!
         let promoTypeFromJSON = Promo.fromJSON(json)
         XCTAssertEqual(promoTypeFromJSON, promoTypeFromJSON)
     }
-    
-    func testToJSON(){
+
+    func testToJSON() {
         let promo = MockBuilder.buildPromo()
         let promoJSON = promo.toJSON()
-        
+
         XCTAssertNotNil(promo.toJSONString())
         XCTAssertEqual("promoId", promoJSON["promoId"] as? String)
         XCTAssertEqual("legals", promoJSON["legals"] as? String)
-        
+
     }
 }

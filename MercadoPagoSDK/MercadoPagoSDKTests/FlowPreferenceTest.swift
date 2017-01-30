@@ -10,79 +10,78 @@ import XCTest
 
 class FlowPreferenceTest: BaseTest {
 
-    func testDisableReviewAndConfirmScreen(){
+    func testDisableReviewAndConfirmScreen() {
         let flowPreference = FlowPreference()
         flowPreference.disableReviewAndConfirmScreen()
         XCTAssertFalse(flowPreference.isReviewAndConfirmScreenEnable())
     }
-    
-    func testDisablePaymentResultScreen(){
+
+    func testDisablePaymentResultScreen() {
         let flowPreference = FlowPreference()
         flowPreference.disablePaymentResultScreen()
         XCTAssertFalse(flowPreference.isPaymentResultScreenEnable())
     }
-    
-    func testDisablePaymentApprovedScreen(){
+
+    func testDisablePaymentApprovedScreen() {
         let flowPreference = FlowPreference()
         flowPreference.disablePaymentApprovedScreen()
         XCTAssertFalse(flowPreference.isPaymentApprovedScreenEnable())
     }
-    
-    func testDisablePaymentRejectedScreen(){
+
+    func testDisablePaymentRejectedScreen() {
         let flowPreference = FlowPreference()
         flowPreference.disablePaymentRejectedScreen()
         XCTAssertFalse(flowPreference.isPaymentRejectedScreenEnable())
     }
-    
-    func testEnablePaymentPendingScreen(){
+
+    func testEnablePaymentPendingScreen() {
         let flowPreference = FlowPreference()
         flowPreference.disablePaymentPendingScreen()
         XCTAssertFalse(flowPreference.isPaymentPendingScreenEnable())
     }
-    func testEnableReviewAndConfirmScreen(){
+    func testEnableReviewAndConfirmScreen() {
         let flowPreference = FlowPreference()
         XCTAssert(flowPreference.isReviewAndConfirmScreenEnable())
         flowPreference.disableReviewAndConfirmScreen()
         flowPreference.enableReviewAndConfirmScreen()
         XCTAssert(flowPreference.isReviewAndConfirmScreenEnable())
     }
-    
-    func testEnablePaymentResultScreen(){
+
+    func testEnablePaymentResultScreen() {
         let flowPreference = FlowPreference()
         XCTAssert(flowPreference.isPaymentResultScreenEnable())
         flowPreference.disablePaymentResultScreen()
         flowPreference.enablePaymentResultScreen()
         XCTAssert(flowPreference.isPaymentResultScreenEnable())
     }
-    
-    func testEnablePaymentApprovedScreen(){
+
+    func testEnablePaymentApprovedScreen() {
         let flowPreference = FlowPreference()
         XCTAssert(flowPreference.isPaymentApprovedScreenEnable())
         flowPreference.disablePaymentApprovedScreen()
         flowPreference.enablePaymentApprovedScreen()
         XCTAssert(flowPreference.isPaymentApprovedScreenEnable())
     }
-    
-    func testEnablePaymentRejectedScreen(){
+
+    func testEnablePaymentRejectedScreen() {
         let flowPreference = FlowPreference()
         XCTAssert(flowPreference.isPaymentRejectedScreenEnable())
         flowPreference.disablePaymentRejectedScreen()
         flowPreference.enablePaymentRejectedScreen()
         XCTAssert(flowPreference.isPaymentRejectedScreenEnable())
     }
-    
-    func testEnablePaymentPendingdScreen(){
+
+    func testEnablePaymentPendingdScreen() {
         let flowPreference = FlowPreference()
         XCTAssert(flowPreference.isPaymentPendingScreenEnable())
         flowPreference.disablePaymentPendingScreen()
         flowPreference.enablePaymentPendingScreen()
         XCTAssert(flowPreference.isPaymentPendingScreenEnable())
     }
-    
-    func testIsPaymentSearchScreenEnable(){
+
+    func testIsPaymentSearchScreenEnable() {
         let flowPreference = FlowPreference()
         XCTAssert(flowPreference.isPaymentSearchScreenEnable())
     }
-    
-    
+
 }

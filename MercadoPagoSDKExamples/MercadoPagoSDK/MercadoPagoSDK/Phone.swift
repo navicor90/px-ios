@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class Phone : NSObject {
-    public var areaCode : String?
-    public var number : String?
-    
-    public class func fromJSON(json : NSDictionary) -> Phone {
-        let phone : Phone = Phone()
+public class Phone: NSObject {
+    public var areaCode: String?
+    public var number: String?
+
+    public class func fromJSON(json: NSDictionary) -> Phone {
+        let phone: Phone = Phone()
         phone.areaCode = JSON(json["area_code"]!).asString
         phone.number = JSON(json["number"]!).asString
         return phone

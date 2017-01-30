@@ -10,8 +10,8 @@ import UIKit
 
 open class MPButton: UIButton {
 
-    var actionLink : String?
-    
+    var actionLink: String?
+
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -19,26 +19,24 @@ open class MPButton: UIButton {
         // Drawing code
     }
     */
-    
-    
-    override init(frame: CGRect){
+
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        if (self.titleLabel != nil){
-            if (self.titleLabel!.font != nil){
-                self.titleLabel!.font = Utils.getFont(size: self.titleLabel!.font.pointSize)
-            }
-        }
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        MercadoPagoUIViewController.loadFont(MercadoPagoContext.getDecorationPreference().getFontName())
-        if (self.titleLabel != nil){
-            if (self.titleLabel!.font != nil){
+        if (self.titleLabel != nil) {
+            if (self.titleLabel!.font != nil) {
                 self.titleLabel!.font = Utils.getFont(size: self.titleLabel!.font.pointSize)
             }
         }
     }
 
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        MercadoPagoUIViewController.loadFont(MercadoPagoContext.getDecorationPreference().getFontName())
+        if (self.titleLabel != nil) {
+            if (self.titleLabel!.font != nil) {
+                self.titleLabel!.font = Utils.getFont(size: self.titleLabel!.font.pointSize)
+            }
+        }
+    }
 
 }

@@ -11,12 +11,11 @@ import UIKit
 class AuthorizePaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDelegate {
 
     static let ROW_HEIGHT = CGFloat(240)
-    
+
     @IBOutlet weak var title: MPLabel!
-    
-    
+
     @IBOutlet weak var subtitle: MPLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.title.addCharactersSpacing(-0.4)
@@ -31,43 +30,43 @@ class AuthorizePaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDele
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    
-    func fillCell(_ payment: Payment, paymentMethod : PaymentMethod, callback : ((Void) -> Void)?) -> UITableViewCell {
+
+    func fillCell(_ payment: Payment, paymentMethod: PaymentMethod, callback: ((Void) -> Void)?) -> UITableViewCell {
         self.title.attributedText = self.getTitle(payment, paymentMethod: paymentMethod)
         self.title.addLineSpacing(4)
         self.subtitle.text = "El teléfono está al dorso de tu tarjeta".localized
-        
+
         return self
     }
-    
-    func getCellHeight(_ payment : Payment, paymentMethod : PaymentMethod) -> CGFloat {
-        
+
+    func getCellHeight(_ payment: Payment, paymentMethod: PaymentMethod) -> CGFloat {
+
         var constraintSize = CGSize()
         let screenSize: CGRect = UIScreen.main.bounds
         constraintSize.width = screenSize.width - 46
-        
+
         let attributesTitle = [NSFontAttributeName: Utils.getFont(size: 22)]
-        
+
         let title = String(getTitle(payment, paymentMethod: paymentMethod).mutableString)
-        
+
         let frameTitle = (title as NSString).boundingRect(with: constraintSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributesTitle, context: nil)
-        
+
         let stringSizeTitle = frameTitle.size
-        
+
         let attributesSubtitle = [NSFontAttributeName: Utils.getFont(size: 14)]
         let subtitle = "El teléfono está al dorso de tu tarjeta".localized
-        
+
         let frameSubtitle = (subtitle as NSString).boundingRect(with: constraintSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: attributesSubtitle, context: nil)
-        
+
         let stringSizeSubtitle = frameSubtitle.size
         return 150 + stringSizeTitle.height + stringSizeSubtitle.height
     }
 
-    fileprivate func getTitle(_ payment : Payment, paymentMethod : PaymentMethod) -> NSMutableAttributedString {
+    fileprivate func getTitle(_ payment: Payment, paymentMethod: PaymentMethod) -> NSMutableAttributedString {
         if paymentMethod._id == nil || paymentMethod._id == nil || paymentMethod.name == nil || paymentMethod.name.isEmpty {
             return NSMutableAttributedString(string: "Debes autorizar el pago ante tu tarjeta".localized)
         }
-        
+
         let currency = MercadoPagoContext.getCurrency()
 
         let title = NSMutableAttributedString(string: ("Debes autorizar ante %1$s el pago de ".localized as NSString).replacingOccurrences(of: "%1$s", with: paymentMethod.name))
@@ -76,6 +75,5 @@ class AuthorizePaymentHeaderTableViewCell: UITableViewCell, CongratsFillmentDele
         title.append(NSMutableAttributedString(string : " a MercadoPago".localized))
         return title
     }
-    
-    
+
 }

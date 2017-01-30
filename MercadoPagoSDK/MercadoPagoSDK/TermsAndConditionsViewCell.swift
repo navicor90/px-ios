@@ -11,71 +11,69 @@ import UIKit
 class TermsAndConditionsViewCell: UITableViewCell, UITextViewDelegate {
 
     private static let ROW_HEIGHT = CGFloat(44)
-    
+
     @IBOutlet weak var termsAndConditionsText: MPTextView!
-    
-    var delegate : TermsAndConditionsDelegate?
-    
+
+    var delegate: TermsAndConditionsDelegate?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.termsAndConditionsText.delegate = self
-        
+
         self.termsAndConditionsText.isUserInteractionEnabled = true
-        
+
         self.termsAndConditionsText.attributedText = TermsAndConditionsViewCell.getTyCText()
-    
+
         self.contentView.layer.borderColor = UIColor.grayTableSeparator().cgColor
         self.contentView.layer.borderWidth = 1.0
-        
+
     }
-    
+
     private static func getTermsAndConditionsTextView() -> MPTextView {
         let textView = MPTextView()
         textView.isUserInteractionEnabled = true
-        
+
         textView.attributedText = getTyCText()
         return textView
     }
-    
-    private static func getTyCText() -> NSMutableAttributedString{
-        
+
+    private static func getTyCText() -> NSMutableAttributedString {
+
         let termsAndConditionsText = "Al pagar, afirmo que soy mayor de edad y acepto los Términos y Condiciones de Mercado Pago".localized
-        let normalAttributes: [String:AnyObject] = [NSFontAttributeName : Utils.getFont(size: 12),NSForegroundColorAttributeName: UIColor.px_grayLight()]
-        
+        let normalAttributes: [String:AnyObject] = [NSFontAttributeName: Utils.getFont(size: 12), NSForegroundColorAttributeName: UIColor.px_grayLight()]
+
         let mutableAttributedString = NSMutableAttributedString(string: termsAndConditionsText, attributes: normalAttributes)
         let tycLinkRange = (termsAndConditionsText as NSString).range(of: "Términos y Condiciones".localized)
-        
+
         mutableAttributedString.addAttribute(NSLinkAttributeName, value: MercadoPagoContext.getTermsAndConditionsSite(), range: tycLinkRange)
-        
+
         let style = NSMutableParagraphStyle()
         style.alignment = .center
         style.lineSpacing = CGFloat(6)
-        
+
         mutableAttributedString.addAttribute(NSParagraphStyleAttributeName, value: style, range: NSMakeRange(0, mutableAttributedString.length))
         return mutableAttributedString
     }
-    
+
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         self.delegate?.openTermsAndConditions("Términos y Condiciones".localized, url : URL)
         return false
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
     }
-    
+
     static public func getCellHeight() -> CGFloat {
         let textView = getTermsAndConditionsTextView()
         let textViewHeight = textView.contentSize.height
         return TermsAndConditionsViewCell.ROW_HEIGHT + textViewHeight
     }
-    
+
 }
 
 protocol TermsAndConditionsDelegate {
-    
-    func openTermsAndConditions(_ title : String, url : URL)
+
+    func openTermsAndConditions(_ title: String, url: URL)
 }
-
-

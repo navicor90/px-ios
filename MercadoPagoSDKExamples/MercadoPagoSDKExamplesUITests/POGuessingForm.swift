@@ -8,88 +8,84 @@
 
 import Foundation
 
-
 import XCTest
 
 class POGuessingForm: MPPageObject {
-    
+
     let continuarButton = application.navigationBars.buttons["Continuar"]
     let anteriorButton = application.navigationBars.buttons["Anterior"]
     let cardNumberField = application.textFields["Número de tarjeta"]
     let cardholderNameField = application.textFields["Nombre y apellido"]
     let expirationDateField = application.textFields["Fecha de expiración"]
     let securityCodeField = application.textFields["Código de seguridad"]
-        
-    
-    
-    func pressPromociones() -> POPromos{
+
+    func pressPromociones() -> POPromos {
         return POPromos()
     }
-    
+
     /* Continuar & Anterior */
-    func pressContinue(){
+    func pressContinue() {
         continuarButton.tap()
     }
-    func pressAnterior(){
+    func pressAnterior() {
         anteriorButton.tap()
     }
-    
+
     /* Numero */
-    func completeNumero(_ numero: String){
+    func completeNumero(_ numero: String) {
    //     cardNumberField.tap()
         cardNumberField.typeText(numero)
-       
+
     }
-    func clearNumero(){
+    func clearNumero() {
         completeNumero("")
     }
-    func completeNumeroAndContinue(_ numero: String){
+    func completeNumeroAndContinue(_ numero: String) {
         completeNumero(numero)
         pressContinue()
     }
-    
+
     /* Nombre */
-    func completeNombre(_ nombre: String){
+    func completeNombre(_ nombre: String) {
         cardholderNameField.typeText(nombre)
     }
-    func clearNombre(){
+    func clearNombre() {
         completeNombre("")
     }
-    func completeNombreAndContinue(_ nombre: String){
+    func completeNombreAndContinue(_ nombre: String) {
         completeNombre(nombre)
         pressContinue()
     }
-    
+
     /* Fecha */
-    func completeFecha(_ fecha: String){
+    func completeFecha(_ fecha: String) {
         expirationDateField.typeText(fecha)
     }
-    func clearFecha(){
+    func clearFecha() {
         completeFecha("")
     }
-    func completeFechaAndContinue(_ fecha: String, cvvRequired: Bool = true) -> POIdentificationForm?{
+    func completeFechaAndContinue(_ fecha: String, cvvRequired: Bool = true) -> POIdentificationForm? {
         completeFecha(fecha)
         pressContinue()
-        if (cvvRequired){
+        if (cvvRequired) {
             return nil
-        }else{
+        } else {
             return POIdentificationForm()
         }
     }
-    
-    
+
     /* CVV */
-    func completeCVV(_ cvv: String){
+    func completeCVV(_ cvv: String) {
         securityCodeField.typeText(cvv)
     }
-    func clearCVV(){
+    func clearCVV() {
         securityCodeField.typeText("")
 
     }
-    func completeCVVAndContinue(_ cvv: String) -> POIdentificationForm{
+    func completeCVVAndContinue(_ cvv: String) -> POIdentificationForm {
         securityCodeField.typeText(cvv)
         pressContinue()
         return POIdentificationForm()
     }
-    
+
 }

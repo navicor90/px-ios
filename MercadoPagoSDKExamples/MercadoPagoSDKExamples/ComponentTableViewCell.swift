@@ -12,11 +12,11 @@ class ComponentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var title: UILabel!
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -24,13 +24,13 @@ class ComponentTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    internal func initializeWith(_ iconImage: String, title: String){
+
+    internal func initializeWith(_ iconImage: String, title: String) {
         var image = UIImage(named: iconImage)
         image = image?.withRenderingMode(.alwaysTemplate)
         self.icon.image = image
         self.icon.tintColor = UIColor.px_blueMercadoPago()
         self.title.text = title
     }
-    
+
 }

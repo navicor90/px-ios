@@ -9,16 +9,15 @@
 import XCTest
 
 class InstallmentTest: BaseTest {
-    
-    func testInstallment(){
-    
+
+    func testInstallment() {
+
     }
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Installment")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Installment")!
         let installmentFromJSON = Installment.fromJSON(json)
         XCTAssertEqual(installmentFromJSON, installmentFromJSON)
     }
-    
-    
+
 }

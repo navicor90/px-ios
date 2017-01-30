@@ -9,17 +9,17 @@
 import UIKit
 
 class InstructionAction: NSObject {
-    
-    var label: String
-    var url : String
-    var tag : String
 
-    init(label : String, url : String, tag: String){
+    var label: String
+    var url: String
+    var tag: String
+
+    init(label: String, url: String, tag: String) {
         self.label = label
         self.url = url
         self.tag = tag
     }
-    
+
     /*public class func fromJSON(json : NSDictionary) -> Instruction {}
     
     
@@ -28,5 +28,5 @@ class InstructionAction: NSObject {
     "tag":"link"
     
     */
-    
+
 }

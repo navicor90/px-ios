@@ -8,16 +8,16 @@
 import Foundation
 
 open class PaymentMethodSearch: Equatable {
-    
-    var groups : [PaymentMethodSearchItem]!
-    var paymentMethods : [PaymentMethod]!
-    var customerPaymentMethods : [CardInformation]?
-    var cards : [Card]?
-    var defaultOption : PaymentMethodSearchItem?
-    
-    open class func fromJSON(_ json : NSDictionary) -> PaymentMethodSearch {
+
+    var groups: [PaymentMethodSearchItem]!
+    var paymentMethods: [PaymentMethod]!
+    var customerPaymentMethods: [CardInformation]?
+    var cards: [Card]?
+    var defaultOption: PaymentMethodSearchItem?
+
+    open class func fromJSON(_ json: NSDictionary) -> PaymentMethodSearch {
         let pmSearch = PaymentMethodSearch()
-        
+
         var groups = [PaymentMethodSearchItem]()
         if let groupsJson = json["groups"] as? NSArray {
             for i in 0..<groupsJson.count {
@@ -27,7 +27,7 @@ open class PaymentMethodSearch: Equatable {
             }
             pmSearch.groups = groups
         }
-        
+
         var paymentMethods = [PaymentMethod]()
         if let paymentMethodsJson = json["payment_methods"] as? NSArray {
             for i in 0..<paymentMethodsJson.count {
@@ -35,11 +35,11 @@ open class PaymentMethodSearch: Equatable {
                     let currentPaymentMethod = PaymentMethod.fromJSON(paymentMethodsDic)
                     paymentMethods.append(currentPaymentMethod)
                 }
-             
+
             }
             pmSearch.paymentMethods = paymentMethods
         }
-        
+
         let customerCards = NSMutableDictionary()
         if let customerCardJson = json["cards"] as? NSArray {
             for i in 0..<customerCardJson.count {
@@ -47,25 +47,24 @@ open class PaymentMethodSearch: Equatable {
                     let customerCardObject = Card.fromJSON(customerCardJsonDic)
                     customerCards.setValue(customerCardObject, forKey: String(describing: customerCardObject.idCard))
                 }
-                
+
             }
                 pmSearch.cards = customerCards.allValues as! [Card]
-            
+
         }
-        
+
         var customerPaymentMethods = [CustomerPaymentMethod]()
         if let customerPaymentMethodsJson = json["custom_options"] as? NSArray {
             for i in 0..<customerPaymentMethodsJson.count {
                 if let customerPaymentMethodDic = customerPaymentMethodsJson[i] as? NSDictionary {
                     let currentCustomerPaymentMethod = CustomerPaymentMethod.fromJSON(customerPaymentMethodDic)
                     customerPaymentMethods.append(currentCustomerPaymentMethod)
-                    if let card = customerCards.value(forKey: currentCustomerPaymentMethod.getCardId()) as? Card{
+                    if let card = customerCards.value(forKey: currentCustomerPaymentMethod.getCardId()) as? Card {
                         currentCustomerPaymentMethod.card = card
                     }
 
-
                 }
-                
+
             }
             pmSearch.customerPaymentMethods = customerPaymentMethods
         }
@@ -74,10 +73,10 @@ open class PaymentMethodSearch: Equatable {
             let defaultPaymentMethodOption = PaymentMethodSearchItem.fromJSON(defaultPaymentMethodIdJson)
             pmSearch.defaultOption = defaultPaymentMethodOption
         }
-        
+
         return pmSearch
     }
-    
+
 }
 
 public func ==(obj1: PaymentMethodSearch, obj2: PaymentMethodSearch) -> Bool {

@@ -6,11 +6,10 @@
 //  Copyright © 2016 MercadoPago. All rights reserved.
 //
 
-
 extension CALayer {
-    
+
     func shadowColorFromUIColor(_ color: UIColor) {
         self.shadowColor = color.cgColor
     }
-    
+
 }

@@ -9,10 +9,9 @@
 import XCTest
 
 class PayerCostFormTest: BaseTest {
-    
-    var payerCostFormViewController : PayerCostViewController?
-    
-    
+
+    var payerCostFormViewController: PayerCostViewController?
+
     override func setUp() {
         super.setUp()
        /* MercadoPagoContext.setPublicKey(MockBuilder.MOCK_PUBLIC_KEY)
@@ -22,10 +21,10 @@ class PayerCostFormTest: BaseTest {
  
         self.simulateViewDidLoadFor(self.payerCostFormViewController!)*/    
  }
- 
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
 }

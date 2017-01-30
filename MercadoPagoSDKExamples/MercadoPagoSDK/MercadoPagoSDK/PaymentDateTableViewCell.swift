@@ -16,11 +16,11 @@ public class PaymentDateTableViewCell: UITableViewCell {
 	override public init(style: UITableViewCellStyle, reuseIdentifier: String!) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 	}
-	
+
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
-	
+
 	override public func awakeFromNib() {
         super.awakeFromNib()
 		self.lblTitle.text = "Fecha".localized
@@ -31,5 +31,5 @@ public class PaymentDateTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

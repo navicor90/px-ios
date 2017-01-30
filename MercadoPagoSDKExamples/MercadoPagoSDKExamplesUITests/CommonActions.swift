@@ -11,15 +11,14 @@ import XCTest
 
 class CommonActions: NSObject {
 
-    
-    class func optionCellsAvaiable(_ options : [String]) -> Bool{
-        
+    class func optionCellsAvaiable(_ options: [String]) -> Bool {
+
         let app = XCUIApplication()
         let tables = app.tables
-        
+
         let allOptionsAvailable = options.reduce(true, {$0 && (tables.staticTexts[$1].exists)})
-        
+
         return allOptionsAvailable
-    
+
     }
 }

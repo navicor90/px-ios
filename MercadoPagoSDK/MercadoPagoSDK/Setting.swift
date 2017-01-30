@@ -8,20 +8,20 @@
 
 import Foundation
 
-open class Setting : NSObject {
-    open var binMask : BinMask!
-    open var cardNumber : CardNumber!
-    open var securityCode : SecurityCode!
-    
-    public override init(){
+open class Setting: NSObject {
+    open var binMask: BinMask!
+    open var cardNumber: CardNumber!
+    open var securityCode: SecurityCode!
+
+    public override init() {
         super.init()
     }
-    
+
     open class func getSettingByBin(_ settings: [Setting]!, bin: String!) -> Setting? {
-        var selectedSetting : Setting? = nil
+        var selectedSetting: Setting? = nil
         if settings != nil && settings.count > 0 {
             for setting in settings {
-                
+
                 if "" != bin && Regex(setting.binMask!.pattern! + ".*").test(bin) &&
                     (String.isNullOrEmpty(setting.binMask!.exclusionPattern) || !Regex(setting.binMask!.exclusionPattern! + ".*").test(bin!)) {
                     selectedSetting = setting
@@ -30,9 +30,9 @@ open class Setting : NSObject {
         }
         return selectedSetting
     }
-    
-    open class func fromJSON(_ json : NSDictionary) -> Setting {
-        let setting : Setting = Setting()
+
+    open class func fromJSON(_ json: NSDictionary) -> Setting {
+        let setting: Setting = Setting()
         setting.binMask = BinMask.fromJSON(json["bin"]!  as! NSDictionary)
         if json["card_number"] != nil && !(json["card_number"]! is NSNull) {
             setting.cardNumber = CardNumber.fromJSON(json["card_number"]! as! NSDictionary)
@@ -40,31 +40,31 @@ open class Setting : NSObject {
         setting.securityCode = SecurityCode.fromJSON(json["security_code"]! as! NSDictionary)
         return setting
     }
-    
+
     open func toJSONString() -> String {
         return JSONHandler.jsonCoding(self.toJSON())
     }
-    
+
     open func toJSON() -> [String:Any] {
         let binMask : Any = self.binMask == nil ?  JSONHandler.null : self.binMask.toJSON()
         let cardNumber : Any = self.cardNumber == nil ?  JSONHandler.null : self.cardNumber.toJSON()
         let securityCode : Any = self.securityCode == nil ? JSONHandler.null : self.securityCode.toJSON()
-        
-        let obj:[String:Any] = [
+
+        let obj: [String:Any] = [
             "bin": binMask,
-            "card_number" : cardNumber,
-            "security_code" : securityCode
+            "card_number": cardNumber,
+            "security_code": securityCode
         ]
         return obj
     }
 }
 
 public func ==(obj1: Setting, obj2: Setting) -> Bool {
-    
+
     let areEqual =
     obj1.binMask == obj2.binMask &&
     obj1.cardNumber == obj2.cardNumber &&
     obj1.securityCode == obj2.securityCode
-    
+
     return areEqual
 }

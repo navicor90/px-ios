@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Cause : NSObject {
-    public var code : String!
-    public var _description : String!
+public class Cause: NSObject {
+    public var code: String!
+    public var _description: String!
 }

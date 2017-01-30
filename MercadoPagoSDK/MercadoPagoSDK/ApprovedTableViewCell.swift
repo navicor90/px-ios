@@ -26,10 +26,10 @@ class ApprovedTableViewCell: UITableViewCell {
         comprobante.text = "Comprobante".localized
         comprobante.font = Utils.getFont(size: comprobante.font.pointSize)
     }
-    func fillCell(payment: Payment){
+    func fillCell(payment: Payment) {
         paymentId.text = "Nº \(payment._id)"
         paymentId.font = Utils.getFont(size: paymentId.font.pointSize)
-        
+
         let currency = MercadoPagoContext.getCurrency()
         //let installmentNumber = "\(payment.installments) x "
         let installmentNumber = "\(payment.installments) x "
@@ -37,26 +37,26 @@ class ApprovedTableViewCell: UITableViewCell {
         let installmentLabel = NSMutableAttributedString(string: installmentNumber, attributes: [NSFontAttributeName: Utils.getFont(size: 24)])
         installmentLabel.append(totalAmount)
         installments.attributedText =  installmentLabel
-        
-        if payment.installments != 1{
-            if payment.transactionDetails.totalPaidAmount != payment.transactionAmount{
+
+        if payment.installments != 1 {
+            if payment.transactionDetails.totalPaidAmount != payment.transactionAmount {
                 installmentRate.text = ""
             }
-            let attributedTotal = NSMutableAttributedString(attributedString: NSAttributedString(string: "( ", attributes: [NSForegroundColorAttributeName : UIColor.black, NSFontAttributeName: Utils.getFont(size: 16)]))
+            let attributedTotal = NSMutableAttributedString(attributedString: NSAttributedString(string: "( ", attributes: [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: Utils.getFont(size: 16)]))
             attributedTotal.append(Utils.getAttributedAmount(payment.transactionDetails.totalPaidAmount, thousandSeparator: String(currency.thousandsSeparator), decimalSeparator: String(currency.decimalSeparator), currencySymbol: String(currency.symbol), color: UIColor.black, fontSize:16, baselineOffset:4))
-            attributedTotal.append(NSAttributedString(string: " )", attributes: [NSForegroundColorAttributeName : UIColor.black, NSFontAttributeName: Utils.getFont(size: 16)]))
+            attributedTotal.append(NSAttributedString(string: " )", attributes: [NSForegroundColorAttributeName: UIColor.black, NSFontAttributeName: Utils.getFont(size: 16)]))
             total.attributedText = attributedTotal
         } else {
             total.text = ""
             installmentRate.text = ""
         }
-        
+
         paymentMethod.image = MercadoPago.getImage(payment.paymentMethodId)
-        
+
         lastFourDigits.text = payment.paymentMethodId == "account_money" ? "Dinero en cuenta de MercadoPago".localized : "Terminada en ".localized + String(describing: payment.card.lastFourDigits!)
         lastFourDigits.font = Utils.getFont(size: lastFourDigits.font.pointSize)
         statement.text = ("En tu estado de cuenta verás el cargo como %0".localized as NSString).replacingOccurrences(of: "%0", with: "\(payment.statementDescriptor!)")
         statement.font = Utils.getFont(size: statement.font.pointSize)
-        
+
     }
 }

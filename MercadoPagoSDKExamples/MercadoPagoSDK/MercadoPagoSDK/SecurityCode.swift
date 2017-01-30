@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class SecurityCode : Serializable {
-    public var length : Int = 0
-    public var cardLocation : String!
-    public var mode : String!
-    
-    public class func fromJSON(json : NSDictionary) -> SecurityCode {
-        let securityCode : SecurityCode = SecurityCode()
+public class SecurityCode: Serializable {
+    public var length: Int = 0
+    public var cardLocation: String!
+    public var mode: String!
+
+    public class func fromJSON(json: NSDictionary) -> SecurityCode {
+        let securityCode: SecurityCode = SecurityCode()
         if json["length"] != nil && !(json["length"]! is NSNull) {
             securityCode.length = (json["length"]! as? Int)!
         }

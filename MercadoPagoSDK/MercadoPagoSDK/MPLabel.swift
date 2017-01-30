@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 open class MPLabel: UILabel {
 
     /*
@@ -22,13 +21,13 @@ open class MPLabel: UILabel {
     static let defaultColorText = UIColor(red: 51, green: 51, blue: 51)//UIColor(netHex:0x333333)
     static let highlightedColorText = UIColor(red: 51, green: 51, blue: 51)//UIColor(netHex:0x999999)
     static let errorColorText = UIColor(red: 51, green: 51, blue: 51)//UIColor(netHex:0xFF0000)
-    
-    override init(frame: CGRect){
+
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         if(self.font != nil) {
             self.font = Utils.getFont(size: self.font!.pointSize)
-            
+
         }
      }
 
@@ -37,11 +36,11 @@ open class MPLabel: UILabel {
 
         if(self.font != nil) {
             self.font = Utils.getFont(size: self.font!.pointSize)
-            
+
         }
     }
-    
-    func addCharactersSpacing(_ spacing:CGFloat) {
+
+    func addCharactersSpacing(_ spacing: CGFloat) {
         let attributedString = NSMutableAttributedString()
         if self.attributedText != nil {
             attributedString.append(self.attributedText!)
@@ -49,8 +48,8 @@ open class MPLabel: UILabel {
         attributedString.addAttribute(NSKernAttributeName, value: spacing, range: NSMakeRange(0, self.attributedText!.length))
         self.attributedText = attributedString
     }
-    
-    func addLineSpacing(_ lineSpacing : Float, centered : Bool = true){
+
+    func addLineSpacing(_ lineSpacing: Float, centered: Bool = true) {
         let attributedString = NSMutableAttributedString()
         if self.attributedText != nil {
             attributedString.append(self.attributedText!)
@@ -62,10 +61,7 @@ open class MPLabel: UILabel {
         }
         attributedString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
         self.attributedText = attributedString
-    
-    }
-    
 
- 
-    
+    }
+
 }

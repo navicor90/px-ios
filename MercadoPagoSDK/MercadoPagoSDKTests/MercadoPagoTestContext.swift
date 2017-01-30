@@ -9,20 +9,20 @@
 import UIKit
 import XCTest
 
-public class MercadoPagoTestContext : NSObject {
-    
+public class MercadoPagoTestContext: NSObject {
+
     static let sharedInstance = MercadoPagoTestContext()
     var expectations = ExpectationHash()
-    var testEnvironment : XCTestCase?
-    
+    var testEnvironment: XCTestCase?
+
     private override init() {
-        
+
     }
-    
+
     class func hasExpectations() -> Bool {
         return self.sharedInstance.expectations.count() > 0
     }
-    
+
    /* class func addExpectation(expectation : XCTestExpectation){
         self.sharedInstance.expectations.add(expectation)
     }
@@ -38,28 +38,27 @@ public class MercadoPagoTestContext : NSObject {
         }
     }*/
 
-    
 }
 
 struct ExpectationHash {
-    var items = [String : XCTestExpectation]()
+    var items = [String: XCTestExpectation]()
     mutating func add(expectation: XCTestExpectation) {
         items[expectation.description] = expectation
     }
-    
-    mutating func remove(withKey : String) {
+
+    mutating func remove(withKey: String) {
         items.removeValue(forKey: withKey)
     }
-    
+
     mutating func count() -> Int {
         return items.count
     }
-    
+
     mutating func show() {
         print(items)
     }
-    
-    mutating func fulfillExpectation(withKey : String) {
+
+    mutating func fulfillExpectation(withKey: String) {
         if let expectation = items[withKey] {
            expectation.fulfill()
           // self.remove(withKey)

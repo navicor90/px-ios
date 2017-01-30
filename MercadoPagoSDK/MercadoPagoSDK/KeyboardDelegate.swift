@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol KeyboardDelegate : NSObjectProtocol {
+public protocol KeyboardDelegate: NSObjectProtocol {
 	func prev(_ object: AnyObject?)
 	func next(_ object: AnyObject?)
 	func done(_ object: AnyObject?)

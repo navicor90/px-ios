@@ -12,15 +12,14 @@ class InstructionsWithButtonViewCell: UITableViewCell, InstructionsFillmentDeleg
 
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var referenceLabelFirst: UILabel!
-    
+
     @IBOutlet weak var referenceValueFirst: UILabel!
     @IBOutlet weak var referenceLabelSecond: UILabel!
-    
+
     @IBOutlet weak var referenceValueSecond: UILabel!
     @IBOutlet weak var referenceLabelThird: UILabel!
     @IBOutlet weak var referenceValueThird: UILabel!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.button.layer.borderWidth = 1.0
@@ -31,8 +30,8 @@ class InstructionsWithButtonViewCell: UITableViewCell, InstructionsFillmentDeleg
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    func fillCell(instruction : Instruction) -> UITableViewCell {
+
+    func fillCell(instruction: Instruction) -> UITableViewCell {
         self.referenceLabelFirst.text  = instruction.references[0].label.uppercaseString
         self.referenceValueFirst.text = instruction.references[0].getFullReferenceValue()
         self.referenceLabelSecond.text = instruction.references[1].label.uppercaseString
@@ -41,5 +40,5 @@ class InstructionsWithButtonViewCell: UITableViewCell, InstructionsFillmentDeleg
         self.referenceValueThird.text = instruction.references[2].getFullReferenceValue()
         return self
     }
-    
+
 }

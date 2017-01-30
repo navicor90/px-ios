@@ -11,9 +11,9 @@ import UIKit
 class BankTransferInstructionsFooterViewCell: UITableViewCell, InstructionsFillmentDelegate {
 
     @IBOutlet weak var clockIcon: UIImageView!
-    
+
     @IBOutlet weak var acreditationMessage: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         let tintedImage = self.clockIcon.image?.imageWithRenderingMode(.AlwaysTemplate)
@@ -24,10 +24,10 @@ class BankTransferInstructionsFooterViewCell: UITableViewCell, InstructionsFillm
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     func fillCell(instruction: Instruction) -> UITableViewCell {
         self.acreditationMessage.text = instruction.accreditationMessage
         return self
     }
-    
+
 }

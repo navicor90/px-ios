@@ -9,33 +9,33 @@
 import UIKit
 
 class CardTypeTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var cardTypeLable: UILabel!
     var paymentMethod: PaymentMethod!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    func setText(text: String){
+    func setText(text: String) {
         cardTypeLable.text = text
     }
-    func setPaymentMethod(paymentMethod: PaymentMethod){
+    func setPaymentMethod(paymentMethod: PaymentMethod) {
         self.paymentMethod = paymentMethod
         fillCell()
     }
-    func getPaymentMethod() -> PaymentMethod{
+    func getPaymentMethod() -> PaymentMethod {
         return self.paymentMethod
     }
-    func fillCell(){
+    func fillCell() {
         if paymentMethod.paymentTypeId == "credit_card"{
             cardTypeLable.text = "Crédito".localized
         } else {
             cardTypeLable.text = "Débito".localized
         }
     }
-    func addSeparatorLineToTop(width: Double, y: Float){
-        let lineFrame = CGRect(origin: CGPoint(x: 0,y :Int(y)), size: CGSize(width: width, height: 0.5))
+    func addSeparatorLineToTop(width: Double, y: Float) {
+        let lineFrame = CGRect(origin: CGPoint(x: 0, y :Int(y)), size: CGSize(width: width, height: 0.5))
         let line = UIView(frame: lineFrame)
         line.alpha = 0.6
         line.backgroundColor = UIColor.px_grayLight()
@@ -47,5 +47,5 @@ class CardTypeTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

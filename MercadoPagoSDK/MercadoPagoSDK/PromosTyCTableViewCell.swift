@@ -11,7 +11,7 @@ import UIKit
 open class PromosTyCTableViewCell: UITableViewCell {
 
 	@IBOutlet weak fileprivate var title: MPLabel!
-	
+
     override open func awakeFromNib() {
         super.awakeFromNib()
 		self.title.text = "Términos y condiciones".localized
@@ -22,5 +22,5 @@ open class PromosTyCTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

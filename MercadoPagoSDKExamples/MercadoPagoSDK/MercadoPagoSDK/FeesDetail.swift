@@ -8,14 +8,14 @@
 
 import Foundation
 
-public class FeesDetail : NSObject {
-    public var amount : Double = 0
-    public var amountRefunded : Double = 0
-    public var feePayer : String!
-    public var type : String!
-    
-    public class func fromJSON(json : NSDictionary) -> FeesDetail {
-        let fd : FeesDetail = FeesDetail()
+public class FeesDetail: NSObject {
+    public var amount: Double = 0
+    public var amountRefunded: Double = 0
+    public var feePayer: String!
+    public var type: String!
+
+    public class func fromJSON(json: NSDictionary) -> FeesDetail {
+        let fd: FeesDetail = FeesDetail()
         fd.type = JSON(json["type"]!).asString
         fd.feePayer = JSON(json["fee_payer"]!).asString
 		if json["amount"] != nil && !(json["amount"]! is NSNull) {
@@ -26,5 +26,5 @@ public class FeesDetail : NSObject {
         }
         return fd
     }
-    
+
 }

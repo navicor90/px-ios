@@ -11,7 +11,7 @@ import UIKit
 class InstructionsFooterWithTertiaryInfoViewCell: UITableViewCell, InstructionsFillmentDelegate {
 
     @IBOutlet weak var clockIcon: UIImageView!
-    
+
     @IBOutlet weak var secondaryInfoTitle: UILabel!
     @IBOutlet weak var secondaryInfoSubtitle: UILabel!
     @IBOutlet weak var secondayInfoComment: UILabel!
@@ -28,7 +28,7 @@ class InstructionsFooterWithTertiaryInfoViewCell: UITableViewCell, InstructionsF
 
         // Configure the view for the selected state
     }
-    
+
     func fillCell(instruction: Instruction) -> UITableViewCell {
         self.secondaryInfoTitle.text = instruction.secondaryInfo![0]
         self.secondaryInfoSubtitle.text = instruction.secondaryInfo![1]

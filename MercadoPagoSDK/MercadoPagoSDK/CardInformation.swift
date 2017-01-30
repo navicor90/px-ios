@@ -9,37 +9,36 @@
 import UIKit
 
 @objc
-public protocol CardInformation : CardInformationForm, PaymentOptionDrawable {
-    
+public protocol CardInformation: CardInformationForm, PaymentOptionDrawable {
+
     func isSecurityCodeRequired() -> Bool
-    
+
     func getCardId() -> String
-    
+
     func getCardSecurityCode() -> SecurityCode
-    
+
     func getCardDescription() -> String
-    
-    func setupPaymentMethodSettings(_ settings : [Setting])
-    
-    func setupPaymentMethod(_ paymentMethod : PaymentMethod)
-    
+
+    func setupPaymentMethodSettings(_ settings: [Setting])
+
+    func setupPaymentMethod(_ paymentMethod: PaymentMethod)
+
     func getPaymentMethod() -> PaymentMethod
-    
+
     func getPaymentMethodId() -> String
-    
+
     func getIssuer() -> Issuer?
-    
+
     func getFirstSixDigits() -> String!
 
 }
 @objc
 
-public protocol CardInformationForm : NSObjectProtocol {
-    
-    
+public protocol CardInformationForm: NSObjectProtocol {
+
     func getCardBin() -> String?
-    
+
     func getCardLastForDigits() -> String?
-    
+
     func isIssuerRequired() -> Bool
 }

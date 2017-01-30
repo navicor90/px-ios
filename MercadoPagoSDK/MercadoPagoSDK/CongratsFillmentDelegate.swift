@@ -10,7 +10,7 @@ import UIKit
 
 protocol CongratsFillmentDelegate {
 
-    func fillCell(_ payment : Payment, paymentMethod: PaymentMethod, callback : ((Void) -> Void)?) -> UITableViewCell
-    
-    func getCellHeight(_ payment : Payment, paymentMethod: PaymentMethod) -> CGFloat
+    func fillCell(_ payment: Payment, paymentMethod: PaymentMethod, callback: ((Void) -> Void)?) -> UITableViewCell
+
+    func getCellHeight(_ payment: Payment, paymentMethod: PaymentMethod) -> CGFloat
 }

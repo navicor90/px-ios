@@ -9,15 +9,11 @@
 import XCTest
 
 class PaymentTypeTest: BaseTest {
-    
-    func testInit(){
+
+    func testInit() {
         let paymentType = PaymentType(paymentTypeId: PaymentTypeId.CREDIT_CARD)
         XCTAssertEqual(paymentType.paymentTypeId, PaymentTypeId.CREDIT_CARD)
-        
-    }
-    
-    
-    
 
-    
+    }
+
 }

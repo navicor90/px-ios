@@ -9,13 +9,13 @@
 import UIKit
 
 class ConfirmEmailTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    func fillCell(payment: Payment, instruction: Instruction?) -> Void {
+    func fillCell(payment: Payment, instruction: Instruction?) {
         label.font = Utils.getFont(size: label.font.pointSize)
         if let instruction = instruction?.secondaryInfo?[0] {
             label.text = instruction

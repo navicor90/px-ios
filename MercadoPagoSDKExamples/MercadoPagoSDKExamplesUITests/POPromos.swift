@@ -8,10 +8,8 @@
 
 import Foundation
 
-
-class POPromos: MPPageObject{
+class POPromos: MPPageObject {
     //Identification Form
     let identificationNumberField = application.textFields["Número"]
 
-    
 }

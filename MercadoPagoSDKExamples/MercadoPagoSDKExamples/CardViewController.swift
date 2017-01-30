@@ -10,69 +10,69 @@ import UIKit
 import MercadoPagoSDK
 
 class CardViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, KeyboardDelegate {
-	var publicKey : String?
-	
-	@IBOutlet weak var tableView : UITableView!
-	var cardNumberCell : MPCardNumberTableViewCell!
-	var expirationDateCell : MPExpirationDateTableViewCell!
-	var cardholderNameCell : MPCardholderNameTableViewCell!
-	var userIdCell : MPUserIdTableViewCell!
-	var securityCodeCell : SimpleSecurityCodeTableViewCell!
-	
-	var paymentMethod : PaymentMethod!
-	
-	var hasError : Bool = false
-	var loadingView : UILoadingView!
-	
-	var identificationType : IdentificationType?
-	var identificationTypes : [IdentificationType]?
-	
-	var callback : ((_ token : Token?) -> Void)?
-	
-	var isKeyboardVisible : Bool?
-	var inputsCells : NSMutableArray!
-	
+	var publicKey: String?
+
+	@IBOutlet weak var tableView: UITableView!
+	var cardNumberCell: MPCardNumberTableViewCell!
+	var expirationDateCell: MPExpirationDateTableViewCell!
+	var cardholderNameCell: MPCardholderNameTableViewCell!
+	var userIdCell: MPUserIdTableViewCell!
+	var securityCodeCell: SimpleSecurityCodeTableViewCell!
+
+	var paymentMethod: PaymentMethod!
+
+	var hasError: Bool = false
+	var loadingView: UILoadingView!
+
+	var identificationType: IdentificationType?
+	var identificationTypes: [IdentificationType]?
+
+	var callback : ((_ token: Token?) -> Void)?
+
+	var isKeyboardVisible: Bool?
+	var inputsCells: NSMutableArray!
+
 	init(merchantPublicKey: String, paymentMethod: PaymentMethod, callback: @escaping (_ token: Token?) -> Void) {
 		super.init(nibName: "CardViewController", bundle: nil)
 		self.publicKey = merchantPublicKey
 		self.paymentMethod = paymentMethod
 		self.callback = callback
 	}
-	
+
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
-	
+
 	init() {
 		super.init(nibName: nil, bundle: nil)
 	}
-	
+
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
-	
+
 	override func viewDidAppear(_ animated: Bool) {
 		self.tableView.reloadData()
 	}
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		self.loadingView = UILoadingView(frame: MercadoPago.screenBoundsFixedToPortraitOrientation(), text: "Cargando...".localized)
 		self.view.addSubview(self.loadingView)
 		self.title = "Datos de tu tarjeta".localized
-		
+
 		self.navigationItem.backBarButtonItem?.title = "Atrás"
-		
+
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continuar".localized, style: UIBarButtonItemStyle.plain, target: self, action: #selector(CardViewController.submitForm))
-		
+
         let mercadoPago = MercadoPago(publicKey: self.publicKey!)
 		mercadoPago.getIdentificationTypes({(identificationTypes: [IdentificationType]?) -> Void in
 			self.identificationTypes = identificationTypes
 			self.prepareTableView()
 			self.tableView.reloadData()
 			self.loadingView.removeFromSuperview()
-			}, failure: { (error: NSError?) -> Void in
+			}, failure: { (_) -> Void in
 				self.prepareTableView()
 				self.tableView.reloadData()
 				self.loadingView.removeFromSuperview()
@@ -80,37 +80,36 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 			}
 		)
 	}
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self, selector: #selector(CardViewController.willShowKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(CardViewController.willHideKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
 
 	}
-	
+
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(self)
 	}
-	
+
 	func willHideKeyboard(_ notification: Notification) {
 		// resize content insets.
-		let contentInsets = UIEdgeInsetsMake(64, 0.0, 0.0, 0)
+		let contentInsets = UIEdgeInsets(top: 64, left: 0.0, bottom: 0.0, right: 0)
 		self.tableView.contentInset = contentInsets
 		self.tableView.scrollIndicatorInsets = contentInsets
 	}
-	
+
 	func willShowKeyboard(_ notification: Notification) {
-		let s:NSValue? = ((notification as NSNotification).userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)
-		let keyboardBounds :CGRect = s!.cgRectValue
-		
+		let s: NSValue? = ((notification as NSNotification).userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)
+		let keyboardBounds: CGRect = s!.cgRectValue
+
 		// resize content insets.
 		let contentInsets = UIEdgeInsetsMake(64, 0.0, keyboardBounds.size.height, 0)
 		self.tableView.contentInset = contentInsets
 		self.tableView.scrollIndicatorInsets = contentInsets
 	}
-	
+
 	@IBAction func submitForm() {
 		self.view.addSubview(self.loadingView)
 		let cardToken = CardToken(cardNumber: self.cardNumberCell.getCardNumber(), expirationMonth: self.expirationDateCell.getExpirationMonth(), expirationYear: self.expirationDateCell.getExpirationYear(), securityCode: self.securityCodeCell.getSecurityCode(), cardholderName: self.cardholderNameCell.getCardholderName(), docType: self.userIdCell.getUserIdType(), docNumber: self.userIdCell.getUserIdValue())
@@ -122,7 +121,7 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 			self.tableView.reloadData()
 		}
 	}
-	
+
 	func getIndexForObject(_ object: AnyObject) -> Int {
 		var i = 0
 		for arr in self.inputsCells {
@@ -137,11 +136,11 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		}
 		return -1
 	}
-	
+
 	func scrollToRow(_ indexPath: IndexPath) {
 		self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.bottom, animated: true)
 	}
-	
+
 	func focusAndScrollForIndex(_ index: Int) {
 		var i = 0
 		for arr in self.inputsCells {
@@ -156,13 +155,13 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 							scrollToRow(indexPath!)
 						}
 					}
-					
+
 				}
 			}
 			i = i + 1
 		}
 	}
-	
+
 	func prev(_ object: AnyObject?) {
 		if object != nil {
 			let index = getIndexForObject(object!)
@@ -171,7 +170,7 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 			}
 		}
 	}
-	
+
 	func next(_ object: AnyObject?) {
 		if object != nil {
 			let index = getIndexForObject(object!)
@@ -180,7 +179,7 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 			}
 		}
 	}
-	
+
 	func done(_ object: AnyObject?) {
 		if object != nil {
 			let index = getIndexForObject(object!)
@@ -199,11 +198,11 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 			}
 		}
 	}
-	
+
 	func prepareTableView() {
-		
+
 		self.inputsCells = NSMutableArray()
-		
+
 		let cardNumberNib = UINib(nibName: "MPCardNumberTableViewCell", bundle: MercadoPago.getBundle())
 		self.tableView.register(cardNumberNib, forCellReuseIdentifier: "cardNumberCell")
 		self.cardNumberCell = self.tableView.dequeueReusableCell(withIdentifier: "cardNumberCell") as! MPCardNumberTableViewCell
@@ -212,21 +211,21 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		self.cardNumberCell._setSetting(self.paymentMethod.settings[0])
 		self.cardNumberCell.cardNumberTextField.inputAccessoryView = MPToolbar(prevEnabled: false, nextEnabled: true, delegate: self, textFieldContainer: self.cardNumberCell.cardNumberTextField)
 		self.inputsCells.add([self.cardNumberCell.cardNumberTextField, self.cardNumberCell])
-		
+
 		let expirationDateNib = UINib(nibName: "MPExpirationDateTableViewCell", bundle: MercadoPago.getBundle())
 		self.tableView.register(expirationDateNib, forCellReuseIdentifier: "expirationDateCell")
 		self.expirationDateCell = self.tableView.dequeueReusableCell(withIdentifier: "expirationDateCell") as! MPExpirationDateTableViewCell
 		self.expirationDateCell.height = 55.0
 		self.expirationDateCell.expirationDateTextField.inputAccessoryView = MPToolbar(prevEnabled: true, nextEnabled: true, delegate: self, textFieldContainer: self.expirationDateCell.expirationDateTextField)
 		self.inputsCells.add([self.expirationDateCell.expirationDateTextField, self.expirationDateCell])
-		
+
 		let cardholderNameNib = UINib(nibName: "MPCardholderNameTableViewCell", bundle: MercadoPago.getBundle())
 		self.tableView.register(cardholderNameNib, forCellReuseIdentifier: "cardholderNameCell")
 		self.cardholderNameCell = self.tableView.dequeueReusableCell(withIdentifier: "cardholderNameCell") as! MPCardholderNameTableViewCell
 		self.cardholderNameCell.height = 55.0
 		self.cardholderNameCell.cardholderNameTextField.inputAccessoryView = MPToolbar(prevEnabled: true, nextEnabled: true, delegate: self, textFieldContainer: self.cardholderNameCell.cardholderNameTextField)
 		self.inputsCells.add([self.cardholderNameCell.cardholderNameTextField, self.cardholderNameCell])
-		
+
 		let userIdNib = UINib(nibName: "MPUserIdTableViewCell", bundle: MercadoPago.getBundle())
 		self.tableView.register(userIdNib, forCellReuseIdentifier: "userIdCell")
 		self.userIdCell = self.tableView.dequeueReusableCell(withIdentifier: "userIdCell") as! MPUserIdTableViewCell
@@ -234,10 +233,10 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		self.userIdCell.height = 55.0
 		self.userIdCell.userIdTypeTextField.inputAccessoryView = MPToolbar(prevEnabled: true, nextEnabled: true, delegate: self, textFieldContainer: self.userIdCell.userIdTypeTextField)
 		self.userIdCell.userIdValueTextField.inputAccessoryView = MPToolbar(prevEnabled: true, nextEnabled: true, delegate: self, textFieldContainer: self.userIdCell.userIdValueTextField)
-		
+
 		self.inputsCells.add([self.userIdCell.userIdTypeTextField, self.userIdCell])
 		self.inputsCells.add([self.userIdCell.userIdValueTextField, self.userIdCell])
-		
+
 		let securityCodeNib = UINib(nibName: "SimpleSecurityCodeTableViewCell", bundle: nil)
 		self.tableView.register(securityCodeNib, forCellReuseIdentifier: "securityCodeCell")
 		self.securityCodeCell = self.tableView.dequeueReusableCell(withIdentifier: "securityCodeCell") as! SimpleSecurityCodeTableViewCell
@@ -248,17 +247,17 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		self.tableView.delegate = self
 		self.tableView.dataSource = self
 	}
-	
+
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return section == 2 ? 1 : 2
 	}
-	
+
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 3
 	}
-	
+
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
+
 		if (indexPath as NSIndexPath).section == 0 {
 			if (indexPath as NSIndexPath).row == 0 {
 				return self.cardNumberCell
@@ -276,7 +275,7 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		}
 		return UITableViewCell()
 	}
-	
+
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		if (indexPath as NSIndexPath).section == 0 {
 			if (indexPath as NSIndexPath).row == 0 {
@@ -295,28 +294,28 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		}
 		return 55
 	}
-	
+
 	override func viewDidLayoutSubviews() {
 		if self.tableView.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
 			self.tableView.separatorInset = UIEdgeInsets.zero
 		}
-		
+
 		if self.tableView.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
 				self.tableView.layoutMargins = UIEdgeInsets.zero
 		}
 	}
-	
+
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		if cell.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
 			cell.separatorInset = UIEdgeInsets.zero
 		}
-		
+
 		if cell.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
 				cell.layoutMargins = UIEdgeInsets.zero
 		}
 	}
-	
-	func validateForm(_ cardToken : CardToken) -> Bool {
+
+	func validateForm(_ cardToken: CardToken) -> Bool {
         return true
 		/*
 		var result : Bool = true
@@ -378,18 +377,18 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 		return result
  */
 	}
-	
+
 	func textFieldDidBeginEditing(_ textField: UITextField) {
 		let cell = textField.superview?.superview as! UITableViewCell?
 		self.tableView.scrollToRow(at: self.tableView.indexPath(for: cell!)!, at: UITableViewScrollPosition.top, animated: true)
 	}
-	
+
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 		textField.resignFirstResponder()
-		
+
 		return true
 	}
-	
+
 	func createToken(_ cardToken: CardToken) {
 		let mercadoPago = MercadoPago(publicKey: self.publicKey!)
 		mercadoPago.createNewCardToken(cardToken, success: { (token) -> Void in
@@ -397,6 +396,5 @@ class CardViewController: UIViewController, UITableViewDataSource, UITableViewDe
 			self.callback?(token)
 			}, failure: nil)
 	}
-    
 
 }

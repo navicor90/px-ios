@@ -7,7 +7,7 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -18,7 +18,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+fileprivate func > <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -27,17 +27,16 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 class InstructionsTwoLabelsAndButtonViewCell: UITableViewCell, InstructionsFillmentDelegate {
 
     @IBOutlet weak var button: MPButton!
     @IBOutlet weak var infoTitle: MPLabel!
     @IBOutlet weak var referenceLabelFirst: MPLabel!
     @IBOutlet weak var referenceValueFirst: MPLabel!
-    
+
     @IBOutlet weak var referenceLabelSecond: MPLabel!
     @IBOutlet weak var referenceValueSecond: MPLabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.button.layer.borderWidth = 1.0
@@ -50,22 +49,22 @@ class InstructionsTwoLabelsAndButtonViewCell: UITableViewCell, InstructionsFillm
 
         // Configure the view for the selected state
     }
-    
+
     func fillCell(_ instruction: Instruction) -> UITableViewCell {
-        
+
         if instruction.info != nil && instruction.info.count > 0 {
             self.infoTitle.text = instruction.info[0]
         }
-        
+
         if instruction.references != nil && instruction.references.count > 0 {
-            
+
              MPCellValidator.fillInstructionReference(instruction.references[0], label: self.referenceLabelFirst, referenceValueLabel: self.referenceValueFirst)
-            
+
             if (instruction.references.count > 1) {
                 MPCellValidator.fillInstructionReference(instruction.references[1], label: self.referenceLabelSecond, referenceValueLabel: self.referenceValueSecond)
             }
         }
-        
+
         if instruction.actions != nil && instruction.actions?.count > 0 {
             if instruction.actions![0].tag == ActionTag.LINK.rawValue {
                 self.button.actionLink = instruction.actions![0].url
@@ -74,15 +73,15 @@ class InstructionsTwoLabelsAndButtonViewCell: UITableViewCell, InstructionsFillm
         } else {
             self.button.isHidden = true
         }
-        
+
         return self
     }
-    
-    func getCellHeight(_ instruction : Instruction, forFontSize: CGFloat) -> CGFloat {
+
+    func getCellHeight(_ instruction: Instruction, forFontSize: CGFloat) -> CGFloat {
         return 258
     }
-    
-    internal func openUrl(){
+
+    internal func openUrl() {
         UIApplication.shared.openURL(URL(string: self.button.actionLink!)!)
     }
 }

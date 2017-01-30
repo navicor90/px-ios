@@ -11,7 +11,7 @@ import UIKit
 public class PromoTyCDetailTableViewCell: UITableViewCell {
 
 	@IBOutlet weak private var tycLabel: UILabel!
-	
+
     override public func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,12 +22,12 @@ public class PromoTyCDetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-	
+
 	public func setLabelWithIssuerName(issuer: String, legals: String) {
 		let s = NSMutableAttributedString(string: "\(issuer): \(legals)")
-		let atts : [String : AnyObject] = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 15)!]
+		let atts: [String : AnyObject] = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 15)!]
 		s.addAttributes(atts, range: NSMakeRange(0, issuer.characters.count))
 		self.tycLabel.attributedText = s
 	}
-	
+
 }

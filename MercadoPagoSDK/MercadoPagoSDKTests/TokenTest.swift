@@ -9,14 +9,13 @@
 import XCTest
 
 class TokenTest: BaseTest {
-    
+
     let date = NSDate()
     let modificationDate = NSDate()
     let dueDate = NSDate()
-    
-    
-    func testFromJSON(){
-        let json : NSDictionary = MockManager.getMockFor("Token")!
+
+    func testFromJSON() {
+        let json: NSDictionary = MockManager.getMockFor("Token")!
         let tokenCodeFromJSON = Token.fromJSON(json)
         XCTAssertEqual(tokenCodeFromJSON, tokenCodeFromJSON)
     }

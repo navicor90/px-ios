@@ -8,17 +8,15 @@
 
 import Foundation
 
-open class Discount : Equatable {
-    open var amountOff : NSNumber = 0
-    open var couponAmount : NSNumber = 0
-    open var currencyId : String!
-    open var _id : Int = 0
-    open var name : String!
-    open var percentOff : NSNumber = 0
-    
-    
-    
-    public init (amountOff: NSNumber? = 0, couponAmount : NSNumber? = 0, currencyId: String? = nil, _id: Int? = 0, name : String? = nil, percentOff : NSNumber? = 0 ) {
+open class Discount: Equatable {
+    open var amountOff: NSNumber = 0
+    open var couponAmount: NSNumber = 0
+    open var currencyId: String!
+    open var _id: Int = 0
+    open var name: String!
+    open var percentOff: NSNumber = 0
+
+    public init (amountOff: NSNumber? = 0, couponAmount: NSNumber? = 0, currencyId: String? = nil, _id: Int? = 0, name: String? = nil, percentOff: NSNumber? = 0 ) {
         self.amountOff = amountOff!
         self.couponAmount = couponAmount!
         self.currencyId = currencyId
@@ -26,9 +24,9 @@ open class Discount : Equatable {
         self.name = name
         self.percentOff = percentOff!
     }
-    
-    open class func fromJSON(_ json : NSDictionary) -> Discount {
-        let discount : Discount = Discount()
+
+    open class func fromJSON(_ json: NSDictionary) -> Discount {
+        let discount: Discount = Discount()
         if let amountOff = JSONHandler.attemptParseToString(json["amount_off"])?.numberValue {
             discount.amountOff = amountOff
         }
@@ -49,12 +47,11 @@ open class Discount : Equatable {
         }
         return discount
     }
-    
-    
+
 }
 
 public func ==(obj1: Discount, obj2: Discount) -> Bool {
-    
+
     let areEqual =
     obj1.amountOff == obj2.amountOff &&
         obj1.couponAmount == obj2.couponAmount &&
@@ -62,6 +59,6 @@ public func ==(obj1: Discount, obj2: Discount) -> Bool {
         obj1._id == obj2._id &&
         obj1.name == obj2.name &&
         obj1.percentOff == obj2.percentOff
-    
+
     return areEqual
 }

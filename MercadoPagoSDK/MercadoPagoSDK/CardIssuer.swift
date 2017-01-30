@@ -8,11 +8,11 @@
 
 import Foundation
 
-open class CardIssuer : NSObject {
-    open var _id : String!
-    open var name : String!
-    open var labels : [String]!
-    
+open class CardIssuer: NSObject {
+    open var _id: String!
+    open var name: String!
+    open var labels: [String]!
+
     public init (_id: String, name: String?, labels: [String]) {
         super.init()
         self._id = _id

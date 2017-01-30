@@ -10,9 +10,7 @@ import Foundation
 import XCTest
 
 class MPPageObject: NSObject {
-    
+
     static var application = MercadoPagoUITest.sharedApplication
-    
-    
 
 }

@@ -8,9 +8,9 @@
 
 import Foundation
 
-open class ApiException : NSObject {
-    open var cause : Cause!
-    open var error : String!
-    open var message : String!
-    open var status : Int = 0
+open class ApiException: NSObject {
+    open var cause: Cause!
+    open var error: String!
+    open var message: String!
+    open var status: Int = 0
 }

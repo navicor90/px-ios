@@ -9,23 +9,23 @@
 import UIKit
 
 open class MercadoPagoService: NSObject {
-    
-    var baseURL : String!
-    init (baseURL : String) {
+
+    var baseURL: String!
+    init (baseURL: String) {
         super.init()
         self.baseURL = baseURL
     }
-    
-    public func request(uri: String, params: String?, body: AnyObject?, method: String, headers : NSDictionary? = nil, cache : Bool? = true, success: (_ jsonResult: AnyObject?) -> Void,
+
+    public func request(uri: String, params: String?, body: AnyObject?, method: String, headers: NSDictionary? = nil, cache: Bool? = true, success: (_ jsonResult: AnyObject?) -> Void,
         failure: ((_ error: NSError) -> Void)?) {
-        
+
         /*
         MercadoPagoTestContext.addExpectation(withDescription: BaseTest.WAIT_FOR_REQUEST_EXPECTATION_DESCRIPTION + uri)*/
         var finalUri = uri
         if params != nil {
             finalUri = finalUri + "?" + params!
         }
-        
+
        if method == "POST" {
             let bodyData = (body as! String).data(using: String.Encoding.utf8)
          /*   let bodyParams = JSON(data: bodyData!)
@@ -39,14 +39,14 @@ open class MercadoPagoService: NSObject {
             }
            */
         }
-        
+
         do {
             let jsonResponse = try MockManager.getMockResponseFor(finalUri, method: method)
-            if (jsonResponse != nil && jsonResponse!["error"] != nil){
+            if (jsonResponse != nil && jsonResponse!["error"] != nil) {
                 failure!(NSError(domain: uri, code: 400, userInfo: nil))
                 return
             }
-            
+
             success(jsonResponse)
             //MercadoPagoTestContext.fulfillExpectation(BaseTest.WAIT_FOR_REQUEST_EXPECTATION_DESCRIPTION + uri)
         } catch {

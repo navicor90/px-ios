@@ -12,8 +12,8 @@ import UIKit
 public protocol PaymentOptionDrawable {
 
     func getImageDescription() -> String
-    
+
     func getTitle() -> String
-    
+
     func getSubtitle() -> String?
 }

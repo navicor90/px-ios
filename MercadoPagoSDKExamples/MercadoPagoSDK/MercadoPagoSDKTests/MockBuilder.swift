@@ -9,7 +9,7 @@
 import Foundation
 
 class MockBuilder: NSObject {
-    
+
     class func buildCheckoutPreference() -> CheckoutPreference {
         let preference = CheckoutPreference()
         preference._id = "xxx"
@@ -17,18 +17,18 @@ class MockBuilder: NSObject {
         preference.payer = self.buildPayer(1, type: "type")
         return preference
     }
-    
-    class func buildItem(id : String, quantity : Int, unitPrice : Double) -> Item {
+
+    class func buildItem(id: String, quantity: Int, unitPrice: Double) -> Item {
         return Item(_id: id, title : "item title", quantity: quantity, unitPrice: unitPrice)
     }
-    
-    class func buildPayer(id : NSNumber, type : String) -> Payer {
+
+    class func buildPayer(id: NSNumber, type: String) -> Payer {
         let payer =  Payer()
         payer._id = id
         payer.type = type
         return payer
     }
-    
+
     class func buildPreferencePaymentMethods() -> PreferencePaymentMethods {
         let preferencePM = PreferencePaymentMethods()
         preferencePM.defaultInstallments = 1
@@ -37,19 +37,18 @@ class MockBuilder: NSObject {
         preferencePM.excludedPaymentTypes = self.getMockPaymentTypeIds()
         return preferencePM
     }
-    
-    
-    class func buildPaymentMethod(id : String) -> PaymentMethod {
+
+    class func buildPaymentMethod(id: String) -> PaymentMethod {
         let paymentMethod = PaymentMethod()
         paymentMethod._id = id
         return paymentMethod
     }
-    
+
     class func getMockPaymentMethods() -> [PaymentMethod] {
         return [self.buildPaymentMethod("amex"), self.buildPaymentMethod("oxxo")]
     }
-    
-    class func getMockPaymentTypeIds() -> Set<PaymentTypeId>{
+
+    class func getMockPaymentTypeIds() -> Set<PaymentTypeId> {
         return Set([PaymentTypeId.BITCOIN, PaymentTypeId.ACCOUNT_MONEY])
     }
 }

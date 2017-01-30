@@ -8,11 +8,9 @@
 
 import UIKit
 
-
 extension Array {
-    
-    static public func isNullOrEmpty(_ value: Array?) -> Bool
-    {
+
+    static public func isNullOrEmpty(_ value: Array?) -> Bool {
         return value == nil || value?.count == 0
     }
 }

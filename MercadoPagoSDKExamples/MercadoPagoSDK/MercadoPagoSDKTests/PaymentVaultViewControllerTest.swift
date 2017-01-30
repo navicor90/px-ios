@@ -9,26 +9,26 @@
 import XCTest
 
 class PaymentVaultViewControllerTest: BaseTest {
-    
-    var paymentVaultViewController : PaymentVaultViewController?
-    
+
+    var paymentVaultViewController: PaymentVaultViewController?
+
     override func setUp() {
         super.setUp()
-        self.paymentVaultViewController = PaymentVaultViewController(amount: 7.5, currencyId: "MXN", purchaseTitle: "Purchase title", excludedPaymentTypes:  MockBuilder.getMockPaymentTypeIds(), excludedPaymentMethods: ["visa"], installments: 1, defaultInstallments: 1, callback: { (paymentMethod, tokenId, issuer, installments) -> Void in
-            
+        self.paymentVaultViewController = PaymentVaultViewController(amount: 7.5, currencyId: "MXN", purchaseTitle: "Purchase title", excludedPaymentTypes:  MockBuilder.getMockPaymentTypeIds(), excludedPaymentMethods: ["visa"], installments: 1, defaultInstallments: 1, callback: { (_, _, _, installments) -> Void in
+
         })
     }
-    
+
     override func tearDown() {
         super.tearDown()
     }
-    
+
     func testInit() {
         XCTAssertEqual(paymentVaultViewController!.merchantBaseUrl, MercadoPagoContext.baseURL())
         XCTAssertEqual(paymentVaultViewController!.publicKey, MercadoPagoContext.publicKey())
-        XCTAssertEqual(paymentVaultViewController!.merchantAccessToken,  MercadoPagoContext.merchantAccessToken())
+        XCTAssertEqual(paymentVaultViewController!.merchantAccessToken, MercadoPagoContext.merchantAccessToken())
         XCTAssertNil(paymentVaultViewController?.paymentMethodsSearch)
-        
+
     }
-    
+
 }

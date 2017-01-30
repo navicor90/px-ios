@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-public class ErrorTableViewCell : UITableViewCell {
-    var errorView : GenericErrorView?
-    public var height : CGFloat = 0
-    
+public class ErrorTableViewCell: UITableViewCell {
+    var errorView: GenericErrorView?
+    public var height: CGFloat = 0
+
     public func setError(error: String?) {
         if error == nil {
             if self.errorView != nil {
@@ -25,16 +25,16 @@ public class ErrorTableViewCell : UITableViewCell {
             self.addSubview(self.errorView!)
         }
     }
-	
+
 	public func focus() {
 	}
-    
+
     public func hasError() -> Bool {
         return self.errorView != nil
     }
-    
+
     public func getHeight() -> CGFloat {
-        var error : CGFloat = 0
+        var error: CGFloat = 0
         if self.hasError() {
             error = self.errorView!.frame.height
         }

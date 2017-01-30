@@ -9,16 +9,16 @@
 import UIKit
 
 open class IdentificationCardView: UIView {
-var view:UIView!;
-    
+var view: UIView!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadViewFromNib ()
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+
         loadViewFromNib ()
     }
     func loadViewFromNib() {
