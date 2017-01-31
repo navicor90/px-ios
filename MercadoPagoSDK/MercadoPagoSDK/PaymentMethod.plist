@@ -422,5 +422,35 @@
 		<key>editText_mask</key>
 		<string>XXXX XXXX XXXX XXXX</string>
 	</dict>
+	<key>magna</key>
+	<dict>
+		<key>image_name</key>
+		<string>icoTc_magna</string>
+		<key>first_color</key>
+		<string>666666</string>
+		<key>font_color</key>
+		<string>FFFFFF</string>
+		<key>editing_font_color</key>
+		<string>FFFFFF</string>
+		<key>label_mask</key>
+		<string>XXXX XXXX XXXX XXXX</string>
+		<key>editText_mask</key>
+		<string>XXXX XXXX XXXX XXXX</string>
+	</dict>
+	<key>presto</key>
+	<dict>
+		<key>image_name</key>
+		<string>icoTc_presto</string>
+		<key>first_color</key>
+		<string>0071B2</string>
+		<key>font_color</key>
+		<string>FFFFFF</string>
+		<key>editing_font_color</key>
+		<string>FFFFFF</string>
+		<key>label_mask</key>
+		<string>XXXX XXXX XXXX XXXX</string>
+		<key>editText_mask</key>
+		<string>XXXX XXXX XXXX XXXX</string>
+	</dict>
 </dict>
 </plist>
