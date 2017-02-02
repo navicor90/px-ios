@@ -157,7 +157,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         self.getCustomerCards()
         self.hideNavBarCallback = self.hideNavBarCallbackDisplayTitle()
         if self.loadingGroups {
-            let temporalView = UIView.init(frame: CGRect(x: 0, y: navBarHeigth + statusBarHeigth, width: self.view.frame.size.width, height: self.view.frame.size.height))
+            let temporalView = UIView(frame: CGRect(x: 0, y: navBarHeigth + statusBarHeigth, width: self.view.frame.size.width, height: self.view.frame.size.height))
             temporalView.backgroundColor?.withAlphaComponent(0)
             temporalView.isUserInteractionEnabled = false
             self.view.addSubview(temporalView)
@@ -414,9 +414,9 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
                                layout collectionViewLayout: UICollectionViewLayout,
                                insetForSectionAt section: Int) -> UIEdgeInsets {
         if section == 0 {
-           return UIEdgeInsetsMake(8, 8, 0, 8)
+           return UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8)
         } else {
-            return UIEdgeInsetsMake(0, 8, 8, 8)
+            return UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8)
         }
     }
 

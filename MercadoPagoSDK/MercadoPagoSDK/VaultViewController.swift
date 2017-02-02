@@ -115,7 +115,7 @@ open class VaultViewController: MercadoPagoUIViewController, UITableViewDataSour
 
     func willHideKeyboard(_ notification: Notification) {
         // resize content insets.
-        let contentInsets = UIEdgeInsetsMake(64, 0.0, 0.0, 0)
+        let contentInsets = UIEdgeInsets(top: 64, left: 0.0, bottom: 0.0, right: 0)
         self.tableview.contentInset = contentInsets
         self.tableview.scrollIndicatorInsets = contentInsets
         self.scrollToRow(IndexPath(row: 0, section: 0))

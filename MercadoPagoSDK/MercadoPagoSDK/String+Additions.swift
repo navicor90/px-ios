@@ -32,7 +32,7 @@ extension String {
     }
 
     static public func isDigitsOnly(_ a: String) -> Bool {
-		if Regex.init("^[0-9]*$").test(a) {
+		if Regex("^[0-9]*$").test(a) {
 			return true
 		} else {
 			return false

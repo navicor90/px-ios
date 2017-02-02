@@ -15,7 +15,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
     var bundle: Bundle? = MercadoPago.getBundle()
     let viewModel: CardAdditionalStepViewModel!
 
-     override open var screenName: String { get {
+    override open var screenName: String { get {
         if viewModel.hasIssuer() {
             return "PAYER_COST"
         } else if viewModel.hasPaymentMethod() {
@@ -164,13 +164,21 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
 
         if indexPath.section == 0 {
 
-            let titleCell = tableView.dequeueReusableCell(withIdentifier: "titleNib", for: indexPath as IndexPath) as! PayerCostTitleTableViewCell
-            titleCell.selectionStyle = .none
-            titleCell.setTitle(string: self.getNavigationBarTitle())
-            titleCell.backgroundColor = UIColor.primaryColor()
-            self.titleCell = titleCell
+            /*let titleCell = tableView.dequeueReusableCell(withIdentifier: "titleNib", for: indexPath) as! PayerCostTitleTableViewCell
+             titleCell.selectionStyle = .none
+             titleCell.setTitle(string: self.getNavigationBarTitle())
+             titleCell.backgroundColor = UIColor.primaryColor()
+             self.titleCell = titleCell*/
 
-            return titleCell
+            if let titleCell = tableView.dequeueReusableCell(withIdentifier: "titleNib", for: indexPath) as? PayerCostTitleTableViewCell {
+                titleCell.selectionStyle = .none
+                titleCell.setTitle(string: self.getNavigationBarTitle())
+                titleCell.backgroundColor = UIColor.primaryColor()
+                self.titleCell = titleCell
+
+                return titleCell
+            }
+            return tableView.dequeueReusableCell(withIdentifier: "titleNib", for: indexPath)
 
         } else if indexPath.section == 1 {
             let cardCell = tableView.dequeueReusableCell(withIdentifier: "cardNib", for: indexPath as IndexPath) as! PayerCostCardTableViewCell

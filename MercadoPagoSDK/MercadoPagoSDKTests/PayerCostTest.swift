@@ -15,6 +15,9 @@ class PayerCostTest: BaseTest {
     func testPayerCost() {
 
         let payerCost = PayerCost(installments: 6, installmentRate: 1.2, labels: labels, minAllowedAmount: 5, maxAllowedAmount: 500, recommendedMessage: "message", installmentAmount: 5.0, totalAmount: 30.0)
+        let payerCost2 = PayerCost(installments: 6, installmentRate: 1.2, labels: labels, minAllowedAmount: 5, maxAllowedAmount: 500, recommendedMessage: "message", installmentAmount: 5.0, totalAmount: 30.0)
+        
+        XCTAssertTrue(payerCost == payerCost2)
 
         XCTAssertEqual(payerCost.installments, 6)
         XCTAssertEqual(payerCost.installmentRate, 1.2)

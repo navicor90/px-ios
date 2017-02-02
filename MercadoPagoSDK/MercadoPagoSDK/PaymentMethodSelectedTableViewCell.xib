@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="496" height="312"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="496" height="312"/>
+                <rect key="frame" x="0.0" y="0.0" width="496" height="311"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mediosIconoTarjeta" translatesAutoresizingMaskIntoConstraints="NO" id="7IM-bU-WwN">
@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e6B-2G-k5B">
-                        <rect key="frame" x="33" y="128" width="438" height="27.5"/>
+                        <rect key="frame" x="33" y="128" width="438" height="28"/>
                         <attributedString key="attributedText">
                             <fragment content="6x $109">
                                 <attributes>
@@ -38,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aDj-L7-Gmd">
-                        <rect key="frame" x="155" y="204" width="187.5" height="20.5"/>
+                        <rect key="frame" x="154" y="205" width="188" height="21"/>
                         <attributedString key="attributedText">
                             <fragment content="Visa terminada en: 3456">
                                 <attributes>
@@ -51,14 +51,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yqy-D5-bms">
-                        <rect key="frame" x="191" y="257.5" width="114" height="34"/>
+                        <rect key="frame" x="191" y="259" width="114" height="34"/>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                         <state key="normal" title="Cambiar Pago">
                             <color key="titleColor" red="0.0" green="0.61960784313725492" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zf5-PV-8ZU">
-                        <rect key="frame" x="208" y="155.5" width="81" height="21"/>
+                        <rect key="frame" x="208" y="156" width="81" height="21"/>
                         <attributedString key="attributedText">
                             <fragment content="Sin interés">
                                 <attributes>
@@ -70,7 +70,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tw3-3X-flB">
-                        <rect key="frame" x="221" y="179.5" width="54.5" height="19.5"/>
+                        <rect key="frame" x="221" y="180" width="55" height="20"/>
                         <attributedString key="attributedText">
                             <fragment content="($ 654)">
                                 <attributes>

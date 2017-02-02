@@ -3,6 +3,8 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
 force_cast: warning # implicitly
 force_unwrapping: error
+control_statement: error
+todo: warning
 
 
 file_length:
@@ -28,10 +30,10 @@ function_body_length:
    error: 100
 cyclomatic_complexity:
    warning: 10
-   error: 15
+   error: 50
 
 function_parameter_count:
-  warning: 8
+  warning: 6
   error: 10
 
 opt_in_rules:
@@ -46,21 +48,21 @@ opt_in_rules:
   - empty_parameters
   - conditional_returns_on_newline
 
-  # - empty_count
-  # - private_outlet
-  # - explicit_init
-  # - overridden_super_call
+  - empty_count
+  - private_outlet
+  - explicit_init
+  - overridden_super_call
 
 
 disabled_rules:
-  - large_tuple
   - line_length
-  - cyclomatic_complexity
-  - operator_whitespace
-  - todo
-  - force_cast
-  - implicit_getter
-  - legacy_constructor
+  - large_tuple
+  # - cyclomatic_complexity
+  # - operator_whitespace
+  # - todo
+  # - force_cast
+  # - implicit_getter
+  # - legacy_constructor
   - variable_name
 
 

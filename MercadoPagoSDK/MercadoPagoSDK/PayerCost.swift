@@ -78,7 +78,6 @@ open class PayerCost: NSObject {
         return (self.installmentRate > 0 && self.installments > 1)
     }
 }
-
 public func ==(obj1: PayerCost, obj2: PayerCost) -> Bool {
 
     let areEqual =

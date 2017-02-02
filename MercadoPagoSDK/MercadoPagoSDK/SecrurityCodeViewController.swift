@@ -33,8 +33,8 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
         self.securityCodeTextField.placeholder = "security_code".localized
         self.errorLabel.text = "Revisa este dato".localized
         self.view.backgroundColor = UIColor.primaryColor()
-        self.cardFront = CardFrontView.init(frame: viewModel.getCardBounds())
-        self.cardBack = CardBackView.init(frame: viewModel.getCardBounds())
+        self.cardFront = CardFrontView(frame: viewModel.getCardBounds())
+        self.cardBack = CardBackView(frame: viewModel.getCardBounds())
         if viewModel.showFrontCard() {
             self.view.addSubview(cardFront)
             self.securityCodeLabel = cardFront.cardCVV
