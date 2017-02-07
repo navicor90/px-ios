@@ -56,10 +56,11 @@ class HeaderCongratsTableViewCell: UITableViewCell, TimerDelegate {
             let currencySymbol = currency.getCurrencySymbolOrDefault()
             let thousandSeparator = String(currency.getThousandsSeparatorOrDefault()) ?? "."
             let decimalSeparator = String(currency.getDecimalSeparatorOrDefault()) ?? "."
+            let decimalPlaces = Int(currency.getDecimalSpacesOrDefault())
             
             let arr = String(payment.transactionAmount).characters.split(separator: ".").map(String.init)
             let amountStr = Utils.getAmountFormatted(arr[0], thousandSeparator: thousandSeparator, decimalSeparator: decimalSeparator)
-            let centsStr = Utils.getCentsFormatted(String(payment.transactionAmount), decimalSeparator: decimalSeparator)
+            let centsStr = Utils.getCentsFormatted(String(payment.transactionAmount), decimalSeparator: decimalSeparator, decimalPlaces: decimalPlaces)
             let amountRange = instruction?.title.range(of: currencySymbol + " " + amountStr + decimalSeparator + centsStr)
             
             if amountRange != nil {

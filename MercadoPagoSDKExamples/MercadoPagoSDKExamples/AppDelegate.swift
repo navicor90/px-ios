@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     
         //ARGENTINA
-        MercadoPagoContext.setPublicKey("TEST-971766e1-383e-420f-9b69-cecd4c63d071")
+        //MercadoPagoContext.setPublicKey("TEST-971766e1-383e-420f-9b69-cecd4c63d071")
         
         
         //PERU
@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MercadoPagoContext.setPublicKey("TEST-d661b2f9-3241-421d-bd9e-7d1a42b27d1c")
         
             //produ
-        //MercadoPagoContext.setPublicKey("APP_USR-399e7628-3d81-423f-a7cf-5ad8341eb06e")
+        MercadoPagoContext.setPublicKey("APP_USR-399e7628-3d81-423f-a7cf-5ad8341eb06e")
         
         
         
@@ -94,21 +94,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        
-        
-        
-        
-        
-        
-        
+        //MercadoPagoContext.setBaseURL(ExamplesUtils.MERCHANT_MOCK_BASE_URL)
+        //MercadoPagoContext.setCustomerURI(ExamplesUtils.MERCHANT_MOCK_GET_CUSTOMER_URI)
         //MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
-
+        
+        
+        
         MercadoPagoContext.setDisplayDefaultLoading(flag: false)
         
 
         MercadoPagoContext.setLanguage(language: MercadoPagoContext.Languages._SPANISH)
-//        let tracker = TrackerExample()
-//        
+
+        
+        //        let tracker = TrackerExample()
+      
 //        MercadoPagoContext.setTrack(listener: tracker)
         
         
@@ -116,7 +115,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //MercadoPagoContext.setAccountMoneyAvailable(accountMoneyAvailable: true)
 
-        //Pinto de rojo el color primerio
 
 
         //MercadoPagoContext.setupPrimaryColor(UIColor.black, complementaryColor: UIColor.black)

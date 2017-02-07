@@ -134,7 +134,7 @@ class Utils {
      Ex: formattedString = "100.2", decimalSeparator = "."
      returns 20
      **/
-    class func getCentsFormatted(_ formattedString : String, decimalSeparator : String) -> String {
+    class func getCentsFormatted(_ formattedString : String, decimalSeparator : String, decimalPlaces: Int = MercadoPagoContext.getCurrency().decimalPlaces) -> String {
         let range = formattedString.range(of: decimalSeparator)
         var cents = ""
         if range != nil {
@@ -142,14 +142,14 @@ class Utils {
             cents = formattedString.substring(from: centsIndex)
         }
         
-        if cents.isEmpty || cents.characters.count < 2 {
-            var missingZeros = 2 - cents.characters.count
+        if cents.isEmpty || cents.characters.count < decimalPlaces {
+            var missingZeros = decimalPlaces - cents.characters.count
             while missingZeros > 0 {
                 cents.append("0")
                 missingZeros = missingZeros - 1
             }
-        } else if cents.characters.count > 2 {
-            let index1 = cents.index(cents.startIndex, offsetBy: 2)
+        } else if cents.characters.count > decimalPlaces {
+            let index1 = cents.index(cents.startIndex, offsetBy: decimalPlaces)
             cents = cents.substring(to: index1)
         }
         

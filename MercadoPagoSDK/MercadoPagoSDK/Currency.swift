@@ -44,6 +44,10 @@ open class Currency : NSObject {
         return self.thousandsSeparator ?? ","
     }
     
+    open func getDecimalSpacesOrDefault() -> Int {
+        return self.decimalPlaces 
+    }
+    
     open func getDecimalSeparatorOrDefault() -> String {
         return self.decimalSeparator ?? ","
     }
