@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //SET SITE
        // MercadoPagoContext.setSite(MercadoPagoContext.Site.MPE)
+ 
         
         
     

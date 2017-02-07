@@ -37,6 +37,7 @@ open class CurrenciesUtil {
         "BRL" : Currency(_id: "BRL", description: "Real", symbol: "R$", decimalPlaces: 2, decimalSeparator: ",", thousandSeparator: "."),
         //Chile
         "CLP" : Currency(_id: "CLP", description: "Peso chileno", symbol: "$", decimalPlaces: 0, decimalSeparator: "", thousandSeparator: "."),
+
         //Mexico
         "MXN" : Currency(_id: "MXN", description: "Peso mexicano", symbol: "$", decimalPlaces: 2, decimalSeparator: ".", thousandSeparator: ","),
 		//Peru
@@ -44,7 +45,9 @@ open class CurrenciesUtil {
 		//Uruguay
         "UYU" : Currency(_id: "UYU", description: "Peso Uruguayo", symbol: "$", decimalPlaces: 2, decimalSeparator: ",", thousandSeparator: "."),
 		//Colombia
+
         "COP" : Currency(_id: "COP", description: "Peso colombiano", symbol: "$", decimalPlaces: 0, decimalSeparator: "", thousandSeparator: "."),
+
 		//Venezuela
         "VEF" : Currency(_id: "VEF", description: "Bolivar fuerte", symbol: "BsF", decimalPlaces: 2, decimalSeparator: ",", thousandSeparator: ".")
 

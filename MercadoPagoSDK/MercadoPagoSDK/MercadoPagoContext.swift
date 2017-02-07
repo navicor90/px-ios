@@ -82,6 +82,7 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
         //Brasil
         "MLB" : ["language" : "pt", "currency" : "BRL","termsconditions" : "https://www.mercadopago.com.br/ajuda/termos-e-condicoes_300"],
         //Chile
+<<<<<<< HEAD
         "MLC" : ["language" : "es", "currency" : "CLP","termsconditions" : "https://www.mercadopago.cl/ayuda/terminos-y-condiciones_299"],
         //Mexico
         "MLM" : ["language" : "es-MX", "currency" : "MXN","termsconditions" : "https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones_715"],
@@ -93,6 +94,19 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
         "MCO" : ["language" : "es", "currency" : "COP","termsconditions" : "https://www.mercadopago.com.co/ayuda/terminos-y-condiciones_299"],
         //Venezuela
         "MLV" : ["language" : "es", "currency" : "VEF","termsconditions" : "https://www.mercadopago.com.ve/ayuda/terminos-y-condiciones_299"]
+=======
+        "MLC" : ["language" : "es", "currency" : "CLP","termsconditions" : "https://www.mercadopago.com.co/ayuda/terminos-y-condiciones_299"],
+        //Mexico
+        "MLM" : ["language" : "es-MX", "currency" : "MXN","termsconditions" : "https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones_715"],
+        //Peru
+        "MPE" : ["language" : "es", "currency" : "PEN","termsconditions" : "https://www.mercadopago.com.pe/ayuda/terminos-y-condiciones_715"],
+        //Uruguay
+        "MLU" : ["language" : "es", "currency" : "UYU","termsconditions" : "https://www.mercadopago.com.uy/ayuda/terminos-y-condiciones_715"],
+        //Colombia
+        "MCO" : ["language" : "es", "currency" : "COP","termsconditions" : "https://www.mercadopago.com.co/ayuda/terminos-y-condiciones_715"],
+        //Venezuela
+        "MLV" : ["language" : "es", "currency" : "VEF","termsconditions" : "https://www.mercadopago.com.ve/ayuda/terminos-y-condiciones_715"]
+>>>>>>> 5828d8a2f97e8b3127a3c62a3fb1b299a9ba5849
     ]
 
     public enum Site : String {
