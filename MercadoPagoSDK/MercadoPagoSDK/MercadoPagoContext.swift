@@ -82,7 +82,7 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
         //Brasil
         "MLB" : ["language" : "pt", "currency" : "BRL","termsconditions" : "https://www.mercadopago.com.br/ajuda/termos-e-condicoes_300"],
         //Chile
-        "MLC" : ["language" : "es", "currency" : "CLP","termsconditions" : "https://www.mercadopago.com.co/ayuda/terminos-y-condiciones_299"],
+        "MLC" : ["language" : "es", "currency" : "CLP","termsconditions" : "https://www.mercadopago.cl/ayuda/terminos-y-condiciones_299"],
         //Mexico
         "MLM" : ["language" : "es-MX", "currency" : "MXN","termsconditions" : "https://www.mercadopago.com.mx/ayuda/terminos-y-condiciones_715"],
         //Peru

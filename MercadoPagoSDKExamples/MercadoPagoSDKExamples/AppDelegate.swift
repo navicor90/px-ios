@@ -101,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-     //   MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
+        //MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
 
         MercadoPagoContext.setDisplayDefaultLoading(flag: false)
         
@@ -110,10 +110,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let tracker = TrackerExample()
 //        
 //        MercadoPagoContext.setTrack(listener: tracker)
-        MercadoPagoContext.setBaseURL("https://private-0c3e9-testingcustomer.apiary-mock.com")
-        MercadoPagoContext.setCustomerURI("/get_customer")
-
         
+        
+       
 
         //MercadoPagoContext.setAccountMoneyAvailable(accountMoneyAvailable: true)
 
