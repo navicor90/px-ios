@@ -352,5 +352,25 @@
 		<key>image_name</key>
 		<string>mediosMaestro</string>
 	</dict>
+	<key>magna</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosMagna</string>
+	</dict>
+	<key>presto</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosPresto</string>
+	</dict>
+	<key>servipag</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosServipag</string>
+	</dict>
+	<key>webpay</key>
+	<dict>
+		<key>image_name</key>
+		<string>mediosWebpay</string>
+	</dict>
 </dict>
 </plist>
