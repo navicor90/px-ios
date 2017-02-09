@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //SET SITE
-       // MercadoPagoContext.setSite(MercadoPagoContext.Site.MPE)
+       //MercadoPagoContext.setSite(MercadoPagoContext.Site.MPE)
  
         
         
@@ -73,10 +73,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //COLOMBIA
         
             //test
-        //MercadoPagoContext.setPublicKey("TEST-d661b2f9-3241-421d-bd9e-7d1a42b27d1c")
+        MercadoPagoContext.setPublicKey("TEST-d661b2f9-3241-421d-bd9e-7d1a42b27d1c")
         
             //produ
-        MercadoPagoContext.setPublicKey("APP_USR-399e7628-3d81-423f-a7cf-5ad8341eb06e")
+        //MercadoPagoContext.setPublicKey("APP_USR-399e7628-3d81-423f-a7cf-5ad8341eb06e")
         
         
         
@@ -89,6 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MercadoPagoContext.setPublicKey("APP_USR-a865216a-a035-4629-8ec4-b1e1908b8b0d")
        // MercadoPagoContext.setPublicKey("APP_USR-8e3869a6-638f-45cd-b5b7-267c8e6f2b09")
         
+
         
         
         
@@ -104,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MercadoPagoContext.setDisplayDefaultLoading(flag: false)
         
 
-        MercadoPagoContext.setLanguage(language: MercadoPagoContext.Languages._SPANISH)
+        //MercadoPagoContext.setLanguage(language: MercadoPagoContext.Languages._SPANISH_COLOMBIA)
 
         
         //        let tracker = TrackerExample()

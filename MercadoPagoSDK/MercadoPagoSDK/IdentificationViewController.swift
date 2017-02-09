@@ -309,7 +309,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
             self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: true)
         }
         else if (self.identificationType!.name == "RUC"){
-            self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: true)
+            self.indentificationMask = TextMaskFormater(mask: "XX.XXXXXXXX.X",completeEmptySpaces: true,leftToRight: true)
         }
         
         //URUGUAY

@@ -91,7 +91,7 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
         //Uruguay
         "MLU" : ["language" : "es", "currency" : "UYU","termsconditions" : "https://www.mercadopago.com.uy/ayuda/terminos-y-condiciones-uy_2834"],
         //Colombia
-        "MCO" : ["language" : "es", "currency" : "COP","termsconditions" : "https://www.mercadopago.com.co/ayuda/terminos-y-condiciones_299"],
+        "MCO" : ["language" : "es-CO", "currency" : "COP","termsconditions" : "https://www.mercadopago.com.co/ayuda/terminos-y-condiciones_299"],
         //Venezuela
         "MLV" : ["language" : "es", "currency" : "VEF","termsconditions" : "https://www.mercadopago.com.ve/ayuda/terminos-y-condiciones_299"]
 ]
@@ -113,8 +113,8 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
     @objc public enum Languages : Int {
         case _SPANISH
         case _SPANISH_MEXICO
-        /*
         case _SPANISH_COLOMBIA
+        /*
         case _SPANISH_URUGUAY
         case _SPANISH_PERU
         case _SPANISH_VENEZUELA
@@ -128,8 +128,9 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
             switch self {
             case ._SPANISH : return "es"
             case ._SPANISH_MEXICO : return "es-MX"
-                /*
+                
             case ._SPANISH_COLOMBIA : return "es-CO"
+                /*
             case ._SPANISH_URUGUAY : return "es-UY"
             case ._SPANISH_PERU : return "es-PE"
             case ._SPANISH_VENEZUELA : return "es-VE"
