@@ -19,9 +19,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     var callback : (( Identification) -> Void)?
     var identificationTypes : [IdentificationType]?
     var identificationType : IdentificationType?
-    var defaultMask = TextMaskFormater(mask: "XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: false)
+    var defaultMask = TextMaskFormater(mask: "XXX.XXX.XXX", completeEmptySpaces: true,leftToRight: false)
     var indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: false)
-    var editTextMask = TextMaskFormater(mask: "XXXXXXXXXXXXXX",completeEmptySpaces: false,leftToRight: false)
+    var editTextMask = TextMaskFormater(mask: "XXXXXXXXXXXXXXXXXXXX",completeEmptySpaces: false,leftToRight: false)
     var toolbar : UIToolbar?
     
     @IBOutlet var typePicker: UIPickerView! = UIPickerView()
@@ -80,7 +80,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
 
     
     open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-      
+    
         if (string.characters.count < 1){
             return true
         }
@@ -88,6 +88,12 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
             return false
         }
         return true
+    }
+    
+    
+    
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+            self.remask(charactersCount: (textField.text?.characters.count)!)
     }
 
     open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -123,7 +129,6 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         numberTextField.autocorrectionType = UITextAutocorrectionType.no
         numberTextField.keyboardType = UIKeyboardType.numberPad
         numberTextField.addTarget(self, action: #selector(IdentificationViewController.editingChanged(_:)), for: UIControlEvents.editingChanged)
-
         self.setupInputAccessoryView()
         self.getIdentificationTypes()
         typePicker.isHidden = true;
@@ -171,7 +176,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     //    typeButton.setTitle( self.identificationTypes![row].name, forState: .Normal)
         textField.text = self.identificationTypes![row].name
         typePicker.isHidden = true;
-       self.remask()
+        self.remask()
+        self.numberTextField.text = ""
+
     }
     
     @IBAction func setType(_ sender: AnyObject) {
@@ -278,6 +285,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
             self.textField.text = self.identificationTypes![0].name
             self.numberTextField.becomeFirstResponder()
             self.remask()
+            self.numberTextField.text = ""
+
+            
             }, failure : { (error) -> Void in
                 self.requestFailure(error, callback: {
                     self.dismiss(animated: true, completion: {})
@@ -291,39 +301,44 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     }
     
     
-    fileprivate func remask(){
+    fileprivate func remask(charactersCount: Int = 0){
         
+        if charactersCount >= 1{
+            //BRASIL
+            if (self.identificationType!.name == "CPF"){
+                self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX-XX",completeEmptySpaces: true,leftToRight: true)
+            }else if (self.identificationType!.name == "CNPJ"){
+                self.indentificationMask = TextMaskFormater(mask: "XX.XXX.XXX/XXXX-XX",completeEmptySpaces: true,leftToRight: true)
+            }
+            //ARGENTINA Y PERU
+            else if (self.identificationType!.name == "DNI"){
+                self.indentificationMask = TextMaskFormater(mask: "XX.XXX.XXXXXX",completeEmptySpaces: false,leftToRight: true)
+            }
+            //PERU
+            else if (self.identificationType!.name == "C.E"){
+                self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX",completeEmptySpaces: false,leftToRight: true)
+            }
+            else if (self.identificationType!.name == "RUC"){
+                self.indentificationMask = TextMaskFormater(mask: "XX.XXXXXXXX.XX",completeEmptySpaces: false,leftToRight: true)
+            }
+                
+            //URUGUAY
+            else if (self.identificationType!.name == "CI"){
+                self.indentificationMask = TextMaskFormater(mask: "X.XXX.XXX-X",completeEmptySpaces: true,leftToRight: true)
+            }
+            //DEFAULT
+            else{
+                self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX.XXX.XXX.XXX",completeEmptySpaces: false,leftToRight: true)
+            }
         
-        //BRASIL
-        if (self.identificationType!.name == "CPF"){
-            self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX-XX",completeEmptySpaces: true,leftToRight: true)
-        }else if (self.identificationType!.name == "CNPJ"){
-            self.indentificationMask = TextMaskFormater(mask: "XX.XXX.XXX/XXXX-XX",completeEmptySpaces: true,leftToRight: true)
-        }
-        //ARGENTINA Y PERU
-        else if (self.identificationType!.name == "DNI"){
-            self.indentificationMask = TextMaskFormater(mask: "XX.XXX.XXX",completeEmptySpaces: true,leftToRight: true)
-        }
-        //PERU
-        else if (self.identificationType!.name == "C.E"){
-            self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: true)
-        }
-        else if (self.identificationType!.name == "RUC"){
-            self.indentificationMask = TextMaskFormater(mask: "XX.XXXXXXXX.X",completeEmptySpaces: true,leftToRight: true)
-        }
-        
-        //URUGUAY
-        else if (self.identificationType!.name == "CI"){
-            self.indentificationMask = TextMaskFormater(mask: "X.XXX.XXX-X",completeEmptySpaces: true,leftToRight: true)
-        }
-        
-        
-        //DEFAULT
-        else{
+        }else{
+            //DEFAULT
             self.indentificationMask = defaultMask
+            
+            self.numberDocLabel.text = indentificationMask.textMasked("")
         }
-        self.numberTextField.text = ""
-        self.numberDocLabel.text = indentificationMask.textMasked("")
+        
+        
     }
 }
 
