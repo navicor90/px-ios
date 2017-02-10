@@ -438,6 +438,8 @@ import UIKit
         
         let mpPayment = MPPaymentFactory.createMPPayment(email: email, preferenceId: preferenceId, publicKey: MercadoPagoContext.publicKey(), paymentMethodId: paymentMethod._id, installments: installments, issuerId: issuerId, tokenId: tokenId, customerId: customerId, isBlacklabelPayment: isBlacklabelPayment)
 
+        mpPayment.binaryMode = MercadoPagoContext.isBinaryModeEnabled()
+        
         let service : MerchantService = MerchantService()
         service.createMPPayment(payment: mpPayment, success: { (jsonResult) in
             var payment : Payment? = nil
