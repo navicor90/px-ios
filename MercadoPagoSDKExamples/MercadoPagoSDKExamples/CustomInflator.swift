@@ -9,16 +9,27 @@
 import Foundation
 import MercadoPagoSDK
 
-open class CustomInflator: NSObject, MPCustomInflator {
+class CustomInflator: NSObject, MPCustomInflator {
     
-    var title = ""
+    var nib : UINib!
     
-    open func fillCell(cell: MPCustomTableViewCell){
+    func getNib() -> UINib {
+        return UINib(nibName: "CustomTableViewCell", bundle: Bundle.main)
+    }
+    
+    func getHeigth() -> CGFloat {
+        return 100.0
+    }
+    
+    func fillCell(cell: MPCustomTableViewCell){
         let customCell = cell as! CustomTableViewCell
-        customCell.title.text = title
+        
     }
     
-    open func setTitle(text: String){
-        self.title = text
-    }
 }
+
+
+
+
+
+

@@ -88,13 +88,13 @@ open class MainExamplesViewController: UIViewController, UITableViewDataSource, 
 //            customCell.setNib(uiNib: UINib(nibName: "CustomTableViewCell", bundle: Bundle.main))
             
             let inflator = CustomInflator()
-            inflator.setTitle(text: "Numero de telefono")
+           // inflator.setTitle(text: "Numero de telefono")
             
             let custom = MPCustomCells(cell: customCell, inflator: inflator)
             
             MercadoPagoCheckout.addReviewble(cell: [custom])
             
-            MercadoPagoCheckout(checkoutPrefence: pref, navigationController: self.navigationController!).start()
+            MercadoPagoCheckout(checkoutPreference: pref, navigationController: self.navigationController!).start()
           
             
            // self.present(nav , animated: true, completion: {

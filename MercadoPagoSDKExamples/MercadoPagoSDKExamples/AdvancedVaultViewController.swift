@@ -158,11 +158,11 @@ class AdvancedVaultViewController : SimpleVaultViewController {
             super.tableView(tableView, didSelectRowAt: indexPath)
         } else if (indexPath as NSIndexPath).row == 1 {
 
-            self.showViewController(MPStepBuilder.startInstallmentsStep(payerCosts!, amount: amount, issuer:nil, paymentMethodId: nil,callback: { (payerCost: PayerCost?) -> Void in
-                self.selectedPayerCost = payerCost
-                self.tableview.reloadData()
-                self.navigationController!.popToViewController(self, animated: true)
-            }))
+//            self.showViewController(MPStepBuilder.startInstallmentsStep(payerCosts!, amount: amount, issuer:nil, paymentMethodId: nil,callback: { (payerCost: PayerCost?) -> Void in
+//                self.selectedPayerCost = payerCost
+//                self.tableview.reloadData()
+//                self.navigationController!.popToViewController(self, animated: true)
+//            }))
         }
     }
 	

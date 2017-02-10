@@ -79,10 +79,10 @@ class ServicesExamplesViewController: UIViewController, UITableViewDataSource, U
     }
     
     fileprivate func startPaymentMethodsVault(){
-        let vaultVC = MPFlowBuilder.startVaultViewController(ExamplesUtils.AMOUNT) { (paymentMethod, tokenId, issuer, installments) in
-            self.navigationController!.popViewController(animated: true)
-        }
-        self.navigationController!.pushViewController(vaultVC, animated: true)
+//        let vaultVC = MPFlowBuilder.startVaultViewController(ExamplesUtils.AMOUNT) { (paymentMethod, tokenId, issuer, installments) in
+//            self.navigationController!.popViewController(animated: true)
+//        }
+//        self.navigationController!.pushViewController(vaultVC, animated: true)
     }
     
     fileprivate func startSimpleVault(){
@@ -103,12 +103,12 @@ class ServicesExamplesViewController: UIViewController, UITableViewDataSource, U
     
     
     fileprivate func startFinalVault(){
-        let settings = PaymentPreference()
-        settings.excludedPaymentTypeIds = ["credit_card"]
-        let finalVault = MPFlowBuilder.startPaymentVaultViewController(1000, paymentPreference: settings, callback: { (paymentMethod, token, issuer, payerCost) in
-            
-        })
-        
-        self.present(finalVault, animated: true, completion: {})
+//        let settings = PaymentPreference()
+//        settings.excludedPaymentTypeIds = ["credit_card"]
+//        let finalVault = MPFlowBuilder.startPaymentVaultViewController(1000, paymentPreference: settings, callback: { (paymentMethod, token, issuer, payerCost) in
+//            
+//        })
+//        
+//        self.present(finalVault, animated: true, completion: {})
     }
 }

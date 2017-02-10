@@ -102,20 +102,20 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         pp.excludedPaymentTypeIds = ["ticket",  "atm", "bank_transfer"]
         pp.excludedPaymentMethodIds = ["master"]
         pp.maxAcceptedInstallments = 3
-
-        let pv = MPFlowBuilder.startPaymentVaultViewController(5, paymentPreference : pp, callback: { (paymentMethod, token, issuer, payerCost) in
-            print(paymentMethod._id)
-            self.paymentMethod = paymentMethod
-            self.createdToken = token
-            self.selectedIssuer = issuer
-            self.installmentsSelected = payerCost
-        } , callbackCancel: {
-            print("Callback Cancel Normal")
-        })
+//
+//        let pv = MPFlowBuilder.startPaymentVaultViewController(5, paymentPreference : pp, callback: { (paymentMethod, token, issuer, payerCost) in
+//            print(paymentMethod._id)
+//            self.paymentMethod = paymentMethod
+//            self.createdToken = token
+//            self.selectedIssuer = issuer
+//            self.installmentsSelected = payerCost
+//        } , callbackCancel: {
+//            print("Callback Cancel Normal")
+//        })
         
     
-        let myNav = UINavigationController(rootViewController: pv.viewControllers[0])
-        self.present(myNav, animated: true, completion: {})
+//        let myNav = UINavigationController(rootViewController: pv.viewControllers[0])
+//        self.present(myNav, animated: true, completion: {})
     }
     
     func startCardFlow(){
@@ -131,17 +131,17 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         
         
         CountdownTimer.getInstance().setup(seconds: 180, timeoutCallback: timeoutCallback)
-        cf = MPFlowBuilder.startCardFlow(amount: 1000, callback: { (paymentMethod, token, issuer, payerCost) in
-            self.paymentMethod = paymentMethod
-            self.createdToken = token
-            self.selectedIssuer = issuer
-            self.installmentsSelected = payerCost
-           cf!.dismiss(animated: true, completion: {})
-            }, callbackCancel : {
-                cf!.dismiss(animated: true, completion: {})
-        })
-        
-        self.present(cf, animated: true, completion: {})
+//        cf = MPFlowBuilder.startCardFlow(amount: 1000, callback: { (paymentMethod, token, issuer, payerCost) in
+//            self.paymentMethod = paymentMethod
+//            self.createdToken = token
+//            self.selectedIssuer = issuer
+//            self.installmentsSelected = payerCost
+//           cf!.dismiss(animated: true, completion: {})
+//            }, callbackCancel : {
+//                cf!.dismiss(animated: true, completion: {})
+//        })
+//        
+//        self.present(cf, animated: true, completion: {})
     }
     
     func startCardForm(){
@@ -174,11 +174,11 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func startPaymentMethods(){
-        let pms = MPStepBuilder.startPaymentMethodsStep(withPreference: nil) { (paymentMethod) in
-            self.paymentMethod = paymentMethod
-            self.navigationController!.popViewController(animated: true)
-        }
-        self.navigationController?.pushViewController(pms, animated: true)
+//        let pms = MPStepBuilder.startPaymentMethodsStep(withPreference: nil) { (paymentMethod) in
+//            self.paymentMethod = paymentMethod
+//            self.navigationController!.popViewController(animated: true)
+//        }
+//        self.navigationController?.pushViewController(pms, animated: true)
     }
     
      func statIssuersStep(){
@@ -192,13 +192,13 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     
      func startInstallmentsStep(){
         
-        let installmentsVC = MPStepBuilder.startInstallmentsStep(amount: 10000, issuer: nil, paymentMethodId: "visa") { (payerCost) in
-            self.installmentsSelected = payerCost
-            self.navigationController!.popViewController(animated: true)
-        }
-        
-        self.navigationController?.pushViewController(installmentsVC, animated: true)
-        
+//        let installmentsVC = MPStepBuilder.startInstallmentsStep(amount: 10000, issuer: nil, paymentMethodId: "visa") { (payerCost) in
+//            self.installmentsSelected = payerCost
+//            self.navigationController!.popViewController(animated: true)
+//        }
+//        
+//        self.navigationController?.pushViewController(installmentsVC, animated: true)
+//        
     }
     
      func createPayment(){
