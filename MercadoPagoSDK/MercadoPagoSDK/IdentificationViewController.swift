@@ -11,11 +11,14 @@ import UIKit
 open class IdentificationViewController: MercadoPagoUIViewController , UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
     
-    @IBOutlet weak var tipoDeDocumentoLabel: UILabel!
-    
+    var tipoDeDocumentoLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var numberDocLabel: UILabel!
+    var numberDocLabel: UILabel!
     @IBOutlet weak var numberTextField: HoshiTextField!
+    
+   // var identificationTypeLabel: UILabel?
+   // var numberLabel: UILabel?
+    
     var callback : (( Identification) -> Void)?
     var identificationTypes : [IdentificationType]?
     var identificationType : IdentificationType?
@@ -23,6 +26,10 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     var indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX",completeEmptySpaces: true,leftToRight: false)
     var editTextMask = TextMaskFormater(mask: "XXXXXXXXXXXXXXXXXXXX",completeEmptySpaces: false,leftToRight: false)
     var toolbar : UIToolbar?
+    
+    var identificationView: UIView!
+    var identificationCard : IdentificationCardView?
+
     
     @IBOutlet var typePicker: UIPickerView! = UIPickerView()
     
@@ -133,8 +140,54 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         self.getIdentificationTypes()
         typePicker.isHidden = true;
         
+        identificationCard = IdentificationCardView()
+
+        self.identificationView = UIView()
+
+        
+        let IDcardHeight = getCardHeight()
+        let IDcardWidht = getCardWidth()
+        let xMargin = (UIScreen.main.bounds.size.width  - IDcardWidht) / 2
+        let yMargin = (UIScreen.main.bounds.size.height - 384 - IDcardHeight ) / 2
+        
+        let rectBackground = CGRect(x: xMargin, y: yMargin, width: IDcardWidht, height: IDcardHeight)
+        let rect = CGRect(x: 0, y: 0, width: IDcardWidht, height: IDcardHeight)
+        self.identificationView.frame = rectBackground
+        identificationCard?.frame = rect
+        self.identificationView.backgroundColor = UIColor(netHex: 0xEEEEEE)
+        self.identificationView.layer.cornerRadius = 11
+        self.identificationView.layer.masksToBounds = true
+        self.view.addSubview(identificationView)
+        identificationView.addSubview(identificationCard!)
+        
+        
+        tipoDeDocumentoLabel = identificationCard?.tipoDeDocumentoLabel
+        numberDocLabel = identificationCard?.numberDocLabel
+
+
         
     }
+    
+    func getCardWidth() -> CGFloat {
+        let widthTotal = UIScreen.main.bounds.size.width * 0.70
+        if widthTotal < 512 {
+            if ((0.63 * widthTotal) < (UIScreen.main.bounds.size.height - 394)){
+                return widthTotal
+            }else{
+                return (UIScreen.main.bounds.size.height - 394) / 0.63
+            }
+            
+        }else{
+            return 512
+        }
+        
+    }
+    
+    func getCardHeight() -> CGFloat {
+        return ( getCardWidth() * 0.63 )
+    }
+    
+    
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.leftBarButtonItem!.action = #selector(invokeCallbackCancel)
