@@ -128,17 +128,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        numberDocLabel.text = indentificationMask.textMasked("")
-        self.tipoDeDocumentoLabel.text =  "DOCUMENTO DEL TITULAR DE LA TARJETA".localized
-        self.numberTextField.placeholder = "Número".localized
-        self.textField.placeholder = "Tipo".localized
-        self.view.backgroundColor = UIColor.primaryColor()
-        numberTextField.autocorrectionType = UITextAutocorrectionType.no
-        numberTextField.keyboardType = UIKeyboardType.numberPad
-        numberTextField.addTarget(self, action: #selector(IdentificationViewController.editingChanged(_:)), for: UIControlEvents.editingChanged)
-        self.setupInputAccessoryView()
-        self.getIdentificationTypes()
-        typePicker.isHidden = true;
+        
         
         identificationCard = IdentificationCardView()
 
@@ -164,7 +154,17 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         tipoDeDocumentoLabel = identificationCard?.tipoDeDocumentoLabel
         numberDocLabel = identificationCard?.numberDocLabel
 
-
+        numberDocLabel.text = indentificationMask.textMasked("")
+        self.tipoDeDocumentoLabel.text =  "DOCUMENTO DEL TITULAR DE LA TARJETA".localized
+        self.numberTextField.placeholder = "Número".localized
+        self.textField.placeholder = "Tipo".localized
+        self.view.backgroundColor = UIColor.primaryColor()
+        numberTextField.autocorrectionType = UITextAutocorrectionType.no
+        numberTextField.keyboardType = UIKeyboardType.numberPad
+        numberTextField.addTarget(self, action: #selector(IdentificationViewController.editingChanged(_:)), for: UIControlEvents.editingChanged)
+        self.setupInputAccessoryView()
+        self.getIdentificationTypes()
+        typePicker.isHidden = true;
         
     }
     
