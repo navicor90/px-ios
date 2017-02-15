@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>MLA_default</key>
+	<dict>
+		<key>identification_mask</key>
+		<dict/>
+		<key>edit_text_mask</key>
+		<dict/>
+	</dict>
+	<key>MLA_DNI</key>
+	<dict/>
+	<key>MLA_CI</key>
+	<dict/>
+	<key>MLA_LC</key>
+	<dict/>
+	<key>MLA_LE</key>
+	<dict/>
+	<key>MLA_Otro</key>
+	<dict/>
+	<key>MPE_default</key>
+	<dict/>
+	<key>MPE_DNI</key>
+	<dict/>
+	<key>MPE_C.E</key>
+	<dict/>
+	<key>MPE_RUC</key>
+	<dict>
+		<key>identification_mask</key>
+		<string>XX.XXXXXXXX.XX</string>
+		<key>edit_text_mask</key>
+		<string>XX XXXXXXXX XX</string>
+	</dict>
+	<key>MLU_default</key>
+	<dict/>
+	<key>MLU_CI</key>
+	<dict/>
+	<key>MLU_Otro</key>
+	<dict/>
+	<key>MCO_default</key>
+	<dict/>
+	<key>MCO_CC</key>
+	<dict/>
+	<key>MCO_CE</key>
+	<dict/>
+	<key>MCO_NIT</key>
+	<dict/>
+	<key>MCO_Otro</key>
+	<dict/>
+	<key>MLV_default</key>
+	<dict/>
+	<key>MLV_CI-V</key>
+	<dict>
+		<key>identification_mask</key>
+		<string>XX.XXXXXXXX.XX</string>
+		<key>edit_text_mask</key>
+		<string>XX XXXXXXXX XX</string>
+	</dict>
+	<key>MLV_CI-E</key>
+	<dict/>
+	<key>MLV_RIF-J</key>
+	<dict/>
+	<key>MLV_RIF-P</key>
+	<dict/>
+	<key>MLV_RIF-V</key>
+	<dict/>
+	<key>MLV_RIF-E</key>
+	<dict/>
+	<key>MLV_RIF-G</key>
+	<dict/>
+	<key>MLV_Pasaporte</key>
+	<dict/>
+</dict>
+</plist>
