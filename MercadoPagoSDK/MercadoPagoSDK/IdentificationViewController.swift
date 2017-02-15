@@ -300,30 +300,33 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         })
     }
     
+
     
     fileprivate func remask(charactersCount: Int = 0){
         
+        
+        
         if charactersCount >= 1{
             //BRASIL
-            if (self.identificationType!.name == "CPF"){
+            if (self.identificationType!._id == "CPF"){
                 self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX-XX",completeEmptySpaces: true,leftToRight: true)
-            }else if (self.identificationType!.name == "CNPJ"){
+            }else if (self.identificationType!._id == "CNPJ"){
                 self.indentificationMask = TextMaskFormater(mask: "XX.XXX.XXX/XXXX-XX",completeEmptySpaces: true,leftToRight: true)
             }
             //ARGENTINA Y PERU
-            else if (self.identificationType!.name == "DNI"){
+            else if (self.identificationType!._id == "DNI"){
                 self.indentificationMask = TextMaskFormater(mask: "XX.XXX.XXXXXX",completeEmptySpaces: false,leftToRight: true)
             }
             //PERU
-            else if (self.identificationType!.name == "C.E"){
+            else if (self.identificationType!._id == "C.E"){
                 self.indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX",completeEmptySpaces: false,leftToRight: true)
             }
-            else if (self.identificationType!.name == "RUC"){
+            else if (self.identificationType!._id == "RUC"){
                 self.indentificationMask = TextMaskFormater(mask: "XX.XXXXXXXX.XX",completeEmptySpaces: false,leftToRight: true)
             }
                 
             //URUGUAY
-            else if (self.identificationType!.name == "CI"){
+            else if (self.identificationType!._id == "CI"){
                 self.indentificationMask = TextMaskFormater(mask: "X.XXX.XXX-X",completeEmptySpaces: true,leftToRight: true)
             }
             //DEFAULT
