@@ -435,11 +435,8 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
     public func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == 0 {
-           return UIEdgeInsetsMake(8, 8, 0, 8)
-        } else {
-            return UIEdgeInsetsMake(0, 8, 8, 8)
-        }
+        return UIEdgeInsetsMake(8, 8, 8, 8)
+
     }
 
     public func collectionView(_ collectionView: UICollectionView,
