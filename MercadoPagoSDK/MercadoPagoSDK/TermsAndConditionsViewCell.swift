@@ -23,10 +23,6 @@ class TermsAndConditionsViewCell: UITableViewCell, UITextViewDelegate {
         self.termsAndConditionsText.isUserInteractionEnabled = true
         
         self.termsAndConditionsText.attributedText = TermsAndConditionsViewCell.getTyCText()
-        
-        let URLAttribute = [NSFontAttributeName : UIFont(name:MercadoPago.DEFAULT_FONT_NAME, size: 12) ?? UIFont.systemFont(ofSize: 12),NSForegroundColorAttributeName: UIColor.primaryColor()]
-        
-        self.termsAndConditionsText.linkTextAttributes = URLAttribute
     
         self.contentView.layer.borderColor = UIColor.grayTableSeparator().cgColor
         self.contentView.layer.borderWidth = 1.0
@@ -81,5 +77,6 @@ protocol TermsAndConditionsDelegate {
     
     func openTermsAndConditions(_ title : String, url : URL)
 }
+
 
 

@@ -11,10 +11,16 @@ import UIKit
 open class MercadoPagoService: NSObject {
     
     var baseURL : String!
+    
     init (baseURL : String) {
         super.init()
         self.baseURL = baseURL
     }
+    
+    override init (){
+        super.init()
+    }
+    
     
     public func request(uri: String, params: String?, body: AnyObject?, method: String, headers : NSDictionary? = nil, cache : Bool? = true, success: (_ jsonResult: AnyObject?) -> Void,
         failure: ((_ error: NSError) -> Void)?) {

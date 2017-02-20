@@ -56,8 +56,6 @@ class PaymentMethodSelectedTableViewCell: UITableViewCell {
         attributedAmountFinal.append(attributedAmount)
         attributedAmountFinal.append(NSAttributedString(string : ")"))
         self.totalAmountLabel.attributedText = attributedAmountFinal
-        
-        self.selectOtherPaymentMethodButton.setTitleColor(UIColor.primaryColor(), for: UIControlState.normal)
         self.selectOtherPaymentMethodButton.setTitle("Cambiar pago".localized, for: .normal)
         self.selectOtherPaymentMethodButton.titleLabel?.font = Utils.getFont(size: self.noRateLabel.font.pointSize)
     }

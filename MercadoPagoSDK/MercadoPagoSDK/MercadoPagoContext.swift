@@ -300,36 +300,6 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
     }
    
     
-    open class func setBaseURL(_ base_url : String){
-        
-        sharedInstance.base_url = base_url
-        
-    }
-    
-    open class func setCustomerURI(_ customer_uri : String){
-        
-        sharedInstance.customer_uri = customer_uri
-        
-    }
-    
-    open class func setPreferenceURI(_ preference_uri : String){
-        
-        sharedInstance.preference_uri = preference_uri
-        
-    }
-    
-    open class func setPaymentURI(_ payment_uri : String){
-        
-        sharedInstance.payment_uri = payment_uri
-        
-    }
-    
-    open class func setMerchantAccessToken(_ merchant_access_token : String){
-        
-        sharedInstance.merchant_access_token = merchant_access_token
-        
-    }
-    
     open class func setAccountMoneyAvailable(accountMoneyAvailable : Bool) {
         sharedInstance.account_money_available = accountMoneyAvailable
     }
@@ -390,14 +360,6 @@ open class MercadoPagoContext : NSObject, MPTrackerDelegate {
     
     open class func shouldDisplayDefaultLoading() -> Bool {
         return sharedInstance.display_default_loading
-    }
-    
-
-    
-    
-    
-    open class func isCustomerInfoAvailable() -> Bool {
-        return (self.sharedInstance.base_url.characters.count > 0 && self.sharedInstance.customer_uri.characters.count > 0 && self.sharedInstance.merchant_access_token.characters.count > 0)
     }
     
     open class func paymentKey() -> String {

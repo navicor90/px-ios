@@ -154,16 +154,16 @@ class AdvancedVaultViewController : SimpleVaultViewController {
     }
 	
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath as NSIndexPath).row == 0 {
-            super.tableView(tableView, didSelectRowAt: indexPath)
-        } else if (indexPath as NSIndexPath).row == 1 {
-
-            self.showViewController(MPStepBuilder.startInstallmentsStep(payerCosts!, amount: amount, issuer:nil, paymentMethodId: nil,callback: { (payerCost: PayerCost?) -> Void in
-                self.selectedPayerCost = payerCost
-                self.tableview.reloadData()
-                self.navigationController!.popToViewController(self, animated: true)
-            }))
-        }
+//        if (indexPath as NSIndexPath).row == 0 {
+//            super.tableView(tableView, didSelectRowAt: indexPath)
+//        } else if (indexPath as NSIndexPath).row == 1 {
+//
+//            self.showViewController(MPStepBuilder.startInstallmentsStep(payerCosts!, amount: amount, issuer:nil, paymentMethodId: nil,callback: { (payerCost: PayerCost?) -> Void in
+//                self.selectedPayerCost = payerCost
+//                self.tableview.reloadData()
+//                self.navigationController!.popToViewController(self, animated: true)
+//            }))
+//        }
     }
 	
     override func submitForm() {

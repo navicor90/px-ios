@@ -24,4 +24,31 @@ class ExtensionsTest: BaseTest {
         XCTAssertEqual("value2", result["key2"] as! String)
         XCTAssertEqual("value3", result["key3"] as! String)
     }
+    func testToJsonString() {
+        var dict = NSDictionary(dictionary: ["hola" : "hola"])
+        XCTAssertEqual(dict.toJsonString(), "{\n  \"hola\" : \"hola\"\n}" )
+        
+        dict = ["2": "B", "1": "A", "3": "C"]
+        XCTAssertEqual(dict.toJsonString(), "{\n  \"2\" : \"B\",\n  \"1\" : \"A\",\n  \"3\" : \"C\"\n}")
+        
+        dict = ["2": [2] , "1": 4, "3": "C"]
+        XCTAssertEqual(dict.toJsonString(), "{\n  \"2\" : [\n    2\n  ],\n  \"1\" : 4,\n  \"3\" : \"C\"\n}")
+        
+        dict = [:]
+        XCTAssertEqual(dict.toJsonString(),"{\n\n}")
+        
+        dict = NSDictionary()
+        XCTAssertEqual(dict.toJsonString(),"{\n\n}")
+        
+    }
+    func testParseToQuery() {
+        var dict = NSDictionary(dictionary: ["hola" : "hola"])
+        XCTAssertEqual(dict.parseToQuery(), "hola=hola")
+        dict = ["2": "B", "1": "A", "3": "C"]
+        XCTAssertEqual(dict.parseToQuery(), "2=B&1=A&3=C")
+        dict = ["2 sarasa": "B", "1": "A", "3": "C"]
+        XCTAssertEqual(dict.parseToQuery(), "1=A&2%20sarasa=B&3=C")
+        dict = [:]
+        XCTAssertEqual(dict.parseToQuery(), "")
+    }
 }

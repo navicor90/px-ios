@@ -37,6 +37,10 @@ open class MPPayment: NSObject {
     open var issuerId : String?
     open var tokenId : String?
 
+    override init() {
+        super.init()
+    }
+    
     init(email : String, preferenceId : String, publicKey : String, paymentMethodId : String, installments : Int = 0, issuerId : String = "", tokenId : String = "") {
         self.preferenceId = preferenceId
         self.publicKey = publicKey

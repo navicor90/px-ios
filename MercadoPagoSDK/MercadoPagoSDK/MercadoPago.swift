@@ -57,23 +57,7 @@ import UIKit
     
     let BIN_LENGTH : Int = 6
     
-    static let MP_ALPHA_ENV = "/gamma"
-    static var MP_TEST_ENV = "/beta"
-    static let MP_PROD_ENV = "/v1"
-    static let API_VERSION = "1.3.X"
 
-    static let MP_ENVIROMENT = MP_TEST_ENV  + "/checkout"
-    
-    static let MP_OP_ENVIROMENT = "/v1"
-    
-    static let MP_ALPHA_API_BASE_URL : String =  "http://api.mp.internal.ml.com"
-    static let MP_API_BASE_URL_PROD : String =  "https://api.mercadopago.com"
-    
-    static let MP_API_BASE_URL : String =  MP_API_BASE_URL_PROD
-
-    static let MP_CUSTOMER_URI = "/customers?preference_id="
-    static let MP_PAYMENTS_URI = MP_ENVIROMENT + "/payments"
-    
     open var privateKey : String?
     open var pk : String!
     
@@ -108,7 +92,7 @@ import UIKit
         
         if self.publicKey() != nil {
             cardToken.device = Device()
-            let service : GatewayService = GatewayService(baseURL: MercadoPago.MP_API_BASE_URL)
+            let service : GatewayService = GatewayService(baseURL: ServicePreference.MP_API_BASE_URL)
             service.getToken(public_key: self.publicKey(), cardToken: cardToken, success: {(jsonResult: AnyObject?) -> Void in
                 var token : Token? = nil
                 if let tokenDic = jsonResult as? NSDictionary {
@@ -134,7 +118,7 @@ import UIKit
         if self.publicKey() != nil {
             savedCardToken.device = Device()
             
-            let service : GatewayService = GatewayService(baseURL: MercadoPago.MP_API_BASE_URL)
+            let service : GatewayService = GatewayService(baseURL: ServicePreference.MP_API_BASE_URL)
             service.getToken(public_key: self.publicKey(), savedCardToken: savedCardToken, success: {(jsonResult: AnyObject?) -> Void in
                 var token : Token? = nil
                 if let tokenDic = jsonResult as? NSDictionary {
@@ -158,7 +142,7 @@ import UIKit
     open func getIdentificationTypes(_ success: @escaping (_ identificationTypes: [IdentificationType]?) -> Void, failure: ((_ error: NSError) -> Void)?) {
         
         if self.publicKey() != nil {
-            let service : IdentificationService = IdentificationService(baseURL: MercadoPago.MP_API_BASE_URL)
+            let service : IdentificationService = IdentificationService(baseURL: ServicePreference.MP_API_BASE_URL)
             service.getIdentificationTypes(public_key: self.publicKey(), success: {(jsonResult: AnyObject?) -> Void in
                 
                 if let error = jsonResult as? NSDictionary {
@@ -191,7 +175,7 @@ import UIKit
     open func getInstallments(_ bin: String, amount: Double, issuerId: NSNumber?, paymentTypeId: String, success: @escaping (_ installments: [Installment]?) -> Void, failure: @escaping ((_ error: NSError) -> Void)) {
         
         if self.publicKey() != nil {
-            let service : PaymentService = PaymentService(baseURL: MercadoPago.MP_API_BASE_URL)
+            let service : PaymentService = PaymentService(baseURL: ServicePreference.MP_API_BASE_URL)
              service.getInstallments(public_key: self.publicKey(), bin: bin, amount: amount, issuer_id: issuerId, payment_method_id: paymentTypeId, success: success, failure: failure)
         
         }
@@ -200,7 +184,7 @@ import UIKit
     open func getIssuers(_ paymentMethodId : String, success: @escaping (_ issuers: [Issuer]?) -> Void, failure: ((_ error: NSError) -> Void)?) {
         
         if self.publicKey() != nil {
-            let service : PaymentService = PaymentService(baseURL: MercadoPago.MP_API_BASE_URL)
+            let service : PaymentService = PaymentService(baseURL: ServicePreference.MP_API_BASE_URL)
             service.getIssuers(public_key: self.publicKey()!, payment_method_id: paymentMethodId, success: {(jsonResult: AnyObject?) -> Void in
                 if let errorDic = jsonResult as? NSDictionary {
                     if errorDic["error"] != nil {
@@ -230,7 +214,7 @@ import UIKit
     
     open func getPromos(_ success: @escaping (_ promos: [Promo]?) -> Void, failure: ((_ error: NSError) -> Void)?) {
         // TODO: Está hecho para MLA fijo porque va a cambiar la URL para que dependa de una API y una public key
-        let service : PromosService = PromosService(baseURL: MercadoPago.MP_API_BASE_URL)
+        let service : PromosService = PromosService(baseURL: ServicePreference.MP_API_BASE_URL)
         service.getPromos(public_key: self.publicKey()!, success: { (jsonResult) -> Void in
             let promosArray = jsonResult as? NSArray?
             var promos : [Promo] = [Promo]()
@@ -257,17 +241,15 @@ import UIKit
        return Bundle(for:MercadoPago.self)
     }
     
-    open class func getImage(_ name: String?) -> UIImage? {
+    open class func getImage(_ name: String?, bundle: Bundle = MercadoPago.getBundle()!) -> UIImage? {
         if name == nil || (name?.isEmpty)! {
             return nil
         }
-        
-        let bundle = getBundle()
 
         if (UIDevice.current.systemVersion as NSString).compare("8.0", options: NSString.CompareOptions.numeric) == ComparisonResult.orderedAscending {
             var nameArr = name!.characters.split {$0 == "."}.map(String.init)
             let imageExtension : String = nameArr[1]
-            let filePath = bundle?.path(forResource: name, ofType: imageExtension)
+            let filePath = bundle.path(forResource: name, ofType: imageExtension)
             if filePath != nil {
                 return UIImage(contentsOfFile: filePath!)
             } else {
@@ -327,7 +309,7 @@ import UIKit
         let dictPM = NSDictionary(contentsOfFile: path!)
         var description = withDescription
         
-        if description == "credit_card" || description == "account_money" || description == "prepaid_card" || description == "debit_card" || description == "bank_transfer" || description == "ticket" || description == "cards" {
+        if PaymentType.allPaymentIDs.contains(description) || description == "cards" {
             description = UIColor.primaryColor() == UIColor.px_blueMercadoPago() ? description+"Azul" : description
         }
         
@@ -438,8 +420,10 @@ import UIKit
         
         let mpPayment = MPPaymentFactory.createMPPayment(email: email, preferenceId: preferenceId, publicKey: MercadoPagoContext.publicKey(), paymentMethodId: paymentMethod._id, installments: installments, issuerId: issuerId, tokenId: tokenId, customerId: customerId, isBlacklabelPayment: isBlacklabelPayment)
 
-        let service : MerchantService = MerchantService()
-        service.createMPPayment(payment: mpPayment, success: { (jsonResult) in
+        let service : MerchantService = MerchantService(baseURL: MercadoPagoCheckoutViewModel.servicePreference.paymentURL, URI: MercadoPagoCheckoutViewModel.servicePreference.getPaymentURI())
+        
+        let body = Utils.append(firstJSON: mpPayment.toJSONString(), secondJSON: MercadoPagoCheckoutViewModel.servicePreference.getPaymentAddionalInfo())
+        service.createPayment(body: body, success: { (jsonResult) in
             var payment : Payment? = nil
             
             if let paymentDic = jsonResult as? NSDictionary {

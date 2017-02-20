@@ -165,18 +165,18 @@ class SimpleVaultViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath as NSIndexPath).row == 0 {
-            let paymentMethodsViewController = MPStepBuilder.startPaymentMethodsStep(withPreference: self.paymentPreference, callback: getSelectionCallbackPaymentMethod())
-            
-            if self.cards != nil {
-                if self.cards!.count > 0 {
-                    let customerPaymentMethodsViewController = CustomerCardsViewController(cards: self.cards, callback: getCustomerPaymentMethodCallback(paymentMethodsViewController))
-                    showViewController(customerPaymentMethodsViewController)
-                } else {
-                    showViewController(paymentMethodsViewController)
-                }
-            }
-        }
+//        if (indexPath as NSIndexPath).row == 0 {
+//            let paymentMethodsViewController = MPStepBuilder.startPaymentMethodsStep(withPreference: self.paymentPreference, callback: getSelectionCallbackPaymentMethod())
+//            
+//            if self.cards != nil {
+//                if self.cards!.count > 0 {
+//                    let customerPaymentMethodsViewController = CustomerCardsViewController(cards: self.cards, callback: getCustomerPaymentMethodCallback(paymentMethodsViewController))
+//                    showViewController(customerPaymentMethodsViewController)
+//                } else {
+//                    showViewController(paymentMethodsViewController)
+//                }
+//            }
+//        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String)-> Bool {

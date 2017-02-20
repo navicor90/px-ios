@@ -144,7 +144,7 @@ class ExamplesUtils {
     
     class func createPayment(_ token: String, installments: Int, cardIssuer: Issuer?, paymentMethod: PaymentMethod, callback: @escaping (_ payment: Payment) -> Void) {
         // Set item
-        let item : Item = Item(_id: ExamplesUtils.ITEM_ID, title: ExamplesUtils.ITEM_TITLE, quantity: ExamplesUtils.ITEM_QUANTITY,
+        /*let item : Item = Item(_id: ExamplesUtils.ITEM_ID, title: ExamplesUtils.ITEM_TITLE, quantity: ExamplesUtils.ITEM_QUANTITY,
                                unitPrice: ExamplesUtils.ITEM_UNIT_PRICE)
         
         //let issuerId : NSNumber = cardIssuerId == nil ? 0 : cardIssuerId!
@@ -155,7 +155,7 @@ class ExamplesUtils {
         // Create payment
         MercadoPagoContext.setBaseURL(ExamplesUtils.MERCHANT_MOCK_BASE_URL)
         MercadoPagoContext.setPaymentURI(ExamplesUtils.MERCHANT_MOCK_CREATE_PAYMENT_URI)
-        MerchantServer.createPayment(payment, success: callback, failure: nil)
+        MerchantServer.createPayment(payment, success: callback, failure: nil)*/
     }
     
     class func createCheckoutPreferenceWithNoExclusions() -> CheckoutPreference {
@@ -174,7 +174,7 @@ class ExamplesUtils {
         
         
         //Create CheckoutPreference
-        let preference = CheckoutPreference(items: items, payer: payer, paymentMethods: nil)
+        let preference = CheckoutPreference(items: items, payer: payer)
         preference._id = ExamplesUtils.PREF_ID_NO_EXCLUSIONS
         
         return preference

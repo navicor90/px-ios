@@ -7,6 +7,7 @@
 //
 
 #import "MediosOffTableViewController.h"
+@import MercadoPagoSDK;
 
 
 @implementation MediosOffTableViewController
@@ -63,7 +64,7 @@
     UILabel* label = [cell viewWithTag:2];
     
     label.text = [[self.mediosOffArray objectAtIndex:indexPath.row] name];
-    image.image = [MercadoPago getImage:[self.mediosOffArray objectAtIndex:indexPath.row]._id];
+    image.image = [MercadoPago getImage:[self.mediosOffArray objectAtIndex:indexPath.row]._id bundle: [MercadoPago getBundle]];
     
     return cell;
 }

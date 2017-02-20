@@ -20,13 +20,13 @@ Card *selectedCard;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [MercadoPagoContext setCustomerURI:MERCHANT_MOCK_GET_CUSTOMER_URI];
-    [MerchantServer getCustomer:^(Customer * customer) {
-        self.cards = customer.cards;
-        [self.tableView reloadData];
-    } failure:^(NSError * error) {
-        
-    }];
+//    [MercadoPagoContext setCustomerURI:MERCHANT_MOCK_GET_CUSTOMER_URI];
+//    [MerchantServer getCustomer:^(Customer * customer) {
+//        self.cards = customer.cards;
+//        [self.tableView reloadData];
+//    } failure:^(NSError * error) {
+//        
+//    }];
     
 }
 
@@ -49,7 +49,7 @@ Card *selectedCard;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SavedCardCell" forIndexPath:indexPath];
     UIImageView *pmIcon = [cell viewWithTag:1];
     NSString *pmId = cards[indexPath.row].paymentMethod._id;
-    pmIcon.image = [MercadoPago getImage: pmId];
+    pmIcon.image = [MercadoPago getImage: pmId bundle: [MercadoPago getBundle]];
     return cell;
 }
 

@@ -9,10 +9,10 @@
 import UIKit
 import MercadoPagoSDK
 
-class MainExamplesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+open class MainExamplesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //ARGENTINA
-    //let prefID = "241325285-6ac8e517-3030-48f7-b9de-91089d74255d"
+    let prefID = "241325285-6ac8e517-3030-48f7-b9de-91089d74255d"
     
     
     
@@ -51,15 +51,12 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
     
     
     //VENEZUELA
-    let prefID = "241113185-a2eef4bd-ccb6-42e0-b543-12f6aab885ef"
+    //let prefID = "241113185-a2eef4bd-ccb6-42e0-b543-12f6aab885ef"
     
     
     
     
-    
-    
-    
-    
+
     let examples = [["title" : "Nuestro Checkout".localized, "image" : "PlugNplay"],
                                ["title" : "Components de UI".localized, "image" : "Puzzle"],
                                ["title" : "Servicios".localized, "image" : "Ninja"]
@@ -72,11 +69,11 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         let componentCell = UINib(nibName: "ComponentTableViewCell", bundle: nil)
@@ -87,45 +84,65 @@ class MainExamplesViewController: UIViewController, UITableViewDataSource, UITab
         self.tableExamples.dataSource = self
     }
 
-    override func didReceiveMemoryWarning() {
+    override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.examples.count
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableExamples.dequeueReusableCell(withIdentifier: "componentCell") as! ComponentTableViewCell
         cell.initializeWith(self.examples[(indexPath as NSIndexPath).row]["image"]!, title: self.examples[(indexPath as NSIndexPath).row]["title"]!)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableExamples.deselectRow(at: indexPath, animated: true)
         switch (indexPath as NSIndexPath).row {
         case 0:
             
+
+            let decorationPreference = DecorationPreference()
+            decorationPreference.setBaseColor(hexColor: "#CA254D")
+            MercadoPagoCheckout.setDecorationPreference(decorationPreference)
             
-            //Checkout Example
-//<<<<<<< Updated upstream
-          //  let pp = PaymentPreference()
-           // pp.excludedPaymentTypeIds = ["ticket", "atm", ""]
-//=======
-//>>>>>>> Stashed changes
+            let flowPreference = FlowPreference()
+            flowPreference.disableReviewAndConfirmScreen()
+            flowPreference.disablePaymentPendingScreen()
+            MercadoPagoCheckout.setFlowPreference(flowPreference)
+            
+            let servicePreference = ServicePreference()
+            servicePreference.setGetCustomer(baseURL: "sarasa.com", URI: "customer")
+            servicePreference.setCreatePayment(baseURL: "https://private-0d59c-mercadopagoexamples.apiary-mock.com", URI: "/create_payment", additionalInfo:  ["binary_mode" : "true"])
+            MercadoPagoCheckout.setServicePreference(servicePreference)
+
+            //let nav = UINavigationController()
+            let pref = CheckoutPreference(_id: "223362579-96d6c137-02c3-48a2-bf9c-76e2d263c632")
             
             
-            let choFlow = MPFlowBuilder.startCheckoutViewController(prefID, callback: { (payment: Payment) in
-            })
-            self.present(choFlow, animated: true, completion: {})
+            MercadoPagoCheckout(checkoutPreference: pref, navigationController: self.navigationController!).start()
+          
+            
+           // self.present(nav , animated: true, completion: {
+                //nothing
+           // })
+           
+            /*
+            let pp = PaymentPreference()
+            pp.excludedPaymentTypeIds = ["ticket", "atm", ""]
+            let choFlow = MPFlowBuilder.startCheckoutViewController( "223362579-96d6c137-02c3-48a2-bf9c-76e2d263c632", callback: { (payment: Payment) in
+
+ */
         case 1:
             //UI Components
             let stepsExamples = StepsExamplesViewController()

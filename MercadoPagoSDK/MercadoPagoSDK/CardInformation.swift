@@ -30,6 +30,7 @@ public protocol CardInformation : CardInformationForm, PaymentOptionDrawable {
     func getIssuer() -> Issuer?
     
     func getFirstSixDigits() -> String!
+    
 
 }
 @objc

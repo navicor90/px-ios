@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@import MercadoPagoSDK;
 
 @interface MainExamplesViewController : UITableViewController
+
+@property MPCustomCell *customCell;
+@property CheckoutPreference *pref;
+@property MercadoPagoCheckout *mpCheckout;
+
+@property MPCustomCell *dineroEnCuentaCell;
 
 @end

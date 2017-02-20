@@ -356,6 +356,22 @@ class UtilsTest: BaseTest {
         let attributedAmount = Utils.getAttributedAmount(1.00, currency: arsCurrency!)
     }
     
+    func testAppendTwoJSONS(){
+        var JSON1 = "{\n  \"hola\" : \"hola\"\n}"
+        var JSON2 = "{\n  \"2\" : \"B\",\n  \"1\" : \"A\",\n  \"3\" : \"C\"\n}"
+        
+        XCTAssertEqual(Utils.append(firstJSON: JSON1, secondJSON: JSON2), "{\n  \"hola\" : \"hola\"\n\n  \"2\" : \"B\",\n  \"1\" : \"A\",\n  \"3\" : \"C\"\n}")
+        
+        JSON2 = ""
+        XCTAssertEqual(Utils.append(firstJSON: JSON1, secondJSON: JSON2), "{\n  \"hola\" : \"hola\"\n}")
+        
+        JSON1 = ""
+        XCTAssertEqual(Utils.append(firstJSON: JSON1, secondJSON: JSON2), "")
+        
+        JSON2 = "{\n  \"2\" : \"B\",\n  \"1\" : \"A\",\n  \"3\" : \"C\"\n}"
+        XCTAssertEqual(Utils.append(firstJSON: JSON1, secondJSON: JSON2), "{\n  \"2\" : \"B\",\n  \"1\" : \"A\",\n  \"3\" : \"C\"\n}")
+    }
+    
   
     
     

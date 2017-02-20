@@ -97,51 +97,51 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
         MercadoPagoContext.setCustomerURI(ExamplesUtils.MERCHANT_MOCK_GET_CUSTOMER_URI)
          
 */
-        MercadoPagoContext.setAccountMoneyAvailable(accountMoneyAvailable: true)
-        let pp = PaymentPreference()
-        pp.excludedPaymentTypeIds = ["ticket",  "atm", "bank_transfer"]
-        pp.excludedPaymentMethodIds = ["master"]
-        pp.maxAcceptedInstallments = 3
-
-        let pv = MPFlowBuilder.startPaymentVaultViewController(5, paymentPreference : pp, callback: { (paymentMethod, token, issuer, payerCost) in
-            print(paymentMethod._id)
-            self.paymentMethod = paymentMethod
-            self.createdToken = token
-            self.selectedIssuer = issuer
-            self.installmentsSelected = payerCost
-        } , callbackCancel: {
-            print("Callback Cancel Normal")
-        })
-        
-    
-        let myNav = UINavigationController(rootViewController: pv.viewControllers[0])
-        self.present(myNav, animated: true, completion: {})
+//        MercadoPagoContext.setAccountMoneyAvailable(accountMoneyAvailable: true)
+//        let pp = PaymentPreference()
+//        pp.excludedPaymentTypeIds = ["ticket",  "atm", "bank_transfer"]
+//        pp.excludedPaymentMethodIds = ["master"]
+//        pp.maxAcceptedInstallments = 3
+//
+//        let pv = MPFlowBuilder.startPaymentVaultViewController(5, paymentPreference : pp, callback: { (paymentMethod, token, issuer, payerCost) in
+//            print(paymentMethod._id)
+//            self.paymentMethod = paymentMethod
+//            self.createdToken = token
+//            self.selectedIssuer = issuer
+//            self.installmentsSelected = payerCost
+//        } , callbackCancel: {
+//            print("Callback Cancel Normal")
+//        })
+//        
+//    
+//        let myNav = UINavigationController(rootViewController: pv.viewControllers[0])
+//        self.present(myNav, animated: true, completion: {})
     }
     
     func startCardFlow(){
-        var cf : UINavigationController!
-        
-        let timeoutCallback : (Void) -> Void = {
-            let alert = UIAlertView(title: "Ups!",
-                                    message: "Se ha acabado el tiempo. Reinicie la compra",
-                                    delegate: nil,
-                                    cancelButtonTitle: "OK")
-            alert.show()
-        }
-        
-        
-        CountdownTimer.getInstance().setup(seconds: 180, timeoutCallback: timeoutCallback)
-        cf = MPFlowBuilder.startCardFlow(amount: 1000, callback: { (paymentMethod, token, issuer, payerCost) in
-            self.paymentMethod = paymentMethod
-            self.createdToken = token
-            self.selectedIssuer = issuer
-            self.installmentsSelected = payerCost
-           cf!.dismiss(animated: true, completion: {})
-            }, callbackCancel : {
-                cf!.dismiss(animated: true, completion: {})
-        })
-        
-        self.present(cf, animated: true, completion: {})
+//        var cf : UINavigationController!
+//        
+//        let timeoutCallback : (Void) -> Void = {
+//            let alert = UIAlertView(title: "Ups!",
+//                                    message: "Se ha acabado el tiempo. Reinicie la compra",
+//                                    delegate: nil,
+//                                    cancelButtonTitle: "OK")
+//            alert.show()
+//        }
+//        
+//        
+//        CountdownTimer.getInstance().setup(seconds: 180, timeoutCallback: timeoutCallback)
+//        cf = MPFlowBuilder.startCardFlow(amount: 1000, callback: { (paymentMethod, token, issuer, payerCost) in
+//            self.paymentMethod = paymentMethod
+//            self.createdToken = token
+//            self.selectedIssuer = issuer
+//            self.installmentsSelected = payerCost
+//           cf!.dismiss(animated: true, completion: {})
+//            }, callbackCancel : {
+//                cf!.dismiss(animated: true, completion: {})
+//        })
+//        
+//        self.present(cf, animated: true, completion: {})
     }
     
     func startCardForm(){
@@ -174,11 +174,11 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func startPaymentMethods(){
-        let pms = MPStepBuilder.startPaymentMethodsStep(withPreference: nil) { (paymentMethod) in
-            self.paymentMethod = paymentMethod
-            self.navigationController!.popViewController(animated: true)
-        }
-        self.navigationController?.pushViewController(pms, animated: true)
+//        let pms = MPStepBuilder.startPaymentMethodsStep(withPreference: nil) { (paymentMethod) in
+//            self.paymentMethod = paymentMethod
+//            self.navigationController!.popViewController(animated: true)
+//        }
+//        self.navigationController?.pushViewController(pms, animated: true)
     }
     
      func statIssuersStep(){
@@ -191,19 +191,19 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
      func startInstallmentsStep(){
-        
-        let installmentsVC = MPStepBuilder.startInstallmentsStep(amount: 10000, issuer: nil, paymentMethodId: "visa") { (payerCost) in
-            self.installmentsSelected = payerCost
-            self.navigationController!.popViewController(animated: true)
-        }
-        
-        self.navigationController?.pushViewController(installmentsVC, animated: true)
+//        
+//        let installmentsVC = MPStepBuilder.startInstallmentsStep(amount: 10000, issuer: nil, paymentMethodId: "visa") { (payerCost) in
+//            self.installmentsSelected = payerCost
+//            self.navigationController!.popViewController(animated: true)
+//        }
+//        
+//        self.navigationController?.pushViewController(installmentsVC, animated: true)
         
     }
     
      func createPayment(){
         
-        MercadoPagoContext.setBaseURL(ExamplesUtils.MERCHANT_MOCK_BASE_URL)
+        /*MercadoPagoContext.setBaseURL(ExamplesUtils.MERCHANT_MOCK_BASE_URL)
         MercadoPagoContext.setPaymentURI(ExamplesUtils.MERCHANT_MOCK_CREATE_PAYMENT_URI)
         
         let item : Item = Item(_id: ExamplesUtils.ITEM_ID, title: ExamplesUtils.ITEM_TITLE, quantity: ExamplesUtils.ITEM_QUANTITY,
@@ -219,7 +219,7 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
             
             }) { (error) in
             
-        }
+        }*/
         
     }
     

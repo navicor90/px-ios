@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     
         //ARGENTINA
-        //MercadoPagoContext.setPublicKey("TEST-971766e1-383e-420f-9b69-cecd4c63d071")
+        MercadoPagoContext.setPublicKey("TEST-971766e1-383e-420f-9b69-cecd4c63d071")
         
         
         //PERU
@@ -39,8 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //produ
         //MercadoPagoContext.setPublicKey("APP_USR-d16a4b81-58d3-4167-8067-e12dd16b549a")
 
-        
-        
+    
             //test con permisos
         //MercadoPagoContext.setPublicKey("TEST-540bb6d1-44d5-4607-92bf-3075023f53a0")
         
@@ -83,26 +82,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //VENEZUELA
        
             //test
-        MercadoPagoContext.setPublicKey("TEST-d5639c69-1b7f-4777-9ed0-d0e74bfc2c3b")
+        //MercadoPagoContext.setPublicKey("TEST-d5639c69-1b7f-4777-9ed0-d0e74bfc2c3b")
         
             //produ
         //MercadoPagoContext.setPublicKey("APP_USR-a865216a-a035-4629-8ec4-b1e1908b8b0d")
        // MercadoPagoContext.setPublicKey("APP_USR-8e3869a6-638f-45cd-b5b7-267c8e6f2b09")
         
 
+
         
         
-        
-        
-        
-        
-        //MercadoPagoContext.setBaseURL(ExamplesUtils.MERCHANT_MOCK_BASE_URL)
-        //MercadoPagoContext.setCustomerURI(ExamplesUtils.MERCHANT_MOCK_GET_CUSTOMER_URI)
-        //MercadoPagoContext.setMerchantAccessToken(ExamplesUtils.MERCHANT_ACCESS_TOKEN)
-        
-        
-        
-        MercadoPagoContext.setDisplayDefaultLoading(flag: false)
+        //MercadoPagoContext.setDisplayDefaultLoading(flag: false)
         
 
         MercadoPagoContext.setLanguage(language: MercadoPagoContext.Languages._SPANISH_COLOMBIA)
@@ -111,6 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        let tracker = TrackerExample()
       
 //        MercadoPagoContext.setTrack(listener: tracker)
+
         
         
        
@@ -120,10 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
         //MercadoPagoContext.setupPrimaryColor(UIColor.black, complementaryColor: UIColor.black)
-        let decorationPreference = DecorationPreference()
-        decorationPreference.setBaseColor(hexColor: "#CA254D")
-        
-        MercadoPagoContext.setDecorationPreference(decorationPreference: decorationPreference)
+
         
         CardFormViewController.showBankDeals = true
         
@@ -175,7 +163,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.mercadopago.MercadoPagoSDKExamples" in the application's documents Application Support directory.
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return urls[urls.count-1] 
+        return urls[urls.count-1]
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {

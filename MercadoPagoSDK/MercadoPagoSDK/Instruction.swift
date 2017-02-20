@@ -22,7 +22,6 @@ open class Instruction: NSObject {
     open class func fromJSON(_ json : NSDictionary) -> Instruction {
         let instruction = Instruction()
         
-        
         if json["title"] != nil && !(json["title"]! is NSNull) {
             instruction.title = (json["title"]! as? String)!
         }

@@ -46,7 +46,7 @@ class DecorationPreferenceTest: BaseTest {
     }
     func testSetMercadoPagoFont(){
         let decoration = DecorationPreference()
-        decoration.setCustomFontWithName(fontName: "sarasa")
+        decoration.setCustomFontWith(name: "sarasa")
         decoration.setMercadoPagoFont()
         XCTAssertEqual(decoration.getFontName(), ".SFUIDisplay-Regular")
     }
@@ -54,7 +54,7 @@ class DecorationPreferenceTest: BaseTest {
     func testSetFontName(){
         let decoration = DecorationPreference()
         XCTAssertEqual(decoration.getFontName(), ".SFUIDisplay-Regular")
-        decoration.setCustomFontWithName(fontName: "Comic")
+        decoration.setCustomFontWith(name: "Comic")
         XCTAssertEqual(decoration.getFontName(), "Comic")
     }
     

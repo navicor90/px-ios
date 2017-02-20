@@ -72,24 +72,23 @@ UILabel *identificationType;
     
     if (!errorOcurred) {
         [MercadoPagoContext setPublicKey:MERCHANT_PUBLIC_KEY];
-        [MercadoPagoContext setBaseURL:MERCHANT_MOCK_BASE_URL];
-        [MercadoPagoContext setPaymentURI:MERCHANT_MOCK_CREATE_PAYMENT_URI];
+        
         NSInteger installments = (selectedPayerCost == nil) ? 1 : selectedPayerCost.installments;
         
         if (customerCard == nil) {
             [MPServicesBuilder createNewCardToken:cardToken success:^(Token *token) {
-                Item *item = [[Item alloc] initWith_id:@"1" title:@"item title" quantity:1 unitPrice:amount description:nil];
-                MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installments cardIssuer:nil tokenId:token._id paymentMethod:paymentMethod campaignId:0];
-                [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
-                    
-                    UIViewController *congrats = [MPStepBuilder startPaymentCongratsStep:payment paymentMethod:paymentMethod callback:^(Payment * _Nonnull payment, enum CongratsState status) {
-                         [self.navigationController popToRootViewControllerAnimated:YES];
-                    }];
-
-                    [self.navigationController pushViewController:congrats animated:YES];
-                } failure:^(NSError *error) {
-                    NSLog(@"Error ocurred : %@", error.description);
-                }];
+//                Item *item = [[Item alloc] initWith_id:@"1" title:@"item title" quantity:1 unitPrice:amount description:nil];
+//                MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installments cardIssuer:nil tokenId:token._id paymentMethod:paymentMethod campaignId:0];
+////                [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
+//
+//                    UIViewController *congrats = [MPStepBuilder startPaymentCongratsStep:payment paymentMethod:paymentMethod callback:^(Payment * _Nonnull payment, enum CongratsState status) {
+//                         [self.navigationController popToRootViewControllerAnimated:YES];
+//                    }];
+//
+//                    [self.navigationController pushViewController:congrats animated:YES];
+//                } failure:^(NSError *error) {
+//                    NSLog(@"Error ocurred : %@", error.description);
+//                }];
             } failure:^(NSError *error) {
                 NSLog(@"Error ocurred : %@", error.description);
                 
@@ -99,17 +98,17 @@ UILabel *identificationType;
             SavedCardToken *savedCardtoken = [[SavedCardToken alloc] initWithCard:customerCard securityCode:securityCode.text securityCodeRequired: [customerCard.paymentMethod isSecurityCodeRequired:customerCard.firstSixDigits]];
             
             [MPServicesBuilder createToken:savedCardtoken success:^(Token *token) {
-                Item *item = [[Item alloc] initWith_id:@"1" title:@"item title" quantity:1 unitPrice:amount description:nil];
-                MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installments cardIssuer:nil tokenId:token._id paymentMethod:customerCard.paymentMethod campaignId:0];
-                [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
-
-                    UIViewController *congrats = [MPStepBuilder startPaymentCongratsStep:payment paymentMethod:customerCard.paymentMethod callback:^(Payment *payment, enum CongratsState congratsStatus) {
-                        [self.navigationController popToRootViewControllerAnimated:YES];
-                    }];
-                    [self.navigationController pushViewController:congrats animated:YES];
-                } failure:^(NSError *error) {
-                    NSLog(@"Error ocurred : %@", error.description);
-                }];
+//                Item *item = [[Item alloc] initWith_id:@"1" title:@"item title" quantity:1 unitPrice:amount description:nil ];
+//                MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installments cardIssuer:nil tokenId:token._id paymentMethod:customerCard.paymentMethod campaignId:0];
+////                [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
+//
+//                    UIViewController *congrats = [MPStepBuilder startPaymentCongratsStep:payment paymentMethod:customerCard.paymentMethod callback:^(Payment *payment, enum CongratsState congratsStatus) {
+//                        [self.navigationController popToRootViewControllerAnimated:YES];
+//                    }];
+//                    [self.navigationController pushViewController:congrats animated:YES];
+//                } failure:^(NSError *error) {
+//                    NSLog(@"Error ocurred : %@", error.description);
+//                }];
             } failure:^(NSError *error) {
                NSLog(@"Error ocurred : %@", error.description);
             }];
@@ -141,13 +140,13 @@ UILabel *identificationType;
             if (self.customerCard == nil) {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MPCardNumber"];
                 cardIcon = [cell viewWithTag:1];
-                cardIcon.image = [MercadoPago getImage:self.paymentMethod._id];
+                cardIcon.image = [MercadoPago getImage:self.paymentMethod._id bundle: [MercadoPago getBundle]];
                 cardNumber = [cell viewWithTag:2];
                 return cell;
             }
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MPCustomerCard"];
             cardIcon = [cell viewWithTag:1];
-            cardIcon.image = [MercadoPago getImage:self.customerCard.paymentMethod._id];
+            cardIcon.image = [MercadoPago getImage:self.customerCard.paymentMethod._id bundle: [MercadoPago getBundle]];
             return cell;
             }
             break;

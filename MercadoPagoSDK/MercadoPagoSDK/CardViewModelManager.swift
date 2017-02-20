@@ -19,7 +19,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class CardViewModelManager: NSObject {
+open class CardViewModelManager: NSObject {
 
     
     var paymentMethods : [PaymentMethod]?

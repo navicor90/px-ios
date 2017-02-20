@@ -55,6 +55,13 @@ open class CardFormViewController: MercadoPagoUIViewController , UITextFieldDele
     
     
     
+    public init(cardFormManager : CardViewModelManager, callback : @escaping ((_ paymentMethod: [PaymentMethod], _ cardToken: CardToken?) -> Void), callbackCancel : ((Void) -> Void)? = nil){
+       super.init(nibName: "CardFormViewController", bundle: MercadoPago.getBundle())
+        self.cardFormManager = cardFormManager
+        self.callback = callback
+    }
+    
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

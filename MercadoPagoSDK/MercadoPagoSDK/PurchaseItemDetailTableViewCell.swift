@@ -32,10 +32,12 @@ class PurchaseItemDetailTableViewCell: UITableViewCell {
     
     func fillCell(item : Item, currency : Currency){
         self.layoutIfNeeded()
-        if let image = ViewUtils.loadImageFromUrl(item.pictureUrl) {
-            self.itemImage.image = image
-            self.itemImage.layer.cornerRadius = self.itemImage.frame.height / 2
-            self.itemImage.clipsToBounds = true
+        if let pictureUrl = item.pictureUrl {
+            if let image = ViewUtils.loadImageFromUrl(pictureUrl) {
+                self.itemImage.image = image
+                self.itemImage.layer.cornerRadius = self.itemImage.frame.height / 2
+                self.itemImage.clipsToBounds = true
+            }
         }
         
         self.itemTitle.text = item.title

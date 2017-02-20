@@ -54,14 +54,14 @@ class OfflinePaymentMethodCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    internal func fillCell(_ paymentMethodMethodSearchItem : PaymentMethodSearchItem, amount : Double, paymentMethod : PaymentMethod, currency : Currency) {
+    internal func fillCell(_ paymentMethodOption : PaymentMethodOption, amount : Double, paymentMethod : PaymentMethod, currency : Currency) {
         
         let attributedAmount = Utils.getAttributedAmount(amount, currency: currency, color : UIColor.black)
         let attributedTitle = NSMutableAttributedString(string : "Pagáras ".localized, attributes: [NSFontAttributeName: Utils.getFont(size: 20)])
         attributedTitle.append(attributedAmount)
         
         var currentTitle = ""
-        let titleI18N = "ryc_title_" + paymentMethodMethodSearchItem.idPaymentMethodSearchItem
+        let titleI18N = "ryc_title_" + paymentMethodOption.getId()
         if (titleI18N.existsLocalized()) {
             currentTitle = titleI18N.localized
         } else {
@@ -70,18 +70,17 @@ class OfflinePaymentMethodCell: UITableViewCell {
         
         attributedTitle.append(NSAttributedString(string : currentTitle, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
         
-        let complementaryTitle = "ryc_complementary_" + paymentMethodMethodSearchItem.idPaymentMethodSearchItem
+        let complementaryTitle = "ryc_complementary_" + paymentMethodOption.getId()
         if complementaryTitle.existsLocalized() {
             attributedTitle.append(NSAttributedString(string : complementaryTitle.localized, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
         }
 
-        attributedTitle.append(NSAttributedString(string : paymentMethodMethodSearchItem._description, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
+        attributedTitle.append(NSAttributedString(string : paymentMethodOption.getDescription(), attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
         
         self.paymentMethodDescription.attributedText = attributedTitle
         
-        self.acreditationTimeLabel.attributedText = NSMutableAttributedString(string: paymentMethodMethodSearchItem.comment!, attributes: [NSFontAttributeName: Utils.getFont(size: 12)])
+        self.acreditationTimeLabel.attributedText = NSMutableAttributedString(string: paymentMethodOption.getComment(), attributes: [NSFontAttributeName: Utils.getFont(size: 12)])
         
-        self.changePaymentButton.setTitleColor(UIColor.primaryColor(), for: UIControlState.normal)
         self.changePaymentButton.titleLabel?.font = Utils.getFont(size: 18)
         self.changePaymentButton.setTitle("Cambiar pago".localized, for: .normal)
     }

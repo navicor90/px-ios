@@ -74,13 +74,13 @@ int installmentsSelected = 1;
     [CardFormViewController setShowBankDeals:NO];
      
     
-    UIViewController *paymentVaultVC = [MPFlowBuilder startPaymentVaultViewController:AMOUNT paymentPreference:nil callback:^(PaymentMethod *pm, Token *token, Issuer *issuer, PayerCost *payerCost) {
-        currentToken = token;
-        selectedIssuer = issuer;
-        paymentMethod = pm;
-    } callbackCancel:nil];
-   
-    [self presentViewController:paymentVaultVC animated:YES completion:^{}];
+//    UIViewController *paymentVaultVC = [MPFlowBuilder startPaymentVaultViewController:AMOUNT paymentPreference:nil callback:^(PaymentMethod *pm, Token *token, Issuer *issuer, PayerCost *payerCost) {
+//        currentToken = token;
+//        selectedIssuer = issuer;
+//        paymentMethod = pm;
+//    } callbackCancel:nil];
+//   
+//    [self presentViewController:paymentVaultVC animated:YES completion:^{}];
 
 }
 
@@ -88,17 +88,17 @@ int installmentsSelected = 1;
 
 - (void)startCardFlow {
     
-    UINavigationController *cf = [MPFlowBuilder startCardFlow:nil amount:AMOUNT cardInformation:nil paymentMethods:nil token:nil callback:^(PaymentMethod * pm, Token * token, Issuer * issuer, PayerCost * payercost) {
-        currentToken = token;
-        selectedIssuer = issuer;
-        paymentMethod = pm;
-        
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    } callbackCancel:^{
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    }];
-    
-    [self presentViewController:cf animated:YES completion:^{}];
+//    UINavigationController *cf = [MPFlowBuilder startCardFlow:nil amount:AMOUNT cardInformation:nil paymentMethods:nil token:nil callback:^(PaymentMethod * pm, Token * token, Issuer * issuer, PayerCost * payercost) {
+//        currentToken = token;
+//        selectedIssuer = issuer;
+//        paymentMethod = pm;
+//        
+//        [self dismissViewControllerAnimated:YES completion:^{}];
+//    } callbackCancel:^{
+//        [self dismissViewControllerAnimated:YES completion:^{}];
+//    }];
+//    
+//    [self presentViewController:cf animated:YES completion:^{}];
 
 }
 
@@ -120,11 +120,11 @@ int installmentsSelected = 1;
 
 - (void)startPaymentMethods {
     
-    UIViewController *paymentsStep = [MPStepBuilder startPaymentMethodsStepWithPreference:nil callback:^(PaymentMethod * pm) {
-        paymentMethod = pm;
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    [self.navigationController pushViewController:paymentsStep animated:YES];
+//    UIViewController *paymentsStep = [MPStepBuilder startPaymentMethodsStepWithPreference:nil callback:^(PaymentMethod * pm) {
+//        paymentMethod = pm;
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
+//    [self.navigationController pushViewController:paymentsStep animated:YES];
 
 }
 
@@ -139,28 +139,28 @@ int installmentsSelected = 1;
 
 - (void)startInstallmentsStep{
     
-     UIViewController *installmentVC =[MPStepBuilder startInstallmentsStep:nil paymentPreference:nil amount:ITEM_UNIT_PRICE issuer:selectedIssuer paymentMethodId:@"visa" callback:^(PayerCost * _Nullable payerCost) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-     [self.navigationController pushViewController:installmentVC animated:YES];
+//     UIViewController *installmentVC =[MPStepBuilder startInstallmentsStep:nil paymentPreference:nil amount:ITEM_UNIT_PRICE issuer:selectedIssuer paymentMethodId:@"visa" callback:^(PayerCost * _Nullable payerCost) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
+//     [self.navigationController pushViewController:installmentVC animated:YES];
 }
 
 - (void)createPayment {
     
     [MercadoPagoContext setPublicKey:MERCHANT_PUBLIC_KEY];
-    [MercadoPagoContext setBaseURL:MERCHANT_MOCK_BASE_URL];
-    [MercadoPagoContext setPaymentURI:MERCHANT_MOCK_CREATE_PAYMENT_URI];
+//    [MercadoPagoContext setBaseURL:MERCHANT_MOCK_BASE_URL];
+//    [MercadoPagoContext setPaymentURI:MERCHANT_MOCK_CREATE_PAYMENT_URI];
     
-    Item *item = [[Item alloc] initWith_id:ITEM_ID title:ITEM_TITLE quantity:ITEM_QUANTITY unitPrice:ITEM_UNIT_PRICE description:nil];
-
-    MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installmentsSelected cardIssuer:selectedIssuer tokenId:[currentToken _id] paymentMethod:paymentMethod campaignId:0];
+//    Item *item = [[Item alloc] initWith_id:ITEM_ID title:ITEM_TITLE quantity:ITEM_QUANTITY unitPrice:ITEM_UNIT_PRICE description:nil currency:@"ARS"];
+//
+//    MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installmentsSelected cardIssuer:selectedIssuer tokenId:[currentToken _id] paymentMethod:paymentMethod campaignId:0];
+//    
     
-    
-    [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
-        NSLog(@"Payment created with id: %ld", payment._id);
-    } failure:^(NSError *error) {
-        NSLog(@"%@", error.description);
-    }];
+//    [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
+//        NSLog(@"Payment created with id: %ld", payment._id);
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@", error.description);
+//    }];
     
 }
 

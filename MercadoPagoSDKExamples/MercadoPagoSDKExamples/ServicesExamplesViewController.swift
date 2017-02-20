@@ -78,37 +78,37 @@ class ServicesExamplesViewController: UIViewController, UITableViewDataSource, U
         }
     }
     
-    fileprivate func startPaymentMethodsVault(){
-        let vaultVC = MPFlowBuilder.startVaultViewController(ExamplesUtils.AMOUNT) { (paymentMethod, tokenId, issuer, installments) in
-            self.navigationController!.popViewController(animated: true)
+    func startPaymentMethodsVault(){
+//        let vaultVC = MPFlowBuilder.startVaultViewController(ExamplesUtils.AMOUNT) { (paymentMethod, tokenId, issuer, installments) in
+//            self.navigationController!.popViewController(animated: true)
+//        }
+//        self.navigationController!.pushViewController(vaultVC, animated: true)
+    }
+    
+     func startSimpleVault(){
+//        let simpleVault = ExamplesUtils.startSimpleVaultActivity(MercadoPagoContext.publicKey(), merchantBaseUrl:  ExamplesUtils.MERCHANT_MOCK_BASE_URL, merchantGetCustomerUri: MercadoPagoContext.customerURI(), merchantAccessToken: MercadoPagoContext.merchantAccessToken(), paymentPreference: nil) { (paymentMethod, token) in
+//            self.navigationController!.popViewController(animated: true)
+//        }
+//        
+//        self.navigationController?.pushViewController(simpleVault, animated: true)
+    }
+    
+     func startAdvancedVault(){
+//        let advancedVault = ExamplesUtils.startAdvancedVaultActivity(MercadoPagoContext.publicKey(), merchantBaseUrl:  ExamplesUtils.MERCHANT_MOCK_BASE_URL, merchantGetCustomerUri: MercadoPagoContext.customerURI(), merchantAccessToken: MercadoPagoContext.merchantAccessToken(), amount: 1000, paymentPreference: nil, callback: { (paymentMethod, token, issuer, installments) in
+//            self.navigationController!.popViewController(animated: true)
+//        })
+//    
+//        self.navigationController?.pushViewController(advancedVault, animated: true)
+    }
+    
+    
+     func startFinalVault(){
+//        let settings = PaymentPreference()
+//        settings.excludedPaymentTypeIds = ["credit_card"]
+//        let finalVault = MPFlowBuilder.startPaymentVaultViewController(1000, paymentPreference: settings, callback: { (paymentMethod, token, issuer, payerCost) in
+//            
+//        })
+//        
+//        self.present(finalVault, animated: true, completion: {})
         }
-        self.navigationController!.pushViewController(vaultVC, animated: true)
-    }
-    
-    fileprivate func startSimpleVault(){
-        let simpleVault = ExamplesUtils.startSimpleVaultActivity(MercadoPagoContext.publicKey(), merchantBaseUrl:  ExamplesUtils.MERCHANT_MOCK_BASE_URL, merchantGetCustomerUri: MercadoPagoContext.customerURI(), merchantAccessToken: MercadoPagoContext.merchantAccessToken(), paymentPreference: nil) { (paymentMethod, token) in
-            self.navigationController!.popViewController(animated: true)
-        }
-        
-        self.navigationController?.pushViewController(simpleVault, animated: true)
-    }
-    
-    fileprivate func startAdvancedVault(){
-        let advancedVault = ExamplesUtils.startAdvancedVaultActivity(MercadoPagoContext.publicKey(), merchantBaseUrl:  ExamplesUtils.MERCHANT_MOCK_BASE_URL, merchantGetCustomerUri: MercadoPagoContext.customerURI(), merchantAccessToken: MercadoPagoContext.merchantAccessToken(), amount: 1000, paymentPreference: nil, callback: { (paymentMethod, token, issuer, installments) in
-            self.navigationController!.popViewController(animated: true)
-        })
-    
-        self.navigationController?.pushViewController(advancedVault, animated: true)
-    }
-    
-    
-    fileprivate func startFinalVault(){
-        let settings = PaymentPreference()
-        settings.excludedPaymentTypeIds = ["credit_card"]
-        let finalVault = MPFlowBuilder.startPaymentVaultViewController(1000, paymentPreference: settings, callback: { (paymentMethod, token, issuer, payerCost) in
-            
-        })
-        
-        self.present(finalVault, animated: true, completion: {})
-    }
 }

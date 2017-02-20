@@ -30,10 +30,10 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 open class PaymentMethodSearchService: MercadoPagoService {
     
-    open let MP_SEARCH_PAYMENTS_URI = MercadoPago.MP_ENVIROMENT + "/payment_methods/search/options"
+    open let MP_SEARCH_PAYMENTS_URI = ServicePreference.MP_ENVIROMENT + "/payment_methods/search/options"
     
-    public init(){
-        super.init(baseURL: MercadoPago.MP_API_BASE_URL)
+    public override init(){
+        super.init(baseURL: ServicePreference.MP_API_BASE_URL)
     }
     
     open func getPaymentMethods(_ amount : Double, customerEmail : String? = nil, customerId : String? = nil, defaultPaymenMethodId : String?, excludedPaymentTypeIds : Set<String>?, excludedPaymentMethodIds : Set<String>?, success: @escaping (_ paymentMethodSearch: PaymentMethodSearch) -> Void, failure: @escaping ((_ error: NSError) -> Void)) {
@@ -46,7 +46,7 @@ open class PaymentMethodSearchService: MercadoPagoService {
         }
         
         
-        if newExcludedPaymentTypesIds != nil && newExcludedPaymentTypesIds?.count > 0 {
+        if newExcludedPaymentTypesIds != nil && newExcludedPaymentTypesIds!.count > 0 {
             let excludedPaymentTypesParams = newExcludedPaymentTypesIds!.map({$0}).joined(separator: ",")
             params = params + "&excluded_payment_types=" + String(excludedPaymentTypesParams).trimSpaces()
         }
@@ -68,7 +68,9 @@ open class PaymentMethodSearchService: MercadoPagoService {
             params = params + "&customer_id=" + customerId!
         }
         
-        params = params + "&api_version=" + MercadoPago.API_VERSION
+        params = params + "&site_id=" + MercadoPagoContext.getSite()
+        
+        params = params + "&api_version=" + ServicePreference.API_VERSION
 
         var groupsPayerBody : AnyObject? = nil
         if !String.isNullOrEmpty(MercadoPagoContext.payerAccessToken()) {

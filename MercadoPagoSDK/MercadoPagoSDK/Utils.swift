@@ -129,6 +129,27 @@ class Utils {
     class func getFont(size: CGFloat) -> UIFont{
         return UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: size) ?? UIFont.systemFont(ofSize: size)
     }
+    
+    class func getLightFont(size: CGFloat) -> UIFont {
+        return UIFont(name: MercadoPagoContext.getDecorationPreference().getLightFontName(), size: size) ?? UIFont.systemFont(ofSize: size, weight: UIFontWeightThin)
+    }
+    
+    class func append(firstJSON: String, secondJSON: String) -> String {
+        if firstJSON == "" && secondJSON == "" {
+            return ""
+        } else if secondJSON == "" {
+            return firstJSON
+        } else if firstJSON == "" {
+            return secondJSON
+        }
+        var firstJSON = firstJSON
+        var secondJSON = secondJSON
+        
+        secondJSON.remove(at: secondJSON.startIndex)
+        firstJSON.remove(at: firstJSON.index(before: firstJSON.endIndex))
+        
+        return firstJSON + secondJSON
+    }
     /**
      Returns cents string formatted
      Ex: formattedString = "100.2", decimalSeparator = "."
@@ -238,6 +259,25 @@ class Utils {
         if paymentMethodSearchList.count == 0 {
             return nil
         }
+        return nil
+    }
+    
+    static internal func findPaymentMethodTypeId(_ paymentMethodSearchItems : [PaymentMethodSearchItem], paymentTypeId : PaymentTypeId) -> PaymentMethodSearchItem?  {
+    
+        var filterPaymentMethodSearchFound = paymentMethodSearchItems.filter{ (arg : PaymentMethodSearchItem) -> Bool in
+            arg.idPaymentMethodSearchItem == paymentTypeId.rawValue
+        }
+        
+        if !Array.isNullOrEmpty(filterPaymentMethodSearchFound) {
+            return filterPaymentMethodSearchFound[0]
+        }
+        
+        for item in paymentMethodSearchItems {
+            if let paymentMethodSearchItemFound = findPaymentMethodTypeId(item.children, paymentTypeId: paymentTypeId) {
+                return paymentMethodSearchItemFound
+            }
+        }
+        
         return nil
     }
     

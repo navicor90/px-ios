@@ -10,9 +10,23 @@
 		15AF42AA1D36848100E70343 /* MercadoPagoSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76EF7EFB1D255AA10087C785 /* MercadoPagoSDK.framework */; };
 		15AF42AB1D36848100E70343 /* MercadoPagoSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 76EF7EFB1D255AA10087C785 /* MercadoPagoSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		15C84A981D2D531E002E4988 /* MediosOffTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C84A971D2D531E002E4988 /* MediosOffTableViewController.m */; };
+		4B7AA9801E55E64C000902B9 /* DineroEnCuentaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7AA97E1E55E64C000902B9 /* DineroEnCuentaTableViewCell.m */; };
+		4B7AA9811E55E64C000902B9 /* DineroEnCuentaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7AA97E1E55E64C000902B9 /* DineroEnCuentaTableViewCell.m */; };
+		4B7AA9821E55E64C000902B9 /* DineroEnCuentaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B7AA97F1E55E64C000902B9 /* DineroEnCuentaTableViewCell.xib */; };
+		4B7AA9831E55E64C000902B9 /* DineroEnCuentaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B7AA97F1E55E64C000902B9 /* DineroEnCuentaTableViewCell.xib */; };
+		4B7D07DB1E55324700E6CA78 /* SubeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D07D91E55324700E6CA78 /* SubeTableViewCell.m */; };
+		4B7D07DC1E55324700E6CA78 /* SubeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B7D07DA1E55324700E6CA78 /* SubeTableViewCell.xib */; };
+		4B7D07E11E55337D00E6CA78 /* PendingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D07DF1E55337D00E6CA78 /* PendingTableViewCell.m */; };
+		4B7D07E21E55337D00E6CA78 /* PendingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B7D07E01E55337D00E6CA78 /* PendingTableViewCell.xib */; };
+		4B7D07E31E553B0B00E6CA78 /* PendingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D07DF1E55337D00E6CA78 /* PendingTableViewCell.m */; };
+		4B7D07E41E553B0F00E6CA78 /* PendingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4B7D07E01E55337D00E6CA78 /* PendingTableViewCell.xib */; };
 		763B44F91D2BFEB0002E2B39 /* SelectPaymentMethodTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763B44F81D2BFEB0002E2B39 /* SelectPaymentMethodTableViewController.m */; };
 		763B45021D2C02DE002E2B39 /* InstallmentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 763B45011D2C02DE002E2B39 /* InstallmentsTableViewController.m */; };
 		766627571D2AFDF9002EB903 /* SavedCardsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 766627561D2AFDF9002EB903 /* SavedCardsTableViewController.m */; };
+		767D8DBC1E5541EC0004FCA9 /* CustomItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 767D8DBA1E5541EC0004FCA9 /* CustomItemTableViewCell.m */; };
+		767D8DBD1E5541EC0004FCA9 /* CustomItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 767D8DBB1E5541EC0004FCA9 /* CustomItemTableViewCell.xib */; };
+		76BAC6471E4B2F220081F675 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BAC6461E4B2F220081F675 /* CustomTableViewCell.m */; };
+		76BAC64A1E4B30060081F675 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76BAC6491E4B30060081F675 /* CustomTableViewCell.xib */; };
 		76E6E06A1D2AD33F006CE49B /* SimpleVaultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E6E0681D2AD33F006CE49B /* SimpleVaultViewController.m */; };
 		76E6E06E1D2AE529006CE49B /* SimpleVaultFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E6E06D1D2AE529006CE49B /* SimpleVaultFormViewController.m */; };
 		76EF7EC21D2559140087C785 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76EF7EC11D2559140087C785 /* main.m */; };
@@ -75,12 +89,28 @@
 /* Begin PBXFileReference section */
 		15C84A961D2D531E002E4988 /* MediosOffTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediosOffTableViewController.h; sourceTree = "<group>"; };
 		15C84A971D2D531E002E4988 /* MediosOffTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediosOffTableViewController.m; sourceTree = "<group>"; };
+		4B7AA97D1E55E64C000902B9 /* DineroEnCuentaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DineroEnCuentaTableViewCell.h; sourceTree = "<group>"; };
+		4B7AA97E1E55E64C000902B9 /* DineroEnCuentaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DineroEnCuentaTableViewCell.m; sourceTree = "<group>"; };
+		4B7AA97F1E55E64C000902B9 /* DineroEnCuentaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DineroEnCuentaTableViewCell.xib; sourceTree = "<group>"; };
+		4B7D07D81E55324700E6CA78 /* SubeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubeTableViewCell.h; sourceTree = "<group>"; };
+		4B7D07D91E55324700E6CA78 /* SubeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubeTableViewCell.m; sourceTree = "<group>"; };
+		4B7D07DA1E55324700E6CA78 /* SubeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubeTableViewCell.xib; sourceTree = "<group>"; };
+		4B7D07DE1E55337D00E6CA78 /* PendingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PendingTableViewCell.h; sourceTree = "<group>"; };
+		4B7D07DF1E55337D00E6CA78 /* PendingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PendingTableViewCell.m; sourceTree = "<group>"; };
+		4B7D07E01E55337D00E6CA78 /* PendingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PendingTableViewCell.xib; sourceTree = "<group>"; };
 		763B44F71D2BFEB0002E2B39 /* SelectPaymentMethodTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPaymentMethodTableViewController.h; sourceTree = "<group>"; };
 		763B44F81D2BFEB0002E2B39 /* SelectPaymentMethodTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectPaymentMethodTableViewController.m; sourceTree = "<group>"; };
 		763B45001D2C02DE002E2B39 /* InstallmentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstallmentsTableViewController.h; sourceTree = "<group>"; };
 		763B45011D2C02DE002E2B39 /* InstallmentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstallmentsTableViewController.m; sourceTree = "<group>"; };
 		766627551D2AFDF9002EB903 /* SavedCardsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedCardsTableViewController.h; sourceTree = "<group>"; };
 		766627561D2AFDF9002EB903 /* SavedCardsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedCardsTableViewController.m; sourceTree = "<group>"; };
+		767D8DB91E5541EC0004FCA9 /* CustomItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomItemTableViewCell.h; sourceTree = "<group>"; };
+		767D8DBA1E5541EC0004FCA9 /* CustomItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomItemTableViewCell.m; sourceTree = "<group>"; };
+		767D8DBB1E5541EC0004FCA9 /* CustomItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomItemTableViewCell.xib; sourceTree = "<group>"; };
+		76BAC63F1E4B2ED80081F675 /* MercadoPagoSDKExamplesObjectiveC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MercadoPagoSDKExamplesObjectiveC-Bridging-Header.h"; sourceTree = "<group>"; };
+		76BAC6451E4B2F220081F675 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		76BAC6461E4B2F220081F675 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
+		76BAC6491E4B30060081F675 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		76E6E0671D2AD33F006CE49B /* SimpleVaultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleVaultViewController.h; sourceTree = "<group>"; };
 		76E6E0681D2AD33F006CE49B /* SimpleVaultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleVaultViewController.m; sourceTree = "<group>"; };
 		76E6E06C1D2AE529006CE49B /* SimpleVaultFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleVaultFormViewController.h; sourceTree = "<group>"; };
@@ -144,6 +174,21 @@
 				763B45011D2C02DE002E2B39 /* InstallmentsTableViewController.m */,
 				15C84A961D2D531E002E4988 /* MediosOffTableViewController.h */,
 				15C84A971D2D531E002E4988 /* MediosOffTableViewController.m */,
+				76BAC6451E4B2F220081F675 /* CustomTableViewCell.h */,
+				76BAC6461E4B2F220081F675 /* CustomTableViewCell.m */,
+				76BAC6491E4B30060081F675 /* CustomTableViewCell.xib */,
+				4B7D07D81E55324700E6CA78 /* SubeTableViewCell.h */,
+				4B7D07D91E55324700E6CA78 /* SubeTableViewCell.m */,
+				4B7D07DA1E55324700E6CA78 /* SubeTableViewCell.xib */,
+				4B7D07DE1E55337D00E6CA78 /* PendingTableViewCell.h */,
+				4B7D07DF1E55337D00E6CA78 /* PendingTableViewCell.m */,
+				4B7D07E01E55337D00E6CA78 /* PendingTableViewCell.xib */,
+				4B7AA97D1E55E64C000902B9 /* DineroEnCuentaTableViewCell.h */,
+				4B7AA97E1E55E64C000902B9 /* DineroEnCuentaTableViewCell.m */,
+				4B7AA97F1E55E64C000902B9 /* DineroEnCuentaTableViewCell.xib */,
+				767D8DB91E5541EC0004FCA9 /* CustomItemTableViewCell.h */,
+				767D8DBA1E5541EC0004FCA9 /* CustomItemTableViewCell.m */,
+				767D8DBB1E5541EC0004FCA9 /* CustomItemTableViewCell.xib */,
 			);
 			name = Example;
 			sourceTree = "<group>";
@@ -238,6 +283,7 @@
 				76EF7F5C1D27027A0087C785 /* StepsExamplesViewController.m */,
 				76EF7F5E1D2706720087C785 /* ServicesExamplesViewController.h */,
 				76EF7F5F1D2706720087C785 /* ServicesExamplesViewController.m */,
+				76BAC63F1E4B2ED80081F675 /* MercadoPagoSDKExamplesObjectiveC-Bridging-Header.h */,
 			);
 			name = "Component Examples";
 			sourceTree = "<group>";
@@ -294,6 +340,7 @@
 					76EF7EBC1D2559140087C785 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = T9VUHG6RU2;
+						LastSwiftMigration = 0810;
 					};
 					76EF7ED51D2559140087C785 = {
 						CreatedOnToolsVersion = 7.3;
@@ -352,6 +399,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76BAC64A1E4B30060081F675 /* CustomTableViewCell.xib in Resources */,
+				4B7AA9821E55E64C000902B9 /* DineroEnCuentaTableViewCell.xib in Resources */,
+				4B7D07E21E55337D00E6CA78 /* PendingTableViewCell.xib in Resources */,
+				4B7D07DC1E55324700E6CA78 /* SubeTableViewCell.xib in Resources */,
+				767D8DBD1E5541EC0004FCA9 /* CustomItemTableViewCell.xib in Resources */,
 				76EF7ED01D2559140087C785 /* LaunchScreen.storyboard in Resources */,
 				76EF7ECD1D2559140087C785 /* Assets.xcassets in Resources */,
 				76EF7ECB1D2559140087C785 /* Main.storyboard in Resources */,
@@ -362,6 +414,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7D07E41E553B0F00E6CA78 /* PendingTableViewCell.xib in Resources */,
+				4B7AA9831E55E64C000902B9 /* DineroEnCuentaTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,17 +427,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				76EF7EC51D2559140087C785 /* AppDelegate.m in Sources */,
+				767D8DBC1E5541EC0004FCA9 /* CustomItemTableViewCell.m in Sources */,
 				766627571D2AFDF9002EB903 /* SavedCardsTableViewController.m in Sources */,
+				4B7D07DB1E55324700E6CA78 /* SubeTableViewCell.m in Sources */,
 				76EF7F221D255C7E0087C785 /* ExampleUtils.m in Sources */,
 				76EF7F5A1D26FDB80087C785 /* MainExamplesViewController.m in Sources */,
 				15C84A981D2D531E002E4988 /* MediosOffTableViewController.m in Sources */,
 				763B45021D2C02DE002E2B39 /* InstallmentsTableViewController.m in Sources */,
+				4B7D07E11E55337D00E6CA78 /* PendingTableViewCell.m in Sources */,
 				76E6E06E1D2AE529006CE49B /* SimpleVaultFormViewController.m in Sources */,
 				76EF7F5D1D27027A0087C785 /* StepsExamplesViewController.m in Sources */,
 				76E6E06A1D2AD33F006CE49B /* SimpleVaultViewController.m in Sources */,
 				76EF7F601D2706720087C785 /* ServicesExamplesViewController.m in Sources */,
 				76EF7EC21D2559140087C785 /* main.m in Sources */,
 				763B44F91D2BFEB0002E2B39 /* SelectPaymentMethodTableViewController.m in Sources */,
+				76BAC6471E4B2F220081F675 /* CustomTableViewCell.m in Sources */,
+				4B7AA9801E55E64C000902B9 /* DineroEnCuentaTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,7 +450,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7AA9811E55E64C000902B9 /* DineroEnCuentaTableViewCell.m in Sources */,
 				76EF7EDB1D2559140087C785 /* MercadoPagoSDKExamplesObjectiveCTests.m in Sources */,
+				4B7D07E31E553B0B00E6CA78 /* PendingTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,12 +581,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = T9VUHG6RU2;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = MercadoPagoSDKExamplesObjectiveC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mercadopago.MercadoPagoSDKExamplesObjectiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MercadoPagoSDKExamplesObjectiveC/MercadoPagoSDKExamplesObjectiveC-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -533,12 +598,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = T9VUHG6RU2;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = MercadoPagoSDKExamplesObjectiveC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mercadopago.MercadoPagoSDKExamplesObjectiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MercadoPagoSDKExamplesObjectiveC/MercadoPagoSDKExamplesObjectiveC-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

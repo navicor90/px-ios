@@ -13,7 +13,7 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
     open var callbackCancel : ((Void) -> Void)? 
     public var timer : CountdownTimer?
     var navBarTextColor = UIColor.systemFontColor()
-    var navBarBackgroundColor = UIColor.primaryColor()
+    private var navBarBackgroundColor = UIColor.primaryColor()
     var shouldDisplayBackButton = false
     
     var hideNavBarCallback : ((Void) -> Void)?
@@ -80,7 +80,7 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
         
         self.loadMPStyles()
         hideTimer()
-        
+        MercadoPagoCheckout.firstViewControllerPushed = true
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
@@ -107,7 +107,7 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
                 }
                 self.navigationItem.hidesBackButton = true
                 self.navigationController!.interactivePopGestureRecognizer?.delegate = self
-                self.navigationController?.navigationBar.tintColor = navBarTextColor
+                self.navigationController?.navigationBar.tintColor = navBarBackgroundColor
                 self.navigationController?.navigationBar.barTintColor = navBarBackgroundColor
                 self.navigationController?.navigationBar.removeBottomLine()
                 self.navigationController?.navigationBar.isTranslucent = false
@@ -283,7 +283,9 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
             
         }
     }
+    
     var navBarFontSize: CGFloat = 18
+    
     func showNavBar() {
         
         if navigationController != nil {
@@ -297,6 +299,7 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
             if self.shouldDisplayBackButton {
                 self.displayBackButton()
             }
+            
             let font : UIFont = Utils.getFont(size: navBarFontSize)
             let titleDict: NSDictionary = [NSForegroundColorAttributeName: self.navBarTextColor, NSFontAttributeName: font]
             self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
@@ -328,6 +331,10 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
     
     func getNavigationBarTitle() -> String {
         return ""
+    }
+    
+    func setNavBarBackgroundColor(color : UIColor){
+        self.navBarBackgroundColor = color
     }
     
     deinit {

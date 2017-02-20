@@ -29,6 +29,12 @@ open class PaymentMethod : NSObject  {
         super.init()
     }
     
+    public init(_id : String, name : String, paymentTypeId : String) {
+        self._id = _id
+        self.name = name
+        self.paymentTypeId = paymentTypeId
+    }
+    
     open func isIssuerRequired() -> Bool {
         return isAdditionalInfoNeeded("issuer_id")
     }
@@ -41,8 +47,18 @@ open class PaymentMethod : NSObject  {
     }
     
     open func isCard() -> Bool {
-        let paymentTypeId = PaymentTypeId(rawValue : self.paymentTypeId)
-        return paymentTypeId != nil && (paymentTypeId?.isCard())!
+        if let paymentTypeId = PaymentTypeId(rawValue : self.paymentTypeId) {
+            return paymentTypeId.isCard()
+        }
+        return false
+    }
+    
+    open func isCreditCard() -> Bool {
+        if let paymentTypeId = PaymentTypeId(rawValue : self.paymentTypeId) {
+            return paymentTypeId.isCreditCard()
+        }
+        return false
+        
     }
 
     open func isSecurityCodeRequired(_ bin: String) -> Bool {
@@ -265,11 +281,7 @@ open class PaymentMethod : NSObject  {
         if(paymentPreference == nil){
             return true
         }
-        if(paymentPreference!.defaultPaymentTypeId != nil){
-            if (paymentPreference!.defaultPaymentTypeId != self.paymentTypeId){
-                return false
-            }
-        }
+        
         if (paymentPreference!.defaultPaymentMethodId != nil){
             if (self._id != paymentPreference!.defaultPaymentMethodId){
                 return false
