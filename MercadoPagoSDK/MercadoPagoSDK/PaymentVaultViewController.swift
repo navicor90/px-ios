@@ -101,6 +101,10 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         
         if callbackCancel == nil {
             self.callbackCancel = {(Void) -> Void in
+                self.navigationController!.navigationBar.tintColor = UIColor.cyan
+                self.navigationController!.navigationBar.barTintColor = UIColor.px_grayLight()
+                self.navigationController!.navigationBar.isHidden = false
+                UINavigationBar.appearance().tintColor = UIColor.red
                 if self.navigationController?.viewControllers[0] == self {
                     self.dismiss(animated: true, completion: {
                         
@@ -108,6 +112,12 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
                 } else {
                     self.navigationController!.popViewController(animated: true)
                 }
+                
+                
+//                if MercadoPagoCheckout.viewDetailsMemento != nil {
+//                    MercadoPagoCheckout.viewDetailsMemento!.recoverDetails(navigationController: self.navigationController!)
+//                    
+//                }
             }
         } else {
             self.callbackCancel = callbackCancel
@@ -122,7 +132,7 @@ open class PaymentVaultViewController: MercadoPagoUIScrollViewController, UIColl
         self.hideNavBar()
         
         self.navigationItem.leftBarButtonItem!.action = #selector(invokeCallbackCancel)
-        self.navigationController!.navigationBar.shadowImage = nil
+       // self.navigationController!.navigationBar.shadowImage = nil
         self.extendedLayoutIncludesOpaqueBars = true
     }
     

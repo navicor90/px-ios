@@ -23,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setTintColor:[UIColor redColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,6 +34,8 @@
 
 - (IBAction)checkoutFlow:(id)sender {
 
+    
+    
     // Decoration Preference con colores custom
     DecorationPreference *decorationPreference = [[DecorationPreference alloc] initWithBaseColor:[UIColor greenColor] fontName:@"fontName" fontLightName:@"fontName"];
     [MercadoPagoCheckout setDecorationPreference:decorationPreference];
@@ -43,12 +47,11 @@
     ServicePreference * servicePreference = [[ServicePreference alloc] init];
     
     
-    //[servicePreference setCreatePaymentWithBaseURL:@"https://private-0d59c-mercadopagoexamples.apiary-mock.com" URI:@"/create_payment" additionalInfo:extraParams];
+    [servicePreference setCreatePaymentWithBaseURL:@"https://private-0d59c-mercadopagoexamples.apiary-mock.com" URI:@"/create_payment" additionalInfo:extraParams];
     
     [MercadoPagoCheckout setServicePreference:servicePreference];
     
     [MercadoPagoContext setLanguageWithLanguage:"es"];
-    
     
     
   //  [servicePreference setGetCustomerWithBaseURL:@"https://www.mercadopago.com" URI:@"/checkout/examples/getCustomer" additionalInfo:extraParams];
@@ -102,13 +105,13 @@
     [dineroEnCuenta.button addTarget:self action:@selector(invokeCallbackPaymentResult:) forControlEvents:UIControlEventTouchUpInside];
     MPCustomCell *dineroEnCuentaCustom = [[MPCustomCell alloc] initWithCell:dineroEnCuenta];
     self.dineroEnCuentaCell = dineroEnCuentaCustom;
-    PaymentResultScreenPreference *resultPreference = [[PaymentResultScreenPreference alloc]init];
-    [resultPreference setPendingTitleWithTitle:@"¡Pagaste la recarga de SUBE de $50!"];
-    [resultPreference setExitButtonTitleWithTitle:@"Ir a Actividad"];
-    [resultPreference disableChangePaymentMethodOption];
-    [resultPreference setPendingHeaderIconWithName:@"iconoPagoOffline" bundle:[NSBundle mainBundle]];
-    [resultPreference setAppovedTitleWithTitle:@"¡Listo, recargaste el celular"];
-    
+//    PaymentResultScreenPreference *resultPreference = [[PaymentResultScreenPreference alloc]init];
+//    [resultPreference setPendingTitleWithTitle:@"¡Pagaste la recarga de SUBE de $50!"];
+//    [resultPreference setExitButtonTitleWithTitle:@"Ir a Actividad"];
+//    [resultPreference disableChangePaymentMethodOption];
+//    [resultPreference setPendingHeaderIconWithName:@"iconoPagoOffline" bundle:[NSBundle mainBundle]];
+//    [resultPreference setAppovedTitleWithTitle:@"¡Listo, recargaste el celular"];
+//    
     MPCustomCell *customItemCell = [[MPCustomCell alloc] initWithCell:customCellItem];
   //  self.customCell = customItemCell;
     
@@ -125,19 +128,19 @@
     
     
 //
-    [MercadoPagoCheckout setPaymentDataCallbackWithPaymentDataCallback: ^(PaymentData *paymentData) {
-        NSLog(@"%@", paymentData.paymentMethod._id);
-        NSLog(@"%@", paymentData.token._id);
-        NSLog(@"%ld", paymentData.payerCost.installments);        
-        
-        ReviewScreenPreference *reviewPreferenceUpdated = [[ReviewScreenPreference alloc] init];
-        [reviewPreferenceUpdated setTitleWithTitle:@"Updated"];
-        //[ReviewScreenPreference addCustomItemCellWithCustomCell:customCargaSube];
-        //[ReviewScreenPreference addAddionalInfoCellWithCustomCell:customCargaSube];
-        [MercadoPagoCheckout setReviewScreenPreference:reviewPreferenceUpdated];
-        UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:self.pref paymentData:paymentData navigationController:self.navigationController] getRootViewController];
-        //[self.navigationController popToRootViewControllerAnimated:NO];
-    }];
+//    [MercadoPagoCheckout setPaymentDataCallbackWithPaymentDataCallback: ^(PaymentData *paymentData) {
+//        NSLog(@"%@", paymentData.paymentMethod._id);
+//        NSLog(@"%@", paymentData.token._id);
+//        NSLog(@"%ld", paymentData.payerCost.installments);        
+//        
+//        ReviewScreenPreference *reviewPreferenceUpdated = [[ReviewScreenPreference alloc] init];
+//        [reviewPreferenceUpdated setTitleWithTitle:@"Updated"];
+//        //[ReviewScreenPreference addCustomItemCellWithCustomCell:customCargaSube];
+//        //[ReviewScreenPreference addAddionalInfoCellWithCustomCell:customCargaSube];
+//        [MercadoPagoCheckout setReviewScreenPreference:reviewPreferenceUpdated];
+//        UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:self.pref paymentData:paymentData navigationController:self.navigationController] getRootViewController];
+//        //[self.navigationController popToRootViewControllerAnimated:NO];
+//    }];
 
     PaymentMethod *pm = [[PaymentMethod alloc] init];
     pm._id = @"visa";
@@ -161,10 +164,10 @@
     
 
     CheckoutPreference * pref = [[CheckoutPreference alloc] initWith_id: @"150216849-68645cbb-dfe6-4410-bfd6-6e5aa33d8a33"];
-    self.mpCheckout = [[MercadoPagoCheckout alloc] initWithCheckoutPreference:self.pref paymentData:pd navigationController:self.navigationController paymentResult:paymentResult];
+    self.mpCheckout = [[MercadoPagoCheckout alloc] initWithCheckoutPreference:self.pref navigationController:self.navigationController];
     
-    UIViewController *vc =  [ self.mpCheckout getRootViewController];
-    
+    //UIViewController *vc =  [ self.mpCheckout start];
+    [ self.mpCheckout start];
     //UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:pref navigationController:self.navigationController] getRootViewController];
     //NSLog(vc);
     

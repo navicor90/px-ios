@@ -16,37 +16,37 @@ open class MercadoPagoCheckout: NSObject {
     var viewControllerBase : UIViewController?
     
     private var currentLoadingView : UIViewController?
+    static internal var viewDetailsMemento : ViewDetailsMemento?
     
     internal static var firstViewControllerPushed = false
     private var rootViewController : UIViewController?
     
     public init(checkoutPreference : CheckoutPreference, navigationController : UINavigationController) {
         viewModel = MercadoPagoCheckoutViewModel(checkoutPreference: checkoutPreference)
-
-        self.navigationController = navigationController
-    
-        if self.navigationController.viewControllers.count > 0 {
-            viewControllerBase = self.navigationController.viewControllers[0]
-        }
+        super.init()
+        self.initCommon(navigationController: navigationController)
     }
     
     public init(checkoutPreference : CheckoutPreference, paymentData : PaymentData, navigationController : UINavigationController) {
         viewModel = MercadoPagoCheckoutViewModel(checkoutPreference : checkoutPreference, paymentData: paymentData)
-        
-        self.navigationController = navigationController
-        
-        if self.navigationController.viewControllers.count > 0 {
-            viewControllerBase = self.navigationController.viewControllers[0]
-        }
+        super.init()
+        self.initCommon(navigationController: navigationController)
     }
     
     public init(checkoutPreference : CheckoutPreference, paymentData : PaymentData, navigationController : UINavigationController, paymentResult: PaymentResult) {
         viewModel = MercadoPagoCheckoutViewModel(checkoutPreference : checkoutPreference, paymentData: paymentData, paymentResult: paymentResult)
+        super.init()
+        self.initCommon(navigationController: navigationController)
         
+    }
+    
+    public func initCommon(navigationController : UINavigationController){
         self.navigationController = navigationController
         
         if self.navigationController.viewControllers.count > 0 {
             viewControllerBase = self.navigationController.viewControllers[0]
+            MercadoPagoCheckout.viewDetailsMemento = ViewDetailsMemento()
+            MercadoPagoCheckout.viewDetailsMemento!.saveDetails(navigationController: self.navigationController)
         }
     }
     
@@ -320,8 +320,11 @@ open class MercadoPagoCheckout: NSObject {
         ReviewScreenPreference.clear()
         PaymentResultScreenPreference.clear()
         if let rootViewController = viewControllerBase {
-            self.navigationController.popToViewController(rootViewController, animated: true)
-            self.navigationController.setNavigationBarHidden(false, animated: false)
+          //  self.navigationController.popToViewController(rootViewController, animated: true)
+            //self.navigationController.setNavigationBarHidden(false, animated: false)
+            MercadoPagoCheckout.viewDetailsMemento!.recoverDetails(navigationController: self.navigationController)
+            self.navigationController.navigationBar.barTintColor = UIColor.cyan
+            self.navigationController.navigationBar.tintColor = UIColor.cyan
         } else {
             self.navigationController.dismiss(animated: true, completion: { 
                 // --- Nothing
@@ -379,4 +382,6 @@ open class MercadoPagoCheckout: NSObject {
         }
         self.navigationController.viewControllers = currentViewControllers
     }
+    
+    
 }

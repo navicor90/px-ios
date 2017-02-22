@@ -33,6 +33,8 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
     var lastDefaultFontButton : String?
     var timerLabel : MPLabel?
     
+    
+    
     override open func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
@@ -99,7 +101,6 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
             if let fontChosed = UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: 18) {
                 titleDict = [NSForegroundColorAttributeName: MercadoPagoContext.getDecorationPreference().getFontColor(), NSFontAttributeName:fontChosed]
             }
-            
             
             if self.navigationController != nil {
                 if titleDict.count > 0 {
@@ -289,20 +290,20 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
     func showNavBar() {
         
         if navigationController != nil {
-            self.title = self.getNavigationBarTitle()
-            self.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-            self.navigationController?.navigationBar.shadowImage = nil
-            self.navigationController?.navigationBar.tintColor = navBarBackgroundColor
-            self.navigationController?.navigationBar.backgroundColor = navBarBackgroundColor
-            self.navigationController?.navigationBar.isTranslucent = false
-            
-            if self.shouldDisplayBackButton {
-                self.displayBackButton()
-            }
-            
-            let font : UIFont = Utils.getFont(size: navBarFontSize)
-            let titleDict: NSDictionary = [NSForegroundColorAttributeName: self.navBarTextColor, NSFontAttributeName: font]
-            self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
+//            self.title = self.getNavigationBarTitle()
+//            self.navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
+//            self.navigationController?.navigationBar.shadowImage = nil
+//            self.navigationController?.navigationBar.tintColor = navBarBackgroundColor
+//            self.navigationController?.navigationBar.backgroundColor = navBarBackgroundColor
+//            self.navigationController?.navigationBar.isTranslucent = false
+//            
+//            if self.shouldDisplayBackButton {
+//                self.displayBackButton()
+//            }
+//            
+//            let font : UIFont = Utils.getFont(size: navBarFontSize)
+//            let titleDict: NSDictionary = [NSForegroundColorAttributeName: self.navBarTextColor, NSFontAttributeName: font]
+//            self.navigationController?.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
         }
         
     }
@@ -311,21 +312,21 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
         if navigationController != nil {
             self.title = ""
         
-            navigationController?.navigationBar.titleTextAttributes = nil
-            
-            self.navigationController?.navigationBar.removeBottomLine()
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            self.navigationController!.navigationBar.backgroundColor =  UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-            self.navigationController?.navigationBar.isTranslucent = true
-            
-            if self.shouldDisplayBackButton {
-                self.displayBackButton()
-            }
-            
-            if self.hideNavBarCallback != nil {
-                hideNavBarCallback!()
-            }
+//            navigationController?.navigationBar.titleTextAttributes = nil
+//            
+//            self.navigationController?.navigationBar.removeBottomLine()
+//            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//            self.navigationController?.navigationBar.shadowImage = UIImage()
+//            self.navigationController!.navigationBar.backgroundColor =  UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+//            self.navigationController?.navigationBar.isTranslucent = true
+//            
+//            if self.shouldDisplayBackButton {
+//                self.displayBackButton()
+//            }
+//            
+//            if self.hideNavBarCallback != nil {
+//                hideNavBarCallback!()
+//            }
         }
     }
     
