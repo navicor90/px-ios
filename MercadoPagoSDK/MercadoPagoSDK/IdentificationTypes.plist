@@ -2,6 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>defaultMask</key>
+	<dict>
+		<key>identification_mask</key>
+		<string></string>
+		<key>edit_text_mask</key>
+		<string></string>
+	</dict>
+	<key>defaultInitialMask</key>
+	<dict>
+		<key>identification_mask</key>
+		<string></string>
+		<key>edit_text_mask</key>
+		<string></string>
+	</dict>
+	<key>defaultEditingMask</key>
+	<dict>
+		<key>identification_mask</key>
+		<string></string>
+		<key>edit_text_mask</key>
+		<string></string>
+	</dict>
 	<key>MLA</key>
 	<dict>
 		<key>identification_mask</key>
@@ -12,37 +33,37 @@
 	<key>MLA_DNI</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XX.XXX.XXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XX.XXX.XXX</string>
 	</dict>
 	<key>MLA_CI</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 	</dict>
 	<key>MLA_LC</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXX</string>
 	</dict>
 	<key>MLA_LE</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXX</string>
 	</dict>
 	<key>MLA_Otro</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 	</dict>
 	<key>MPE</key>
 	<dict>
@@ -54,23 +75,23 @@
 	<key>MPE_DNI</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXX</string>
 	</dict>
 	<key>MPE_C.E</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXX</string>
 	</dict>
 	<key>MPE_RUC</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXX</string>
 	</dict>
 	<key>MLU</key>
 	<dict>
@@ -82,16 +103,16 @@
 	<key>MLU_CI</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>X.XXX.XXX-X</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>X.XXX.XXX-X</string>
 	</dict>
 	<key>MLU_Otro</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 	</dict>
 	<key>MCO</key>
 	<dict>
@@ -103,30 +124,30 @@
 	<key>MCO_CC</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 	</dict>
 	<key>MCO_CE</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 	</dict>
 	<key>MCO_NIT</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 	</dict>
 	<key>MCO_Otro</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 	</dict>
 	<key>MLV</key>
 	<dict>
@@ -138,58 +159,58 @@
 	<key>MLV_CI-V</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 	</dict>
 	<key>MLV_CI-E</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 	</dict>
 	<key>MLV_RIF-J</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 	</dict>
 	<key>MLV_RIF-P</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 	</dict>
 	<key>MLV_RIF-V</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 	</dict>
 	<key>MLV_RIF-E</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 	</dict>
 	<key>MLV_RIF-G</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXX</string>
 	</dict>
 	<key>MLV_Pasaporte</key>
 	<dict>
 		<key>identification_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 		<key>edit_text_mask</key>
-		<string></string>
+		<string>XXXXXXXXXXXXXXXXXXXX</string>
 	</dict>
 	<key>MLB_CPF</key>
 	<dict>

@@ -22,10 +22,14 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     var callback : (( Identification) -> Void)?
     var identificationTypes : [IdentificationType]?
     var identificationType : IdentificationType?
-    var initialMask = TextMaskFormater(mask: "XXX.XXX.XXX", completeEmptySpaces: true,leftToRight: false)
+    
+    //identification Masks
+    var identificationMask = TextMaskFormater(mask: "XXXXXXXXXXXXX",completeEmptySpaces: false,leftToRight: false)
+    
+    var defaultInitialMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX", completeEmptySpaces: true,leftToRight: false)
     var defaultMask = TextMaskFormater(mask: "XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX.XXX", completeEmptySpaces: false,leftToRight: false)
-    var indentificationMask = TextMaskFormater(mask: "XXX.XXX.XXX",completeEmptySpaces: false,leftToRight: false)
-    var editTextMask = TextMaskFormater(mask: "XXXXXXXXXXXXXXXXXXXX",completeEmptySpaces: false,leftToRight: false)
+    var defaultEditTextMask = TextMaskFormater(mask: "XXXXXXXXXXXXXXXXXXXX",completeEmptySpaces: false,leftToRight: false)
+    
     
     var toolbar : UIToolbar?
     
@@ -102,7 +106,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
-            self.remask(charactersCount: (textField.text?.characters.count)!)
+        self.remask()
     }
 
     open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -111,12 +115,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     }
     
     open func editingChanged(_ textField:UITextField) {
-          hideErrorMessage()
-       
-         numberDocLabel.text = indentificationMask.textMasked(editTextMask.textUnmasked(textField.text))
-         textField.text = editTextMask.textMasked(textField.text,remasked: true)
-    
-        
+        hideErrorMessage()
+        numberDocLabel.text = identificationMask.textMasked(defaultEditTextMask.textUnmasked(textField.text))
+        textField.text = defaultEditTextMask.textMasked(textField.text,remasked: true)
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -156,8 +157,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         tipoDeDocumentoLabel = identificationCard?.tipoDeDocumentoLabel
         numberDocLabel = identificationCard?.numberDocLabel
 
-        indentificationMask = defaultMask
-        numberDocLabel.text = initialMask.textMasked("")
+        
         self.tipoDeDocumentoLabel.text =  "DOCUMENTO DEL TITULAR DE LA TARJETA".localized
         self.numberTextField.placeholder = "Número".localized
         self.textField.placeholder = "Tipo".localized
@@ -232,8 +232,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     //    typeButton.setTitle( self.identificationTypes![row].name, forState: .Normal)
         textField.text = self.identificationTypes![row].name
         typePicker.isHidden = true;
-        self.remask()
         self.numberTextField.text = ""
+        self.remask()
+
 
     }
     
@@ -282,9 +283,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     }
 
     func rightArrowKeyTapped(){
-        let idnt = Identification(type: self.identificationType?._id , number: editTextMask.textUnmasked(numberTextField.text))
+        let idnt = Identification(type: self.identificationType?._id , number: defaultEditTextMask.textUnmasked(numberTextField.text))
         
-        let cardToken = CardToken(cardNumber: "", expirationMonth: 10, expirationYear: 10, securityCode: "", cardholderName: "", docType: (self.identificationType?.type)!, docNumber:  editTextMask.textUnmasked(numberTextField.text))
+        let cardToken = CardToken(cardNumber: "", expirationMonth: 10, expirationYear: 10, securityCode: "", cardholderName: "", docType: (self.identificationType?.type)!, docNumber:  defaultEditTextMask.textUnmasked(numberTextField.text))
 
         if ((cardToken.validateIdentificationNumber(self.identificationType)) == nil){
             self.numberTextField.resignFirstResponder()
@@ -356,47 +357,64 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         })
     }
     
-    fileprivate func getIdMask(IDtype: String)-> TextMaskFormater{
+    fileprivate func getIdMask(IDtype: String)-> [TextMaskFormater]{
         let path = MercadoPago.getBundle()!.path(forResource: "IdentificationTypes", ofType: "plist")
         let dictID = NSDictionary(contentsOfFile: path!)
         let site = MercadoPagoContext.getSite()
         
         if let idConfig = dictID?.value(forKey: (site+"_"+(identificationType?._id!)!)) as? NSDictionary{
             if let etMask = idConfig.value(forKey: "identification_mask") as? String, etMask != ""{
-                let mask = TextMaskFormater(mask: etMask,completeEmptySpaces: false,leftToRight: true)
-                return(mask)
+                let customInitialMask = TextMaskFormater(mask: etMask,completeEmptySpaces: true,leftToRight: true)
+                let customMask = TextMaskFormater(mask: etMask,completeEmptySpaces: false,leftToRight: true)
+                return[customInitialMask,customMask]
             }else if let idConfig = dictID?.value(forKey: (site)) as? NSDictionary{
                 if let etMask = idConfig.value(forKey: "identification_mask") as? String, etMask != ""{
-                    let mask = TextMaskFormater(mask: etMask,completeEmptySpaces: false,leftToRight: true)
-                    return(mask)
+                    let customInitialMask = TextMaskFormater(mask: etMask,completeEmptySpaces: true,leftToRight: true)
+                    let customMask = TextMaskFormater(mask: etMask,completeEmptySpaces: false,leftToRight: true)
+                    return[customInitialMask,customMask]
                 }else{
-                    return defaultMask
+                    return [defaultInitialMask,defaultMask]
                 }
             }
         }else if let idConfig = dictID?.value(forKey: (site)) as? NSDictionary{
             if let etMask = idConfig.value(forKey: "identification_mask") as? String, etMask != ""{
-                let mask = TextMaskFormater(mask: etMask,completeEmptySpaces: false,leftToRight: true)
-                return(mask)
+                let customInitialMask = TextMaskFormater(mask: etMask,completeEmptySpaces: true,leftToRight: true)
+                let customMask = TextMaskFormater(mask: etMask,completeEmptySpaces: false,leftToRight: true)
+                return[customInitialMask,customMask]
             }else{
-                return defaultMask
+                return [defaultInitialMask,defaultMask]
             }
-        
         }
-        return defaultMask
+        return [defaultInitialMask,defaultMask]
     }
 
     
     
-    fileprivate func remask(charactersCount: Int = 0){
+    fileprivate func remask(){
         
-        if charactersCount >= 1{
-            if let IDtype = identificationType?._id{
-                let mask = getIdMask(IDtype: IDtype)
-                self.indentificationMask = mask
+        let charactersCount = numberTextField.text?.characters.count
+        
+        if let IDtype = identificationType?._id{
+            let masks = getIdMask(IDtype: IDtype)
+            
+            if charactersCount! >= 1{
+                let identificationMask = masks[1]
+                numberTextField.text = defaultEditTextMask.textMasked(numberTextField.text,remasked: true)
+                self.numberDocLabel.text = identificationMask.textMasked(defaultEditTextMask.textUnmasked(numberTextField.text))
+            } else {
+                let identificationMask = masks[0]
+                self.numberDocLabel.text = identificationMask.textMasked("")
             }
+            
         }else{
-            self.indentificationMask = initialMask
-            self.numberDocLabel.text = indentificationMask.textMasked("")
+            
+            if charactersCount! >= 1{
+                numberTextField.text = defaultEditTextMask.textMasked(numberTextField.text,remasked: true)
+                self.numberDocLabel.text = defaultMask.textMasked(defaultEditTextMask.textUnmasked(numberTextField.text))
+            }else if charactersCount == 0{
+                numberTextField.text = defaultEditTextMask.textMasked(numberTextField.text,remasked: true)
+                self.numberDocLabel.text = defaultInitialMask.textMasked("")
+            }
         }
         
         
