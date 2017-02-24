@@ -35,7 +35,7 @@ class PayerCostCardTableViewCell: UITableViewCell {
         cardView.addSubview(cardFront!)
         self.cell.backgroundColor = UIColor.primaryColor()
     }
-    func updateCardSkin(token: CardInformationForm?, paymentMethod: PaymentMethod?) {
+    func updateCardSkin(token: CardInformationForm?, paymentMethod: PaymentMethod?, cardInformation: CardInformation?) {
         
         if let paymentMethod = paymentMethod{
             
@@ -47,6 +47,9 @@ class PayerCostCardTableViewCell: UITableViewCell {
           //  cardFront?.cardNumber.text =  "•••• •••• •••• " + (token.getCardLastForDigits())!
                 let mask = TextMaskFormater(mask: paymentMethod.getLabelMask(), completeEmptySpaces: true, leftToRight: false)
                 cardFront?.cardNumber.text = mask.textMasked(token.getCardLastForDigits())
+            } else if let cardInformation = cardInformation {
+                let mask = TextMaskFormater(mask: paymentMethod.getLabelMask(), completeEmptySpaces: true, leftToRight: false)
+                cardFront?.cardNumber.text = mask.textMasked(cardInformation.getCardLastForDigits())
             }
             
             cardFront?.cardName.text = ""
