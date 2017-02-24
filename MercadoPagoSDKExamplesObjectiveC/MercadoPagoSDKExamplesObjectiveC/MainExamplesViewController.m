@@ -61,8 +61,11 @@
     
     PaymentPreference *paymentExclusions = [[PaymentPreference alloc] init];
     paymentExclusions.excludedPaymentTypeIds = [NSSet setWithObjects:@"atm", @"ticket", nil];
+    paymentExclusions.defaultInstallments = 1;
     
     self.pref = [[CheckoutPreference alloc] initWithItems:items payer:payer paymentMethods:nil];
+    
+    self.pref.paymentPreference = paymentExclusions;
     
     
     // Setear celdas custom para RyC
@@ -186,7 +189,7 @@
     CheckoutPreference * pref = [[CheckoutPreference alloc] initWith_id: @"150216849-68645cbb-dfe6-4410-bfd6-6e5aa33d8a33"];
     //    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:pref paymentData:pd navigationController:self.navigationController] getRootViewController];
     
-    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:pref navigationController:self.navigationController] getRootViewController];
+    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference: self.pref navigationController:self.navigationController] getRootViewController];
     //NSLog(vc);
     
     
