@@ -135,7 +135,7 @@ open class InstructionsRevampViewController: MercadoPagoUIViewController, UITabl
     fileprivate func getInstructions(){
         if let paymentId = paymentResult._id,
             let paymentTypeId = self.paymentResult.paymentData?.paymentMethod.paymentTypeId {
-            MPServicesBuilder.getInstructions(for: paymentId, paymentTypeId : paymentTypeId, success: { (instructionsInfo : InstructionsInfo) -> Void in
+            MPServicesBuilder.getInstructions(for: paymentId, paymentTypeId : paymentTypeId, baseURL:MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(), success: { (instructionsInfo : InstructionsInfo) -> Void in
                 self.instructionsInfo = instructionsInfo
                 self.tableView.reloadData()
                 self.hideLoading()

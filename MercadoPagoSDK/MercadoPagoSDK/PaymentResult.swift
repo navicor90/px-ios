@@ -11,35 +11,25 @@ open class PaymentResult: NSObject {
     open var paymentData: PaymentData?
     open var status: String
     open var statusDetail: String
-    open var currencyId: String?
     open var payerEmail: String?
     open var _id: String?
-    open var amount: Double?
     open var statementDescription: String?
     
-    public init (payment: Payment, paymentData: PaymentData?){
+    public init (payment: Payment, paymentData: PaymentData){
         self.status = payment.status
         self.statusDetail = payment.statusDetail
         self.paymentData = paymentData
-        self.currencyId = payment.currencyId
         self._id = payment._id
-        self.amount = payment.transactionAmount
         self.payerEmail = payment.payer.email
         self.statementDescription = payment.statementDescriptor
     }
     
-    public init (status: String, statusDetail: String, paymentData: PaymentData?, siteId: String, payerEmail:String?, id: String?, amount: Double = 0, statementDescription: String?) {
-        
-        MercadoPagoContext.setSiteID(siteId)
+    public init (status: String, statusDetail: String, paymentData: PaymentData, payerEmail:String?, id: String?, statementDescription: String?) {
         self.status = status
         self.statusDetail = statusDetail
         self.paymentData = paymentData
-        self.currencyId = MercadoPagoContext.getCurrency()._id
         self.payerEmail = payerEmail
         self._id = id
-        if amount != 0 {
-            self.amount = amount
-        }
         self.statementDescription = statementDescription
     }
 }

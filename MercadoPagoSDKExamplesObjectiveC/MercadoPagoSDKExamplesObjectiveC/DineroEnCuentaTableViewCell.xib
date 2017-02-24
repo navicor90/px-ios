@@ -20,35 +20,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tambien Programaste esta recarga para el 15 de cada mes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ni4-ir-WsY">
-                        <rect key="frame" x="32" y="28" width="305" height="38.5"/>
+                        <rect key="frame" x="32" y="28" width="305" height="145"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qne-hB-CBq">
-                        <rect key="frame" x="48" y="146.5" width="273" height="30"/>
-                        <color key="backgroundColor" red="0.0" green="0.61960784310000006" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <state key="normal" title="Hacer otra recarga">
-                            <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.89019607840000003" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="6"/>
-                        </userDefinedRuntimeAttributes>
-                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ni4-ir-WsY" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="6sD-o7-99U"/>
-                    <constraint firstItem="Qne-hB-CBq" firstAttribute="top" secondItem="Ni4-ir-WsY" secondAttribute="bottom" constant="80" id="ZFy-0N-jQx"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Ni4-ir-WsY" secondAttribute="bottom" constant="50" id="9r9-hM-vaK"/>
                     <constraint firstItem="Ni4-ir-WsY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="24" id="afW-5B-BRz"/>
-                    <constraint firstItem="Qne-hB-CBq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="40" id="cwZ-pj-3oX"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Qne-hB-CBq" secondAttribute="trailing" constant="40" id="j4m-DM-WoJ"/>
                     <constraint firstItem="Ni4-ir-WsY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="20" id="mHK-PU-5Gg"/>
-                    <constraint firstItem="Qne-hB-CBq" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="tPG-Dg-C7n"/>
                 </constraints>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="button" destination="Qne-hB-CBq" id="nlS-dw-nlh"/>
-            </connections>
             <point key="canvasLocation" x="9.5" y="197.5"/>
         </tableViewCell>
     </objects>

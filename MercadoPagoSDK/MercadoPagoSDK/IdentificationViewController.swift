@@ -50,9 +50,9 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     override func loadMPStyles(){
         var titleDict : NSDictionary = [:]
         if self.navigationController != nil {
-            if let font = UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: 18){
-                titleDict = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: font]
-            }
+            let font = Utils.getFont(size: 18)
+            titleDict = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName: font]
+            
             if self.navigationController != nil {
                 self.navigationController!.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
                 self.navigationItem.hidesBackButton = true
@@ -79,9 +79,8 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
         let doneButton = UIBarButtonItem(title: "OK".localized, style: .plain, target: self, action: #selector(IdentificationViewController.donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         
-        if let font = UIFont(name:MercadoPagoContext.getDecorationPreference().getFontName(), size: 14) {
-            doneButton.setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
-          }
+        let font = Utils.getFont(size: 14)
+        doneButton.setTitleTextAttributes([NSFontAttributeName: font], for: UIControlState())
 
         toolBar.setItems([spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -333,7 +332,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     
     fileprivate func getIdentificationTypes(){
         doneNext?.isEnabled = false
-        MPServicesBuilder.getIdentificationTypes({ (identificationTypes) -> Void in
+        MPServicesBuilder.getIdentificationTypes(baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(), { (identificationTypes) -> Void in
             self.hideLoading()
             self.doneNext?.isEnabled = true
             self.identificationTypes = identificationTypes

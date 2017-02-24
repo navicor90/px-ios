@@ -21,7 +21,7 @@ import UIKit
         return "public_key"
     }
     open class var PRIVATE_KEY : String {
-        return "private_key"
+        return "access_token"
     }
     
     open class var ERROR_KEY_CODE : Int {
@@ -87,148 +87,6 @@ import UIKit
         }
     }
     
-
-    open func createNewCardToken(_ cardToken : CardToken, success: @escaping (_ token : Token?) -> Void, failure: ((_ error: NSError) -> Void)?) {
-        
-        if self.publicKey() != nil {
-            cardToken.device = Device()
-            let service : GatewayService = GatewayService(baseURL: ServicePreference.MP_API_BASE_URL)
-            service.getToken(public_key: self.publicKey(), cardToken: cardToken, success: {(jsonResult: AnyObject?) -> Void in
-                var token : Token? = nil
-                if let tokenDic = jsonResult as? NSDictionary {
-                    if tokenDic["error"] == nil {
-                        token = Token.fromJSON(tokenDic)
-                        success(token)
-                    } else {
-                        if failure != nil {
-                            failure!(NSError(domain: "mercadopago.sdk.createNewCardToken", code: MercadoPago.ERROR_API_CODE, userInfo: tokenDic as! [AnyHashable: AnyObject]))
-                        }
-                    }
-                }
-                }, failure: failure)
-        } else {
-            if failure != nil {
-                failure!(NSError(domain: "mercadopago.sdk.createNewCardToken", code: MercadoPago.ERROR_KEY_CODE, userInfo: ["message": "Unsupported key type for this method"]))
-            }
-        }
-    }
-    
-    open func createToken(_ savedCardToken : SavedCardToken, success: @escaping (_ token : Token?) -> Void, failure: ((_ error: NSError) -> Void)?) {
-        
-        if self.publicKey() != nil {
-            savedCardToken.device = Device()
-            
-            let service : GatewayService = GatewayService(baseURL: ServicePreference.MP_API_BASE_URL)
-            service.getToken(public_key: self.publicKey(), savedCardToken: savedCardToken, success: {(jsonResult: AnyObject?) -> Void in
-                var token : Token? = nil
-                if let tokenDic = jsonResult as? NSDictionary {
-                    if tokenDic["error"] == nil {
-                        token = Token.fromJSON(tokenDic)
-                        success(token)
-                    } else {
-                        if failure != nil {
-                            failure!(NSError(domain: "mercadopago.sdk.createToken", code: MercadoPago.ERROR_API_CODE, userInfo: tokenDic as! [AnyHashable: AnyObject]))
-                        }
-                    }
-                }
-                }, failure: failure)
-        } else {
-            if failure != nil {
-                failure!(NSError(domain: "mercadopago.sdk.createToken", code: MercadoPago.ERROR_KEY_CODE, userInfo: ["message": "Unsupported key type for this method"]))
-            }
-        }
-    }
-    
-    open func getIdentificationTypes(_ success: @escaping (_ identificationTypes: [IdentificationType]?) -> Void, failure: ((_ error: NSError) -> Void)?) {
-        
-        if self.publicKey() != nil {
-            let service : IdentificationService = IdentificationService(baseURL: ServicePreference.MP_API_BASE_URL)
-            service.getIdentificationTypes(public_key: self.publicKey(), success: {(jsonResult: AnyObject?) -> Void in
-                
-                if let error = jsonResult as? NSDictionary {
-                    if (error["status"]! as? Int) == 404 {
-                        if failure != nil {
-                            failure!(NSError(domain: "mercadopago.sdk.getIdentificationTypes", code: MercadoPago.ERROR_API_CODE, userInfo: error as! [AnyHashable: AnyObject]))
-                        }
-                    }
-                } else {
-                    let identificationTypesResult = jsonResult as? NSArray?
-                    var identificationTypes : [IdentificationType] = [IdentificationType]()
-                    if identificationTypesResult != nil {
-                        for i in 0 ..< identificationTypesResult!!.count {
-                            if let identificationTypeDic = identificationTypesResult!![i] as? NSDictionary {
-                                identificationTypes.append(IdentificationType.fromJSON(identificationTypeDic))
-                            }
-                        }
-                    }
-                    success(identificationTypes)
-                }
-                }, failure: failure)
-        } else {
-            if failure != nil {
-                failure!(NSError(domain: "mercadopago.sdk.getIdentificationTypes", code: MercadoPago.ERROR_KEY_CODE, userInfo: ["message": "Unsupported key type for this method"]))
-            }
-        }
-    }
-    
-    @available(*, deprecated: 2.0)
-    open func getInstallments(_ bin: String, amount: Double, issuerId: NSNumber?, paymentTypeId: String, success: @escaping (_ installments: [Installment]?) -> Void, failure: @escaping ((_ error: NSError) -> Void)) {
-        
-        if self.publicKey() != nil {
-            let service : PaymentService = PaymentService(baseURL: ServicePreference.MP_API_BASE_URL)
-             service.getInstallments(public_key: self.publicKey(), bin: bin, amount: amount, issuer_id: issuerId, payment_method_id: paymentTypeId, success: success, failure: failure)
-        
-        }
-    }
-    
-    open func getIssuers(_ paymentMethodId : String, success: @escaping (_ issuers: [Issuer]?) -> Void, failure: ((_ error: NSError) -> Void)?) {
-        
-        if self.publicKey() != nil {
-            let service : PaymentService = PaymentService(baseURL: ServicePreference.MP_API_BASE_URL)
-            service.getIssuers(public_key: self.publicKey()!, payment_method_id: paymentMethodId, success: {(jsonResult: AnyObject?) -> Void in
-                if let errorDic = jsonResult as? NSDictionary {
-                    if errorDic["error"] != nil {
-                        if failure != nil {
-                            failure!(NSError(domain: "mercadopago.sdk.getIssuers", code: MercadoPago.ERROR_API_CODE, userInfo: errorDic as! [AnyHashable: AnyObject]))
-                        }
-                    }
-                } else {
-                    let issuersArray = jsonResult as? NSArray
-                    var issuers : [Issuer] = [Issuer]()
-                    if issuersArray != nil {
-                        for i in 0..<issuersArray!.count {
-                            if let issuerDic = issuersArray![i] as? NSDictionary {
-                                issuers.append(Issuer.fromJSON(issuerDic))
-                            }
-                        }
-                    }
-                    success(issuers)
-                }
-                }, failure: failure)
-        } else {
-            if failure != nil {
-                failure!(NSError(domain: "mercadopago.sdk.getIssuers", code: MercadoPago.ERROR_KEY_CODE, userInfo: ["message": "Unsupported key type for this method"]))
-            }
-        }
-    }
-    
-    open func getPromos(_ success: @escaping (_ promos: [Promo]?) -> Void, failure: ((_ error: NSError) -> Void)?) {
-        // TODO: Está hecho para MLA fijo porque va a cambiar la URL para que dependa de una API y una public key
-        let service : PromosService = PromosService(baseURL: ServicePreference.MP_API_BASE_URL)
-        service.getPromos(public_key: self.publicKey()!, success: { (jsonResult) -> Void in
-            let promosArray = jsonResult as? NSArray?
-            var promos : [Promo] = [Promo]()
-            if promosArray != nil {
-                for i in 0 ..< promosArray!!.count {
-                    if let promoDic = promosArray!![i] as? NSDictionary {
-                        promos.append(Promo.fromJSON(promoDic))
-                    }
-                }
-            }
-            success(promos)
-            }, failure: failure)
-        
-    }
     
     open class func isCardPaymentType(_ paymentTypeId: String) -> Bool {
         if paymentTypeId == "credit_card" || paymentTypeId == "debit_card" || paymentTypeId == "prepaid_card" {
@@ -304,12 +162,14 @@ import UIKit
         
     }
     
-    open class func getImageForPaymentMethod(withDescription : String) -> UIImage?{
+    open class func getImageForPaymentMethod(withDescription : String, defaultColor : Bool = false) -> UIImage?{
         let path = MercadoPago.getBundle()!.path(forResource: "PaymentMethodSearch", ofType: "plist")
         let dictPM = NSDictionary(contentsOfFile: path!)
         var description = withDescription
         
-        if PaymentType.allPaymentIDs.contains(description) || description == "cards" {
+        if defaultColor {
+            description = description+"Azul"
+        } else if (PaymentType.allPaymentIDs.contains(description) || description == "cards") {
             description = UIColor.primaryColor() == UIColor.px_blueMercadoPago() ? description+"Azul" : description
         }
         

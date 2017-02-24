@@ -39,6 +39,9 @@ open class ServicePreference : NSObject{
     
     private var useDefaultPaymentSettings = true
     
+    var baseURL: String = MP_API_BASE_URL
+    var gatewayURL: String?
+    
     public func setGetCustomer(baseURL: String, URI: String , additionalInfo: [String:String] = [:]) {
         customerURL = baseURL
         customerURI = URI
@@ -62,6 +65,22 @@ open class ServicePreference : NSObject{
         paymentAdditionalInfo = additionalInfo
     }
     
+    public func setDefaultBaseURL(baseURL: String) {
+        self.baseURL = baseURL
+    }
+    
+    public func setGatewayURL(gatewayURL: String) {
+        self.gatewayURL = gatewayURL
+    }
+    
+    public func getDefaultBaseURL() -> String {
+        return baseURL
+    }
+    
+    public func getGatewayURL() -> String {
+        return gatewayURL ?? baseURL
+    }
+    
     public func getCustomerURL() -> String? {
         return customerURL
     }
@@ -81,7 +100,10 @@ open class ServicePreference : NSObject{
         return ""
     }
     
-    public func getPaymentURL() -> String{
+    public func getPaymentURL() -> String {
+        if paymentURL == ServicePreference.MP_API_BASE_URL && baseURL != ServicePreference.MP_API_BASE_URL {
+            return baseURL
+        }
         return paymentURL
     }
     

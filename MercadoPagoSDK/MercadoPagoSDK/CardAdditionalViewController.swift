@@ -233,7 +233,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
     
     fileprivate func getInstallments(){
         let bin = self.viewModel.token?.getCardBin() ?? ""
-        MPServicesBuilder.getInstallments(bin, amount: self.viewModel.amount, issuer: self.viewModel.issuer, paymentMethodId: self.viewModel.paymentMethods[0]._id, success: { (installments) -> Void in
+        MPServicesBuilder.getInstallments(bin, amount: self.viewModel.amount, issuer: self.viewModel.issuer, paymentMethodId: self.viewModel.paymentMethods[0]._id, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(),success: { (installments) -> Void in
             self.viewModel.installment = installments?[0]
             self.viewModel.payerCosts = installments![0].payerCosts
             self.tableView.reloadData()
@@ -243,7 +243,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
         }
     }
     fileprivate func getIssuers(){
-        MPServicesBuilder.getIssuers(self.viewModel.paymentMethods[0], bin: self.viewModel.token?.getCardBin(), success: { (issuers) -> Void in
+        MPServicesBuilder.getIssuers(self.viewModel.paymentMethods[0], bin: self.viewModel.token?.getCardBin(), baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(), success: { (issuers) -> Void in
             self.viewModel.issuersList = issuers
             if issuers.count == 1 {
                 self.viewModel.callbackIssuer!(issuers[0])

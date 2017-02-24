@@ -23,20 +23,20 @@
 
     
     
-   
-    [MPServicesBuilder getPaymentMethods:^(NSArray<PaymentMethod *> *paymentMethods) {
-        self.mediosOffArray = [[NSMutableArray alloc]init];
-        
-        [paymentMethods enumerateObjectsUsingBlock:^(PaymentMethod * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(obj.paymentTypeId);
-            if (![conjunto containsObject:obj.paymentTypeId]){
-                [self.mediosOffArray addObject:obj];
-            }
-        }];
-        [[self tableView] reloadData];
-    } failure:^(NSError *error) {
-        
-    }];
+//   
+//    [MPServicesBuilder getPaymentMethods:^(NSArray<PaymentMethod *> *paymentMethods) {
+//        self.mediosOffArray = [[NSMutableArray alloc]init];
+//        
+//        [paymentMethods enumerateObjectsUsingBlock:^(PaymentMethod * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            NSLog(obj.paymentTypeId);
+//            if (![conjunto containsObject:obj.paymentTypeId]){
+//                [self.mediosOffArray addObject:obj];
+//            }
+//        }];
+//        [[self tableView] reloadData];
+//    } failure:^(NSError *error) {
+//        
+//    }];
     
 }
 

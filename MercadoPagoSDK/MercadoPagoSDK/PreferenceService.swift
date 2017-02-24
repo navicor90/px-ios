@@ -12,9 +12,9 @@ open class PreferenceService: MercadoPagoService {
     
     fileprivate var MP_PREFERENCE_URI = ServicePreference.MP_ENVIROMENT + "/preferences/"
     
-    override init(){
-        super.init(baseURL: ServicePreference.MP_API_BASE_URL)
-    }
+//    override init(){
+//        super.init(baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL())
+//    }
     
     internal func getPreference(_ preferenceId : String, success : @escaping (CheckoutPreference) -> Void, failure : @escaping ((_ error: NSError) -> Void)){
         let params = "public_key=" + MercadoPagoContext.publicKey() + "&api_version=" + ServicePreference.API_VERSION

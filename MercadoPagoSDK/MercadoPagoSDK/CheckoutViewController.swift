@@ -142,7 +142,8 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
             case 4:
                 return self.viewModel.numberOfCustomAdditionalCells()
             case 5:
-                return 3
+                // No mostrar TyC en caso de que se tenga AT
+                return (String.isNullOrEmpty(MercadoPagoContext.payerAccessToken())) ? 3 : 2
             default:
                 return 0
         }
@@ -181,9 +182,15 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         } else if viewModel.isFotterCellFor(indexPath: indexPath) {
             switch indexPath.row {
             case 0 :
-                return self.getTermsAndConditionsCell(indexPath: indexPath)
-            case 1 :
+                if String.isNullOrEmpty(MercadoPagoContext.payerAccessToken()) {
+                    return self.getTermsAndConditionsCell(indexPath: indexPath)
+                }
                 return self.getConfirmPaymentButtonCell(indexPath: indexPath)
+            case 1 :
+                if String.isNullOrEmpty(MercadoPagoContext.payerAccessToken()) {
+                    return self.getConfirmPaymentButtonCell(indexPath: indexPath)
+                }
+                return self.getCancelPaymentButtonCell(indexPath: indexPath)
             default :
                 return self.getCancelPaymentButtonCell(indexPath: indexPath)
             }
@@ -206,7 +213,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     }
  
     fileprivate func loadPreference() {
-        MPServicesBuilder.getPreference(self.preferenceId, success: { (preference) in
+        MPServicesBuilder.getPreference(self.preferenceId, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(), success: { (preference) in
                 if let error = preference.validate() {
                     // Invalid preference - cannot continue
                     let mpError =  MPSDKError(message: "Hubo un error".localized, messageDetail: error.localized, retry: false)
@@ -328,7 +335,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     private func getOnlinePaymentMethodSelectedCell(indexPath : IndexPath) ->UITableViewCell {
         let paymentMethodSelectedTableViewCell = self.checkoutTable.dequeueReusableCell(withIdentifier: "paymentMethodSelectedTableViewCell", for: indexPath) as! PaymentMethodSelectedTableViewCell
         
-        paymentMethodSelectedTableViewCell.fillCell(self.viewModel.paymentData.paymentMethod!, amount : self.viewModel.paymentData.payerCost!.totalAmount, payerCost : self.viewModel.paymentData.payerCost, lastFourDigits: self.viewModel.paymentData.token!.lastFourDigits)
+        paymentMethodSelectedTableViewCell.fillCell(self.viewModel.paymentData.paymentMethod!, amount : self.viewModel.getTotalAmmount(), payerCost : self.viewModel.paymentData.payerCost, lastFourDigits: self.viewModel.paymentData.token!.lastFourDigits)
         
         paymentMethodSelectedTableViewCell.selectOtherPaymentMethodButton.addTarget(self, action: #selector(changePaymentMethodSelected), for: .touchUpInside)
         return paymentMethodSelectedTableViewCell

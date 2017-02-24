@@ -30,12 +30,12 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 open class PaymentService : MercadoPagoService {
     
-    open func getPaymentMethods(_ method: String = "GET", uri : String = ServicePreference.MP_OP_ENVIROMENT + "/payment_methods", public_key : String, success: @escaping (_ jsonResult: AnyObject?) -> Void, failure: ((_ error: NSError) -> Void)?) {
-        self.request(uri: uri, params: "public_key=" + public_key, body: nil, method: method, success: success, failure: failure)
+    open func getPaymentMethods(_ method: String = "GET", uri : String = ServicePreference.MP_OP_ENVIROMENT + "/payment_methods", key : String, success: @escaping (_ jsonResult: AnyObject?) -> Void, failure: ((_ error: NSError) -> Void)?) {
+        self.request(uri: uri, params: MercadoPagoContext.keyType() + "=" + key, body: nil, method: method, success: success, failure: failure)
     }
 
-    open func getInstallments(_ method: String = "GET", uri : String = ServicePreference.MP_OP_ENVIROMENT + "/payment_methods/installments", public_key : String, bin : String?, amount: Double, issuer_id: NSNumber?, payment_method_id: String, success: @escaping ([Installment]) -> Void, failure: @escaping ((_ error: NSError) -> Void)) {
-        var params : String = "public_key=" + public_key
+    open func getInstallments(_ method: String = "GET", uri : String = ServicePreference.MP_OP_ENVIROMENT + "/payment_methods/installments", key : String, bin : String?, amount: Double, issuer_id: NSNumber?, payment_method_id: String, success: @escaping ([Installment]) -> Void, failure: @escaping ((_ error: NSError) -> Void)) {
+        var params : String = MercadoPagoContext.keyType() + "=" + key
         if(bin != nil){
                     params = params + "&bin=" + bin!
         }
@@ -71,11 +71,12 @@ open class PaymentService : MercadoPagoService {
         })
     }
     
-    open func getIssuers(_ method: String = "GET", uri : String = ServicePreference.MP_OP_ENVIROMENT + "/payment_methods/card_issuers", public_key : String, payment_method_id: String, bin: String? = nil, success:  @escaping (_ jsonResult: AnyObject?) -> Void, failure: ((_ error: NSError) -> Void)?) {
+    open func getIssuers(_ method: String = "GET", uri : String = ServicePreference.MP_OP_ENVIROMENT + "/payment_methods/card_issuers", key : String, payment_method_id: String, bin: String? = nil, success:  @escaping (_ jsonResult: AnyObject?) -> Void, failure: ((_ error: NSError) -> Void)?) {
+        let params = MercadoPagoContext.keyType() + "=" + key + "&payment_method_id=" + payment_method_id
         if(bin != nil){
-            self.request(uri: uri, params: "public_key=" + public_key + "&payment_method_id=" + payment_method_id + "&bin=" + bin!, body: nil, method: method, success: success, failure: failure)
-        }else{
-            self.request(uri: uri, params: "public_key=" + public_key + "&payment_method_id=" + payment_method_id, body: nil, method: method, success: success, failure: failure)
+            self.request(uri: uri, params: params + "&bin=" + bin!, body: nil, method: method, success: success, failure: failure)
+        } else {
+            self.request(uri: uri, params: params, body: nil, method: method, success: success, failure: failure)
         }
         
     }

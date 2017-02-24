@@ -11,7 +11,7 @@
 @implementation DineroEnCuentaTableViewCell
 
 -(CGFloat)getHeight {
-    return (CGFloat)210;
+    return (CGFloat)150;
 }
 
 @end

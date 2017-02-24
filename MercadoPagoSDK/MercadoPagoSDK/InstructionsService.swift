@@ -32,9 +32,9 @@ open class InstructionsService: MercadoPagoService {
 
     open let MP_INSTRUCTIONS_URI = ServicePreference.MP_ENVIROMENT + "/payments/${payment_id}/results"
     
-    public override init(){
-        super.init(baseURL: ServicePreference.MP_API_BASE_URL)
-    }
+//    public override init(){
+//        super.init(baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL())
+//    }
     
     @available(*, deprecated: 2.2.4, message: "Use getInstructions(_ paymentId : String, ...) instead. PaymentId can be greater than Int and might fail")
     open func getInstructions(_ paymentId : Int, paymentTypeId: String? = "", success : @escaping (_ instructionsInfo : InstructionsInfo) -> Void, failure: ((_ error: NSError) -> Void)?){

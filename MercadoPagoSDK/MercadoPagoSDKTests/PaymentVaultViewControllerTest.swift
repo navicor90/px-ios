@@ -618,7 +618,7 @@ class PaymentVaultViewModelTest: BaseTest {
     }
     
     func testShouldGetCustomerCardsInfo(){
-        
+
 //        XCTAssertFalse(instance!.shouldGetCustomerCardsInfo())
 //        
 //        MercadoPagoContext.setBaseURL("baseUrl")
@@ -709,16 +709,6 @@ class PaymentVaultViewModelTest: BaseTest {
         
     }
     
-    func testGetCustomerCardRowHeight() {
-        
-        var result = instance!.getCustomerCardRowHeight()
-        XCTAssertEqual(0, result)
-        
-        let cardMock = MockBuilder.buildCard()
-        instance!.customerPaymentOptions = [cardMock]
-        result = instance!.getCustomerCardRowHeight()
-        XCTAssertEqual(CustomerPaymentMethodCell.ROW_HEIGHT, result)
-    }
     
     func testGetExcludedPaymentTypeIds(){
         
@@ -989,7 +979,7 @@ class PaymentVaultViewModelTest: BaseTest {
      *  optionSelected() for credit_card
      */
     func testOptionSelectedNewCard(){
-        
+
 //        let currentNavigationController = UINavigationController()
 //        let cardPaymentMethodSearchitem = MockBuilder.buildPaymentMethodSearchItem("credit_card", type: PaymentMethodSearchItemType.PAYMENT_TYPE)
 //        instance!.optionSelected(cardPaymentMethodSearchitem, navigationController: currentNavigationController, cancelPaymentCallback: {})
@@ -997,8 +987,7 @@ class PaymentVaultViewModelTest: BaseTest {
 //        XCTAssertNotNil(currentNavigationController.viewControllers)
 //        XCTAssertTrue(currentNavigationController.viewControllers.count > 0)
 //        XCTAssertTrue(currentNavigationController.viewControllers[0] is CardFormViewController)
-//
-      
+
     }
     
     /**

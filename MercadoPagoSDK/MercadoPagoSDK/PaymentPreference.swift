@@ -44,6 +44,7 @@ open class PaymentPreference: NSObject {
     open var defaultPaymentMethodId : String?
     open var maxAcceptedInstallments : Int = 0
     open var defaultInstallments : Int = 0
+    var defaultPaymentTypeId:String?
     
     //installments = sea mayor a cero y que el defaults_istallment sea mayor a 0
     // excluded_payment_method < payment_methods
@@ -145,6 +146,11 @@ open class PaymentPreference: NSObject {
         if(defaultInstallments != nil){
             self.defaultInstallments = defaultInstallments!
         }
+        
+        if(defaultPaymentTypeId != nil){
+            self.defaultPaymentTypeId = defaultPaymentTypeId
+        }
+
        
         return self
     }

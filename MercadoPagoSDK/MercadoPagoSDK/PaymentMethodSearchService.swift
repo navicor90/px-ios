@@ -32,9 +32,9 @@ open class PaymentMethodSearchService: MercadoPagoService {
     
     open let MP_SEARCH_PAYMENTS_URI = ServicePreference.MP_ENVIROMENT + "/payment_methods/search/options"
     
-    public override init(){
-        super.init(baseURL: ServicePreference.MP_API_BASE_URL)
-    }
+//    public override init(){
+//        super.init(baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL())
+//    }
     
     open func getPaymentMethods(_ amount : Double, customerEmail : String? = nil, customerId : String? = nil, defaultPaymenMethodId : String?, excludedPaymentTypeIds : Set<String>?, excludedPaymentMethodIds : Set<String>?, success: @escaping (_ paymentMethodSearch: PaymentMethodSearch) -> Void, failure: @escaping ((_ error: NSError) -> Void)) {
         var params = "public_key=" + MercadoPagoContext.publicKey() + "&amount=" + String(amount)

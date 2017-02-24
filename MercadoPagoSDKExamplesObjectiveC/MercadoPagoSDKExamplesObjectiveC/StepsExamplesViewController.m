@@ -129,11 +129,11 @@ int installmentsSelected = 1;
 }
 
 - (void)statIssuersStep {
-    UIViewController *issuersVC = [MPStepBuilder startIssuersStep:paymentMethod callback:^(Issuer *issuer) {
-        selectedIssuer = issuer;
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    [self.navigationController pushViewController:issuersVC animated:YES];
+//    UIViewController *issuersVC = [MPStepBuilder startIssuersStep:paymentMethod callback:^(Issuer *issuer) {
+//        selectedIssuer = issuer;
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }];
+//    [self.navigationController pushViewController:issuersVC animated:YES];
     
 }
 
@@ -147,7 +147,6 @@ int installmentsSelected = 1;
 
 - (void)createPayment {
     
-    [MercadoPagoContext setPublicKey:MERCHANT_PUBLIC_KEY];
 //    [MercadoPagoContext setBaseURL:MERCHANT_MOCK_BASE_URL];
 //    [MercadoPagoContext setPaymentURI:MERCHANT_MOCK_CREATE_PAYMENT_URI];
     

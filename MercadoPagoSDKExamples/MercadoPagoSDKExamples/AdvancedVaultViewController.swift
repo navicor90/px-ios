@@ -40,7 +40,7 @@ class AdvancedVaultViewController : SimpleVaultViewController {
             let newCardViewController = MPStepBuilder.startNewCardStep(self.selectedPaymentMethod!, requireSecurityCode: self.securityCodeRequired, callback: self.getNewCardCallback())
             
             if self.selectedPaymentMethod!.isIssuerRequired() {
-                let issuerViewController = MPStepBuilder.startIssuersStep(self.selectedPaymentMethod!,
+                let issuerViewController = MPStepBuilder.startIssuerForm(self.selectedPaymentMethod!,
                     callback: { (issuer: Issuer) -> Void in
                         self.selectedIssuer = issuer
 						self.showViewController(newCardViewController)

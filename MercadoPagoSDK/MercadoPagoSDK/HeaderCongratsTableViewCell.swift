@@ -65,12 +65,22 @@ class HeaderCongratsTableViewCell: UITableViewCell, TimerDelegate {
             }
      
         } else {
-            icon.image = MercadoPago.getImage("congrats_iconoTcError")
+            icon.image = MercadoPagoCheckoutViewModel.paymentResultScreenPreference.getHeaderRejectedIcon()
             var title = (paymentResult.statusDetail + "_title")
             if !title.existsLocalized() {
-                title = "Uy, no pudimos procesar el pago".localized
-            }
+                if !String.isNullOrEmpty(MercadoPagoCheckoutViewModel.paymentResultScreenPreference.getRejectedTitle()) {
+                    self.title.text = MercadoPagoCheckoutViewModel.paymentResultScreenPreference.getRejectedTitle()
+                    subtitle.text = MercadoPagoCheckoutViewModel.paymentResultScreenPreference.getRejectedSubtitle()
+                } else {
+                    self.title.text = "Uy, no pudimos procesar el pago".localized
+                }
             
+            } else {
+                if let paymentMethodName = paymentMethod?.name {
+                    let titleWithParams = (title.localized as NSString).replacingOccurrences(of: "%0", with: "\(paymentMethodName)")
+                    self.title.text = titleWithParams
+                }
+            }
             
             if CountdownTimer.getInstance().hasTimer() {
                 self.timerLabel = MPLabel(frame: CGRect(x: UIScreen.main.bounds.size.width - 66, y: 10, width: 56, height: 20))
@@ -81,12 +91,7 @@ class HeaderCongratsTableViewCell: UITableViewCell, TimerDelegate {
                 self.addSubview(timerLabel!)
             }
             
-            if let paymentMethodName = paymentMethod?.name {
-                let titleWithParams = (title.localized as NSString).replacingOccurrences(of: "%0", with: "\(paymentMethodName)")
-                self.title.text = titleWithParams
-                self.title.font = Utils.getFont(size: self.title.font.pointSize)
-            }
-            messageError.text = "Algo salió mal… ".localized
+            messageError.text = MercadoPagoCheckoutViewModel.paymentResultScreenPreference.getRejectedIconSubtext()
         }
     }
     

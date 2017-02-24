@@ -231,7 +231,7 @@ open class SecrurityCodeViewModel: NSObject {
         
         self.vc?.showLoading()
         if let token = cardInfo as? Token {
-            MPServicesBuilder.cloneToken(token,securityCode:secCode, success: { (token) in
+            MPServicesBuilder.cloneToken(token,securityCode:secCode, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getGatewayURL(), success: { (token) in
                 self.vc?.hideLoading()
                 self.vc!.collectSecurityCodeCallback(token)
                 }, failure: { (error) in
@@ -248,7 +248,7 @@ open class SecrurityCodeViewModel: NSObject {
         self.vc?.showLoading()
         let saveCardToken = SavedCardToken(card: cardInfo as! CardInformation, securityCode: secCode, securityCodeRequired: true)
     
-           MPServicesBuilder.createToken(saveCardToken, success: { (token) in
+        MPServicesBuilder.createToken(saveCardToken, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getGatewayURL(), success: { (token) in
             if token!.lastFourDigits.isEmpty {
                 token!.lastFourDigits = self.cardInfo.getCardLastForDigits()
             }

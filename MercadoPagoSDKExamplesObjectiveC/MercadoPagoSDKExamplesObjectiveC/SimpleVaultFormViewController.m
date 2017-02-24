@@ -70,50 +70,50 @@ UILabel *identificationType;
         errorOcurred = YES;
     }
     
-    if (!errorOcurred) {
-        [MercadoPagoContext setPublicKey:MERCHANT_PUBLIC_KEY];
-        
-        NSInteger installments = (selectedPayerCost == nil) ? 1 : selectedPayerCost.installments;
-        
-        if (customerCard == nil) {
-            [MPServicesBuilder createNewCardToken:cardToken success:^(Token *token) {
-//                Item *item = [[Item alloc] initWith_id:@"1" title:@"item title" quantity:1 unitPrice:amount description:nil];
-//                MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installments cardIssuer:nil tokenId:token._id paymentMethod:paymentMethod campaignId:0];
-////                [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
+//    if (!errorOcurred) {
+//        [MercadoPagoContext setPublicKey:MERCHANT_PUBLIC_KEY];
 //
-//                    UIViewController *congrats = [MPStepBuilder startPaymentCongratsStep:payment paymentMethod:paymentMethod callback:^(Payment * _Nonnull payment, enum CongratsState status) {
-//                         [self.navigationController popToRootViewControllerAnimated:YES];
-//                    }];
-//
-//                    [self.navigationController pushViewController:congrats animated:YES];
-//                } failure:^(NSError *error) {
-//                    NSLog(@"Error ocurred : %@", error.description);
-//                }];
-            } failure:^(NSError *error) {
-                NSLog(@"Error ocurred : %@", error.description);
-                
-            }];
-        
-        } else {
-            SavedCardToken *savedCardtoken = [[SavedCardToken alloc] initWithCard:customerCard securityCode:securityCode.text securityCodeRequired: [customerCard.paymentMethod isSecurityCodeRequired:customerCard.firstSixDigits]];
-            
-            [MPServicesBuilder createToken:savedCardtoken success:^(Token *token) {
-//                Item *item = [[Item alloc] initWith_id:@"1" title:@"item title" quantity:1 unitPrice:amount description:nil ];
-//                MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installments cardIssuer:nil tokenId:token._id paymentMethod:customerCard.paymentMethod campaignId:0];
-////                [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
-//
-//                    UIViewController *congrats = [MPStepBuilder startPaymentCongratsStep:payment paymentMethod:customerCard.paymentMethod callback:^(Payment *payment, enum CongratsState congratsStatus) {
-//                        [self.navigationController popToRootViewControllerAnimated:YES];
-//                    }];
-//                    [self.navigationController pushViewController:congrats animated:YES];
-//                } failure:^(NSError *error) {
-//                    NSLog(@"Error ocurred : %@", error.description);
-//                }];
-            } failure:^(NSError *error) {
-               NSLog(@"Error ocurred : %@", error.description);
-            }];
-        }
-    }
+//        NSInteger installments = (selectedPayerCost == nil) ? 1 : selectedPayerCost.installments;
+//        
+//        if (customerCard == nil) {
+//            [MPServicesBuilder createNewCardToken:cardToken success:^(Token *token) {
+////                Item *item = [[Item alloc] initWith_id:@"1" title:@"item title" quantity:1 unitPrice:amount description:nil];
+////                MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installments cardIssuer:nil tokenId:token._id paymentMethod:paymentMethod campaignId:0];
+//////                [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
+////
+////                    UIViewController *congrats = [MPStepBuilder startPaymentCongratsStep:payment paymentMethod:paymentMethod callback:^(Payment * _Nonnull payment, enum CongratsState status) {
+////                         [self.navigationController popToRootViewControllerAnimated:YES];
+////                    }];
+////
+////                    [self.navigationController pushViewController:congrats animated:YES];
+////                } failure:^(NSError *error) {
+////                    NSLog(@"Error ocurred : %@", error.description);
+////                }];
+//            } failure:^(NSError *error) {
+//                NSLog(@"Error ocurred : %@", error.description);
+//                
+//            }];
+//        
+//        } else {
+//            SavedCardToken *savedCardtoken = [[SavedCardToken alloc] initWithCard:customerCard securityCode:securityCode.text securityCodeRequired: [customerCard.paymentMethod isSecurityCodeRequired:customerCard.firstSixDigits]];
+//            
+//            [MPServicesBuilder createToken:savedCardtoken success:^(Token *token) {
+////                Item *item = [[Item alloc] initWith_id:@"1" title:@"item title" quantity:1 unitPrice:amount description:nil ];
+////                MerchantPayment *merchantPayment = [[MerchantPayment alloc] initWithItems:[NSArray arrayWithObject:item] installments:installments cardIssuer:nil tokenId:token._id paymentMethod:customerCard.paymentMethod campaignId:0];
+//////                [MerchantServer createPayment:merchantPayment success:^(Payment *payment) {
+////
+////                    UIViewController *congrats = [MPStepBuilder startPaymentCongratsStep:payment paymentMethod:customerCard.paymentMethod callback:^(Payment *payment, enum CongratsState congratsStatus) {
+////                        [self.navigationController popToRootViewControllerAnimated:YES];
+////                    }];
+////                    [self.navigationController pushViewController:congrats animated:YES];
+////                } failure:^(NSError *error) {
+////                    NSLog(@"Error ocurred : %@", error.description);
+////                }];
+//            } failure:^(NSError *error) {
+//               NSLog(@"Error ocurred : %@", error.description);
+//            }];
+//        }
+//    }
     
 }
 

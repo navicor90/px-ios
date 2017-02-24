@@ -96,9 +96,8 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
 
             var titleDict: NSDictionary = [:]
             //Navigation bar colors
-            if let fontChosed = UIFont(name: MercadoPagoContext.getDecorationPreference().getFontName(), size: 18) {
-                titleDict = [NSForegroundColorAttributeName: MercadoPagoContext.getDecorationPreference().getFontColor(), NSFontAttributeName:fontChosed]
-            }
+            let fontChosed = Utils.getFont(size: 18)
+            titleDict = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName:fontChosed]
             
             
             if self.navigationController != nil {

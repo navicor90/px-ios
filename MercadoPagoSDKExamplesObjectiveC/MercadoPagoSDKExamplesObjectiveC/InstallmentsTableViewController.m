@@ -23,12 +23,12 @@ NSArray<Installment *> *currentInstallments;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MPServicesBuilder getInstallments:card.firstSixDigits amount:(amount) issuer:card.issuer paymentMethodId:card.paymentMethod._id success:^(NSArray<Installment *> *installments) {
-        currentInstallments = installments;
-        [[self tableView] reloadData];
-    } failure:^(NSError *error) {
-       
-    }];
+//    [MPServicesBuilder getInstallments:card.firstSixDigits amount:(amount) issuer:card.issuer paymentMethodId:card.paymentMethod._id success:^(NSArray<Installment *> *installments) {
+//        currentInstallments = installments;
+//        [[self tableView] reloadData];
+//    } failure:^(NSError *error) {
+//       
+//    }];
    
 }
 

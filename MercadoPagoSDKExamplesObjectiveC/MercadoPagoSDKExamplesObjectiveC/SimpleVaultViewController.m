@@ -24,14 +24,14 @@
 NSArray<PaymentMethod *> *currentPaymentMethods;
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [MPServicesBuilder getPaymentMethods:^(NSArray<PaymentMethod *> *paymentMethods) {
-        currentPaymentMethods = paymentMethods;
-        [[self tableView] reloadData];
-        
-    } failure:^(NSError *error) {
-        
-    }];
+//    [super viewDidLoad];
+//    [MPServicesBuilder getPaymentMethods:^(NSArray<PaymentMethod *> *paymentMethods) {
+//        currentPaymentMethods = paymentMethods;
+//        [[self tableView] reloadData];
+//        
+//    } failure:^(NSError *error) {
+//        
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {

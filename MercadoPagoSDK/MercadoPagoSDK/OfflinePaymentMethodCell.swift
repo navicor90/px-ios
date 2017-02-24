@@ -60,29 +60,39 @@ class OfflinePaymentMethodCell: UITableViewCell {
         let attributedTitle = NSMutableAttributedString(string : "Pagáras ".localized, attributes: [NSFontAttributeName: Utils.getFont(size: 20)])
         attributedTitle.append(attributedAmount)
         
-        var currentTitle = ""
-        let titleI18N = "ryc_title_" + paymentMethodOption.getId()
-        if (titleI18N.existsLocalized()) {
-            currentTitle = titleI18N.localized
+        if paymentMethodOption.getId() == PaymentTypeId.ACCOUNT_MONEY.rawValue {
+            attributedTitle.append(NSAttributedString(string : " con dinero en tu cuenta de MercadoPago.".localized, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
+            self.iconCash.image = MercadoPago.getImage("iconoDineroEnCuenta")
+            self.acreditationTimeLabel.isHidden = true
+            self.accreditationTimeIcon.isHidden = true
         } else {
-            currentTitle = "ryc_title_default".localized
+            var currentTitle = ""
+            let titleI18N = "ryc_title_" + paymentMethodOption.getId()
+            if (titleI18N.existsLocalized()) {
+                currentTitle = titleI18N.localized
+            } else {
+                currentTitle = "ryc_title_default".localized
+            }
+            
+            attributedTitle.append(NSAttributedString(string : currentTitle, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
+            
+            let complementaryTitle = "ryc_complementary_" + paymentMethodOption.getId()
+            if complementaryTitle.existsLocalized() {
+                attributedTitle.append(NSAttributedString(string : complementaryTitle.localized, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
+            }
+            attributedTitle.append(NSAttributedString(string : paymentMethodOption.getDescription(), attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
+            
+            self.acreditationTimeLabel.attributedText = NSMutableAttributedString(string: paymentMethodOption.getComment(), attributes: [NSFontAttributeName: Utils.getFont(size: 12)])
         }
         
-        attributedTitle.append(NSAttributedString(string : currentTitle, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
-        
-        let complementaryTitle = "ryc_complementary_" + paymentMethodOption.getId()
-        if complementaryTitle.existsLocalized() {
-            attributedTitle.append(NSAttributedString(string : complementaryTitle.localized, attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
-        }
 
-        attributedTitle.append(NSAttributedString(string : paymentMethodOption.getDescription(), attributes: [NSFontAttributeName: Utils.getFont(size: 20)]))
         
         self.paymentMethodDescription.attributedText = attributedTitle
-        
-        self.acreditationTimeLabel.attributedText = NSMutableAttributedString(string: paymentMethodOption.getComment(), attributes: [NSFontAttributeName: Utils.getFont(size: 12)])
-        
         self.changePaymentButton.titleLabel?.font = Utils.getFont(size: 18)
         self.changePaymentButton.setTitle("Cambiar pago".localized, for: .normal)
+        
+        
+        
     }
     
     

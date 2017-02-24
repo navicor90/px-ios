@@ -303,6 +303,12 @@ open class PaymentMethod : NSObject  {
             }
         }
         
+        if(paymentPreference!.defaultPaymentTypeId != nil){
+            if (paymentPreference!.defaultPaymentTypeId != self.paymentTypeId){
+                return false
+            }
+        }
+        
         
         return true
     }
