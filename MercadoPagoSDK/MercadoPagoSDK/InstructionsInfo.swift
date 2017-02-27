@@ -13,7 +13,7 @@ open class InstructionsInfo: NSObject {
     var amountInfo : AmountInfo!
     var instructions : [Instruction]!
     
-    
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> InstructionsInfo {
         
         let instructionsInfo : InstructionsInfo = InstructionsInfo()

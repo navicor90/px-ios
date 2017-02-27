@@ -12,6 +12,7 @@ open class Phone : Equatable {
     open var areaCode : String?
     open var number : String?
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Phone {
         let phone : Phone = Phone()
         if let areaCode = JSONHandler.attemptParseToString(json["area_code"]){

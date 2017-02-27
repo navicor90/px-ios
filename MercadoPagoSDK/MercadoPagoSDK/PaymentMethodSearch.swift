@@ -15,6 +15,7 @@ open class PaymentMethodSearch: Equatable {
     var cards : [Card]?
     var defaultOption : PaymentMethodSearchItem?
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> PaymentMethodSearch {
         let pmSearch = PaymentMethodSearch()
         

@@ -67,6 +67,7 @@ open class Payment : NSObject {
         super.init()
     }
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Payment {
         let payment : Payment = Payment()
 		

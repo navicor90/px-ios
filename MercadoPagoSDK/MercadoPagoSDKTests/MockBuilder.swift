@@ -272,11 +272,10 @@ open class MockBuilder: NSObject {
     }
     
     class func buildBinMask() -> BinMask {
-        let bin = BinMask()
-        bin.pattern = "pattern"
-        bin.exclusionPattern = "exclusion_pattern"
-        bin.installmentsPattern = "installments_pattern"
-        return bin
+        let pattern = "pattern"
+        let exclusionPattern = "exclusion_pattern"
+        let installmentsPattern = "installments_pattern"
+        return BinMask(exclusionPattern: exclusionPattern, installmentsPattern: installmentsPattern, pattern: pattern)
     }
     
     class func buildPayerCost() -> PayerCost {

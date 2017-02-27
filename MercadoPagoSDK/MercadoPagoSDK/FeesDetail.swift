@@ -13,7 +13,8 @@ open class FeesDetail : NSObject {
     open var amountRefunded : Double = 0
     open var feePayer : String!
     open var type : String!
-    
+
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> FeesDetail {
         let fd : FeesDetail = FeesDetail()
         if let type = JSONHandler.attemptParseToString(json["type"]){

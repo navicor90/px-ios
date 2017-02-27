@@ -34,6 +34,7 @@ open class Installment : NSObject {
     open var paymentMethodId : String!
     open var paymentTypeId : String!
     
+       // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Installment {
         let installment : Installment = Installment()
         

@@ -19,6 +19,7 @@ open class Identification : NSObject {
         self.number = number
     }
     
+     // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Identification {
         let identification : Identification = Identification()
         identification.type = json["type"] as? String

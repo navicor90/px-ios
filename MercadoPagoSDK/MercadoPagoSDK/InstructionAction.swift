@@ -14,6 +14,7 @@ open class InstructionAction : Equatable {
     var url : String!
     var tag : String!
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> InstructionAction {
         let action = InstructionAction()
             if json["label"] != nil && !(json["label"]! is NSNull) {

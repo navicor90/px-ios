@@ -126,7 +126,7 @@ open class PaymentMethod : NSObject  {
 
     }
     
-    
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> PaymentMethod {
         let paymentMethod : PaymentMethod = PaymentMethod()
         paymentMethod._id = json["id"] as? String

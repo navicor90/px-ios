@@ -9,33 +9,30 @@
 import Foundation
 
 open class BinMask : NSObject {
-    open var exclusionPattern : String!
-    open var installmentsPattern : String!
-    open var pattern : String!
+    open var exclusionPattern : String
+    open var installmentsPattern : String
+    open var pattern : String
     
-    public override init(){
-        super.init()
+    public init(exclusionPattern : String, installmentsPattern : String, pattern : String){
+        self.exclusionPattern = exclusionPattern
+        self.installmentsPattern = installmentsPattern
+        self.pattern = pattern
     }
-
-    open class func fromJSON(_ json : NSDictionary) -> BinMask {
-        let binMask : BinMask = BinMask()
-        if let exclusionPattern = JSONHandler.attemptParseToString(json["exclusion_pattern"]) {
-            binMask.exclusionPattern = exclusionPattern
+    
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
+    open class func fromJSON(_ json : NSDictionary) -> BinMask? {
+        guard let exclusionPattern = JSONHandler.attemptParseToString(json["exclusion_pattern"]),
+            let installmentsPattern = JSONHandler.attemptParseToString(json["installments_pattern"]),
+            let pattern = JSONHandler.attemptParseToString(json["pattern"]) else {
+            return nil
         }
-        if let installmentsPattern = JSONHandler.attemptParseToString(json["installments_pattern"]) {
-            binMask.installmentsPattern = installmentsPattern
-        }
-        if let pattern = JSONHandler.attemptParseToString(json["pattern"]) {
-            binMask.pattern = pattern
-        }
-        return binMask
+        return BinMask(exclusionPattern: exclusionPattern, installmentsPattern: installmentsPattern, pattern: pattern)
     }
     
     open func toJSON() -> [String:Any] {
-        let exclusionPattern : Any = String.isNullOrEmpty(self.exclusionPattern) ?  JSONHandler.null : self.exclusionPattern!
-        let installmentsPattern : Any = self.installmentsPattern == nil ?  JSONHandler.null : self.installmentsPattern
-        let pattern : Any = self.pattern == nil ? JSONHandler.null : self.pattern
-        
+        let exclusionPattern = self.exclusionPattern
+        let installmentsPattern  = self.installmentsPattern
+        let pattern = self.pattern
         let obj:[String:Any] = [
             "pattern": pattern,
             "installmentsPattern" : installmentsPattern,

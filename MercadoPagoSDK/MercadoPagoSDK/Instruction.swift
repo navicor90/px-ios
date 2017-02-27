@@ -18,7 +18,7 @@ open class Instruction: NSObject {
     open var tertiaryInfo : [String]?
     open var actions : [InstructionAction]?
 
-
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Instruction {
         let instruction = Instruction()
         

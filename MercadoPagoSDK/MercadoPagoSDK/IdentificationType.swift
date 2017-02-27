@@ -16,7 +16,7 @@ open class IdentificationType : NSObject {
     open var maxLength : Int = 0
     
     
-    
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead    
     open class func fromJSON(_ json : NSDictionary) -> IdentificationType {
         let identificationType : IdentificationType = IdentificationType()
         if let _id = JSONHandler.attemptParseToString(json["id"]){

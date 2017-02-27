@@ -10,33 +10,29 @@ import UIKit
 
 open class AmountInfo: NSObject {
     
-    var amount : Double!
-    var currency : Currency!
+    var amount : Double
+    var currency : Currency
 
-    override init(){
-        super.init()
+    init(amount : Double, currency : Currency){
+        self.amount = amount
+        self.currency = currency
     }
     
-    open class func fromJSON(_ json : NSDictionary) -> AmountInfo {
-        let amountInfo : AmountInfo = AmountInfo()
-        if let amount = JSONHandler.attemptParseToDouble(json["amount"]) {
-            amountInfo.amount = amount
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
+    open class func fromJSON(_ json : NSDictionary) -> AmountInfo? {
+        guard let amount = JSONHandler.attemptParseToDouble(json["amount"]),
+            let thousandsSeparator = JSONHandler.attemptParseToString(json["thousands_separator"]),
+            let decimalSeparator = JSONHandler.attemptParseToString(json["decimal_separator"]),
+            let symbol = JSONHandler.attemptParseToString(json["symbol"]),
+            let decimalPlaces = JSONHandler.attemptParseToInt(json["decimal_places"]) else {
+            return nil
         }
         let currency = Currency()
-        if let thousandsSeparator = JSONHandler.attemptParseToString(json["thousands_separator"]) {
-            currency.thousandsSeparator = thousandsSeparator
-        }
-        if let decimalSeparator = JSONHandler.attemptParseToString(json["decimal_separator"]) {
-            currency.decimalSeparator = decimalSeparator
-        }
-        if let symbol = JSONHandler.attemptParseToString(json["symbol"]) {
-            currency.symbol = symbol
-        }
-        if let decimalPlaces = JSONHandler.attemptParseToInt(json["decimal_places"]) {
-            currency.decimalPlaces = decimalPlaces
-        }
-        amountInfo.currency = currency
-        return amountInfo
+        currency.thousandsSeparator = thousandsSeparator
+        currency.decimalSeparator = decimalSeparator
+        currency.symbol = symbol
+        currency.decimalPlaces = decimalPlaces
+        return AmountInfo(amount: amount, currency: currency)
     }
     
     open func toJSONString() -> String {
@@ -44,12 +40,12 @@ open class AmountInfo: NSObject {
     }
     
     open func toJSON() -> [String:Any] {
-        let thousands_separator : Any = self.currency == nil ? JSONHandler.null : String(self.currency!.thousandsSeparator)
-        let decimal_separator : Any = self.currency == nil ? JSONHandler.null : String(self.currency!.decimalSeparator)
-        let symbol : Any = self.currency == nil ? JSONHandler.null : self.currency!.symbol
-        let decimal_places : Any = self.currency == nil ? JSONHandler.null : self.currency!.decimalPlaces
+        let thousands_separator : Any = self.currency == nil ? JSONHandler.null : String(self.currency.thousandsSeparator)
+        let decimal_separator : Any = self.currency == nil ? JSONHandler.null : String(self.currency.decimalSeparator)
+        let symbol : Any = self.currency == nil ? JSONHandler.null : self.currency.symbol
+        let decimal_places : Any = self.currency == nil ? JSONHandler.null : self.currency.decimalPlaces
         
-        let obj:[String:Any] = ["amount": self.amount!,
+        let obj:[String:Any] = ["amount": self.amount,
             "thousands_separator": thousands_separator,
             "decimal_separator": decimal_separator,
             "symbol": symbol,

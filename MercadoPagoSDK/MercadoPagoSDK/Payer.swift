@@ -21,6 +21,7 @@ open class Payer : NSObject {
 		self.identification = identification
 	}
 	
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
 	open class func fromJSON(_ json : NSDictionary) -> Payer {
 		let payer : Payer = Payer()
 		if let _id = JSONHandler.attemptParseToString(json["id"]) {

@@ -21,7 +21,7 @@ open class TransactionDetails : NSObject {
         super.init()
     }
     
-    
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> TransactionDetails {
         let transactionDetails : TransactionDetails = TransactionDetails()
         if let couponAmount = JSONHandler.attemptParseToDouble(json["coupon_amount"]){

@@ -9,29 +9,27 @@
 import Foundation
 
 open class Address : Equatable {
-    open var streetName : String?
-    open var streetNumber : NSNumber?
-    open var zipCode : String?
+    open var streetName : String
+    open var streetNumber : NSNumber
+    open var zipCode : String
     
 
-    public init (streetName: String? = nil, streetNumber: NSNumber? = nil, zipCode : String? = nil) {
+    public init (streetName: String, streetNumber: NSNumber, zipCode : String) {
         self.streetName = streetName
         self.streetNumber = streetNumber
         self.zipCode = zipCode
     }
     
-    open class func fromJSON(_ json : NSDictionary) -> Address {
-        let address : Address = Address()
-        if let streetName = JSONHandler.attemptParseToString(json["street_name"]) {
-            address.streetName = streetName
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
+    open class func fromJSON(_ json : NSDictionary) -> Address? {
+        guard let streetName = JSONHandler.attemptParseToString(json["street_name"]) ,
+              let streetNumber = JSONHandler.attemptParseToString(json["street_number"])?.numberValue ,
+              let zipCode = JSONHandler.attemptParseToString(json["zip_code"]) else {
+           
+            return nil
         }
-        if let streetNumber = JSONHandler.attemptParseToString(json["street_number"]) {
-            address.streetNumber = streetNumber.numberValue
-        }
-        if let zipCode = JSONHandler.attemptParseToString(json["zip_code"]) {
-            address.zipCode = zipCode
-        }
-        return address
+        
+        return Address(streetName: streetName, streetNumber: streetNumber, zipCode: zipCode)
     }
 }
 

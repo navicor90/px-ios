@@ -12,6 +12,7 @@ open class Issuer : NSObject {
     open var _id : NSNumber?
     open var name : String?
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Issuer {
         let issuer : Issuer = Issuer()
         

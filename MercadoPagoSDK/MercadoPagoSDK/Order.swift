@@ -12,6 +12,7 @@ open class Order : NSObject {
     open var _id : Int = 0
     open var type : String!
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Order {
         let order : Order = Order()
         if let _id = JSONHandler.attemptParseToInt(json["id"]){

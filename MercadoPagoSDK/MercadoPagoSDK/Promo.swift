@@ -17,6 +17,7 @@ open class Promo : NSObject {
 	open var legals : String!
 	open var url : String?
 	
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
 	open class func fromJSON(_ json : NSDictionary) -> Promo {
 		
 		let promo : Promo = Promo()

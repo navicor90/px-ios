@@ -32,6 +32,7 @@ open class PayerCost : NSObject {
     }
     
   
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> PayerCost {
         let payerCost : PayerCost = PayerCost()
         if let installments = JSONHandler.attemptParseToInt(json["installments"]) {

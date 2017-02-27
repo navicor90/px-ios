@@ -14,6 +14,8 @@ open class Cardholder : NSObject {
     
  
     
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
+    
     open class func fromJSON(_ json : NSDictionary) -> Cardholder {
         let cardholder : Cardholder = Cardholder()
         

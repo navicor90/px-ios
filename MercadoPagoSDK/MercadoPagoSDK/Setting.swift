@@ -31,6 +31,7 @@ open class Setting : NSObject {
         return selectedSetting
     }
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Setting {
         let setting : Setting = Setting()
         setting.binMask = BinMask.fromJSON(json["bin"]!  as! NSDictionary)

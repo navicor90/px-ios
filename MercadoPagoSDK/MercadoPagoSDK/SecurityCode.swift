@@ -17,6 +17,7 @@ open class SecurityCode : NSObject {
         super.init()
     }
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> SecurityCode {
         let securityCode : SecurityCode = SecurityCode()
         if let length = JSONHandler.attemptParseToInt(json["length"]){

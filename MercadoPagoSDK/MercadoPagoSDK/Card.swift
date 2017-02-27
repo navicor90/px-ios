@@ -30,6 +30,8 @@ open class Card : NSObject, CardInformation, PaymentMethodOption {
         return self.issuer
     }
     
+    
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
 
    open class func fromJSON(_ json : NSDictionary) -> Card {
         let card : Card = Card()

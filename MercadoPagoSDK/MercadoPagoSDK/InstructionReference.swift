@@ -27,7 +27,7 @@ open class InstructionReference: Equatable {
         }
         return referenceFullValue
     }
-    
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> InstructionReference {
         let reference = InstructionReference()
         if json["label"] != nil && !(json["label"]! is NSNull) {

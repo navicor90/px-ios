@@ -73,6 +73,7 @@ open class Item : NSObject {
         return JSONHandler.jsonCoding(obj)
     }
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Item {
         let item = Item()
         if let _id = JSONHandler.attemptParseToString(json["json"]){

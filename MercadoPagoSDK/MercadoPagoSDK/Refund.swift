@@ -17,6 +17,7 @@ open class Refund : NSObject {
     open var source : String!
     open var uniqueSequenceNumber : String!
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> Refund {
         let refund : Refund = Refund()
         if let _id = JSONHandler.attemptParseToInt(json["id"]){

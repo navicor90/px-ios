@@ -199,6 +199,8 @@ open class CheckoutPreference : NSObject {
         return true
     }
     
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
+    
     open class func fromJSON(_ json : NSDictionary) -> CheckoutPreference {
         let preference : CheckoutPreference = CheckoutPreference()
         

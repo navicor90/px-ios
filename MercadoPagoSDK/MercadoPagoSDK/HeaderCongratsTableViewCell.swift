@@ -100,7 +100,7 @@ class HeaderCongratsTableViewCell: UITableViewCell, TimerDelegate {
         view.backgroundColor = color
         
         icon.image = MercadoPago.getImage("iconoPagoOffline")
-        let currency = instructionsInfo.amountInfo.currency!
+        let currency = instructionsInfo.amountInfo.currency
         let currencySymbol = currency.getCurrencySymbolOrDefault()
         let thousandSeparator = String(currency.getThousandsSeparatorOrDefault()) ?? "."
         let decimalSeparator = String(currency.getDecimalSeparatorOrDefault()) ?? "."

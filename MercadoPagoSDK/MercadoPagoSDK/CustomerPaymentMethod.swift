@@ -19,7 +19,9 @@ open class CustomerPaymentMethod: NSObject, CardInformation, PaymentMethodOption
     var securityCode : SecurityCode = SecurityCode()
     var paymentMethod : PaymentMethod!
     var card : Card?
-    
+
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
+
     open class func fromJSON(_ json : NSDictionary) -> CustomerPaymentMethod {
         let  customerPaymentMethod = CustomerPaymentMethod()
         

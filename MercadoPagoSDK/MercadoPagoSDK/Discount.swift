@@ -27,6 +27,8 @@ open class Discount : Equatable {
         self.percentOff = percentOff!
     }
     
+    // TODO Safe - fromJSON -> This function isn't safe return optional instead
+ 
     open class func fromJSON(_ json : NSDictionary) -> Discount {
         let discount : Discount = Discount()
         if let amountOff = JSONHandler.attemptParseToString(json["amount_off"])?.numberValue {

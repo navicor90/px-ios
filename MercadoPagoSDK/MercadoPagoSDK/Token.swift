@@ -60,7 +60,7 @@ open class Token : NSObject, CardInformationForm {
         return bin
     }
       
-	
+	    // TODO Safe - fromJSON -> This function isn't safe return optional instead
 	open class func fromJSON(_ json : NSDictionary) -> Token {
         let literalJson = json
         let _id = JSONHandler.attemptParseToString(literalJson["id"])

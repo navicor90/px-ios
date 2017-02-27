@@ -18,6 +18,7 @@ open class PaymentMethodSearchItem : Equatable, PaymentOptionDrawable, PaymentMe
     open var children : [PaymentMethodSearchItem] = []
     open var showIcon : Bool = false
     
+        // TODO Safe - fromJSON -> This function isn't safe return optional instead
     open class func fromJSON(_ json : NSDictionary) -> PaymentMethodSearchItem {
         let pmSearchItem = PaymentMethodSearchItem()
         
