@@ -9,22 +9,24 @@
 import Foundation
 
 open class Cardholder : NSObject {
-    open var name : String?
+    open var name : String
     open var identification : Identification?
     
  
+    public init(name: String, identification : Identification? = nil) {
+        self.name = name
+        self.identification = identification
+    }
+    
     
     // TODO Safe - fromJSON -> This function isn't safe return optional instead
     
-    open class func fromJSON(_ json : NSDictionary) -> Cardholder {
-        let cardholder : Cardholder = Cardholder()
-        
-        if let name = json["name"] as? String{
-            cardholder.name = name
+    open class func fromJSON(_ json : NSDictionary) -> Cardholder? {
+        guard let name = json["name"] as? String,
+            let identification = Identification.fromJSON(json["identification"]! as! NSDictionary) else { // Cuando estoy parseando un JSON quiero que venga Identification aunque sea opcional en la clase (revisar si esta ok)
+            return nil
         }
-        
-        cardholder.identification = Identification.fromJSON(json["identification"]! as! NSDictionary)
-        return cardholder
+        return Cardholder(name: name, identification : identification)
     }
     
     open func toJSONString() -> String {
@@ -32,11 +34,14 @@ open class Cardholder : NSObject {
     }
     
     open func toJSON() -> [String:Any] {
-        let name : Any = String.isNullOrEmpty(self.name) ? JSONHandler.null : self.name!
-        let identification : Any = self.identification == nil ? JSONHandler.null : self.identification!.toJSON()
+        let name = self.name
+        var identificationJSON : Any = JSONHandler.null
+        if let identification = self.identification {
+            identificationJSON = identification.toJSON()
+        }
         let obj:[String:Any] = [
             "name": name,
-            "identification" : identification
+            "identification" : identificationJSON
         ]
         return obj
     }

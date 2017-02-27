@@ -218,7 +218,10 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     }
 
     func rightArrowKeyTapped(){
-        let idnt = Identification(type: self.identificationType?._id , number: indentificationMask.textUnmasked(numberTextField.text))
+        guard let identificationType = self.identificationType else { // Todavia no se cargaron los identification types
+            return
+        }
+        let idnt = Identification(type: identificationType._id! , number: indentificationMask.textUnmasked(numberTextField.text))
         
         let cardToken = CardToken(cardNumber: "", expirationMonth: 10, expirationYear: 10, securityCode: "", cardholderName: "", docType: (self.identificationType?.type)!, docNumber:  indentificationMask.textUnmasked(numberTextField.text))
 

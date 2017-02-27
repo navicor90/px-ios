@@ -137,10 +137,7 @@ open class MockBuilder: NSObject {
     }
     
     class func buildIdentification() -> Identification {
-        let identification = Identification()
-        identification.type = "type"
-        identification.number = "number"
-        return identification
+        return Identification(type: "type", number: "number")
     }
     
     class func buildCard(paymentMethodId : String? = "paymentMethodId") -> Card {
@@ -251,9 +248,7 @@ open class MockBuilder: NSObject {
     }
     
     class func buildCardholder() -> Cardholder {
-        let cardHolder = Cardholder()
-        cardHolder.name = "name"
-        return cardHolder
+        return Cardholder(name: "name")
     }
     
     class func buildCardNumber() -> CardNumber {

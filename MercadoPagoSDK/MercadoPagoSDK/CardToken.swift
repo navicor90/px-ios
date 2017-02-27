@@ -32,11 +32,7 @@ open class CardToken : NSObject, CardInformationForm {
     public init (cardNumber: String?, expirationMonth: Int, expirationYear: Int,
         securityCode: String?, cardholderName: String, docType: String, docNumber: String) {
             super.init()
-            self.cardholder = Cardholder()
-            self.cardholder?.name = cardholderName
-            self.cardholder?.identification = Identification()
-            self.cardholder?.identification?.number = docNumber
-            self.cardholder?.identification?.type = docType
+            self.cardholder = Cardholder(name:cardholderName, identification:Identification(type: docType, number: docNumber))
             self.cardNumber = normalizeCardNumber(cardNumber!.replacingOccurrences(of: " ", with: ""))
             self.expirationMonth = expirationMonth
             self.expirationYear = 2000 + expirationYear
@@ -236,7 +232,7 @@ open class CardToken : NSObject, CardInformationForm {
     open func validateIdentificationNumber(_ identificationType: IdentificationType?) -> String? {
         if identificationType != nil {
             if cardholder?.identification != nil && cardholder?.identification?.number != nil {
-                let len = cardholder!.identification!.number!.characters.count
+                let len = cardholder!.identification!.number.characters.count
                 let min = identificationType!.minLength
                 let max = identificationType!.maxLength
                 if min != 0 && max != 0 {

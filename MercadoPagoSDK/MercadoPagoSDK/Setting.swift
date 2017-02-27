@@ -22,8 +22,8 @@ open class Setting : NSObject {
         if settings != nil && settings.count > 0 {
             for setting in settings {
                 
-                if "" != bin && Regex(setting.binMask!.pattern! + ".*").test(bin) &&
-                    (String.isNullOrEmpty(setting.binMask!.exclusionPattern) || !Regex(setting.binMask!.exclusionPattern! + ".*").test(bin!)) {
+                if "" != bin && Regex(setting.binMask.pattern + ".*").test(bin) &&
+                    (String.isNullOrEmpty(setting.binMask!.exclusionPattern) || !Regex(setting.binMask.exclusionPattern + ".*").test(bin!)) {
                     selectedSetting = setting
                 }
             }
