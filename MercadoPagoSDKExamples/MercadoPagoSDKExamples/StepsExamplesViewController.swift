@@ -182,12 +182,12 @@ class StepsExamplesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
      func statIssuersStep(){
-        let issuersVC = MPStepBuilder.startIssuersStep(self.paymentMethod!) { (issuer) in
-            self.selectedIssuer = issuer
-            self.navigationController!.popViewController(animated: true)
-        }
-        self.navigationController?.pushViewController(issuersVC, animated: true)
-        
+//        let issuersVC = MPStepBuilder.startIssuersStep(self.paymentMethod!) { (issuer) in
+//            self.selectedIssuer = issuer
+//            self.navigationController!.popViewController(animated: true)
+//        }
+//        self.navigationController?.pushViewController(issuersVC, animated: true)
+//        
     }
     
      func startInstallmentsStep(){
