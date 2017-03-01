@@ -19,7 +19,8 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     var publicKey : String!
     var accessToken : String!
     var bundle : Bundle? = MercadoPago.getBundle()
-    var callback : ((PaymentData) -> Void)!
+    var callbackPaymentData : ((PaymentData) -> Void)!
+    var callbackConfirm : ((PaymentData) -> Void)!
     var viewModel : CheckoutViewModel!
  
     override open var screenName : String { get{ return "REVIEW_AND_CONFIRM" } }
@@ -30,12 +31,13 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     
     @IBOutlet weak var checkoutTable: UITableView!
     
-    init(viewModel: CheckoutViewModel, callback : @escaping (PaymentData) -> Void,  callbackCancel : @escaping ((Void) -> Void)) {
+    init(viewModel: CheckoutViewModel, callbackPaymentData : @escaping (PaymentData) -> Void,  callbackCancel : @escaping ((Void) -> Void), callbackConfirm : @escaping (PaymentData) -> Void) {
         super.init(nibName: "CheckoutViewController", bundle: MercadoPago.getBundle())
         self.initCommon()
         self.viewModel = viewModel
-        self.callback = callback
+        self.callbackPaymentData = callbackPaymentData
         self.callbackCancel = callbackCancel
+        self.callbackConfirm = callbackConfirm
     }
     
     private func initCommon(){
@@ -208,7 +210,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         self.hideBackButton()
         self.hideTimer()
         self.showLoading()
-        self.callback(self.viewModel.paymentData)
+        self.callbackConfirm(self.viewModel.paymentData)
     }
  
     fileprivate func loadPreference() {
@@ -364,7 +366,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     func changePaymentMethodSelected() {
         self.viewModel.paymentData.paymentMethod = nil
         self.viewModel.paymentData.clear()
-        self.callback(self.viewModel.paymentData)
+        self.callbackPaymentData(self.viewModel.paymentData)
     }
     
     internal func openTermsAndConditions(_ title: String, url : URL){

@@ -26,7 +26,7 @@ open class PaymentResultScreenPreference: NSObject {
     var pendingSecondaryExitButtonText = "Pagar con otro medio".localized
     var pendingSecondaryExitButtonCallback: ((PaymentResult) -> Void)?
     
-    var rejectedTitle = "Uy, no pudimos procesar el pago"
+    var rejectedTitle = "Uy, no pudimos procesar el pago".localized
     var rejectedSubtitle = ""
     var rejectedIconSubtext = "Algo salió mal… ".localized
     var rejectedIconName = "congrats_iconoTcError"
@@ -166,26 +166,6 @@ open class PaymentResultScreenPreference: NSObject {
     
     open func disableApprovedPaymentMethodInfo() {
         self.hidePaymentMethod = true
-    }
-    
-    open func enableAmount() {
-        self.hideAmount = false
-    }
-    
-    open func enableApprovedReceipt(){
-        self.hidePaymentId = true
-    }
-    
-    open func enableChangePaymentMethodOptionCell(){
-        self.hideChangePaymentMethodCell = false
-    }
-    
-    open func enablePaymentContentText() {
-        self.hidePendingContentText = false
-    }
-    
-    open func enableApprovedPaymentMethodInfo() {
-        self.hidePaymentMethod = false
     }
     
     //Custom Rows

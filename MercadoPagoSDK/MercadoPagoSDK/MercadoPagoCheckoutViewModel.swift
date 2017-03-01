@@ -39,6 +39,7 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     internal static var paymentResultScreenPreference = PaymentResultScreenPreference()
     
     internal static var paymentDataCallback : ((PaymentData) -> Void)?
+    internal static var paymentDataConfirmCallback : ((PaymentData) -> Void)?
     internal static var paymentCallback : ((Payment) -> Void)?
     internal static var callback: ((Void) -> Void)?
     
@@ -82,32 +83,13 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     private var checkoutComplete = false
     internal var reviewAndConfirm = false
     
-    
-    init(checkoutPreference : CheckoutPreference){
+    init(checkoutPreference : CheckoutPreference, paymentData : PaymentData?, paymentResult: PaymentResult?) {
         self.checkoutPreference = checkoutPreference
-        if !String.isNullOrEmpty(self.checkoutPreference._id) {
-            // Cargar información de preferencia en caso que tenga id
-            needLoadPreference = true
-        }
-    }
-    
-    init(checkoutPreference : CheckoutPreference, paymentData : PaymentData) {
-        self.checkoutPreference = checkoutPreference
-        if paymentData.isComplete() {
-            self.paymentData = paymentData
-            self.reviewAndConfirm = true
-        }
-        if !String.isNullOrEmpty(self.checkoutPreference._id) {
-            // Cargar información de preferencia en caso que tenga id
-            needLoadPreference = true
-        }
-    }
-    
-    init(checkoutPreference : CheckoutPreference, paymentData : PaymentData, paymentResult: PaymentResult) {
-        self.checkoutPreference = checkoutPreference
-        if paymentData.isComplete() {
-            self.paymentData = paymentData
-            self.reviewAndConfirm = false
+        if let pm = paymentData{
+            if pm.isComplete() {
+                self.paymentData = pm
+                self.reviewAndConfirm = true
+            }
         }
         self.paymentResult = paymentResult
         if !String.isNullOrEmpty(self.checkoutPreference._id) {

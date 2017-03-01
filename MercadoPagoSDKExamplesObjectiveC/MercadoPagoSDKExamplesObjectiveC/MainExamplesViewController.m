@@ -190,6 +190,7 @@
     //    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:pref paymentData:pd navigationController:self.navigationController] getRootViewController];
     
     UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference: pref navigationController:self.navigationController] getRootViewController];
+
     //NSLog(vc);
     
     
