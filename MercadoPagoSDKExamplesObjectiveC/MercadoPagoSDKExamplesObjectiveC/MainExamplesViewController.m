@@ -189,7 +189,7 @@
     CheckoutPreference * pref = [[CheckoutPreference alloc] initWith_id: @"150216849-68645cbb-dfe6-4410-bfd6-6e5aa33d8a33"];
     //    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:pref paymentData:pd navigationController:self.navigationController] getRootViewController];
     
-    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference: self.pref navigationController:self.navigationController] getRootViewController];
+    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference: pref navigationController:self.navigationController] getRootViewController];
     //NSLog(vc);
     
     

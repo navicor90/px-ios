@@ -16,7 +16,7 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
     let viewModel : CardAdditionalStepViewModel!
     
     
-     override open var screenName : String { get{
+    override open var screenName : String { get{
         if viewModel.hasIssuer() {
             return "PAYER_COST"
         } else if viewModel.hasPaymentMethod(){
@@ -61,27 +61,19 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
         super.viewWillAppear(animated)
         
         self.hideNavBar()
-
+        
     }
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.title = ""
-        self.showLoading()
         
-        if !self.viewModel.hasIssuer() {
-            self.getIssuers()
-        } else if self.viewModel.hasPaymentMethod(){
-            if self.viewModel.installment == nil {
-                self.getInstallments()
-            } else {
-                self.viewModel.payerCosts = self.viewModel.installment!.payerCosts
-                self.hideLoading()
-            }
+        if let installment = self.viewModel.installment {
+            self.viewModel.payerCosts = installment.payerCosts
         }
         self.extendedLayoutIncludesOpaqueBars = true
         self.titleCellHeight = 44
-
+        
     }
     
     override func loadMPStyles(){
@@ -231,39 +223,39 @@ open class CardAdditionalViewController: MercadoPagoUIScrollViewController, UITa
         
     }
     
-    fileprivate func getInstallments(){
-        let bin = self.viewModel.token?.getCardBin() ?? ""
-        MPServicesBuilder.getInstallments(bin, amount: self.viewModel.amount, issuer: self.viewModel.issuer, paymentMethodId: self.viewModel.paymentMethods[0]._id, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(),success: { (installments) -> Void in
-            self.viewModel.installment = installments?[0]
-            self.viewModel.payerCosts = installments![0].payerCosts
-            if let payerCost = installments![0].payerCosts {
-                let defaultPayerCost = self.viewModel.paymentPreference?.autoSelectPayerCost(payerCost)
-                if defaultPayerCost != nil {
-                    self.viewModel.callbackPayerCost!(defaultPayerCost)
-                }
-            }
-            self.tableView.reloadData()
-            self.hideLoading()
-        }) { (error) -> Void in
-            self.requestFailure(error)
-        }
-    }
-    fileprivate func getIssuers(){
-        MPServicesBuilder.getIssuers(self.viewModel.paymentMethods[0], bin: self.viewModel.token?.getCardBin(), baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(), success: { (issuers) -> Void in
-            self.viewModel.issuersList = issuers
-            if issuers.count == 1 {
-                self.viewModel.callbackIssuer!(issuers[0])
-                self.hideLoading()
-            } else {
-                self.tableView.reloadData()
-                self.hideLoading()
-            }
-            
-            
-        }) { (error) -> Void in
-            self.requestFailure(error)
-        }
-    }
+    //    fileprivate func getInstallments(){
+    //        let bin = self.viewModel.token?.getCardBin() ?? ""
+    //        MPServicesBuilder.getInstallments(bin, amount: self.viewModel.amount, issuer: self.viewModel.issuer, paymentMethodId: self.viewModel.paymentMethods[0]._id, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(),success: { (installments) -> Void in
+    //            self.viewModel.installment = installments?[0]
+    //            self.viewModel.payerCosts = installments![0].payerCosts
+    //            if let payerCost = installments![0].payerCosts {
+    //                let defaultPayerCost = self.viewModel.paymentPreference?.autoSelectPayerCost(payerCost)
+    //                if defaultPayerCost != nil {
+    //                    self.viewModel.callbackPayerCost!(defaultPayerCost)
+    //                }
+    //            }
+    //            self.tableView.reloadData()
+    //            self.hideLoading()
+    //        }) { (error) -> Void in
+    //            self.requestFailure(error)
+    //        }
+    //    }
+    //    fileprivate func getIssuers(){
+    //        MPServicesBuilder.getIssuers(self.viewModel.paymentMethods[0], bin: self.viewModel.token?.getCardBin(), baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(), success: { (issuers) -> Void in
+    //            self.viewModel.issuersList = issuers
+    //            if issuers.count == 1 {
+    //                self.viewModel.callbackIssuer!(issuers[0])
+    //                self.hideLoading()
+    //            } else {
+    //                self.tableView.reloadData()
+    //                self.hideLoading()
+    //            }
+    //
+    //
+    //        }) { (error) -> Void in
+    //            self.requestFailure(error)
+    //        }
+    //    }
     
     override func getNavigationBarTitle() -> String {
         return self.viewModel.getTitle()
@@ -292,7 +284,7 @@ open class CardAdditionalStepViewModel : NSObject {
     var callbackPayerCost : ((_ payerCost: PayerCost?) -> Void)?
     var callbackPaymentMethod : ((_ paymentMethod: PaymentMethod?) -> Void)?
     
-    init(cardInformation : CardInformation? = nil, paymentMethods : [PaymentMethod] ,issuer : Issuer?, token : CardInformationForm?, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, callback: ((_ payerCost: NSObject?)->Void)? ){
+    init(cardInformation : CardInformation? = nil, paymentMethods : [PaymentMethod] ,issuer : Issuer?, token : CardInformationForm?, amount: Double?, paymentPreference: PaymentPreference?,installment: Installment?, issuersList: [Issuer]?, callback: ((_ payerCost: NSObject?)->Void)? ){
         self.paymentMethods = paymentMethods
         self.payerCosts = installment?.payerCosts
         self.installment = installment
@@ -301,6 +293,7 @@ open class CardAdditionalStepViewModel : NSObject {
         self.issuer = issuer
         self.paymentPreference = paymentPreference
         self.cardInformation = cardInformation
+        self.issuersList = issuersList
         self.callback = callback
     }
     func numberOfPayerCost() -> Int{
@@ -344,5 +337,5 @@ open class CardAdditionalStepViewModel : NSObject {
             return 80
         }
     }
-
+    
 }
