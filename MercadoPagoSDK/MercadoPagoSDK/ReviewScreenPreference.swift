@@ -80,8 +80,8 @@ open class ReviewScreenPreference: NSObject {
         ReviewScreenPreference.customItemCells.append(customCell)
     }
     
-    open static func addAddionalInfoCell(customCell : MPCustomCell) {
-        ReviewScreenPreference.additionalInfoCells.append(customCell)
+    open static func setAddionalInfoCells(customCells : [MPCustomCell]) {
+        ReviewScreenPreference.additionalInfoCells = customCells
     }
     
     open static func clear() {

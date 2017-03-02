@@ -107,7 +107,7 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     public func cardFormManager() -> CardViewModelManager{
         let paymentPreference = PaymentPreference()
         paymentPreference.defaultPaymentTypeId = self.paymentOptionSelected?.getId()
-        return CardViewModelManager(amount : self.getAmount(), paymentMethods :nil, paymentSettings : paymentPreference)
+        return CardViewModelManager(amount : self.getAmount(), paymentMethods: search?.paymentMethods, paymentSettings : paymentPreference)
     }
     
     public func debitCreditViewModel() -> CardAdditionalStepViewModel{
@@ -201,10 +201,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .ERROR
         }
         
-        if shouldExitCheckout() {
-            return .FINISH
-        }
-        
         if shouldShowCongrats() {
             return .CONGRATS
         }
@@ -261,9 +257,8 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .POST_PAYMENT
         }
         
-        return .REVIEW_AND_CONFIRM
-        
-        
+        return .FINISH
+
     }
     
     
@@ -348,14 +343,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     
     internal func getAmount() -> Double {
         return self.checkoutPreference.getAmount()
-    }
-    
-    public func isCheckoutComplete() -> Bool {
-        return checkoutComplete
-    }
-    
-    public func setIsCheckoutComplete(isCheckoutComplete : Bool) {
-        self.checkoutComplete = isCheckoutComplete
     }
     
     internal func findAndCompletePaymentMethodFor(paymentMethodId : String){
