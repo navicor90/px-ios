@@ -47,6 +47,13 @@
     
     [MercadoPagoCheckout setServicePreference:servicePreference];
     
+    // Setear flowPreference
+    
+//    FlowPreference *flowPreference = [[FlowPreference alloc]init];
+//    
+//    [flowPreference disableReviewAndConfirmScreen];
+//    [MercadoPagoCheckout setFlowPreference:flowPreference];
+    
     
     // Setear el idioma de la aplicación
     [MercadoPagoContext setLanguageWithLanguage:"es"];
@@ -81,11 +88,13 @@
     
     ReviewScreenPreference *reviewPreference = [[ReviewScreenPreference alloc] init];
     [reviewPreference setTitleWithTitle:@"Recarga tu SUBE"];
-    [reviewPreference setProductsDeteailWithProductsTitle:@"Carga SUBE"];
+    [reviewPreference setProductsDetailWithProductsTitle:@"Carga SUBE"];
     [reviewPreference setConfirmButtonTextWithConfirmButtonText:@"Confirmar recarga"];
     [reviewPreference setCancelButtonTextWithCancelButtonText:@"Cancelar recarga"];
     //[ReviewScreenPreference addCustomItemCellWithCustomCell:customCargaSube];
     [ReviewScreenPreference addAddionalInfoCellWithCustomCell:customCargaSube];
+    
+    [MercadoPagoCheckout setReviewScreenPreference:reviewPreference];
     
     
     // Celdas custom de Payment Result
@@ -133,6 +142,7 @@
     [PaymentResultScreenPreference addCustomPendingCellWithCustomCell:subeCongrats];
     [PaymentResultScreenPreference addCustomApprovedCellWithCustomCell:dineroEnCuentaCustom];
     [MercadoPagoCheckout setPaymentResultScreenPreference:resultPreference];
+    
     
     
     //Agregar un paymentDataCallBack que recarge RyC
@@ -189,7 +199,10 @@
     CheckoutPreference * pref = [[CheckoutPreference alloc] initWith_id: @"150216849-68645cbb-dfe6-4410-bfd6-6e5aa33d8a33"];
     //    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:pref paymentData:pd navigationController:self.navigationController] getRootViewController];
     
-    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference: self.pref navigationController:self.navigationController] getRootViewController];
+    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference: pref paymentData: nil navigationController:self. navigationController paymentResult: nil] getRootViewController];
+    
+
+
     //NSLog(vc);
     
     

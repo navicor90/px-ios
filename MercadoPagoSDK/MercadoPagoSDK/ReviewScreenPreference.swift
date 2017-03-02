@@ -11,9 +11,11 @@ import UIKit
 open class ReviewScreenPreference: NSObject {
 
     private var title = "Confirma tu compra".localized
-    private var productsTitle = "Products".localized
+    private var productsTitle = "Productos".localized
     private var confirmButtonText = "Confirmar".localized
+	private var secondaryConfirmButtonText : String?
     private var cancelButtonText = "Cancelar Pago".localized
+	private var shouldDisplayChangeMethodOption = true
     
     internal static var additionalInfoCells = [MPCustomCell]()
     internal static var customItemCells = [MPCustomCell]()
@@ -26,7 +28,7 @@ open class ReviewScreenPreference: NSObject {
         return title
     }
     
-    open func setProductsDeteail(productsTitle : String) {
+    open func setProductsDetail(productsTitle : String) {
         self.productsTitle = productsTitle
     }
     
@@ -41,7 +43,19 @@ open class ReviewScreenPreference: NSObject {
     open func getConfirmButtonText() -> String {
         return confirmButtonText
     }
-    
+	
+	open func setSecondaryConfirmButtonText(secondaryConfirmButtonText : String){
+		self.secondaryConfirmButtonText = secondaryConfirmButtonText
+	}
+	
+	open func getSecondaryConfirmButtonText() -> String {
+		if let confirmText = secondaryConfirmButtonText {
+			return confirmText
+		} else {
+			return self.confirmButtonText
+		}
+	}
+	
     open func setCancelButtonText(cancelButtonText : String){
         self.cancelButtonText = cancelButtonText
     }
@@ -49,7 +63,19 @@ open class ReviewScreenPreference: NSObject {
     open func getCancelButtonTitle() -> String {
         return cancelButtonText
     }
-    
+	
+	open func isChangeMethodOptionEnabled() -> Bool {
+		return shouldDisplayChangeMethodOption
+	}
+	
+	open func disableChangeMethodOption() {
+		self.shouldDisplayChangeMethodOption = false
+	}
+	
+	open func enableChangeMethodOption() {
+		self.shouldDisplayChangeMethodOption = true
+	}
+	
     open static func addCustomItemCell(customCell : MPCustomCell) {
         ReviewScreenPreference.customItemCells.append(customCell)
     }

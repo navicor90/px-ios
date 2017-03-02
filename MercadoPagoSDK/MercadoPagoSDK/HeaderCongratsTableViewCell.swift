@@ -32,8 +32,8 @@ class HeaderCongratsTableViewCell: UITableViewCell, TimerDelegate {
         
         view.backgroundColor = color
         
-        if paymentResult.status == "approved" {
-            icon.image = MercadoPago.getImage("iconoAcreditado")
+		if paymentResult.status == "approved" {
+			icon.image = MercadoPagoCheckoutViewModel.paymentResultScreenPreference.getHeaderApprovedIcon()
             title.text = MercadoPagoCheckoutViewModel.paymentResultScreenPreference.getApprovedTitle()
             subtitle.text = MercadoPagoCheckoutViewModel.paymentResultScreenPreference.getApprovedSubtitle()
             

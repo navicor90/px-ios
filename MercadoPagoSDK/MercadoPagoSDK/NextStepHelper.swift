@@ -60,7 +60,7 @@ extension MercadoPagoCheckoutViewModel {
         return false
     
     }
-    func needGetIssuer() -> Bool {
+    func needGetIssuers() -> Bool {
         guard let selectedType = self.paymentOptionSelected else {
             return false
         }
@@ -70,7 +70,23 @@ extension MercadoPagoCheckoutViewModel {
         if selectedType.isCustomerPaymentMethod(){
             return false
         }
-        if paymentData.issuer == nil  && pm.isCard()  { 
+        if paymentData.issuer == nil  && pm.isCard() && Array.isNullOrEmpty(issuers) {
+            return true
+        }
+        return false
+    }
+    
+    func needIssuerSelectionScreen() -> Bool {
+        guard let selectedType = self.paymentOptionSelected else {
+            return false
+        }
+        guard let pm = self.paymentData.paymentMethod else {
+            return false
+        }
+        if selectedType.isCustomerPaymentMethod(){
+            return false
+        }
+        if paymentData.issuer == nil  && pm.isCard() && !Array.isNullOrEmpty(issuers) {
             return true
         }
         return false
@@ -89,12 +105,22 @@ extension MercadoPagoCheckoutViewModel {
         guard let pm = self.paymentData.paymentMethod else {
             return false
         }
-        if pm.isCreditCard() && self.paymentData.payerCost == nil {
+        if pm.isCreditCard() && self.paymentData.payerCost == nil && installment == nil {
             return true
-        }else{
+        }
+        return false
+    }
+    
+    func needPayerCostSelectionScreen() -> Bool {
+        guard let pm = self.paymentData.paymentMethod else {
             return false
         }
+        if pm.isCreditCard() && self.paymentData.payerCost == nil && installment != nil {
+            return true
+        }
+        return false
     }
+    
     func needSecurityCode() -> Bool {
         guard let pmSelected = self.paymentOptionSelected else {
             return false
@@ -137,5 +163,9 @@ extension MercadoPagoCheckoutViewModel {
                 self.paymentOptionSelected = Utils.findPaymentMethodTypeId(self.search!.groups, paymentTypeId: paymentTypeId)
             }
         }
+    }
+    
+    func needReviewAndConfirm() -> Bool {
+        return self.paymentData.isComplete() && MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable() && !self.readyToPay
     }
 }

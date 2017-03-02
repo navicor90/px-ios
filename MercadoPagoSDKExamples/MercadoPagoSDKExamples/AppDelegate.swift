@@ -87,15 +87,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //produ
         //MercadoPagoContext.setPublicKey("APP_USR-a865216a-a035-4629-8ec4-b1e1908b8b0d")
        // MercadoPagoContext.setPublicKey("APP_USR-8e3869a6-638f-45cd-b5b7-267c8e6f2b09")
-        
 
 
         
         
         //MercadoPagoContext.setDisplayDefaultLoading(flag: false)
         
-
-        MercadoPagoContext.setLanguage(language: MercadoPagoContext.Languages._SPANISH_COLOMBIA)
 
         
         //        let tracker = TrackerExample()

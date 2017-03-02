@@ -26,7 +26,6 @@ open class MPServicesBuilder : NSObject {
         service.getToken(key: MercadoPagoContext.keyValue(), cardToken: cardToken, success: {(jsonResult: AnyObject?) -> Void in
             var token : Token? = nil
             if let tokenDic = jsonResult as? NSDictionary {
-                print(tokenDic)
                 if tokenDic["error"] == nil {
                     token = Token.fromJSON(tokenDic)
                     MPTracker.trackCreateToken(MercadoPagoContext.sharedInstance, token: token?._id)
@@ -155,7 +154,7 @@ open class MPServicesBuilder : NSObject {
     }
     
     open class func getInstallments(_ bin: String? = nil, amount: Double, issuer: Issuer?, paymentMethodId: String, baseURL: String = ServicePreference.MP_API_BASE_URL,
-                                    success: @escaping (_ installments: [Installment]?) -> Void,
+                                    success: @escaping (_ installments: [Installment]) -> Void,
                                     failure: @escaping ((_ error: NSError) -> Void)) {
         
         MercadoPagoContext.initFlavor1()

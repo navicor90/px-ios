@@ -87,6 +87,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
     }
     
     override func loadMPStyles(){
+
         if self.navigationController != nil {
             self.navigationController!.interactivePopGestureRecognizer?.delegate = self
             self.navigationController?.navigationBar.tintColor = UIColor(red: 255, green: 255, blue: 255)
