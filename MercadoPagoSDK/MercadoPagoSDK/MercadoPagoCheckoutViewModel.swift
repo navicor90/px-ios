@@ -153,7 +153,7 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     
     //SEARCH_PAYMENT_METHODS
     public func updateCheckoutModel(paymentMethods: [PaymentMethod], cardToken: CardToken?){
-        self.paymentMethods = paymentMethods
+		self.paymentMethods = paymentMethods
         self.paymentData.paymentMethod = self.paymentMethods?[0] // Ver si son mas de uno
         self.cardToken = cardToken
         if self.paymentMethods!.count > 1 {
@@ -222,6 +222,10 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .FINISH
         }
         
+        if shouldShowCongrats() {
+            return .CONGRATS
+        }
+        
         if needSearch() {
             return .SEARCH_PAYMENT_METHODS
         }
@@ -259,11 +263,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
         
         if needCreateToken(){
             return .CREATE_CARD_TOKEN
-        }
-        
-        
-        if shouldShowCongrats() {
-            return .CONGRATS
         }
         
         if readyToPay {
@@ -338,6 +337,7 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     }
     
     func updateCheckoutModel(paymentData: PaymentData){
+        self.paymentData = paymentData
         if paymentData.paymentMethod == nil {
             // Vuelvo a root para iniciar la selección de medios de pago
             self.paymentOptionSelected = nil

@@ -84,17 +84,18 @@ class OfflinePaymentMethodCell: UITableViewCell {
             
             self.acreditationTimeLabel.attributedText = NSMutableAttributedString(string: paymentMethodOption.getComment(), attributes: [NSFontAttributeName: Utils.getFont(size: 12)])
         }
-        
-        
-        
+		
         self.paymentMethodDescription.attributedText = attributedTitle
-        self.changePaymentButton.titleLabel?.font = Utils.getFont(size: 18)
-        self.changePaymentButton.setTitle("Cambiar pago".localized, for: .normal)
-        
-        
-        
+		
+		if MercadoPagoCheckoutViewModel.reviewScreenPreference.isChangeMethodOptionEnabled() {
+   			self.changePaymentButton.setTitleColor(UIColor.primaryColor(), for: UIControlState.normal)			
+			self.changePaymentButton.titleLabel?.font = Utils.getFont(size: 18)
+			self.changePaymentButton.setTitle("Cambiar pago".localized, for: .normal)
+		} else {
+			self.changePaymentButton.isHidden = true;
+		}
     }
     
-    
+	
     
   }

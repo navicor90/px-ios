@@ -14,7 +14,9 @@ open class PaymentResultScreenPreference: NSObject {
     var approvedSubtitle = ""
     var approvedSecondaryExitButtonText = ""
     var approvedSecondaryExitButtonCallback: ((PaymentResult) -> Void)?
-    
+	var approvedIconName = "iconoAcreditado"
+	var approvedIconBundle = MercadoPago.getBundle()!
+	
     var pendingTitle = "Estamos procesando el pago".localized
     var pendingSubtitle = ""
     var pendingContentTitle = "¿Qué puedo hacer?".localized
@@ -40,8 +42,10 @@ open class PaymentResultScreenPreference: NSObject {
     var rejectedSecondaryExitButtonCallback: ((PaymentResult) -> Void)?
 
     var exitButtonTitle = "Continuar".localized
+	
+	var statusBackgroundColor : UIColor?
 
-    
+	var hideApprovedPaymentBodyCell = false
     var hideChangePaymentMethodCell = false
     var hideAmount = false
     var hidePaymentId = false
@@ -64,7 +68,12 @@ open class PaymentResultScreenPreference: NSObject {
         self.approvedSecondaryExitButtonText = text
         self.approvedSecondaryExitButtonCallback = callback
     }
-    
+	
+	open func setApprovedHeaderIcon(name: String, bundle: Bundle) {
+		self.approvedIconName = name
+		self.approvedIconBundle = bundle
+	}
+	
     // Sets de Pending
     
     open func setPendingTitle(title: String) {
@@ -149,13 +158,27 @@ open class PaymentResultScreenPreference: NSObject {
     open func setExitButtonTitle(title: String) {
         self.exitButtonTitle = title
     }
-    
+	
+	// Sets cross status
+	
+	open func setStatusBackgroundColor(color: UIColor) {
+		self.statusBackgroundColor = color
+	}
+	
+	open func getStatusBackgroundColor() -> UIColor? {
+		return statusBackgroundColor
+	}
+	
     // Disables
     
     open func disableChangePaymentMethodOptionCell() {
         self.hideChangePaymentMethodCell = true
     }
-    
+	
+	open func disableApprovedBodyCell() {
+		self.hideApprovedPaymentBodyCell = true
+	}
+	
     open func disableApprovedAmount() {
         self.hideAmount = true
     }
@@ -166,6 +189,30 @@ open class PaymentResultScreenPreference: NSObject {
     
     open func disableApprovedPaymentMethodInfo() {
         self.hidePaymentMethod = true
+    }
+    
+    open func enableAmount() {
+        self.hideAmount = false
+    }
+    
+    open func enableApprovedReceipt(){
+        self.hidePaymentId = true
+    }
+    
+    open func enableChangePaymentMethodOptionCell(){
+        self.hideChangePaymentMethodCell = false
+    }
+	
+	open func enableApprovedPaymentBodyCell(){
+		self.hideApprovedPaymentBodyCell = false
+	}
+	
+    open func enablePaymentContentText() {
+        self.hidePendingContentText = false
+    }
+    
+    open func enableApprovedPaymentMethodInfo() {
+        self.hidePaymentMethod = false
     }
     
     //Custom Rows
@@ -199,7 +246,11 @@ open class PaymentResultScreenPreference: NSObject {
     open func getApprovedSecondaryButtonCallback() -> ((PaymentResult) -> Void)? {
         return approvedSecondaryExitButtonCallback
     }
-    
+	
+	open func getHeaderApprovedIcon() -> UIImage? {
+		return MercadoPago.getImage(approvedIconName, bundle: approvedIconBundle)
+	}
+	
     //Pending
     
     open func getPendingTitle() -> String {
@@ -290,7 +341,11 @@ open class PaymentResultScreenPreference: NSObject {
     open func isSelectAnotherPaymentMethodDisableCell() -> Bool {
         return hideChangePaymentMethodCell
     }
-    
+	
+	open func isApprovedPaymentBodyDisableCell() -> Bool {
+		return hideApprovedPaymentBodyCell
+	}
+	
     open func isPaymentMethodDisable() -> Bool {
         return hidePaymentMethod
     }

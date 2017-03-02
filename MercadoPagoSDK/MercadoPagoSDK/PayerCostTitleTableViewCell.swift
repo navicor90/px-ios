@@ -24,6 +24,7 @@ class PayerCostTitleTableViewCell: UITableViewCell, TitleCellScrollable {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+		self.selectionStyle = UITableViewCellSelectionStyle.none
         // Initialization code
     }
 

@@ -63,6 +63,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         super.viewWillAppear(animated)
         
         self.navigationItem.rightBarButtonItem = nil
+        self.navBarTextColor = UIColor.primaryColor()
         
         self.checkoutTable.dataSource = self
         self.checkoutTable.delegate = self
@@ -164,8 +165,11 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
             return self.getPurchaseDetailCell(indexPath: indexPath, title : "Pagas".localized, amount : self.viewModel.preference!.getAmount(), payerCost : self.viewModel.paymentData.payerCost, addSeparatorLine: true)
             
         } else if self.viewModel.isTotalCellFor(indexPath: indexPath){
-            return self.getPurchaseSimpleDetailCell(indexPath: indexPath, title : "Total".localized, amount : self.viewModel.getTotalAmmount(), addSeparatorLine: false)
-            
+            return self.getPurchaseSimpleDetailCell(indexPath: indexPath, title : "Total".localized, amount : self.viewModel.getTotalAmount(), addSeparatorLine: false)
+        
+        } else if self.viewModel.isConfirmAdditionalInfoFor(indexPath: indexPath){
+        return self.getConfirmAddtionalInfo(indexPath: indexPath, payerCost: self.viewModel.paymentData.payerCost)
+        
         } else if self.viewModel.isConfirmButtonCellFor(indexPath: indexPath){
             return self.getConfirmPaymentButtonCell(indexPath: indexPath)
             
@@ -270,6 +274,9 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         let purchaseTermsAndConditions = UINib(nibName: "TermsAndConditionsViewCell", bundle: self.bundle)
         self.checkoutTable.register(purchaseTermsAndConditions, forCellReuseIdentifier: "termsAndConditionsViewCell")
         
+        let confirmAddtionalInfoCFT = UINib(nibName: "ConfirmAdditionalInfoTableViewCell", bundle: self.bundle)
+        self.checkoutTable.register(confirmAddtionalInfoCFT, forCellReuseIdentifier: "confirmAddtionalInfoCFT")
+        
         self.checkoutTable.delegate = self
         self.checkoutTable.dataSource = self
         self.checkoutTable.separatorStyle = .none
@@ -278,7 +285,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     private func getMainTitleCell(indexPath : IndexPath) -> UITableViewCell{
         let payerCostTitleTableViewCell = self.checkoutTable.dequeueReusableCell(withIdentifier: "payerCostTitleTableViewCell", for: indexPath) as! PayerCostTitleTableViewCell
         payerCostTitleTableViewCell.setTitle(string: MercadoPagoCheckoutViewModel.reviewScreenPreference.getTitle())
-        payerCostTitleTableViewCell.title.textColor = UIColor.px_blueMercadoPago()
+        payerCostTitleTableViewCell.title.textColor = UIColor.primaryColor()
         payerCostTitleTableViewCell.cell.backgroundColor = UIColor.px_white()
         titleCell = payerCostTitleTableViewCell
         return payerCostTitleTableViewCell
@@ -316,11 +323,17 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         return purchaseSimpleDetailTableViewCell
     }
     
+    private func getConfirmAddtionalInfo( indexPath: IndexPath, payerCost: PayerCost?) -> UITableViewCell{
+        let confirmAdditionalInfoCFT = self.checkoutTable.dequeueReusableCell(withIdentifier: "confirmAddtionalInfoCFT", for: indexPath) as! ConfirmAdditionalInfoTableViewCell
+        confirmAdditionalInfoCFT.fillCell(payerCost: payerCost)
+        return confirmAdditionalInfoCFT
+    }
     
     private func getConfirmPaymentButtonCell(indexPath : IndexPath) -> UITableViewCell{
         let confirmPaymentTableViewCell = self.checkoutTable.dequeueReusableCell(withIdentifier: "confirmPaymentTableViewCell", for: indexPath) as! ConfirmPaymentTableViewCell
         confirmPaymentTableViewCell.confirmPaymentButton.addTarget(self, action: #selector(confirmPayment), for: .touchUpInside)
-        let confirmPaymentTitle =  MercadoPagoCheckoutViewModel.reviewScreenPreference.getConfirmButtonText()
+		let confirmPaymentTitle = (indexPath.section == 1) ? MercadoPagoCheckoutViewModel.reviewScreenPreference.getConfirmButtonText() :
+		 MercadoPagoCheckoutViewModel.reviewScreenPreference.getSecondaryConfirmButtonText()
         confirmPaymentTableViewCell.confirmPaymentButton.setTitle(confirmPaymentTitle,for: .normal)
         return confirmPaymentTableViewCell
     }
@@ -336,7 +349,7 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     private func getOnlinePaymentMethodSelectedCell(indexPath : IndexPath) ->UITableViewCell {
         let paymentMethodSelectedTableViewCell = self.checkoutTable.dequeueReusableCell(withIdentifier: "paymentMethodSelectedTableViewCell", for: indexPath) as! PaymentMethodSelectedTableViewCell
         
-        paymentMethodSelectedTableViewCell.fillCell(self.viewModel.paymentData.paymentMethod!, amount : self.viewModel.getTotalAmmount(), payerCost : self.viewModel.paymentData.payerCost, lastFourDigits: self.viewModel.paymentData.token!.lastFourDigits)
+        paymentMethodSelectedTableViewCell.fillCell(self.viewModel.paymentData.paymentMethod!, amount : self.viewModel.getTotalAmount(), payerCost : self.viewModel.paymentData.payerCost, lastFourDigits: self.viewModel.paymentData.token!.lastFourDigits)
         
         paymentMethodSelectedTableViewCell.selectOtherPaymentMethodButton.addTarget(self, action: #selector(changePaymentMethodSelected), for: .touchUpInside)
         return paymentMethodSelectedTableViewCell
@@ -363,12 +376,10 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
         return tycCell
     }
     
-    func changePaymentMethodSelected() {
-        self.viewModel.paymentData.paymentMethod = nil
-        self.viewModel.paymentData.clear()
-        self.callbackPaymentData(self.viewModel.paymentData)
-    }
-    
+	func changePaymentMethodSelected() {
+		self.callbackPaymentData(PaymentData())
+	}
+	
     internal func openTermsAndConditions(_ title: String, url : URL){
         let webVC = WebViewController(url: url)
         webVC.title = title
@@ -477,6 +488,8 @@ open class CheckoutViewModel {
                 return PurchaseSimpleDetailTableViewCell.ROW_HEIGHT
             case 2:
                 return (self.isPaymentMethodSelectedCard()) ? PurchaseSimpleDetailTableViewCell.ROW_HEIGHT : ConfirmPaymentTableViewCell.ROW_HEIGHT
+            case 3:
+                return hasPayerCostAddionalInfo() ? ConfirmAdditionalInfoTableViewCell.ROW_HEIGHT : ConfirmPaymentTableViewCell.ROW_HEIGHT
             default:
                 return ConfirmPaymentTableViewCell.ROW_HEIGHT
             }
@@ -531,15 +544,19 @@ open class CheckoutViewModel {
         return !Array.isNullOrEmpty(ReviewScreenPreference.customItemCells)
     }
     
-    func hasPayerCostAddionalInfo() -> Bool {
-        return false
-    }
-    
-    func getTotalAmmount() -> Double {
+    func getTotalAmount() -> Double {
         if let payerCost = paymentData.payerCost {
             return payerCost.totalAmount
         }
         return self.preference!.getAmount()
+    }
+    
+    func hasPayerCostAddionalInfo() -> Bool {
+        if self.paymentData.payerCost != nil && self.paymentData.payerCost!.getCFTValue() != nil {
+            return true
+        } else {
+            return false
+        }
     }
     
     func isTitleCellFor(indexPath: IndexPath) -> Bool{

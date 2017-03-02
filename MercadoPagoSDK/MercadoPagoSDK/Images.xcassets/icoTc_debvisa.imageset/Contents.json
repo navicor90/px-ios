@@ -5,10 +5,12 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "logoVisaDebito.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "logoVisaDebito@2x.png",
       "scale" : "2x"
     },
     {

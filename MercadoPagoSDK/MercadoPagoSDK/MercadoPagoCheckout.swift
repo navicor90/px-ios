@@ -153,7 +153,7 @@ open class MercadoPagoCheckout: NSObject {
         let paymentMethodSelectionStep = PaymentVaultViewController(viewModel: self.viewModel.paymentVaultViewModel(), callback : { (paymentOptionSelected : PaymentMethodOption) -> Void  in
             self.viewModel.updateCheckoutModel(paymentOptionSelected : paymentOptionSelected)
             self.viewModel.rootVC = false
-            self.viewModel.reviewAndConfirm = MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable()
+            //self.viewModel.reviewAndConfirm = MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable()
             self.executeNextStep()
         })
         
@@ -292,15 +292,23 @@ open class MercadoPagoCheckout: NSObject {
             
             
             self.presentLoading()
-            self.navigationController.popToViewController(viewControllerBase!, animated: false)
-            self.pushViewController(viewController :checkoutVC, animated: false)
+			self.cleanNavigationStack()
+			self.navigationController.pushViewController(checkoutVC, animated: true);
             self.dismissLoading(animated: false)
         } else {
             // Caso en que RyC esté deshabilitada
             self.executePaymentDataCallback()
         }
     }
-    
+	
+	func cleanNavigationStack () {
+		
+		// TODO WALLET
+		var newNavigationStack = self.navigationController.viewControllers.filter {!$0.isKind(of:MercadoPagoUIViewController.self);
+		}
+		self.navigationController.viewControllers = newNavigationStack;
+	}
+	
     private func executePaymentDataCallback() {
         if MercadoPagoCheckoutViewModel.paymentDataCallback != nil {
             MercadoPagoCheckoutViewModel.paymentDataCallback!(self.viewModel.paymentData)

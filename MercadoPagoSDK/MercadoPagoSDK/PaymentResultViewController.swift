@@ -141,7 +141,8 @@ open class PaymentResultViewController: MercadoPagoUIViewController, UITableView
         let footerNib = self.tableView.dequeueReusableCell(withIdentifier: "footerNib") as! FooterTableViewCell
         footerNib.setCallbackStatus(callback: self.viewModel.callback, status: MPStepBuilder.CongratsState.ok)
         footerNib.fillCell(paymentResult: self.viewModel.paymentResult)
-        if self.viewModel.approved(){
+		var isSecondaryButtonDisplayed = MercadoPagoCheckoutViewModel.paymentResultScreenPreference.approvedSecondaryExitButtonCallback != nil;
+        if self.viewModel.approved() && !isSecondaryButtonDisplayed {
             ViewUtils.drawBottomLine(y: footerNib.contentView.frame.minY, width: UIScreen.main.bounds.width, inView: footerNib.contentView)
         }
         return footerNib
