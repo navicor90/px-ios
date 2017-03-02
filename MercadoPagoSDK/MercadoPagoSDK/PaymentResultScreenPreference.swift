@@ -217,12 +217,14 @@ open class PaymentResultScreenPreference: NSObject {
     
     //Custom Rows
     
-    open static func addCustomPendingCell(customCell : MPCustomCell) {
-        PaymentResultScreenPreference.pendingAdditionalInfoCells.append(customCell)
+    open static func setCustomPendingCells(customCells : [MPCustomCell]) {
+        PaymentResultScreenPreference.pendingAdditionalInfoCells = customCells
+       // PaymentResultScreenPreference.pendingAdditionalInfoCells.append(customCell)
     }
     
-    open static func addCustomApprovedCell(customCell : MPCustomCell) {
-        PaymentResultScreenPreference.approvedAdditionalInfoCells.append(customCell)
+    open static func setCustomsApprovedCell(customCells : [MPCustomCell]) {
+        PaymentResultScreenPreference.approvedAdditionalInfoCells = customCells
+        //PaymentResultScreenPreference.approvedAdditionalInfoCells.append(customCell)
     }
     
     open static func clear() {

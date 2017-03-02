@@ -85,7 +85,8 @@
     [reviewPreference setConfirmButtonTextWithConfirmButtonText:@"Confirmar recarga"];
     [reviewPreference setCancelButtonTextWithCancelButtonText:@"Cancelar recarga"];
     //[ReviewScreenPreference addCustomItemCellWithCustomCell:customCargaSube];
-    [ReviewScreenPreference addAddionalInfoCellWithCustomCell:customCargaSube];
+    
+    [ReviewScreenPreference setAddionalInfoCellsWithCustomCells:[NSArray arrayWithObjects:customCargaSube, nil]];
     
     [MercadoPagoCheckout setReviewScreenPreference:reviewPreference];
     
@@ -132,8 +133,10 @@
     
     
     // Agregar celdas custom
-    [PaymentResultScreenPreference addCustomPendingCellWithCustomCell:subeCongrats];
-    [PaymentResultScreenPreference addCustomApprovedCellWithCustomCell:dineroEnCuentaCustom];
+    
+    [PaymentResultScreenPreference setCustomPendingCellsWithCustomCells:[NSArray arrayWithObjects:subeCongrats, nil]];
+    [PaymentResultScreenPreference setCustomsApprovedCellWithCustomCells:[NSArray arrayWithObjects:dineroEnCuentaCustom, nil]];
+
     [MercadoPagoCheckout setPaymentResultScreenPreference:resultPreference];
     
     
