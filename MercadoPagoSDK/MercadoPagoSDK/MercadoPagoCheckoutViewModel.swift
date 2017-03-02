@@ -334,6 +334,8 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             self.search = nil
             self.rootVC = true
             self.cardToken = nil
+            self.issuers = nil
+            self.installment = nil
         } else {
             self.readyToPay = true
         }

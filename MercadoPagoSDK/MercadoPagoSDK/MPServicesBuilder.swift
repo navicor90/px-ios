@@ -154,7 +154,7 @@ open class MPServicesBuilder : NSObject {
     }
     
     open class func getInstallments(_ bin: String? = nil, amount: Double, issuer: Issuer?, paymentMethodId: String, baseURL: String = ServicePreference.MP_API_BASE_URL,
-                                    success: @escaping (_ installments: [Installment]?) -> Void,
+                                    success: @escaping (_ installments: [Installment]) -> Void,
                                     failure: @escaping ((_ error: NSError) -> Void)) {
         
         MercadoPagoContext.initFlavor1()

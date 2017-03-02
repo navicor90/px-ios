@@ -47,6 +47,13 @@
     
     [MercadoPagoCheckout setServicePreference:servicePreference];
     
+    // Setear flowPreference
+    
+//    FlowPreference *flowPreference = [[FlowPreference alloc]init];
+//    
+//    [flowPreference disableReviewAndConfirmScreen];
+//    [MercadoPagoCheckout setFlowPreference:flowPreference];
+    
     
     // Setear el idioma de la aplicación
     [MercadoPagoContext setLanguageWithLanguage:"es"];
@@ -135,6 +142,7 @@
     [PaymentResultScreenPreference addCustomPendingCellWithCustomCell:subeCongrats];
     [PaymentResultScreenPreference addCustomApprovedCellWithCustomCell:dineroEnCuentaCustom];
     [MercadoPagoCheckout setPaymentResultScreenPreference:resultPreference];
+    
     
     
     //Agregar un paymentDataCallBack que recarge RyC

@@ -228,22 +228,16 @@ open class MercadoPagoCheckout: NSObject {
             self.executeNextStep()
         })
     }
-
-    open func getInstallments() {
-
-    }
     
     func collectPayerCosts() {
         
         let bin = self.viewModel.cardToken?.getBin()
         MPServicesBuilder.getInstallments(bin, amount: self.viewModel.checkoutPreference.getAmount() , issuer: self.viewModel.paymentData.issuer, paymentMethodId: self.viewModel.paymentData.paymentMethod._id, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(),success: { (installments) -> Void in
-            self.viewModel.installment = installments?[0]
+            self.viewModel.installment = installments[0]
             
-            if let payerCosts = self.viewModel.installment?.payerCosts {
-                let defaultPayerCost = self.viewModel.checkoutPreference.paymentPreference?.autoSelectPayerCost(payerCosts)
-                if defaultPayerCost != nil {
-                    self.viewModel.updateCheckoutModel(payerCost: defaultPayerCost)
-                }
+            let defaultPayerCost = self.viewModel.checkoutPreference.paymentPreference?.autoSelectPayerCost(installments[0].payerCosts)
+            if defaultPayerCost != nil {
+                self.viewModel.updateCheckoutModel(payerCost: defaultPayerCost)
             }
             
             self.executeNextStep()
