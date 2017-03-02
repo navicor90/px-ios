@@ -17,10 +17,12 @@ public enum CheckoutStep : String {
     case CARD_FORM
     case SECURITY_CODE_ONLY
     case CREDIT_DEBIT
-    case ISSUER
+    case GET_ISSUERS
+    case ISSUERS_SCREEN
     case CREATE_CARD_TOKEN
     case IDENTIFICATION
-    case PAYER_COST
+    case GET_PAYER_COSTS
+    case PAYER_COST_SCREEN
     case REVIEW_AND_CONFIRM
     case POST_PAYMENT
     case CONGRATS
@@ -64,8 +66,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     var customPaymentOptions : [CardInformation]?
     
     var rootVC = true
-    
-    var next : CheckoutStep = .SEARCH_PAYMENT_METHODS
     
     
     var paymentData = PaymentData()
@@ -156,15 +156,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
 		self.paymentMethods = paymentMethods
         self.paymentData.paymentMethod = self.paymentMethods?[0] // Ver si son mas de uno
         self.cardToken = cardToken
-        if self.paymentMethods!.count > 1 {
-            self.next = .CREDIT_DEBIT
-        } else if self.paymentData.issuer == nil {
-            self.next = .ISSUER
-        } else if self.paymentData.paymentMethod!.isIdentificationRequired() {
-            self.next = .IDENTIFICATION
-        } else {
-            self.next = .CREATE_CARD_TOKEN
-        }
     }
     
     
@@ -179,7 +170,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     
     public func updateCheckoutModel(identification : Identification) {
         self.cardToken!.cardholder!.identification = identification
-        self.next = .CREATE_CARD_TOKEN
     }
     
     public func updateCheckoutModel(payerCost: PayerCost?){
@@ -249,12 +239,20 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .CREDIT_DEBIT
         }
         
-        if needGetIssuer() {
-            return .ISSUER
+        if needGetIssuers() {
+            return .GET_ISSUERS
+        }
+        
+        if needIssuerSelectionScreen() {
+            return .ISSUERS_SCREEN
         }
         
         if needChosePayerCost() {
-            return .PAYER_COST
+            return .GET_PAYER_COSTS
+        }
+        
+        if needPayerCostSelectionScreen() {
+            return .PAYER_COST_SCREEN
         }
         
         if needSecurityCode(){
@@ -333,7 +331,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             self.rootPaymentMethodOptions = paymentMethodOptions
         }
         self.paymentMethodOptions = self.rootPaymentMethodOptions
-        self.next = .PAYMENT_METHOD_SELECTION
     }
     
     func updateCheckoutModel(paymentData: PaymentData){

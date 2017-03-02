@@ -93,12 +93,16 @@ open class MercadoPagoCheckout: NSObject {
             self.collectIdentification()
         case .CREDIT_DEBIT:
             self.collectCreditDebit()
-        case .ISSUER:
-            self.collectIssuer()
+        case .GET_ISSUERS:
+            self.collectIssuers()
+        case .ISSUERS_SCREEN:
+            self.startIssuersScreen()
         case .CREATE_CARD_TOKEN :
             self.createCardToken()
-        case .PAYER_COST:
-            self.collectPayerCost()
+        case .GET_PAYER_COSTS:
+            self.collectPayerCosts()
+        case .PAYER_COST_SCREEN:
+            self.startPayerCostScreen()
         case .REVIEW_AND_CONFIRM :
             self.collectPaymentData()
         case .SECURITY_CODE_ONLY :
@@ -187,32 +191,21 @@ open class MercadoPagoCheckout: NSObject {
         self.pushViewController(viewController : crediDebitStep, animated: true)
     }
     
-    func getIssuers(){
+    func collectIssuers(){
         let bin = self.viewModel.cardToken?.getBin()
         MPServicesBuilder.getIssuers(self.viewModel.paymentData.paymentMethod, bin: bin, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(), success: { (issuers) -> Void in
             
             self.viewModel.issuers = issuers
-            self.collectIssuer()
+            
+            if issuers.count == 1 {
+                self.viewModel.updateCheckoutModel(issuer: issuers[0])
+            }
+            self.executeNextStep()
             
         }) { (error) -> Void in
             self.viewModel.errorInputs(error: MPSDKError.convertFrom(error), errorCallback: { (Void) in
-                self.getIssuers()
+                self.collectIssuers()
             })
-        }
-    }
-    
-    func collectIssuer(){
-        
-        guard let issuers = self.viewModel.issuers else {
-            getIssuers()
-            return
-        }
-        
-        if issuers.count == 1 {
-            self.viewModel.updateCheckoutModel(issuer: issuers[0])
-            self.executeNextStep()
-        } else {
-            startIssuersScreen()
         }
     }
     
@@ -238,30 +231,28 @@ open class MercadoPagoCheckout: NSObject {
     }
 
     open func getInstallments() {
+
+    }
+    
+    func collectPayerCosts() {
+        
         let bin = self.viewModel.cardToken?.getBin()
         MPServicesBuilder.getInstallments(bin, amount: self.viewModel.checkoutPreference.getAmount() , issuer: self.viewModel.paymentData.issuer, paymentMethodId: self.viewModel.paymentData.paymentMethod._id, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getDefaultBaseURL(),success: { (installments) -> Void in
             self.viewModel.installment = installments?[0]
-            self.collectPayerCost()
+            
+            if let payerCosts = self.viewModel.installment?.payerCosts {
+                let defaultPayerCost = self.viewModel.checkoutPreference.paymentPreference?.autoSelectPayerCost(payerCosts)
+                if defaultPayerCost != nil {
+                    self.viewModel.updateCheckoutModel(payerCost: defaultPayerCost)
+                }
+            }
+            
+            self.executeNextStep()
+            
         }) { (error) -> Void in
             self.viewModel.errorInputs(error: MPSDKError.convertFrom(error), errorCallback: { (Void) in
-                self.createCardToken()
+                self.collectPayerCosts()
             })
-        }
-    }
-    
-    func collectPayerCost() {
-        
-        guard let installment = self.viewModel.installment else {
-            getInstallments()
-            return
-        }
-        
-        let defaultPayerCost = self.viewModel.checkoutPreference.paymentPreference?.autoSelectPayerCost(installment.payerCosts)
-        if defaultPayerCost != nil {
-            self.viewModel.updateCheckoutModel(payerCost: defaultPayerCost)
-            executeNextStep()
-        } else {
-            startPayerCostScreen()
         }
     }
     
