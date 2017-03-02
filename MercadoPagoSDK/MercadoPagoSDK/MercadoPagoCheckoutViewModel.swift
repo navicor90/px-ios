@@ -104,7 +104,7 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     public func cardFormManager() -> CardViewModelManager{
         let paymentPreference = PaymentPreference()
         paymentPreference.defaultPaymentTypeId = self.paymentOptionSelected?.getId()
-        return CardViewModelManager(amount : self.getAmount(), paymentMethods :nil, paymentSettings : paymentPreference)
+        return CardViewModelManager(amount : self.getAmount(), paymentMethods: search?.paymentMethods, paymentSettings : paymentPreference)
     }
     
     public func debitCreditViewModel() -> CardAdditionalStepViewModel{
