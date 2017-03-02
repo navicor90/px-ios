@@ -46,10 +46,9 @@ open class PaymentService : MercadoPagoService {
         }
         params = params + "&payment_method_id=" + payment_method_id
         self.request( uri: uri, params:params, body: nil, method: method, success: {(jsonResult: AnyObject?) -> Void in
-            
             if let errorDic = jsonResult as? NSDictionary {
                 if errorDic["error"] != nil {
-                    failure(NSError(domain: "mercadopago.sdk.paymentService.getInstallments", code: MercadoPago.ERROR_API_CODE, userInfo: [NSLocalizedDescriptionKey: "Hubo un error".localized, NSLocalizedFailureReasonErrorKey : errorDic["error"] as! String]))
+                    failure(NSError(domain: "mercadopago.sdk.paymentService.getInstallments", code: MercadoPago.ERROR_API_CODE, userInfo: [NSLocalizedDescriptionKey: "Hubo un error".localized, NSLocalizedFailureReasonErrorKey : errorDic["error"] as? String ?? "Unknowed Error"]))
                 
                 }
             } else {
