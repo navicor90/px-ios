@@ -47,6 +47,13 @@
     
     [MercadoPagoCheckout setServicePreference:servicePreference];
     
+    // Setear flowPreference
+    
+//    FlowPreference *flowPreference = [[FlowPreference alloc]init];
+//    
+//    [flowPreference disableReviewAndConfirmScreen];
+//    [MercadoPagoCheckout setFlowPreference:flowPreference];
+    
     
     // Setear el idioma de la aplicación
     [MercadoPagoContext setLanguageWithLanguage:"es"];
@@ -137,6 +144,7 @@
     [MercadoPagoCheckout setPaymentResultScreenPreference:resultPreference];
     
     
+    
     //Agregar un paymentDataCallBack que recarge RyC
     
     //    [MercadoPagoCheckout setPaymentDataCallbackWithPaymentDataCallback: ^(PaymentData *paymentData) {
@@ -191,8 +199,9 @@
     CheckoutPreference * pref = [[CheckoutPreference alloc] initWith_id: @"150216849-68645cbb-dfe6-4410-bfd6-6e5aa33d8a33"];
     //    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:pref paymentData:pd navigationController:self.navigationController] getRootViewController];
     
+    UIViewController *vc = [[[MercadoPagoCheckout alloc] initWithCheckoutPreference: pref paymentData: nil navigationController:self. navigationController paymentResult: nil] getRootViewController];
+    
 
-    [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:pref paymentData:nil navigationController:self.navigationController paymentResult:nil] start];
 
     //NSLog(vc);
     
