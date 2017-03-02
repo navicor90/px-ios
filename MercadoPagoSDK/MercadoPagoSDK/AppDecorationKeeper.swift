@@ -9,29 +9,42 @@
 import Foundation
 
 extension DecorationPreference {
-    @nonobjc internal static var appNavBarTintColor : UIColor?
-    @nonobjc internal static var appNavTintColor : UIColor?
-    @nonobjc internal static var appNavTitleTextAttributes : [String : Any]?
-    @nonobjc internal static var appNavIsTranslucent : Bool = false
-    @nonobjc internal static var appNavViewBackgroundColor : UIColor?
-    @nonobjc internal static var appNavBackgroundColor : UIColor?
+    @nonobjc internal static var navigationControllerMemento : NavigationControllerMemento?
+
     
     static func saveNavBarStyleFor(navigationController: UINavigationController) {
-        DecorationPreference.appNavBarTintColor =  navigationController.navigationBar.barTintColor
-        DecorationPreference.appNavTintColor =  navigationController.navigationBar.tintColor
-        DecorationPreference.appNavTitleTextAttributes = navigationController.navigationBar.titleTextAttributes
-        DecorationPreference.appNavIsTranslucent = navigationController.navigationBar.isTranslucent
-        DecorationPreference.appNavViewBackgroundColor = navigationController.view.backgroundColor
-        DecorationPreference.appNavBackgroundColor = navigationController.navigationBar.backgroundColor
+        DecorationPreference.navigationControllerMemento = NavigationControllerMemento(navigationController: navigationController)
     }
     
     static func applyAppNavBarDecorationPreferencesTo(navigationController: UINavigationController){
-        navigationController.navigationBar.barTintColor = DecorationPreference.appNavBarTintColor
-        navigationController.navigationBar.titleTextAttributes = DecorationPreference.appNavTitleTextAttributes
-        navigationController.navigationBar.tintColor = DecorationPreference.appNavTintColor
-        navigationController.navigationBar.titleTextAttributes =  DecorationPreference.appNavTitleTextAttributes
-        navigationController.navigationBar.isTranslucent = DecorationPreference.appNavIsTranslucent
-        navigationController.navigationBar.backgroundColor = DecorationPreference.appNavBackgroundColor
+        guard let navControllerMemento = DecorationPreference.navigationControllerMemento else {
+            return
+        }
+        navigationController.navigationBar.barTintColor = navControllerMemento.navBarTintColor
+        navigationController.navigationBar.titleTextAttributes = navControllerMemento.navTitleTextAttributes
+        navigationController.navigationBar.tintColor = navControllerMemento.navTintColor
+        navigationController.navigationBar.titleTextAttributes =  navControllerMemento.navTitleTextAttributes
+        navigationController.navigationBar.isTranslucent = navControllerMemento.navIsTranslucent
+        navigationController.navigationBar.backgroundColor = navControllerMemento.navBackgroundColor
         navigationController.navigationBar.restoreBottomLine()
+    }
+}
+
+
+internal class NavigationControllerMemento {
+    var navBarTintColor : UIColor?
+    var navTintColor : UIColor?
+    var navTitleTextAttributes : [String : Any]?
+    var navIsTranslucent : Bool = false
+    var navViewBackgroundColor : UIColor?
+    var navBackgroundColor : UIColor?
+    
+    init(navigationController : UINavigationController) {
+        self.navBarTintColor =  navigationController.navigationBar.barTintColor
+        self.navTintColor =  navigationController.navigationBar.tintColor
+        self.navTitleTextAttributes = navigationController.navigationBar.titleTextAttributes
+        self.navIsTranslucent = navigationController.navigationBar.isTranslucent
+        self.navViewBackgroundColor = navigationController.view.backgroundColor
+        self.navBackgroundColor = navigationController.navigationBar.backgroundColor
     }
 }

@@ -14,6 +14,7 @@ class ConfirmAdditionalInfoTableViewCell: UITableViewCell {
     @IBOutlet weak var CFT: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
         // Initialization code
     }
     

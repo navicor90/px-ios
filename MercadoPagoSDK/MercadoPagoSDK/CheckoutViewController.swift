@@ -471,18 +471,23 @@ open class CheckoutViewModel {
     func heightForRow(_ indexPath: IndexPath) -> CGFloat {
         if isTitleCellFor(indexPath: indexPath) {
             return 60
-        } else if self.isProductlCellFor(indexPath: indexPath){
+        
+        } else if self.isProductlCellFor(indexPath: indexPath) {
            return PurchaseSimpleDetailTableViewCell.ROW_HEIGHT
+        
         } else if self.isInstallmentsCellFor(indexPath: indexPath) {
            return PurchaseDetailTableViewCell.getCellHeight(payerCost : self.paymentData.payerCost)
             
-        } else if self.isTotalCellFor(indexPath: indexPath){
+        } else if self.isTotalCellFor(indexPath: indexPath) {
             return PurchaseSimpleDetailTableViewCell.ROW_HEIGHT
             
-        } else if self.isConfirmButtonCellFor(indexPath: indexPath){
+        } else if self.isConfirmAdditionalInfoFor(indexPath: indexPath) {
+            return ConfirmAdditionalInfoTableViewCell.ROW_HEIGHT
+        
+        } else if self.isConfirmButtonCellFor(indexPath: indexPath) {
             return ConfirmPaymentTableViewCell.ROW_HEIGHT
             
-        } else if self.isItemCellFor(indexPath: indexPath){
+        } else if self.isItemCellFor(indexPath: indexPath) {
             return hasCustomItemCells() ? ReviewScreenPreference.customItemCells[indexPath.row].getHeight() : PurchaseItemDetailTableViewCell.getCellHeight(item: self.preference!.items[indexPath.row])
             
         } else if self.isPaymentMethodCellFor(indexPath: indexPath) {
@@ -492,9 +497,9 @@ open class CheckoutViewModel {
             
         } else if isTermsAndConditionsViewCellFor(indexPath: indexPath) {
             return TermsAndConditionsViewCell.getCellHeight()
-        } else if isConfirmPaymentTableViewCellFor(indexPath: indexPath){
+        } else if isConfirmPaymentTableViewCellFor(indexPath: indexPath) {
             return ConfirmPaymentTableViewCell.ROW_HEIGHT
-        } else if isExitButtonTableViewCellFor(indexPath: indexPath){
+        } else if isExitButtonTableViewCellFor(indexPath: indexPath) {
             return ExitButtonTableViewCell.ROW_HEIGHT
         }
 
