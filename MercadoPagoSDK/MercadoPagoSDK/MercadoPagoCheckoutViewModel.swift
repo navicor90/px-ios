@@ -76,16 +76,14 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     internal var errorCallback : ((Void) -> Void)?
     
     private var needLoadPreference : Bool = false
-    private var readyToPay : Bool = false
+    internal var readyToPay : Bool = false
     private var checkoutComplete = false
-    internal var reviewAndConfirm = false
     
     init(checkoutPreference : CheckoutPreference, paymentData : PaymentData?, paymentResult: PaymentResult?) {
         self.checkoutPreference = checkoutPreference
         if let pm = paymentData{
             if pm.isComplete() {
                 self.paymentData = pm
-                self.reviewAndConfirm = true
             }
         }
         self.paymentResult = paymentResult
@@ -192,12 +190,8 @@ open class MercadoPagoCheckoutViewModel: NSObject {
         
         if self.paymentOptionSelected!.isCustomerPaymentMethod() {
             self.findAndCompletePaymentMethodFor(paymentMethodId: paymentOptionSelected.getId())
-            if self.paymentOptionSelected!.getId() == PaymentTypeId.ACCOUNT_MONEY.rawValue {
-                self.reviewAndConfirm = MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable()
-            }
         } else if !paymentOptionSelected.isCard() && !paymentOptionSelected.hasChildren() {
             self.paymentData.paymentMethod = Utils.findPaymentMethod(self.availablePaymentMethods!, paymentMethodId: paymentOptionSelected.getId())
-            self.reviewAndConfirm = MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable()
         }
         
     }
@@ -209,7 +203,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             needLoadPreference = false
             return .SEARCH_PREFENCE
         }
-        
         
         if hasError() {
             return .ERROR
@@ -231,7 +224,7 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .PAYMENT_METHOD_SELECTION
         }
         
-        if reviewAndConfirm {
+        if needReviewAndConfirm() {
             return .REVIEW_AND_CONFIRM
         }
         
@@ -298,7 +291,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     
     public func updateCheckoutModel(token : Token) {
         self.paymentData.token = token
-        self.reviewAndConfirm = MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable()
     }
 
     public class func createMPPayment(_ email : String, preferenceId : String, paymentData : PaymentData, customerId : String? = nil) -> MPPayment {
@@ -345,7 +337,6 @@ open class MercadoPagoCheckoutViewModel: NSObject {
         } else {
             self.readyToPay = true
         }
-        self.reviewAndConfirm = false
     }
     
     public func updateCheckoutModel(payment : Payment) {
