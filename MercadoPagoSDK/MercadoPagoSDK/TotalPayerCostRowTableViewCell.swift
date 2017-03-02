@@ -13,6 +13,7 @@ class TotalPayerCostRowTableViewCell: UITableViewCell {
     @IBOutlet weak var totalLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
         // Initialization code
     }
 
