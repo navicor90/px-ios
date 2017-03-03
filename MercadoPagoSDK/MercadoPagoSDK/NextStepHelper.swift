@@ -143,6 +143,10 @@ extension MercadoPagoCheckoutViewModel {
         return self.payment != nil || self.paymentResult != nil
     }
     
+    func shouldExitCheckout() -> Bool {
+        return self.isCheckoutComplete()
+    }
+    
     func setPaymentOptionSelected(){
         if self.paymentData.hasCustomerPaymentOption() {
             // Account_money o customer cards

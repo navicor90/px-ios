@@ -201,6 +201,10 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .ERROR
         }
         
+        if shouldExitCheckout() {
+            return .FINISH
+        }
+        
         if shouldShowCongrats() {
             return .CONGRATS
         }
@@ -257,8 +261,9 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .POST_PAYMENT
         }
         
-        return .FINISH
-
+        return .REVIEW_AND_CONFIRM
+        
+        
     }
     
     
@@ -343,6 +348,14 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     
     internal func getAmount() -> Double {
         return self.checkoutPreference.getAmount()
+    }
+    
+    public func isCheckoutComplete() -> Bool {
+        return checkoutComplete
+    }
+    
+    public func setIsCheckoutComplete(isCheckoutComplete : Bool) {
+        self.checkoutComplete = isCheckoutComplete
     }
     
     internal func findAndCompletePaymentMethodFor(paymentMethodId : String){
