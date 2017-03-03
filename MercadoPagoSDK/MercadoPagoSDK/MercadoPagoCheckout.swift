@@ -376,8 +376,8 @@ open class MercadoPagoCheckout: NSObject {
         DecorationPreference.applyAppNavBarDecorationPreferencesTo(navigationController: self.navigationController)
         if let payment = self.viewModel.payment, let paymentCallback = MercadoPagoCheckoutViewModel.paymentCallback {
             paymentCallback(payment)
-        } else if let callback = MercadoPagoCheckoutViewModel.callback {
-            callback()
+       // } else if let callback = MercadoPagoCheckoutViewModel.callback {
+          //  callback()
         } else if MercadoPagoCheckoutViewModel.paymentDataCallback != nil {
             MercadoPagoCheckoutViewModel.paymentDataCallback!(self.viewModel.paymentData)
         }
