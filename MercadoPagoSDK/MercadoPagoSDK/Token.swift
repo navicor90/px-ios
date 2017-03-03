@@ -69,7 +69,7 @@ open class Token : NSObject, CardInformationForm {
 		let status = JSONHandler.attemptParseToString(literalJson["status"])
 		let luhn = JSONHandler.attemptParseToString(literalJson["luhn_validation"],defaultReturn: "")
 		let usedDate = JSONHandler.attemptParseToString(literalJson["date_used"],defaultReturn: "")
-		let cardNumberLength = JSONHandler.attemptParseToInt(literalJson["date_used"],defaultReturn: 0)
+		let cardNumberLength = JSONHandler.attemptParseToInt(literalJson["card_number_length"],defaultReturn: 0)
         
 		
 		let lastFourDigits = JSONHandler.attemptParseToString(literalJson["last_four_digits"],defaultReturn: "")
