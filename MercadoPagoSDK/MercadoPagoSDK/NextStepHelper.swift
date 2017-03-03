@@ -164,8 +164,4 @@ extension MercadoPagoCheckoutViewModel {
             }
         }
     }
-    
-    func needReviewAndConfirm() -> Bool {
-        return self.paymentData.isComplete() && MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable() && !self.readyToPay
-    }
 }

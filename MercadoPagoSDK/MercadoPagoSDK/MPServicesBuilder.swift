@@ -26,6 +26,7 @@ open class MPServicesBuilder : NSObject {
         service.getToken(key: MercadoPagoContext.keyValue(), cardToken: cardToken, success: {(jsonResult: AnyObject?) -> Void in
             var token : Token? = nil
             if let tokenDic = jsonResult as? NSDictionary {
+                print(tokenDic)
                 if tokenDic["error"] == nil {
                     token = Token.fromJSON(tokenDic)
                     MPTracker.trackCreateToken(MercadoPagoContext.sharedInstance, token: token?._id)
