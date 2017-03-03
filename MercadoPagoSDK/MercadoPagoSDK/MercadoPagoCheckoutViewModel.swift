@@ -45,6 +45,8 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     internal static var paymentCallback : ((Payment) -> Void)?
     internal static var callback: ((Void) -> Void)?
     
+    internal var forceCongrats = false
+    
     var checkoutPreference : CheckoutPreference!
     
     var paymentMethods : [PaymentMethod]?
@@ -201,6 +203,10 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .ERROR
         }
         
+        if forceCongrats {
+            forceCongrats = false
+            return .CONGRATS
+        }
         if shouldShowCongrats() {
             return .CONGRATS
         }

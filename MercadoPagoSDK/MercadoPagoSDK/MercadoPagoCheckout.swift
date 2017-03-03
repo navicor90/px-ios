@@ -27,6 +27,13 @@ open class MercadoPagoCheckout: NSObject {
         DecorationPreference.saveNavBarStyleFor(navigationController: navigationController)
         self.navigationController = navigationController
         
+        if let pd = paymentData {
+            if pd.isComplete() {
+                viewModel.forceCongrats = true
+            }
+        }
+        
+        
         if self.navigationController.viewControllers.count > 0 {
             viewControllerBase = self.navigationController.viewControllers[0]
         }
