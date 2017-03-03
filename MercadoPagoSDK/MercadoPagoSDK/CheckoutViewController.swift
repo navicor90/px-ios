@@ -112,6 +112,31 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
      
     }
 
+    override internal func loadMPStyles(){
+        
+        if self.navigationController != nil {
+            
+            var titleDict: NSDictionary = [:]
+            //Navigation bar colors
+            let fontChosed = Utils.getFont(size: 18)
+            titleDict = [NSForegroundColorAttributeName: UIColor.systemFontColor(), NSFontAttributeName:fontChosed]
+            
+            
+            if self.navigationController != nil {
+                if titleDict.count > 0 {
+                    self.navigationController!.navigationBar.titleTextAttributes = titleDict as? [String : AnyObject]
+                }
+                self.navigationItem.hidesBackButton = true
+                self.navigationController!.interactivePopGestureRecognizer?.delegate = self
+                self.navigationController?.navigationBar.removeBottomLine()
+                self.navigationController?.navigationBar.isTranslucent = false
+                
+                //Create navigation buttons
+                displayBackButton()
+            }
+        }
+        
+    }
     override open func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
