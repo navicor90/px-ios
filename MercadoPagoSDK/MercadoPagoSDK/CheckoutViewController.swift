@@ -300,17 +300,24 @@ open class CheckoutViewController: MercadoPagoUIScrollViewController, UITableVie
     }
     
     private func getCustomAdditionalCell(indexPath: IndexPath) -> UITableViewCell{
-        let customCell = ReviewScreenPreference.additionalInfoCells[indexPath.row]
-        customCell.setDelegate(delegate: self)
-        return customCell.getTableViewCell()
+        return makeCellWith(customCell: ReviewScreenPreference.additionalInfoCells[indexPath.row], indentifier: "CustomAppCell")
     }
     
     private func getCustomItemCell(indexPath: IndexPath) -> UITableViewCell{
-        let customCell = ReviewScreenPreference.customItemCells[indexPath.row]
-        customCell.setDelegate(delegate: self)
-        return customCell.getTableViewCell()
+        return makeCellWith(customCell: ReviewScreenPreference.customItemCells[indexPath.row], indentifier: "CustomItemCell")
     }
     
+    private func makeCellWith(customCell : MPCustomCell, indentifier : String) -> UITableViewCell {
+        let screenSize : CGRect = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let customView = customCell.getTableViewCell().contentView
+        let frame = customView.frame
+        customView.frame = CGRect(x: (screenWidth - frame.size.width) / 2, y: 0, width: frame.size.width, height: frame.size.height)
+        var cell = UITableViewCell(style: .default, reuseIdentifier: indentifier)
+        cell.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
+        cell.contentView.addSubview(customView)
+        return cell
+    }
     
     
     private func getPurchaseSimpleDetailCell(indexPath : IndexPath, title : String, amount : Double, payerCost : PayerCost? = nil, addSeparatorLine : Bool = true) -> UITableViewCell{
