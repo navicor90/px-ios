@@ -133,6 +133,18 @@ open class MercadoPagoCheckout: NSObject {
         })
     }
     
+    func checkDiscount() {
+        self.presentLoading()
+        let disco = DiscountService()
+        
+        disco.getDiscount(amount: self.viewModel.getAmount(), success: { (coupon) in
+            self.viewModel.paymentData.coupon = coupon
+             self.executeNextStep()
+        }, failure: { (error) in
+            self.executeNextStep()
+        })
+    }
+    
     func collectPaymentMethodSearch() {
         self.presentLoading()
         MPServicesBuilder.searchPaymentMethods(self.viewModel.getAmount(), defaultPaymenMethodId: self.viewModel.getDefaultPaymentMethodId(), excludedPaymentTypeIds: self.viewModel.getExcludedPaymentTypesIds(), excludedPaymentMethodIds: self.viewModel.getExcludedPaymentMethodsIds(),

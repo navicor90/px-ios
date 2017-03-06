@@ -10,6 +10,7 @@ import UIKit
 
 public enum CheckoutStep : String {
     case SEARCH_PREFENCE
+    case CHECK_DISCOUNT
     case SEARCH_PAYMENT_METHODS
     case SEARCH_CUSTOMER_PAYMENT_METHODS
     case PAYMENT_METHOD_SELECTION

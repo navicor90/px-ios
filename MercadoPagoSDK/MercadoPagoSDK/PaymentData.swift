@@ -14,6 +14,7 @@ public class PaymentData: NSObject {
     public var issuer : Issuer?
     public var payerCost : PayerCost?
     public var token : Token?
+    public var coupon : DiscountCoupon?
     
     func clear() {
         self.paymentMethod = nil
@@ -57,6 +58,10 @@ public class PaymentData: NSObject {
         obj["installments"] = (self.payerCost != nil ) ? self.payerCost!.installments : ""
         obj["card_token_id"] = (self.token != nil ) ? self.token!._id : ""
         obj["issuer_id"] = (self.issuer != nil ) ? self.issuer!._id : ""
+        if let coupon = self.coupon {
+           obj["coupon_id"] = coupon._id
+        }
+        
         return obj
     }
 
