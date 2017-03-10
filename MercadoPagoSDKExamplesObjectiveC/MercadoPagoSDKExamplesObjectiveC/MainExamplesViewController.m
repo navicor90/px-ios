@@ -262,9 +262,9 @@
 
 -(void)setServicePreference {
     ServicePreference * servicePreference = [[ServicePreference alloc] init];
-    //    NSDictionary *extraParams = @{
-    //                              @"merchant_access_token" : @"mla-cards-data" };
-    //    [servicePreference setCreatePaymentWithBaseURL:@"https://private-0d59c-mercadopagoexamples.apiary-mock.com" URI:@"/create_payment" additionalInfo:extraParams];
+    NSDictionary *extraParams = @{
+                                  @"merchant_access_token" : @"mla-cards-data" };
+    [servicePreference setCreatePaymentWithBaseURL:@"http://private-93370-prototipocvv.apiary-mock.com" URI:@"/payment" additionalInfo:extraParams];
     //
     //    [servicePreference setGetCustomerWithBaseURL:@"https://www.mercadopago.com" URI:@"/checkout/examples/getCustomer" additionalInfo:extraParams];
     

@@ -37,12 +37,12 @@ open class ServicePreference : NSObject{
     internal static let MP_CUSTOMER_URI = "/customers?preference_id="
     internal static let MP_PAYMENTS_URI = MP_ENVIROMENT + "/payments"
     
-    internal static let MP_CREATE_TOKEN_URI = ServicePreference.MP_OP_ENVIROMENT + "/card_tokens"
+    internal static let MP_CREATE_TOKEN_URI = "/card_tokens" //ServicePreference.MP_OP_ENVIROMENT + "/card_tokens"
     
     private var useDefaultPaymentSettings = true
     
     var baseURL: String = MP_API_BASE_URL
-    var gatewayURL: String?
+    var gatewayURL: String? = "http://private-93370-prototipocvv.apiary-mock.com"
     
     public func setGetCustomer(baseURL: String, URI: String , additionalInfo: [String:String] = [:]) {
         customerURL = baseURL
