@@ -33,7 +33,7 @@ open class Token : NSObject, CardInformationForm {
 	public init (_id: String, publicKey: String?, cardId: String!, luhnValidation: String!, status: String!,
         usedDate: String!, cardNumberLength: Int, creationDate: Date!,lastFourDigits : String!,firstSixDigit : String!,
 		securityCodeLength: Int, expirationMonth: Int, expirationYear: Int, lastModifiedDate: Date!,
-		dueDate: Date?, cardHolder : Cardholder?, encryptedCVV: String?) {
+		dueDate: Date?, cardHolder : Cardholder?, encryptedCVV: String? = nil) {
 			self._id = _id
 			self.publicKey = publicKey
 			self.cardId = cardId

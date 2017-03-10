@@ -328,6 +328,9 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     public func updateCheckoutModel(token : Token) {
         self.paymentData.token = token
         self.reviewAndConfirm = MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable()
+        if let encryptedCvv = token.encryptedCVV{
+            KeychainWrapper.standardKeychainAccess().setString(encryptedCvv , forKey: "CardID_\(token.cardId!)")
+        }
     }
 
     public class func createMPPayment(_ email : String, preferenceId : String, paymentData : PaymentData, customerId : String? = nil) -> MPPayment {
