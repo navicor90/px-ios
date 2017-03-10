@@ -27,11 +27,13 @@ open class Token : NSObject, CardInformationForm {
 	
     open var cardHolder : Cardholder?
     
+    open var encryptedCVV: String?
+    
     
 	public init (_id: String, publicKey: String?, cardId: String!, luhnValidation: String!, status: String!,
         usedDate: String!, cardNumberLength: Int, creationDate: Date!,lastFourDigits : String!,firstSixDigit : String!,
 		securityCodeLength: Int, expirationMonth: Int, expirationYear: Int, lastModifiedDate: Date!,
-        dueDate: Date?, cardHolder : Cardholder?) {
+		dueDate: Date?, cardHolder : Cardholder?, encryptedCVV: String?) {
 			self._id = _id
 			self.publicKey = publicKey
 			self.cardId = cardId
@@ -48,6 +50,7 @@ open class Token : NSObject, CardInformationForm {
 			self.lastModifiedDate = lastModifiedDate
 			self.dueDate = dueDate
             self.cardHolder = cardHolder
+            self.encryptedCVV = encryptedCVV
 	}
     
     open func getBin() -> String? {
@@ -87,11 +90,13 @@ open class Token : NSObject, CardInformationForm {
 		let dueDate = json.isKeyValid("date_due") ? Utils.getDateFromString(json["date_due"] as? String) : Date()
         let creationDate = json.isKeyValid("date_created") ? Utils.getDateFromString(json["date_created"] as? String) : Date()
         
+        let encryptedCVV = JSONHandler.attemptParseToString(literalJson["encrypted_cvv"])
+        
         
 		return Token(_id: _id!, publicKey: key, cardId: cardId, luhnValidation: luhn, status: status,
 			usedDate: usedDate, cardNumberLength: cardNumberLength!, creationDate: creationDate, lastFourDigits : lastFourDigits, firstSixDigit : firstSixDigits,
 			securityCodeLength: securityCodeLength!, expirationMonth: expMonth!, expirationYear: expYear!, lastModifiedDate: lastModifiedDate,
-            dueDate: dueDate, cardHolder: cardHolder)
+			dueDate: dueDate, cardHolder: cardHolder, encryptedCVV: encryptedCVV)
 	}
     
     open func toJSONString() -> String {
@@ -102,6 +107,7 @@ open class Token : NSObject, CardInformationForm {
     open func toJSON() -> [String:Any] {
         let _id : Any = self._id == nil ? JSONHandler.null : self._id!
         let cardId : Any = self.cardId == nil ? JSONHandler.null : self.cardId!
+        let encryptedCVV : Any = self.encryptedCVV == nil ? JSONHandler.null : self.encryptedCVV!
         let luhn : Any =  self.luhnValidation == nil ? JSONHandler.null : self.luhnValidation!
         let lastFour : Any = self.lastFourDigits == nil ? JSONHandler.null : self.lastFourDigits
         let firstSix : Any =  self.firstSixDigit == nil ? JSONHandler.null : self.firstSixDigit
@@ -120,7 +126,8 @@ open class Token : NSObject, CardInformationForm {
             "expirationMonth" : self.expirationMonth,
             "expirationYear" : self.expirationYear,
             "lastModifiedDate" : Utils.getStringFromDate(self.lastModifiedDate),
-            "dueDate" : Utils.getStringFromDate(self.dueDate)
+            "dueDate" : Utils.getStringFromDate(self.dueDate),
+            "encrypted_cvv": encryptedCVV
         ]
         
         return obj
