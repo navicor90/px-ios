@@ -36,7 +36,7 @@ open class MercadoPagoUIScrollViewController: MercadoPagoUIViewController {
             
         }
 
-        if (scrollView.contentOffset.y > -scrollPositionToShowNavBar() ) {
+        if self.shouldShowNavBar(scrollView) {
             showNavBar()
         } else {
             hideNavBar()
@@ -46,6 +46,10 @@ open class MercadoPagoUIScrollViewController: MercadoPagoUIViewController {
     
     override func getNavigationBarTitle() -> String {
         return ""
+    }
+    
+    internal func shouldShowNavBar(_ scrollView: UIScrollView) -> Bool {
+        return scrollView.contentOffset.y > -scrollPositionToShowNavBar()
     }
   
 }

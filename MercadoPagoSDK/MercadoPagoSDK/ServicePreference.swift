@@ -25,7 +25,7 @@ open class ServicePreference : NSObject{
     internal static let MP_PROD_ENV = "/v1"
     internal static let API_VERSION = "1.3.X"
     
-    internal static let MP_ENVIROMENT = MP_TEST_ENV  + "/checkout"
+    internal static let MP_ENVIROMENT = MP_PROD_ENV  + "/checkout"
     
     internal static let MP_OP_ENVIROMENT = "/v1"
     

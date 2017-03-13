@@ -27,6 +27,13 @@ extension DecorationPreference {
         navigationController.navigationBar.isTranslucent = navControllerMemento.navIsTranslucent
         navigationController.navigationBar.backgroundColor = navControllerMemento.navBackgroundColor
         navigationController.navigationBar.restoreBottomLine()
+        navigationController.navigationBar.setBackgroundImage(navControllerMemento.navBackgroundImage, for: UIBarMetrics.default)
+        navigationController.navigationBar.shadowImage = navControllerMemento.navShadowImage
+        if let _ = navControllerMemento.navBarStyle {
+            navigationController.navigationBar.barStyle = navControllerMemento.navBarStyle!
+        }
+        
+
     }
 }
 
@@ -38,6 +45,9 @@ internal class NavigationControllerMemento {
     var navIsTranslucent : Bool = false
     var navViewBackgroundColor : UIColor?
     var navBackgroundColor : UIColor?
+    var navBackgroundImage : UIImage?
+    var navShadowImage : UIImage?
+    var navBarStyle : UIBarStyle?
     
     init(navigationController : UINavigationController) {
         self.navBarTintColor =  navigationController.navigationBar.barTintColor
@@ -46,5 +56,8 @@ internal class NavigationControllerMemento {
         self.navIsTranslucent = navigationController.navigationBar.isTranslucent
         self.navViewBackgroundColor = navigationController.view.backgroundColor
         self.navBackgroundColor = navigationController.navigationBar.backgroundColor
+        self.navBackgroundImage = navigationController.navigationBar.backgroundImage(for: .default)
+        self.navShadowImage = navigationController.navigationBar.shadowImage
+        self.navBarStyle = navigationController.navigationBar.barStyle
     }
 }

@@ -196,6 +196,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationItem.leftBarButtonItem!.action = #selector(invokeCallbackCancel)
+        self.numberTextField.becomeFirstResponder()
     }
 
     open override func didReceiveMemoryWarning() {
@@ -342,7 +343,6 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
             self.typePicker.reloadAllComponents()
             self.identificationType =  self.identificationTypes![0]
             self.textField.text = self.identificationTypes![0].name
-            self.numberTextField.becomeFirstResponder()
             self.remask()
             self.numberTextField.text = ""
 

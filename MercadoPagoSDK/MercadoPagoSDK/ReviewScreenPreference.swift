@@ -76,8 +76,8 @@ open class ReviewScreenPreference: NSObject {
 		self.shouldDisplayChangeMethodOption = true
 	}
 	
-    open static func addCustomItemCell(customCell : MPCustomCell) {
-        ReviewScreenPreference.customItemCells.append(customCell)
+    open static func setCustomItemCell(customCell : [MPCustomCell]) {
+        ReviewScreenPreference.customItemCells = customCell
     }
     
     open static func setAddionalInfoCells(customCells : [MPCustomCell]) {

@@ -14,7 +14,11 @@ open class PaymentResultViewController: MercadoPagoUIViewController, UITableView
     var bundle = MercadoPago.getBundle()
     var viewModel: PaymentResultViewModel!
     
-    override open func viewDidLoad() {
+    override open var screenName : String { get {
+        return "RESULT"
+    } }
+        
+     override open func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         self.tableView.delegate = self
@@ -182,11 +186,15 @@ open class PaymentResultViewController: MercadoPagoUIViewController, UITableView
         if self.viewModel.inProcess(){
             let customCell = PaymentResultScreenPreference.pendingAdditionalInfoCells[indexPath.row]
             customCell.setDelegate(delegate: self)
-            return customCell.getTableViewCell()
+            let cell = customCell.getTableViewCell()
+            cell.selectionStyle = .none
+            return cell
         } else {
             let customCell = PaymentResultScreenPreference.approvedAdditionalInfoCells[indexPath.row]
             customCell.setDelegate(delegate: self)
-            return customCell.getTableViewCell()
+            let cell = customCell.getTableViewCell()
+            cell.selectionStyle = .none
+            return cell
         }
     }
     

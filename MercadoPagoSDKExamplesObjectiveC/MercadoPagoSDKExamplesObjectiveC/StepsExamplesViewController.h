@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@import MercadoPagoSDK;
 
 @interface StepsExamplesViewController : UITableViewController
+
+@property CheckoutPreference *pref;
+@property PaymentData *pd;
 
 @end

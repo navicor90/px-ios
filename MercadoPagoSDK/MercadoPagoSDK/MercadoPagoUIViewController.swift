@@ -18,12 +18,13 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
     
     var hideNavBarCallback : ((Void) -> Void)?
     
-    open var screenName : String { get{ return "NO_ESPECIFICADO" } }
+    open var screenName : String { get{ return MPTracker.kGenericScreenName } }
     
     var loadingInstance : UIView?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
         MPTracker.trackScreenName(MercadoPagoContext.sharedInstance, screenName: screenName)
         self.loadMPStyles()
     }
@@ -77,6 +78,8 @@ open class MercadoPagoUIViewController: UIViewController, UIGestureRecognizerDel
         super.viewWillAppear(animated)
     
         UIApplication.shared.statusBarStyle = .lightContent
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         self.loadMPStyles()
         hideTimer()

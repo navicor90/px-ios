@@ -38,7 +38,9 @@ class ConfirmInstallmentsTableViewCell: UITableViewCell {
             self.interest.attributedText = NSAttributedString(string : "Sin interés".localized)
         }
         
+        CFT.font = Utils.getLightFont(size: CFT.font.pointSize)
         CFT.textColor = UIColor.px_grayDark()
+        TEALabel.font = Utils.getLightFont(size: TEALabel.font.pointSize)
         TEALabel.textColor = UIColor.px_grayDark()
         
         if let CFTValue = payerCost.getCFTValue() {

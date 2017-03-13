@@ -277,17 +277,17 @@ open class CardAdditionalStepViewModel : NSObject {
         self.issuersList = issuersList
         self.callback = callback
     }
-
+    
     func numberOfCellsInBody() -> Int{
         if hasIssuer() {
             if let maxInstallmentsAccepted = self.installment?.numberOfPayerCostToShow(self.paymentPreference?.maxAcceptedInstallments) {
                 return maxInstallmentsAccepted + 1
             }
             return  0
-        
+            
         } else if hasPaymentMethod() {
             return (issuersList?.count) ?? 0
-        
+            
         } else {
             return paymentMethods.count
         }

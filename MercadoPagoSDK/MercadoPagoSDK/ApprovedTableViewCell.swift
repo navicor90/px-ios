@@ -42,7 +42,7 @@ class ApprovedTableViewCell: UITableViewCell {
         
         if !MercadoPagoCheckoutViewModel.paymentResultScreenPreference.isAmountDisable(){
             if let payerCost = paymentResult.paymentData?.payerCost {
-                fillInstallmentLabel(amount: payerCost.totalAmount, installments: payerCost.installments, currency: currency)
+                fillInstallmentLabel(amount: payerCost.totalAmount, payerCost: payerCost, currency: currency)
                 fillInterestLabel(payerCost: payerCost)
                 fillTotalLabel(payerCost: payerCost, currency: currency)
                 
@@ -78,14 +78,18 @@ class ApprovedTableViewCell: UITableViewCell {
         }
     }
     
-    func fillInstallmentLabel(amount: Double, installments: Int = 0, currency: Currency) {
+    func fillInstallmentLabel(amount: Double, payerCost: PayerCost? = nil, currency: Currency) {
         var installmentNumber = ""
-        if installments != 0 {
-            installmentNumber = "\(installments) x "
+        
+        if payerCost != nil && payerCost?.installments != 0 {
+            installmentNumber = "\(payerCost!.installments) x "
         }
+        
+        let total = payerCost != nil ? payerCost!.installmentAmount : amount
+        
         if amount != 0 {
             
-            let totalAmount = Utils.getAttributedAmount(amount, thousandSeparator: String(currency.thousandsSeparator), decimalSeparator: String(currency.decimalSeparator), currencySymbol: String(currency.symbol), color:UIColor.black, fontSize: 24, centsFontSize: 11, baselineOffset:11)
+            let totalAmount = Utils.getAttributedAmount(total, thousandSeparator: String(currency.thousandsSeparator), decimalSeparator: String(currency.decimalSeparator), currencySymbol: String(currency.symbol), color:UIColor.black, fontSize: 24, centsFontSize: 11, baselineOffset:11)
             let installmentLabel = NSMutableAttributedString(string: installmentNumber, attributes: [NSFontAttributeName: Utils.getFont(size: 24)])
             installmentLabel.append(totalAmount)
             self.installments.attributedText =  installmentLabel

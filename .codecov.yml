@@ -1,8 +1,6 @@
 codecov:
   notify:
     require_ci_to_pass: yes
-    branch: development
-    strict_yaml_branch: development
 
 coverage:
   precision: 2
@@ -12,13 +10,11 @@ coverage:
   status:
     project:
       default:
-        target: 20
         threshold: null
         if_not_found: success
-        branches: development
 
-    patch: off
-    changes: off
+    patch: yes
+    changes: no
 
  parsers:
   gcov:

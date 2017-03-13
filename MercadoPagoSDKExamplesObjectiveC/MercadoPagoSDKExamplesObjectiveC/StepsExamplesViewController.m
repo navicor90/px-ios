@@ -8,6 +8,7 @@
 
 #import "StepsExamplesViewController.h"
 #import "ExampleUtils.h"
+#import "MainExamplesViewController.h"
 @import MercadoPagoSDK;
 
 @interface StepsExamplesViewController ()
@@ -16,16 +17,24 @@
 
 @implementation StepsExamplesViewController
 
-PaymentMethod *paymentMethod;
-Token *currentToken;
-Issuer *selectedIssuer;
-int installmentsSelected = 1;
+CheckoutPreference *pref;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    paymentMethod = [[PaymentMethod alloc] init];
-    paymentMethod._id = @"visa";
-    paymentMethod.name = @"visa";
+  
+    Item *item = [[Item alloc] initWith_id:@"itemId" title:@"item title" quantity:100 unitPrice:10 description:nil currencyId:@"ARS"];
+    Item *item2 = [[Item alloc] initWith_id:@"itemId2" title:@"item title 2" quantity:2 unitPrice:2 description:@"item description" currencyId:@"ARS"];
+    Payer *payer = [[Payer alloc] initWith_id:@"payerId" email:@"payer@email.com" type:nil identification:nil];
+    
+    NSArray *items = [NSArray arrayWithObjects:item2, item2, nil];
+    
+    PaymentPreference *paymentExclusions = [[PaymentPreference alloc] init];
+    paymentExclusions.excludedPaymentTypeIds = [NSSet setWithObjects:@"atm", @"ticket", nil];
+    //paymentExclusions.defaultInstallments = 1;
+    
+    self.pref = [[CheckoutPreference alloc] initWithItems:items payer:payer paymentMethods:nil];  
+    self.pref.paymentPreference = paymentExclusions;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,16 +46,16 @@ int installmentsSelected = 1;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:
-            [self startPaymentVault];
+            [self startReviewAndConfirm];
             break;
         case 1:
-            [self startCardFlow];
+            [self skipReviewAndConfirm];
             break;
         case 2:
-            [self startCardForm];
+            [self showCongrats];
             break;
         case 3:
-            [self startPaymentMethods];
+            [self startCardForm];
             break;
         case 4:
             [self statIssuersStep];
@@ -62,7 +71,7 @@ int installmentsSelected = 1;
     }
 }
 
-- (void)startPaymentVault {
+- (void)startReviewAndConfirm {
     
     //WALLET CONFIGS
     [MercadoPagoContext setLanguageWithLanguage:Languages_SPANISH];
@@ -72,59 +81,67 @@ int installmentsSelected = 1;
     [MercadoPagoContext setDisplayDefaultLoadingWithFlag:NO];
     PaymentVaultViewController.maxCustomerPaymentMethods = 100;
     [CardFormViewController setShowBankDeals:NO];
-     
     
-//    UIViewController *paymentVaultVC = [MPFlowBuilder startPaymentVaultViewController:AMOUNT paymentPreference:nil callback:^(PaymentMethod *pm, Token *token, Issuer *issuer, PayerCost *payerCost) {
-//        currentToken = token;
-//        selectedIssuer = issuer;
-//        paymentMethod = pm;
-//    } callbackCancel:nil];
-//   
-//    [self presentViewController:paymentVaultVC animated:YES completion:^{}];
+    PaymentMethod *pm = [[PaymentMethod alloc] init];
+    pm._id = @"debvisa";
+    pm.paymentTypeId = @"debit_card";
+    pm.name = @"visa";
+     
+     
+    PaymentData *pd = [[PaymentData alloc] init];
+    pd.paymentMethod = pm;
+     
+    pd.token = [[Token alloc] initWith_id:@"id" publicKey:@"pk" cardId:@"" luhnValidation:nil status:nil usedDate:nil cardNumberLength:nil creationDate:nil lastFourDigits:nil firstSixDigit:@"123456" securityCodeLength:3 expirationMonth:11 expirationYear:2012 lastModifiedDate:nil dueDate:nil cardHolder:nil];
+    pd.token.lastFourDigits = @"7890";
+    pd.payerCost = nil;//[[PayerCost alloc] initWithInstallments:3 installmentRate:10 labels:nil minAllowedAmount:10 maxAllowedAmount:200 recommendedMessage:@"sarsa" installmentAmount:100 totalAmount:200];
+     
+    pd.issuer = nil;//[[Issuer alloc] init];
+    pd.issuer._id = [NSNumber numberWithInt:200];
+    
+    
+    [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:self.pref paymentData:pd navigationController:self.navigationController paymentResult:nil] start];
 
+    
 }
 
 
 
-- (void)startCardFlow {
+- (void)skipReviewAndConfirm {
     
-//    UINavigationController *cf = [MPFlowBuilder startCardFlow:nil amount:AMOUNT cardInformation:nil paymentMethods:nil token:nil callback:^(PaymentMethod * pm, Token * token, Issuer * issuer, PayerCost * payercost) {
-//        currentToken = token;
-//        selectedIssuer = issuer;
-//        paymentMethod = pm;
-//        
-//        [self dismissViewControllerAnimated:YES completion:^{}];
-//    } callbackCancel:^{
-//        [self dismissViewControllerAnimated:YES completion:^{}];
-//    }];
-//    
-//    [self presentViewController:cf animated:YES completion:^{}];
+    FlowPreference *fp = [[FlowPreference alloc] init];
+    [fp disableReviewAndConfirmScreen];
+    [MercadoPagoCheckout setFlowPreference:fp];
+    
+    [MainExamplesViewController setPaymentDataCallback];
+    
+    [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:self.pref paymentData:nil navigationController:self.navigationController paymentResult:nil] start];
 
 }
 
 -(void)startCardForm {
 
-    UINavigationController *cf = [MPStepBuilder startCreditCardForm:nil amount:1000 cardInformation:nil paymentMethods:nil token:nil callback:^(PaymentMethod *pm, Token *token, Issuer *issuer) {
-        currentToken = token;
-        selectedIssuer = issuer;
-        paymentMethod = pm;
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    } callbackCancel:^{
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    }];
-   
-    
-    [self presentViewController:cf animated:YES completion:^{}];
-    
+    //Empty
 }
 
-- (void)startPaymentMethods {
+- (void)showCongrats {
     
-//    UIViewController *paymentsStep = [MPStepBuilder startPaymentMethodsStepWithPreference:nil callback:^(PaymentMethod * pm) {
-//        paymentMethod = pm;
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }];
-//    [self.navigationController pushViewController:paymentsStep animated:YES];
+    PaymentMethod *pm = [[PaymentMethod alloc] init];
+    pm._id = @"debvisa";
+    pm.paymentTypeId = @"debit_card";
+    //pm.name = @"visa";
+
+    PaymentData *pd = [[PaymentData alloc] init];
+    pd.paymentMethod = pm;
+    
+    pd.token = [[Token alloc] initWith_id:@"id" publicKey:@"pk" cardId:@"" luhnValidation:nil status:nil usedDate:nil cardNumberLength:nil creationDate:nil lastFourDigits:nil firstSixDigit:@"123456" securityCodeLength:3 expirationMonth:11 expirationYear:2012 lastModifiedDate:nil dueDate:nil cardHolder:nil];
+    pd.token.lastFourDigits = @"7890";
+    pd.payerCost = nil;//[[PayerCost alloc] initWithInstallments:3 installmentRate:10 labels:nil minAllowedAmount:10 maxAllowedAmount:200 recommendedMessage:@"sarsa" installmentAmount:2 totalAmount:6];
+    //pd.payerCost = nil;//[[PayerCost alloc] initWithInstallments:3 installmentRate:10 labels:nil minAllowedAmount:10 maxAllowedAmount:200 recommendedMessage:@"sarsa" installmentAmount:100 totalAmount:200];
+    
+    pd.issuer = nil;//[[Issuer alloc] init];
+     PaymentResult *paymentResult = [[PaymentResult alloc] initWithStatus:@"approved" statusDetail:@"approved" paymentData:pd payerEmail:nil id:nil statementDescription:nil];
+    
+    [[[MercadoPagoCheckout alloc] initWithCheckoutPreference:self.pref paymentData:pd navigationController:self.navigationController paymentResult:paymentResult] start];
 
 }
 
@@ -162,6 +179,7 @@ int installmentsSelected = 1;
 //    }];
     
 }
+
 
 
 @end

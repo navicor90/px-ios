@@ -35,6 +35,10 @@ public class PaymentData: NSObject {
         }
         
         if paymentMethod!.isCard() && (token == nil || payerCost == nil) {
+            
+            if paymentMethod.paymentTypeId == "debit_card" && token != nil{
+                return true
+            }
             return false
         }
 

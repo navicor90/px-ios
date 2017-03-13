@@ -24,6 +24,8 @@ class PaymentMethodSelectedTableViewCell: UITableViewCell {
     @IBOutlet weak var CFT: UILabel!
     @IBOutlet weak var noRateLabel: MPLabel!
     
+    @IBOutlet weak var changePaymentMethodCFTConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var totalAmountLabel: MPLabel!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -68,25 +70,23 @@ class PaymentMethodSelectedTableViewCell: UITableViewCell {
 
 		
 		if MercadoPagoCheckoutViewModel.reviewScreenPreference.isChangeMethodOptionEnabled() {
-       		self.selectOtherPaymentMethodButton.setTitle("Cambiar pago".localized, for: .normal)
+       		self.selectOtherPaymentMethodButton.setTitle("Cambiar medio de pago".localized, for: .normal)
         	self.selectOtherPaymentMethodButton.titleLabel?.font = Utils.getFont(size: self.noRateLabel.font.pointSize)
         	self.selectOtherPaymentMethodButton.setTitleColor(UIColor.primaryColor(), for: UIControlState.normal)
 		} else {
 			self.selectOtherPaymentMethodButton.isHidden = true;
 		}
         
-
-        
-        //CFT.font = Utils.getFont(size: CFT.font.pointSize)
-        //TEALabel.font = Utils.getFont(size: TEALabel.font.pointSize)
-        
+        CFT.font = Utils.getLightFont(size: CFT.font.pointSize)
         CFT.textColor = UIColor.px_grayDark()
+        TEALabel.font = Utils.getLightFont(size: TEALabel.font.pointSize)
         TEALabel.textColor = UIColor.px_grayDark()
         
         if let CFTValue = payerCost?.getCFTValue() {
                 CFT.text = "CFT " + CFTValue
         } else {
             CFT.text = ""
+            self.changePaymentMethodCFTConstraint.constant = 10
         }
         if let TEAValue = payerCost?.getTEAValeu() {
             TEALabel.text = "TEA " + TEAValue
@@ -109,7 +109,7 @@ class PaymentMethodSelectedTableViewCell: UITableViewCell {
 		}
 
         if let dic = payerCost?.getCFTValue() {
-            cellHeight += 65
+            cellHeight += 74
         }
 
         return cellHeight
