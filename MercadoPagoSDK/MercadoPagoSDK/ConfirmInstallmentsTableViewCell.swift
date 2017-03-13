@@ -30,7 +30,7 @@ class ConfirmInstallmentsTableViewCell: UITableViewCell {
         attributedAmountFinal.append(NSAttributedString(string : ")"))
         self.total.attributedText = attributedAmountFinal
         
-        self.installments.attributedText = Utils.getTransactionInstallmentsDescription(String(payerCost.installments), installmentAmount: payerCost.installmentAmount, additionalString: NSAttributedString(string : ""), color: UIColor.black, fontSize : 24, centsFontSize: 12, baselineOffset: 9)
+        self.installments.attributedText = Utils.getTransactionInstallmentsDescription(String(payerCost.installments), currency: currency, installmentAmount: payerCost.installmentAmount, additionalString: NSAttributedString(string : ""), color: UIColor.black, fontSize : 24, centsFontSize: 12, baselineOffset: 9)
         
         self.interest.text = ""
         self.interest.font = Utils.getFont(size: self.interest.font.pointSize)

@@ -118,7 +118,7 @@ open class IdentificationViewController: MercadoPagoUIViewController , UITextFie
     
     open func editingChanged(_ textField:UITextField) {
         hideErrorMessage()
-        numberDocLabel.text = identificationMask.textMasked(defaultEditTextMask.textUnmasked(textField.text))
+        self.remask()
         textField.text = defaultEditTextMask.textMasked(textField.text,remasked: true)
     }
 
