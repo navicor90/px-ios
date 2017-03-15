@@ -19,6 +19,7 @@ open class MercadoPagoCheckout: NSObject {
     
     internal static var firstViewControllerPushed = false
     private var rootViewController : UIViewController?
+    private var sdkRootViewController : MercadoPagoUIViewController?
     
 
     
@@ -281,12 +282,10 @@ open class MercadoPagoCheckout: NSObject {
                     self.executeNextStep()
                 }
             })
-            self.navigationController.pushViewController(checkoutVC, animated: true);
-            CATransaction.begin();
-            CATransaction.setCompletionBlock {
-                self.cleanNavigationStack()
-            }
-            CATransaction.commit();
+        
+        self.pushViewController(viewController: checkoutVC, animated: true, completion: {
+            self.cleanNavigationStack()
+        })
     }
 	
 	func cleanNavigationStack () {
@@ -295,6 +294,8 @@ open class MercadoPagoCheckout: NSObject {
         var  newNavigationStack = self.navigationController.viewControllers.filter {!$0.isKind(of:MercadoPagoUIViewController.self) || $0.isKind(of:CheckoutViewController.self);
         }
         self.navigationController.viewControllers = newNavigationStack;
+        // Actualizar rootVC de sdk
+        self.sdkRootViewController = self.navigationController.viewControllers[0] as? MercadoPagoUIViewController
         
 	}
 	
@@ -446,12 +447,20 @@ open class MercadoPagoCheckout: NSObject {
     }
     
     private func pushViewController(viewController: UIViewController,
-                                   animated: Bool) {
+                                    animated: Bool,
+                                    completion : (() -> Swift.Void)? = nil) {
+        
         viewController.hidesBottomBarWhenPushed = true
         CATransaction.begin()
         CATransaction.setCompletionBlock {
-            if MercadoPagoCheckout.firstViewControllerPushed {
-                self.perform(#selector(self.removeRootLoading), with: nil, afterDelay: 1.0)
+            if !viewController.isKind(of: MPXLoadingViewController.self) && self.sdkRootViewController == nil {
+                self.sdkRootViewController = viewController as! MercadoPagoUIViewController
+                self.sdkRootViewController!.callbackCancel = {
+                    self.finish()
+                }
+                if let _ = completion {
+                    completion!()
+                }
             }
         }
         self.navigationController.pushViewController(viewController, animated: animated)
