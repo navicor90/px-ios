@@ -37,7 +37,7 @@ open class ServicePreference : NSObject{
     internal static let MP_CUSTOMER_URI = "/customers?preference_id="
     internal static let MP_PAYMENTS_URI = MP_ENVIROMENT + "/payments"
     
-    internal static let MP_CREATE_TOKEN_URI = "/card_tokens" //ServicePreference.MP_OP_ENVIROMENT + "/card_tokens"
+    internal static let MP_CREATE_TOKEN_URI = "/v1/card_tokens?public_key=123&access_token=mpe-card" //ServicePreference.MP_OP_ENVIROMENT + "/card_tokens"
     
     private var useDefaultPaymentSettings = true
     

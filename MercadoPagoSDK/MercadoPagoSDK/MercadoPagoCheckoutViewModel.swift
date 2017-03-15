@@ -329,7 +329,8 @@ open class MercadoPagoCheckoutViewModel: NSObject {
         self.paymentData.token = token
         self.reviewAndConfirm = MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable()
         if let encryptedCvv = token.encryptedCVV{
-            KeychainWrapper.standardKeychainAccess().setString(encryptedCvv , forKey: "CardID_\(token.cardId!)")
+            let options = KeychainItemOptions(itemClass: .GenericPassword, itemAccessibility: .WhenPasscodeSetThisDeviceOnly)
+            KeychainWrapper.standardKeychainAccess().setString(encryptedCvv , forKey: "CardID_\(token.cardId!)", withOptions: options)
         }
     }
 

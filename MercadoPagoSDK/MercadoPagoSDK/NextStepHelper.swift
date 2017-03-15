@@ -133,7 +133,8 @@ extension MercadoPagoCheckoutViewModel {
         return false
     }
     func getEncryptedCvv(cardSelected: PaymentMethodOption) -> String? {
-        return KeychainWrapper.standardKeychainAccess().string(forKey: "CardID_\(cardSelected.getId())")
+        let options = KeychainItemOptions(itemClass: .GenericPassword, itemAccessibility: .WhenPasscodeSetThisDeviceOnly)
+        return KeychainWrapper.standardKeychainAccess().string(forKey: "CardID_\(cardSelected.getId())", withOptions: options)
     }
 
     func needCreateToken() -> Bool {
