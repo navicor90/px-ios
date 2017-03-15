@@ -1,5 +1,5 @@
 //
-//  SecrurityCodeViewController.swift
+//  SecurityCodeViewController.swift
 //  MercadoPagoSDK
 //
 //  Created by Demian Tejo on 11/3/16.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextFieldDelegate{
+open class SecurityCodeViewController: MercadoPagoUIViewController, UITextFieldDelegate{
     
     var securityCodeLabel: UILabel!
     @IBOutlet weak var securityCodeTextField: HoshiTextField!
     @IBOutlet weak var errorLabel: UILabel!
     
     @IBOutlet weak var panelView: UIView!
-    var viewModel : SecrurityCodeViewModel!
+    var viewModel : SecurityCodeViewModel!
     @IBOutlet weak var button: UIButton!
     var textMaskFormater : TextMaskFormater!
     var cardFront : CardFrontView!
@@ -48,7 +48,7 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
         
         securityCodeTextField.autocorrectionType = UITextAutocorrectionType.no
         securityCodeTextField.keyboardType = UIKeyboardType.numberPad
-        securityCodeTextField.addTarget(self, action: #selector(SecrurityCodeViewController.editingChanged(_:)), for: UIControlEvents.editingChanged)
+        securityCodeTextField.addTarget(self, action: #selector(SecurityCodeViewController.editingChanged(_:)), for: UIControlEvents.editingChanged)
         securityCodeTextField.delegate = self
         completeCvvLabel()
     }
@@ -60,8 +60,8 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
     
     public init(paymentMethod : PaymentMethod! ,cardInfo : CardInformationForm!, callback: ((_ token: Token?)->Void)! ){
     
-        super.init(nibName: "SecrurityCodeViewController", bundle: MercadoPago.getBundle())
-        self.viewModel = SecrurityCodeViewModel(paymentMethod: paymentMethod, cardInfo: cardInfo, owner: self, callback: callback)
+        super.init(nibName: "SecurityCodeViewController", bundle: MercadoPago.getBundle())
+        self.viewModel = SecurityCodeViewModel(paymentMethod: paymentMethod, cardInfo: cardInfo, owner: self, callback: callback)
         
     }
     
@@ -112,26 +112,26 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
     func updateCardSkin(cardInformation: CardInformationForm?, paymentMethod: PaymentMethod?) {
         if viewModel.showFrontCard() {
             if let paymentMethod = paymentMethod{
-                self.cardFront.cardLogo.image =  MercadoPago.getImageFor(paymentMethod)
-                self.cardFront.backgroundColor = MercadoPago.getColorFor(paymentMethod)
                 self.cardFront.cardLogo.alpha = 1
-                let fontColor = MercadoPago.getFontColorFor(paymentMethod)!
                 if let token = cardInformation{
-                    self.textMaskFormater = TextMaskFormater(mask: paymentMethod.getLabelMask(), completeEmptySpaces: true, leftToRight: false)
+                    self.cardFront.cardLogo.image =  paymentMethod.getImage(bin: cardInformation?.getCardBin())
+                    self.cardFront.backgroundColor = paymentMethod.getColor(bin: cardInformation?.getCardBin())
+                    self.textMaskFormater = TextMaskFormater(mask: paymentMethod.getLabelMask(bin: cardInformation?.getCardBin()), completeEmptySpaces: true, leftToRight: false)
+                    let fontColor = paymentMethod.getFontColor(bin: cardInformation?.getCardBin())
+                    cardFront.cardNumber.textColor =  fontColor
                     cardFront.cardNumber.text =  self.textMaskFormater.textMasked(token.getCardLastForDigits())
                 }
                 cardFront.cardName.text = ""
                 cardFront.cardExpirationDate.text = ""
                 cardFront.cardNumber.alpha = 0.8
                 cardFront.cardCVV.alpha = 0.8
-                cardFront.cardNumber.textColor =  fontColor
                 cardFront.layer.cornerRadius = 11
             }
 
         }else {
             if let paymentMethod = paymentMethod{
-                self.cardBack.backgroundColor = MercadoPago.getColorFor(paymentMethod)
-                let fontColor = MercadoPago.getFontColorFor(paymentMethod)!
+                self.cardBack.backgroundColor = paymentMethod.getColor(bin: cardInformation?.getCardBin())
+                let fontColor = paymentMethod.getFontColor(bin: cardInformation?.getCardBin())
                 cardBack.cardCVV.alpha = 0.8
                 cardBack.cardCVV.textColor =  fontColor
                 cardBack.layer.cornerRadius = 11
@@ -190,13 +190,13 @@ open class SecrurityCodeViewController: MercadoPagoUIViewController, UITextField
 
 }
 
-open class SecrurityCodeViewModel: NSObject {
+open class SecurityCodeViewModel: NSObject {
     var paymentMethod : PaymentMethod!
     var cardInfo : CardInformationForm!
 
-    unowned var vc : SecrurityCodeViewController
+    unowned var vc : SecurityCodeViewController
     
-    public init(paymentMethod : PaymentMethod! ,cardInfo : CardInformationForm!, owner: SecrurityCodeViewController,  callback: ((_ token: Token?)->Void)! ){
+    public init(paymentMethod : PaymentMethod! ,cardInfo : CardInformationForm!, owner: SecurityCodeViewController,  callback: ((_ token: Token?)->Void)! ){
         self.vc = owner
         self.paymentMethod = paymentMethod
         self.cardInfo = cardInfo
