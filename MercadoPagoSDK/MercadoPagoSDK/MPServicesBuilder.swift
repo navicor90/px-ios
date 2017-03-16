@@ -90,6 +90,27 @@ open class MPServicesBuilder : NSObject {
         
     }
     
+    open class func createTokenEcryptedCvv(cardID: String, encryptedCvv: String, baseURL: String =  ServicePreference.MP_API_BASE_URL, success: @escaping (_ token : Token) -> Void,
+                                     failure: ((_ error: NSError) -> Void)? ){
+        MercadoPagoContext.initFlavor1()
+        MPTracker.trackEvent(MercadoPagoContext.sharedInstance, action: "TOKEN_ONE_CLICK", result: nil)
+        let service : GatewayService = GatewayService(baseURL: baseURL)
+        service.getToken(key: MercadoPagoContext.keyValue(), cardID: cardID, encryptedCVV: encryptedCvv, success:{(jsonResult: AnyObject?) -> Void in
+            var token : Token
+            if let tokenDic = jsonResult as? NSDictionary {
+                if tokenDic["error"] == nil {
+                    token = Token.fromJSON(tokenDic)
+                    MPTracker.trackCreateToken(MercadoPagoContext.sharedInstance, token: token._id)
+                    success(token)
+                } else {
+                    if failure != nil {
+                        failure!(NSError(domain: "mercadopago.sdk.createToken", code: MercadoPago.ERROR_API_CODE, userInfo: tokenDic as! [AnyHashable: AnyObject]))
+                    }
+                }
+            }
+        }, failure: failure)
+    }
+    
     
     
     open class func getPaymentMethods(baseURL: String = ServicePreference.MP_API_BASE_URL,

@@ -180,6 +180,7 @@
     paymentExclusions.excludedPaymentTypeIds = [NSSet setWithObjects:@"atm", @"ticket", nil];
     paymentExclusions.defaultInstallments = 1;
     
+    
     self.pref = [[CheckoutPreference alloc] initWithItems:items payer:payer paymentMethods:paymentExclusions];
 }
 

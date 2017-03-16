@@ -18,6 +18,14 @@ open class GatewayService : MercadoPagoService {
         self.request(uri: url, params: MercadoPagoContext.keyType() + "=" + key, body: cardToken.toJSONString() as AnyObject?, method: method, success: success, failure: failure)
     }
     
+    open func getToken(_ url : String = "/v1/encrypted_card_tokens?public_key=123&access_token=mpe-cards" , method : String = "POST", key : String, cardID : String, encryptedCVV: String, success: @escaping (_ jsonResult: AnyObject?) -> Void, failure: ((_ error: NSError) -> Void)?) {
+        let device = Device()
+        let dictionary: NSDictionary = ["card_id": cardID, "encrypted_cvv": encryptedCVV, "device": device.toJSONString()]
+        let body = dictionary.toJsonString()
+        
+        self.request(uri: url, params: MercadoPagoContext.keyType() + "=" + key, body: body as AnyObject?, method: method, success: success, failure: failure)
+    }
+    
     open func cloneToken(_ url : String = ServicePreference.MP_CREATE_TOKEN_URI , method : String = "POST", public_key : String, token : Token, securityCode:String, success: @escaping (_ jsonResult: AnyObject?) -> Void, failure: ((_ error: NSError) -> Void)?) {
         self.request(uri: url + "/" + token._id + "/clone", params: "public_key=" + public_key, body: nil, method: method, success: { (jsonResult) in
             var token : Token? = nil

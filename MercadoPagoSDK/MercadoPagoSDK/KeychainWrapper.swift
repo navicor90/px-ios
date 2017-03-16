@@ -163,12 +163,54 @@ public class KeychainWrapper {
         // Specify we want Data/CFData returned
         keychainQueryDictionary[SecReturnData] = kCFBooleanTrue
         
+        keychainQueryDictionary[kSecUseOperationPrompt as String] = "Authenticate to pay"
+        
         // Search
         let status = withUnsafeMutablePointer(to: &result) {
             SecItemCopyMatching(keychainQueryDictionary as CFDictionary, UnsafeMutablePointer($0))
         }
-        
         return status == noErr ? result as? Data : nil
+        
+        
+    }
+    
+    public func getString(forKey keyName: String, withOptions options: KeychainItemOptions? = nil, completion: @escaping ((_ keychainData: String?) -> Void)) {
+        var keychainQueryDictionary = self.setupKeychainQueryDictionary(forKey: keyName, withOptions: options)
+        var result: AnyObject?
+        
+        // Limit search results to one
+        keychainQueryDictionary[SecMatchLimit] = kSecMatchLimitOne
+        
+        // Specify we want Data/CFData returned
+        keychainQueryDictionary[SecReturnData] = kCFBooleanTrue
+        
+        keychainQueryDictionary[kSecUseOperationPrompt as String] = "Authenticate to pay"
+        
+        // Search
+        DispatchQueue.global().async {
+            let status = withUnsafeMutablePointer(to: &result) {
+                SecItemCopyMatching(keychainQueryDictionary as CFDictionary, UnsafeMutablePointer($0))
+            }
+            let data: Data? = status == noErr ? result as? Data : nil
+            
+            guard let keychainData = data else {
+                completion(nil)
+                return
+            }
+            
+            completion(String(data: keychainData as Data, encoding: .utf8) as String?)
+        }
+        
+    }
+    
+    public func getData ( result: inout AnyObject?, keychainQueryDictionary: [String: Any], completion: @escaping ((_ result: OSStatus) -> Void)){
+        DispatchQueue.global().async { [result] in
+            var result = result
+            let status = withUnsafeMutablePointer(to: &result) {
+                SecItemCopyMatching(keychainQueryDictionary as CFDictionary, UnsafeMutablePointer($0))
+            }
+            completion(status)
+        }
     }
     
     
@@ -239,6 +281,9 @@ public class KeychainWrapper {
         if status == errSecSuccess {
             return true
         } else if status == errSecDuplicateItem {
+            if self.removeObject(forKey: keyName, withOptions: options) {
+                return self.setData(value, forKey: keyName, withOptions: options)
+            }
             return self.updateData(value, forKey: keyName)
         } else {
             return false
@@ -340,13 +385,13 @@ public class KeychainWrapper {
         
         if let options = options {
             keychainQueryDictionary[SecClass] = options.itemClass.keychainAttrValue
-            keychainQueryDictionary[SecAttrAccessible] = options.itemAccessibility.keychainAttrValue
+            //keychainQueryDictionary[SecAttrAccessible] = options.itemAccessibility.keychainAttrValue
         } else {
             // Setup default access as generic password (rather than a certificate, internet password, etc)
             keychainQueryDictionary[SecClass] = KeychainItemClass.GenericPassword.keychainAttrValue
             
             // Protect the keychain entry so it's only valid when the device is unlocked
-            keychainQueryDictionary[SecAttrAccessible] = KeychainItemAccessibility.WhenUnlocked.keychainAttrValue
+            //keychainQueryDictionary[SecAttrAccessible] = KeychainItemAccessibility.WhenUnlocked.keychainAttrValue
         }
         
         // Uniquely identify this keychain accessor
@@ -363,6 +408,14 @@ public class KeychainWrapper {
         keychainQueryDictionary[SecAttrGeneric] = encodedIdentifier
         
         keychainQueryDictionary[SecAttrAccount] = encodedIdentifier
+        
+        let sacObject =
+            SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+                                            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                            .userPresence,
+                                            nil)!
+        keychainQueryDictionary[kSecAttrAccessControl as String] = sacObject
+        keychainQueryDictionary[kSecUseAuthenticationUI as String] = kSecUseAuthenticationUIAllow
         
         return keychainQueryDictionary
     }

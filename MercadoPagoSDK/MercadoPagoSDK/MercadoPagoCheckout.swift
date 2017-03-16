@@ -111,6 +111,8 @@ open class MercadoPagoCheckout: NSObject {
             self.startPayerCostScreen()
         case .REVIEW_AND_CONFIRM :
             self.collectPaymentData()
+        case .GET_ENCRYPTED_CVV :
+            self.getEncryptedCvv()
         case .SECURITY_CODE_ONLY :
             self.collectSecurityCode()
         case .POST_PAYMENT :
@@ -224,15 +226,28 @@ open class MercadoPagoCheckout: NSObject {
     }
     
     func createCardToken() {
-        MPServicesBuilder.createNewCardToken(self.viewModel.cardToken!, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getGatewayURL(), success: { (token : Token?) -> Void in
-            self.viewModel.updateCheckoutModel(token: token!)
-            self.executeNextStep()
-        }, failure : { (error) -> Void in
-            self.viewModel.errorInputs(error: MPSDKError.convertFrom(error), errorCallback: { (Void) in
-                self.createCardToken()
+        if let cardToken = self.viewModel.cardToken {
+            MPServicesBuilder.createNewCardToken(cardToken, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getGatewayURL(), success: { (token : Token?) -> Void in
+                self.viewModel.updateCheckoutModel(token: token!)
+                self.executeNextStep()
+            }, failure : { (error) -> Void in
+                self.viewModel.errorInputs(error: MPSDKError.convertFrom(error), errorCallback: { (Void) in
+                    self.createCardToken()
+                })
+                self.executeNextStep()
             })
-            self.executeNextStep()
-        })
+        } else {
+            let cardId = self.viewModel.paymentOptionSelected?.getId()
+            MPServicesBuilder.createTokenEcryptedCvv(cardID: cardId!, encryptedCvv: self.viewModel.encryptedCVV!, baseURL: MercadoPagoCheckoutViewModel.servicePreference.getGatewayURL(), success: { (token) in
+                self.viewModel.updateCheckoutModel(token: token)
+                self.executeNextStep()
+            }, failure: { (error) in
+                self.viewModel.errorInputs(error: MPSDKError.convertFrom(error), errorCallback: { (Void) in
+                    self.createCardToken()
+                })
+                //self.executeNextStep()
+            })
+        }
     }
 
     func collectPayerCosts() {
@@ -447,14 +462,16 @@ open class MercadoPagoCheckout: NSObject {
     private func pushViewController(viewController: UIViewController,
                                    animated: Bool) {
         viewController.hidesBottomBarWhenPushed = true
-        CATransaction.begin()
-        CATransaction.setCompletionBlock {
-            if MercadoPagoCheckout.firstViewControllerPushed {
-                self.perform(#selector(self.removeRootLoading), with: nil, afterDelay: 1.0)
+        DispatchQueue.main.async {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock {
+                if MercadoPagoCheckout.firstViewControllerPushed {
+                    self.perform(#selector(self.removeRootLoading), with: nil, afterDelay: 1.0)
+                }
             }
+            self.navigationController.pushViewController(viewController, animated: animated)
+            CATransaction.commit()
         }
-        self.navigationController.pushViewController(viewController, animated: animated)
-        CATransaction.commit()
     }
     
     internal func removeRootLoading() {
@@ -462,5 +479,15 @@ open class MercadoPagoCheckout: NSObject {
             return vc != self.rootViewController
         }
         self.navigationController.viewControllers = currentViewControllers
+    }
+    
+    public func getEncryptedCvv() {
+        let options = KeychainItemOptions(itemClass: .GenericPassword, itemAccessibility: .WhenPasscodeSetThisDeviceOnly)
+        let cardSelected = self.viewModel.paymentOptionSelected!
+        KeychainWrapper.standardKeychainAccess().getString(forKey: "CardID_\(cardSelected.getId())", withOptions: options, completion: { (data) in
+            self.viewModel.updateCheckoutModel(encryptedCVV: data)
+            self.executeNextStep()
+        })
+        
     }
 }

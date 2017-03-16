@@ -123,19 +123,26 @@ extension MercadoPagoCheckoutViewModel {
         return false
     }
     
-    func needSecurityCode() -> Bool {
+    func needEncryptedCvv() -> Bool {
         guard let pmSelected = self.paymentOptionSelected else {
             return false
         }
-        if pmSelected.isCustomerPaymentMethod() && self.paymentData.token == nil && pmSelected.getId() != PaymentTypeId.ACCOUNT_MONEY.rawValue && getEncryptedCvv(cardSelected: pmSelected) == nil{
+        if pmSelected.isCustomerPaymentMethod() && self.paymentData.token == nil && pmSelected.getId() != PaymentTypeId.ACCOUNT_MONEY.rawValue && encryptedCVV == nil {
             return true
         }
         return false
     }
-    func getEncryptedCvv(cardSelected: PaymentMethodOption) -> String? {
-        let options = KeychainItemOptions(itemClass: .GenericPassword, itemAccessibility: .WhenPasscodeSetThisDeviceOnly)
-        return KeychainWrapper.standardKeychainAccess().string(forKey: "CardID_\(cardSelected.getId())", withOptions: options)
+    
+    func needSecurityCode() -> Bool {
+        guard let pmSelected = self.paymentOptionSelected else {
+            return false
+        }
+        if pmSelected.isCustomerPaymentMethod() && self.paymentData.token == nil && pmSelected.getId() != PaymentTypeId.ACCOUNT_MONEY.rawValue && encryptedCVV == "" {
+            return true
+        }
+        return false
     }
+
 
     func needCreateToken() -> Bool {
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Security
 
 public enum CheckoutStep : String {
     case SEARCH_PREFENCE
@@ -16,6 +17,7 @@ public enum CheckoutStep : String {
     case PM_OFF
     case CARD_FORM
     case SECURITY_CODE_ONLY
+    case GET_ENCRYPTED_CVV
     case CREDIT_DEBIT
     case GET_ISSUERS
     case ISSUERS_SCREEN
@@ -75,6 +77,7 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     var paymentData = PaymentData()
     var payment : Payment?
     var paymentResult: PaymentResult?
+    var encryptedCVV: String?
     
     open var installment: Installment?
     open var issuers: [Issuer]?
@@ -265,6 +268,10 @@ open class MercadoPagoCheckoutViewModel: NSObject {
             return .PAYER_COST_SCREEN
         }
         
+        if needEncryptedCvv() {
+            return .GET_ENCRYPTED_CVV
+        }
+        
         if needSecurityCode(){
             return .SECURITY_CODE_ONLY
         }
@@ -328,10 +335,76 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     public func updateCheckoutModel(token : Token) {
         self.paymentData.token = token
         self.reviewAndConfirm = MercadoPagoCheckoutViewModel.flowPreference.isReviewAndConfirmScreenEnable()
-        if let encryptedCvv = token.encryptedCVV{
+        if let encryptedCvv = token.encryptedCVV, let _ = self.cardToken{
+            //KeychainWrapper.standardKeychainAccess().removeAllKeys()
             let options = KeychainItemOptions(itemClass: .GenericPassword, itemAccessibility: .WhenPasscodeSetThisDeviceOnly)
             KeychainWrapper.standardKeychainAccess().setString(encryptedCvv , forKey: "CardID_\(token.cardId!)", withOptions: options)
+
         }
+    }
+    public func getKeychain() {
+        let myAttrService = "app_name"
+        let myAttrAccount = "first_name"
+        DispatchQueue.global().async {
+            // RETRIEVE keychain item
+            
+            let select_query: NSDictionary = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrService: myAttrService,
+                kSecAttrAccount: myAttrAccount,
+                kSecReturnData: true,
+                kSecUseOperationPrompt: "Authenticate to access secret message"
+            ]
+            var extractedData: CFTypeRef?
+            let select_status = SecItemCopyMatching(select_query, &extractedData)
+            if select_status == errSecSuccess {
+                if let retrievedData = extractedData as? Data,
+                    let secretMessage = String(data: retrievedData, encoding: .utf8) {
+                    
+                    print("Secret message: \(secretMessage)")
+                    
+                    // UI updates must be dispatched back to the main thread.
+                    
+                    DispatchQueue.main.async {
+                        //self.messageLabel.text = secretMessage
+                    }
+                    
+                } else {
+                    print("Invalid data")
+                }
+            } else if select_status == errSecUserCanceled {
+                print("User canceled the operation.")
+            } else {
+                print("SELECT Error: \(select_status).")
+            }
+        }
+    }
+    
+    public func writeKeychain() {
+        let myAttrService = "app_name"
+        let myAttrAccount = "first_name"
+        let valueData = "The Top Secret Message V1".data(using: .utf8)!
+        let sacObject =
+            SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+                                            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+                                            .userPresence,
+                                            nil)!
+        
+        let insert_query: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccessControl: sacObject,
+            kSecValueData: valueData,
+            kSecUseAuthenticationUI: kSecUseAuthenticationUIAllow,
+            kSecAttrService: myAttrService,
+            kSecAttrAccount: myAttrAccount
+        ]
+        let insert_status = SecItemAdd(insert_query as CFDictionary, nil)
+        if insert_status == errSecSuccess {
+            print("Inserted successfully.")
+        } else {
+            print("INSERT Error: \(insert_status).")
+        }
+
     }
 
     public class func createMPPayment(_ email : String, preferenceId : String, paymentData : PaymentData, customerId : String? = nil) -> MPPayment {
@@ -386,6 +459,10 @@ open class MercadoPagoCheckoutViewModel: NSObject {
     
     public func updateCheckoutModel(payment : Payment) {
         self.payment = payment
+    }
+    
+    public func updateCheckoutModel(encryptedCVV: String?){
+        self.encryptedCVV = encryptedCVV != nil ? encryptedCVV : ""
     }
 
     
@@ -454,6 +531,7 @@ open class MercadoPagoCheckoutViewModel: NSObject {
         self.cardToken = nil
         self.issuers = nil
         self.installment = nil
+        self.encryptedCVV = nil
     }
     
 
